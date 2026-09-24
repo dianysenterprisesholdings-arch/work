@@ -22,3 +22,6 @@ build/
 .env
 .env.local
 *.log
+
+# fisier temporar de randare
+_preview.html
