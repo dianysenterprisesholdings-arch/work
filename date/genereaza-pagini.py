@@ -138,7 +138,8 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       <a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a>
       <a href="{r}tipologii/">Tipologii</a>
       <a href="{r}#finisaje">Finisaje</a>
-      <a href="{r}#amplasament">Amplasament</a>
+      <a href="{r}apartamente-iasi-pacurari/">Zona</a>
+      <a href="{r}stadiu-lucrari/">Șantier</a>
       <a href="{r}contact/">Contact</a>
     </nav>
     <a class="ec-btn" href="{r}apartamente-iasi/">Vezi apartamentele</a>
@@ -168,6 +169,9 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           <li><a href="{r}apartamente-iasi/apartamente-3-camere/">3 camere</a></li>
           <li><a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a></li>
           <li><a href="{r}investitie-apartamente-iasi/">Investiție</a></li>
+          <li><a href="{r}apartamente-iasi-pacurari/">Zona Păcurari</a></li>
+          <li><a href="{r}stadiu-lucrari/">Stadiul lucrărilor</a></li>
+          <li><a href="{r}despre-dezvoltator/">Despre dezvoltator</a></li>
         </ul>
       </div>
       <div>
@@ -709,6 +713,11 @@ def pagina_listare(unitati):
   </div>
 
   <div class="ec-toolbar">
+    <div class="ec-search" style="flex:1;min-width:16rem">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l4 4"/></svg>
+      <input type="search" id="fSearch" placeholder="Caută: „2 camere etaj 3 bloc 12” sau un cod de unitate"
+             aria-label="Caută apartamente">
+    </div>
     <span class="ec-toolbar__n">Apasă pe capul de tabel pentru sortare.</span>
   </div>
 
@@ -723,6 +732,7 @@ def pagina_listare(unitati):
       <tbody id="fBody"></tbody>
     </table>
   </div>
+  <div id="fEmpty"></div>
   <div class="ec-more"><button class="ec-btn ec-btn--out" id="fMore" type="button">Încarcă încă 50</button></div>
 
   <section class="ec-section" style="padding-block:3rem 4rem">{formular(None, r)}</section>
@@ -1205,6 +1215,198 @@ def pagina_contact():
                   continut, r, None, "contact/")
 
 
+
+# ========================================================= zona Pacurari ==
+POI = [
+    ("Centrul Iașului", "7 km", "~15 min cu mașina"),
+    ("Copou", "5 km", "~12 min"),
+    ("Universitatea „Alexandru Ioan Cuza”", "6 km", "~14 min"),
+    ("Palas Mall", "8 km", "~18 min"),
+    ("Spitalul Sf. Spiridon", "7 km", "~16 min"),
+    ("Aeroportul Iași", "11 km", "~22 min"),
+    ("Grădina Botanică", "4 km", "~10 min"),
+    ("Ieșire spre Botoșani (DN28)", "2 km", "~4 min"),
+]
+
+
+def pagina_zona():
+    r = "../"
+    randuri = "".join(f"<tr><td>{a}</td><td class='num'>{b}</td><td>{c}</td></tr>"
+                      for a, b, c in POI)
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Zona Păcurari</nav>
+
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Amplasament</p>
+    <h1 style="margin-top:1rem">Apartamente în Iași, zona Păcurari</h1>
+    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">
+      Păcurari este una dintre cele mai căutate zone rezidențiale din Iași: aproape de Copou
+      și de centrul universitar, dar suficient de la margine cât să mai existe teren pentru
+      ansambluri cu spațiu între clădiri.
+    </p>
+  </header>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    <div class="ec-split">
+      <div class="ec-panel">
+        <h2 class="ec-title" style="font-size:1.1rem;margin-bottom:1.25rem">Distanțe și timpi</h2>
+        <div class="ec-table" style="background:transparent">
+          <table>
+            <caption class="ec-sr">Distanțe de la Emerald City</caption>
+            <thead><tr><th>Destinație</th><th>Distanță</th><th>Timp estimat</th></tr></thead>
+            <tbody>{randuri}</tbody>
+          </table>
+        </div>
+        <p class="ec-calc__note">Distanțe orientative, măsurate pe traseu rutier. De confirmat.</p>
+      </div>
+      <div class="ec-media"><p>Hartă interactivă<br>puncte de interes<br>— de implementat —</p></div>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 4rem">
+    <div class="ec-prose">
+      <h2>Ce înseamnă să locuiești în Păcurari</h2>
+      <p>
+        Zona s-a dezvoltat în jurul axei Păcurari, una dintre principalele artere de ieșire
+        din Iași spre nord-vest. Are transport public constant spre centru, magazine de
+        proximitate și acces rapid la Copou, unde se află cea mai mare parte a centrului
+        universitar ieșean.
+      </p>
+      <h3>Pentru cine este potrivită</h3>
+      <p>
+        Pentru familii tinere care vor spațiu verde fără să iasă din oraș, pentru cei care
+        lucrează în zona de nord-vest și pentru investitori: cererea de chirii este susținută
+        de apropierea de universități.
+      </p>
+      <h3>Cum ajungi</h3>
+      <p>
+        Accesul în Emerald City se face din Strada Ion Nistor. Din centrul Iașului sunt
+        aproximativ 7 km pe ruta Păcurari, iar ieșirea spre Botoșani, pe DN28, este la
+        aproximativ 2 km.
+      </p>
+      <h3>Ce se construiește în zonă</h3>
+      <p>
+        Emerald City este unul dintre cele mai mari ansambluri din zonă, cu 925 de apartamente
+        în 18 blocuri de tip parter plus trei etaje, pe un teren de cinci hectare din care
+        aproape o treime rămâne spațiu verde amenajat.
+      </p>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 4rem">
+    <div class="ec-strip">
+      <div><h2>Vezi apartamentele disponibile</h2>
+        <p>925 de apartamente cu 1, 2 și 3 camere, cu filtre după buget, etaj și suprafață.</p></div>
+      <div class="ec-strip__cta">
+        <a class="ec-btn ec-btn--white" href="{r}apartamente-iasi/">Apartamente</a>
+      </div>
+    </div>
+  </section>
+</div>"""
+    return pagina("Apartamente în Iași, zona Păcurari — ghid de zonă | Emerald City",
+                  "Ghid al zonei Păcurari din Iași: distanțe, transport, cui i se potrivește "
+                  "și ce se construiește. Emerald City, 925 de apartamente noi.",
+                  continut, r, None, "apartamente-iasi-pacurari/")
+
+
+# ========================================================= stadiu lucrari ==
+JURNAL = [
+    ("Septembrie 2026", "Etapa I — structură la nivelul etajului 2",
+     "Turnarea planșeului peste etajul 1 s-a încheiat la blocurile 1–4. La blocurile 5 și 6 "
+     "se lucrează la cofraje. Săpătura pentru demisolurile blocurilor 7–8 a început."),
+    ("August 2026", "Etapa I — fundații finalizate",
+     "Fundațiile pentru blocurile 1–6 sunt turnate și recepționate. A început ridicarea "
+     "structurii la blocurile 1 și 2."),
+    ("Iulie 2026", "Organizare de șantier și terasamente",
+     "Platforma de organizare a fost amenajată, drumurile de acces provizorii sunt "
+     "funcționale, iar terasamentele pentru prima etapă sunt finalizate."),
+]
+
+
+def pagina_stadiu():
+    r = "../"
+    intrari = "".join(f"""<article class="ec-timeline__i">
+      <div class="ec-timeline__d">{d}</div>
+      <div>
+        <div class="ec-timeline__t">{t}</div>
+        <p style="color:var(--ec-ink-60);font-size:.875rem">{c}</p>
+        <div class="ec-media" style="min-height:11rem;margin-top:1rem"><p>Fotografii de șantier<br>— de furnizat —</p></div>
+      </div>
+    </article>""" for d, t, c in JURNAL)
+
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Stadiul lucrărilor</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Șantier</p>
+    <h1 style="margin-top:1rem">Stadiul lucrărilor</h1>
+    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
+      Publicăm lunar stadiul real al construcției, cu fotografii datate. Poți vedea exact
+      unde s-a ajuns, fără să te bazezi pe promisiuni.
+    </p>
+  </header>
+  <div class="ec-panel" style="margin-bottom:4rem">{intrari}</div>
+</div>"""
+    return pagina("Stadiul lucrărilor — Emerald City Iași",
+                  "Jurnal de șantier Emerald City, Iași zona Păcurari. Actualizat lunar, "
+                  "cu fotografii datate din teren.",
+                  continut, r, None, "stadiu-lucrari/")
+
+
+# ====================================================== despre dezvoltator ==
+def pagina_dezvoltator():
+    r = "../"
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Despre dezvoltator</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Dezvoltator</p>
+    <h1 style="margin-top:1rem">Tala Sapphire S.R.L.</h1>
+    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
+      Emerald City este dezvoltat de Tala Sapphire S.R.L. Vânzarea se face direct,
+      fără comision de intermediere.
+    </p>
+  </header>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    <dl class="ec-specs">
+      <div class="ec-spec"><dt>Beneficiar</dt><dd>Tala Sapphire S.R.L.</dd></div>
+      <div class="ec-spec"><dt>Proiect</dt><dd>266/2023</dd></div>
+      <div class="ec-spec"><dt>Fază</dt><dd>D.T.A.C.</dd></div>
+      <div class="ec-spec"><dt>Amplasament</dt><dd>Str. Ion Nistor, Iași</dd></div>
+    </dl>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 4rem">
+    <div class="ec-split">
+      <div class="ec-prose">
+        <h2>Proiectul și avizele</h2>
+        <p>
+          Proiectul de autorizare a fost întocmit de S.C. C.A.D. S.R.L. din Iași, cu
+          arh. Ovidiu M. Murgu ca șef de proiect. Documentația a fost elaborată în baza
+          certificatului de urbanism emis de primăria locală.
+        </p>
+        <h3>Indicatori urbanistici</h3>
+        <p>
+          Suprafață teren 50.235 m², POT 30%, CUT 1,80. Spațiu verde amenajat 15.501,80 m²,
+          adică 30,85% din suprafața terenului. Regim de înălțime parter plus trei etaje,
+          cu înălțimea maximă la atic de 18,00 m.
+        </p>
+        <h3>Transparență</h3>
+        <p>
+          Publicăm lunar stadiul lucrărilor, cu fotografii datate din teren, și afișăm
+          deschis prețurile și disponibilitatea fiecărui apartament.
+          Documentele de autorizare pot fi consultate la cerere.
+        </p>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>
+</div>"""
+    return pagina("Despre dezvoltator — Tala Sapphire | Emerald City Iași",
+                  "Tala Sapphire S.R.L., dezvoltatorul ansamblului Emerald City din Iași, "
+                  "zona Păcurari. Proiect, avize și indicatori urbanistici.",
+                  continut, r, None, "despre-dezvoltator/")
+
+
 # ==================================================================== rulare
 def main():
     NUM = {"etaj": int, "nr_camere": int, "su_utila": float, "su_balcon": float,
@@ -1213,7 +1415,8 @@ def main():
     for row in csv.DictReader(open(CSV, encoding="utf-8")):
         unitati.append({k: NUM[k](v) if k in NUM else v for k, v in row.items()})
 
-    for d in ("apartamente-iasi", "tipologii", "investitie-apartamente-iasi", "compara", "contact"):
+    for d in ("apartamente-iasi", "tipologii", "investitie-apartamente-iasi", "compara", "contact",
+              "apartamente-iasi-pacurari", "stadiu-lucrari", "despre-dezvoltator"):
         p = os.path.join(RAD, d)
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -1257,7 +1460,10 @@ def main():
     # pagini de sine statatoare
     for nume, continut in (("investitie-apartamente-iasi", pagina_investitie(unitati)),
                            ("compara", pagina_comparator()),
-                           ("contact", pagina_contact())):
+                           ("contact", pagina_contact()),
+                           ("apartamente-iasi-pacurari", pagina_zona()),
+                           ("stadiu-lucrari", pagina_stadiu()),
+                           ("despre-dezvoltator", pagina_dezvoltator())):
         d = os.path.join(RAD, nume)
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:

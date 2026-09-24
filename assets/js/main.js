@@ -173,9 +173,11 @@
 
     const render = () => {
       const hits = units.filter(match);
-      count.textContent = hits.length
-        ? `${hits.length} apartamente disponibile corespund criteriilor`
-        : 'Niciun apartament nu corespunde. Încearcă să lărgești criteriile.';
+      count.textContent = hits.length === 1
+        ? '1 apartament disponibil corespunde criteriilor'
+        : hits.length
+          ? `${hits.length} apartamente disponibile corespund criteriilor`
+          : 'Niciun apartament nu corespunde. Încearcă să lărgești criteriile.';
 
       // Sortarea pura pe pret returna sase garsoniere identice la parter.
       // Iau intai cel mai ieftin exemplar din fiecare tipologie+etaj.

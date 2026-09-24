@@ -23,7 +23,7 @@
   const stare = {
     camere: new Set(), etaj: new Set(), etapa: new Set(),
     status: new Set(), corp: new Set(), extra: new Set(),
-    pretMax: 130000, suMin: 36,
+    pretMax: 130000, suMin: 36, text: '',
     sort: 'pret', dir: 'asc', limita: PAS
   };
 
@@ -43,6 +43,17 @@
       if (x === 'curte'   && !(u[F.curte]  > 0))    return false;
       if (x === 'boxa'    && u[F.boxa]    !== 'da') return false;
       if (x === 'parcare' && u[F.parcare] !== 'da') return false;
+    }
+    if (stare.text) {
+      // fiecare cuvant din cautare trebuie sa se regaseasca undeva pe rand
+      const hay = [
+        u[F.id], 'bloc ' + bloc(u[F.corp]), u[F.tip], u[F.orientare],
+        u[F.camere] + ' camere', u[F.camere] === 1 ? '1 camera' : '',
+        etajTxt(u[F.etaj]), 'etaj ' + u[F.etaj], 'etapa ' + u[F.etapa],
+        ST[u[F.status]]
+      ].join(' ').toLowerCase()
+       .normalize('NFD').replace(/[̀-ͯ]/g, '');
+      if (!stare.text.every(t => hay.includes(t))) return false;
     }
     return true;
   };
@@ -73,9 +84,44 @@
       return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y))) * semn;
     });
 
-    $('#fCount').textContent = gasite.length
-      ? `${gasite.length} apartamente corespund criteriilor`
-      : 'Niciun apartament nu corespunde. Încearcă să lărgești criteriile.';
+    $('#fCount').textContent = gasite.length === 1
+      ? '1 apartament corespunde criteriilor'
+      : gasite.length
+        ? `${gasite.length} apartamente corespund criteriilor`
+        : 'Niciun apartament nu corespunde criteriilor.';
+
+    const gol = $('#fEmpty');
+    if (gol) {
+      if (gasite.length) gol.innerHTML = '';
+      else {
+        // arat ce s-ar intampla daca relaxez fiecare filtru pe rand
+        const sug = [];
+        const fara = cheie => {
+          const copie = { ...stare, [cheie]: cheie === 'pretMax' ? 130000
+                        : cheie === 'suMin' ? 36 : new Set() };
+          const salvat = stare[cheie];
+          stare[cheie] = copie[cheie];
+          const n = U.filter(trece).length;
+          stare[cheie] = salvat;
+          return n;
+        };
+        const etichete = { camere: 'numărul de camere', etaj: 'etajul', etapa: 'etapa',
+                           status: 'starea', corp: 'blocul', extra: 'dotările',
+                           pretMax: 'bugetul', suMin: 'suprafața minimă' };
+        for (const k of Object.keys(etichete)) {
+          const activ = stare[k] instanceof Set ? stare[k].size
+                      : (k === 'pretMax' ? stare.pretMax !== 130000 : stare.suMin !== 36);
+          if (!activ) continue;
+          const n = fara(k);
+          if (n > 0) sug.push(`<button class="ec-btn ec-btn--out" data-relax="${k}">Renunță la ${etichete[k]} · ${n} rezultate</button>`);
+        }
+        gol.innerHTML = `<div class="ec-empty">
+          <p>Niciun apartament nu corespunde tuturor criteriilor.</p>
+          <p style="margin-top:.4rem">Relaxează unul dintre ele:</p>
+          <div class="ec-empty__s">${sug.join('') || '<button class="ec-btn ec-btn--brass" data-relax="tot">Resetează filtrele</button>'}</div>
+        </div>`;
+      }
+    }
 
     const vizibile = gasite.slice(0, stare.limita);
     $('#fBody').innerHTML = vizibile.map(rand).join('');
@@ -153,6 +199,36 @@
     });
 
     $('#fMore').addEventListener('click', () => { stare.limita += PAS; deseneaza(); });
+
+    const cauta = $('#fSearch');
+    if (cauta) {
+      let t;
+      cauta.addEventListener('input', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          const v = cauta.value.trim().toLowerCase()
+            .normalize('NFD').replace(/[̀-ͯ]/g, '');
+          stare.text = v ? v.split(/\s+/) : '';
+          stare.limita = PAS;
+          deseneaza();
+        }, 120);
+      });
+    }
+
+    document.addEventListener('click', ev => {
+      const b = ev.target.closest('[data-relax]');
+      if (!b) return;
+      const k = b.dataset.relax;
+      if (k === 'tot') { $('#fReset').click(); return; }
+      if (stare[k] instanceof Set) stare[k].clear();
+      else if (k === 'pretMax') stare.pretMax = 130000;
+      else if (k === 'suMin') stare.suMin = 36;
+      $$('.ec-chip[data-f="' + k + '"]').forEach(x => x.classList.remove('is-on'));
+      $('#fPret').value = stare.pretMax; $('#oPret').textContent = euro(stare.pretMax);
+      $('#fSu').value = stare.suMin; $('#oSu').textContent = stare.suMin + ' m²';
+      stare.limita = PAS;
+      deseneaza();
+    });
 
     $$('#fTable thead th[data-s]').forEach(th => {
       th.addEventListener('click', () => {
