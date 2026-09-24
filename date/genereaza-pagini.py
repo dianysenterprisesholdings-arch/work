@@ -133,13 +133,20 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       <img src="{r}brand/logo-verde.svg" alt="Emerald City" width="590" height="286">
     </a>
     <nav class="ec-nav__menu">
-      <a href="{r}#despre">Despre</a>
+      <span class="ec-nav__has">
+        <a href="{r}despre-dezvoltator/">Despre noi</a>
+        <span class="ec-nav__sub">
+          <a href="{r}apartamente-iasi-pacurari/">Amplasament</a>
+          <a href="{r}stadiu-lucrari/">Jurnal de șantier</a>
+          <a href="{r}despre-dezvoltator/">Dezvoltator</a>
+          <a href="{r}proiect/">Proiect</a>
+          <a href="{r}aparitii-presa/">Apariții în presă</a>
+        </span>
+      </span>
       <a href="{r}apartamente-iasi/">Apartamente</a>
       <a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a>
       <a href="{r}tipologii/">Tipologii</a>
-      <a href="{r}#finisaje">Finisaje</a>
-      <a href="{r}apartamente-iasi-pacurari/">Zona</a>
-      <a href="{r}stadiu-lucrari/">Șantier</a>
+      <a href="{r}investitie-apartamente-iasi/">Investiție</a>
       <a href="{r}contact/">Contact</a>
     </nav>
     <a class="ec-btn" href="{r}apartamente-iasi/">Vezi apartamentele</a>
@@ -152,26 +159,44 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 
 <footer class="ec-foot">
   <div class="ec-wrap">
-    <div class="ec-foot__grid">
+
+    <div class="ec-foot__top">
       <div>
         <img src="{r}brand/logo-alb.svg" alt="Emerald City" width="590" height="286">
-        <p style="margin-top:1.25rem;max-width:34ch">
-          Ansamblu rezidențial în Iași, zona Păcurari.<br>
-          Str. Ion Nistor.<br>
-          Dezvoltator: Tala Sapphire S.R.L.
+        <p class="ec-foot__claim">
+          925 de apartamente în nordul Iașului, pe cinci hectare din care
+          aproape o treime rămâne verde.
         </p>
       </div>
+      <div class="ec-foot__reach">
+        <a class="ec-foot__r" href="tel:{TEL}">
+          <span>Sună direct</span><b>{TEL_AFIS}</b>
+        </a>
+        <a class="ec-foot__r" href="{WA}">
+          <span>Scrie pe WhatsApp</span><b>Răspundem azi</b>
+        </a>
+        <a class="ec-foot__r" href="mailto:vanzari@emerald-city.ro">
+          <span>Email</span><b>vanzari@emerald-city.ro</b>
+        </a>
+      </div>
+    </div>
+
+    <div class="ec-foot__stats">
+      <div><b>925</b><span>Apartamente</span></div>
+      <div><b>18</b><span>Blocuri, parter + 3 etaje</span></div>
+      <div><b>30,85%</b><span>Spațiu verde</span></div>
+      <div><b>940</b><span>Locuri de parcare</span></div>
+    </div>
+
+    <div class="ec-foot__grid">
       <div>
         <h4>Apartamente</h4>
         <ul>
           <li><a href="{r}apartamente-iasi/apartamente-1-camera/">1 cameră</a></li>
           <li><a href="{r}apartamente-iasi/apartamente-2-camere/">2 camere</a></li>
           <li><a href="{r}apartamente-iasi/apartamente-3-camere/">3 camere</a></li>
-          <li><a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a></li>
-          <li><a href="{r}investitie-apartamente-iasi/">Investiție</a></li>
-          <li><a href="{r}apartamente-iasi-pacurari/">Zona Păcurari</a></li>
-          <li><a href="{r}stadiu-lucrari/">Stadiul lucrărilor</a></li>
-          <li><a href="{r}despre-dezvoltator/">Despre dezvoltator</a></li>
+          <li><a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate și prețuri</a></li>
+          <li><a href="{r}compara/">Compară apartamente</a></li>
         </ul>
       </div>
       <div>
@@ -179,15 +204,27 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
         <ul>{"".join(f'<li><a href="{r}tipologii/{c.lower()}/">Tip {c}</a></li>' for c in CAMERE_TIP)}</ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <h4>Despre noi</h4>
         <ul>
-          <li><a href="tel:{TEL}">{TEL_AFIS}</a></li>
-          <li><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></li>
+          <li><a href="{r}apartamente-iasi-pacurari/">Amplasament</a></li>
+          <li><a href="{r}stadiu-lucrari/">Jurnal de șantier</a></li>
+          <li><a href="{r}despre-dezvoltator/">Dezvoltator</a></li>
+          <li><a href="{r}proiect/">Proiect</a></li>
+          <li><a href="{r}aparitii-presa/">Apariții în presă</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Util</h4>
+        <ul>
+          <li><a href="{r}investitie-apartamente-iasi/">Investiție și randament</a></li>
+          <li><a href="{r}contact/">Contact</a></li>
+          <li><a href="{r}#finisaje">Finisaje</a></li>
         </ul>
       </div>
     </div>
+
     <div class="ec-foot__bottom">
-      <span>© 2026 Emerald City · Tala Sapphire S.R.L.</span>
+      <span>© 2026 Emerald City · Tala Sapphire S.R.L. · Str. Ion Nistor, Iași</span>
       <span>Machetă de lucru — date demonstrative</span>
     </div>
   </div>
@@ -1407,6 +1444,142 @@ def pagina_dezvoltator():
                   continut, r, None, "despre-dezvoltator/")
 
 
+
+# ============================================================== proiect ==
+def pagina_proiect():
+    r = "../"
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Proiect</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Proiect</p>
+    <h1 style="margin-top:1rem">Cum este gândit ansamblul</h1>
+    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">
+      Optsprezece blocuri joase în loc de câteva turnuri. Decizia asta schimbă tot restul:
+      cât de multă lumină intră, cât spațiu rămâne între clădiri și cât de aglomerat se simte
+      cartierul în care locuiești.
+    </p>
+    <div class="ec-hstats">
+      <div class="ec-hstat"><b>925</b><span>Apartamente</span></div>
+      <div class="ec-hstat"><b>18</b><span>Blocuri</span></div>
+      <div class="ec-hstat"><b>5,02 ha</b><span>Suprafață teren</span></div>
+      <div class="ec-hstat"><b>3</b><span>Etape de construcție</span></div>
+    </div>
+  </header>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    <h2 class="ec-title" style="margin-bottom:1.5rem">Etapele</h2>
+    <div class="ec-table">
+      <table>
+        <caption class="ec-sr">Etapele de construcție</caption>
+        <thead><tr><th>Etapă</th><th>Blocuri</th><th>Apartamente</th><th>Observații</th></tr></thead>
+        <tbody>
+          <tr><td>Etapa I</td><td>1–6</td><td class="num">322</td>
+              <td>Include spațiul comercial de la parterul blocului 6</td></tr>
+          <tr><td>Etapa II</td><td>7–14</td><td class="num">423</td>
+              <td>Cea mai mare etapă, cu acces direct la parcul central</td></tr>
+          <tr><td>Etapa III</td><td>15–18</td><td class="num">180</td>
+              <td>Blocurile cu cea mai deschisă perspectivă spre oraș</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    <h2 class="ec-title" style="margin-bottom:1.5rem">Indicatori</h2>
+    <dl class="ec-specs">
+      <div class="ec-spec"><dt>Suprafață teren</dt><dd>50.235 m²</dd></div>
+      <div class="ec-spec"><dt>POT</dt><dd>30%</dd></div>
+      <div class="ec-spec"><dt>CUT</dt><dd>1,80</dd></div>
+      <div class="ec-spec"><dt>Regim de înălțime</dt><dd>Parter + 3 etaje</dd></div>
+      <div class="ec-spec"><dt>Înălțime maximă</dt><dd>18,00 m</dd></div>
+      <div class="ec-spec"><dt>Spațiu verde</dt><dd>15.501 m² · 30,85%</dd></div>
+      <div class="ec-spec"><dt>Parcare</dt><dd>940 locuri · 258 subterane</dd></div>
+      <div class="ec-spec"><dt>Spații comerciale</dt><dd>848 m²</dd></div>
+    </dl>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 4rem">
+    <div class="ec-prose">
+      <h2>De ce blocuri joase</h2>
+      <p>
+        Un ansamblu cu aceeași suprafață construită se poate face din patru turnuri sau din
+        optsprezece blocuri joase. A doua variantă costă mai mult teren, dar înseamnă scări cu
+        mai puțini vecini, lifturi mai puțin aglomerate, lumină pe mai multe laturi și distanțe
+        reale între ferestre.
+      </p>
+      <h3>Ce înseamnă pentru apartamentul tău</h3>
+      <p>
+        Toate apartamentele stau pe parter plus trei etaje. Nu există etaj 8 cu vedere spre
+        acoperișul vecinului și nici curte interioară în care se aude tot. Cele două demisoluri
+        preiau parcarea și depozitarea, ca mașinile să nu ocupe spațiul dintre clădiri.
+      </p>
+      <h3>Documentație</h3>
+      <p>
+        Proiectul numărul 266/2023 a fost întocmit de S.C. C.A.D. S.R.L., cu arh. Ovidiu M. Murgu
+        ca șef de proiect. Documentele de autorizare pot fi consultate la cerere, la biroul de vânzări.
+      </p>
+    </div>
+  </section>
+</div>"""
+    return pagina("Proiectul Emerald City — 925 de apartamente în 18 blocuri | Iași",
+                  "Cum este gândit ansamblul Emerald City din Iași: 18 blocuri joase, "
+                  "925 de apartamente, 5 hectare, indicatori urbanistici și etape.",
+                  continut, r, None, "proiect/")
+
+
+# ================================================================ presa ==
+def pagina_presa():
+    r = "../"
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Apariții în presă</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Presă</p>
+    <h1 style="margin-top:1rem">Apariții în presă</h1>
+    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
+      Materiale despre Emerald City apărute în publicații locale și naționale, plus datele
+      de care are nevoie un jurnalist ca să scrie corect despre proiect.
+    </p>
+  </header>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    <div class="ec-empty" style="text-align:left">
+      <p><b>Secțiune în pregătire.</b></p>
+      <p style="margin-top:.5rem">
+        Aici vor apărea articolele despre proiect, pe măsură ce sunt publicate.
+        Fiecare intrare va avea publicația, data și link către articolul original.
+      </p>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 4rem">
+    <div class="ec-split">
+      <div class="ec-panel">
+        <h2 class="ec-title" style="font-size:1.1rem;margin-bottom:1.25rem">Date pentru presă</h2>
+        <div class="ec-dist">
+          <div><span>Denumire</span><b>Emerald City</b></div>
+          <div><span>Dezvoltator</span><b>Tala Sapphire S.R.L.</b></div>
+          <div><span>Amplasament</span><b>Str. Ion Nistor, Iași</b></div>
+          <div><span>Apartamente</span><b>925, în 18 blocuri</b></div>
+          <div><span>Suprafață teren</span><b>50.235 m²</b></div>
+          <div><span>Spațiu verde</span><b>15.501 m² · 30,85%</b></div>
+          <div><span>Regim</span><b>Parter + 3 etaje</b></div>
+          <div style="border:0"><span>Etape</span><b>3 · 322 / 423 / 180 apartamente</b></div>
+        </div>
+        <p class="ec-calc__note">
+          Pentru solicitări de presă, interviuri sau imagini de înaltă rezoluție,
+          scrie la <a href="mailto:presa@emerald-city.ro">presa@emerald-city.ro</a>.
+        </p>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>
+</div>"""
+    return pagina("Apariții în presă — Emerald City Iași",
+                  "Materiale de presă despre Emerald City, ansamblu rezidențial în Iași, "
+                  "zona Păcurari. Date de proiect și contact pentru jurnaliști.",
+                  continut, r, None, "aparitii-presa/")
+
+
 # ==================================================================== rulare
 def main():
     NUM = {"etaj": int, "nr_camere": int, "su_utila": float, "su_balcon": float,
@@ -1416,7 +1589,8 @@ def main():
         unitati.append({k: NUM[k](v) if k in NUM else v for k, v in row.items()})
 
     for d in ("apartamente-iasi", "tipologii", "investitie-apartamente-iasi", "compara", "contact",
-              "apartamente-iasi-pacurari", "stadiu-lucrari", "despre-dezvoltator"):
+              "apartamente-iasi-pacurari", "stadiu-lucrari", "despre-dezvoltator",
+              "proiect", "aparitii-presa"):
         p = os.path.join(RAD, d)
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -1463,7 +1637,9 @@ def main():
                            ("contact", pagina_contact()),
                            ("apartamente-iasi-pacurari", pagina_zona()),
                            ("stadiu-lucrari", pagina_stadiu()),
-                           ("despre-dezvoltator", pagina_dezvoltator())):
+                           ("despre-dezvoltator", pagina_dezvoltator()),
+                           ("proiect", pagina_proiect()),
+                           ("aparitii-presa", pagina_presa())):
         d = os.path.join(RAD, nume)
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:

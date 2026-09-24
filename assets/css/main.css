@@ -35,7 +35,7 @@
   --ec-sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ec-disp:  "Inter Tight", var(--ec-sans);
 
-  --ec-h1:      clamp(1.9rem, 4.1vw, 3.1rem);
+  --ec-h1:      clamp(1.8rem, 3.7vw, 2.8rem);
   --ec-lead:    clamp(.975rem, 1.15vw, 1.0625rem);
   --ec-small:   .8125rem;
   --ec-micro:   .6875rem;
@@ -176,7 +176,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   max-width: var(--ec-max); margin-inline: auto; padding: .55rem var(--ec-gutter);
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
 }
-.ec-nav__logo img { height: 52px; width: auto; }
+.ec-nav__logo img { height: 62px; width: auto; }
 .ec-nav__menu { display: none; gap: 1.6rem; }
 .ec-nav__menu a {
   font-size: var(--ec-micro); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
@@ -186,25 +186,55 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-nav__menu a:hover { border-color: var(--ec-brass); }
 @media (min-width: 64rem) { .ec-nav__menu { display: flex; } }
 
+/* submeniu: se deschide la hover si la focus, ca sa fie utilizabil si de la tastatura */
+.ec-nav__has { position: relative; }
+.ec-nav__has > a::after {
+  content: ""; display: inline-block; width: 5px; height: 5px; margin-left: .45rem;
+  border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg); transition: transform var(--ec-fast);
+}
+.ec-nav__sub {
+  position: absolute; top: 100%; left: -1rem; min-width: 15rem;
+  background: #fff; border: 1px solid var(--ec-line);
+  box-shadow: 0 14px 34px rgba(20,32,28,.14);
+  padding: .5rem; display: flex; flex-direction: column; gap: 1px;
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity var(--ec-fast), transform var(--ec-fast), visibility var(--ec-fast);
+  z-index: 20;
+}
+.ec-nav__has:hover .ec-nav__sub,
+.ec-nav__has:focus-within .ec-nav__sub { opacity: 1; visibility: visible; transform: none; }
+.ec-nav__has:hover > a::after,
+.ec-nav__has:focus-within > a::after { transform: translateY(0) rotate(225deg); }
+.ec-nav__sub a {
+  padding: .55rem .75rem; border-bottom: 0; letter-spacing: .06em;
+  text-transform: none; font-size: var(--ec-small); font-weight: 500;
+  color: var(--ec-ink); border-radius: 3px;
+}
+.ec-nav__sub a:hover { background: var(--ec-mint); color: var(--ec-emerald); }
+
 /* ================================================================ HERO == */
 .ec-hero {
   position: relative;
-  /* exact cat ramane vizibil sub topbar si navigatie — fara sa depaseasca ecranul */
-  min-height: clamp(26rem, calc(100svh - 6.2rem), 40rem);
-  display: grid;
+  /* exact cat ramane vizibil sub topbar si navigatie.
+     Imaginea sta absolut pozitionata: intr-un rand de grila auto, height:100%
+     se rezolva la auto, iar randarea de 1600x900 impunea inaltimea sectiunii. */
+  height: clamp(20rem, calc(100svh - 11rem), 31rem);
+  overflow: hidden;
+  display: flex;
 }
 .ec-hero__img {
-  grid-area: 1/1; width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   animation: ecKen 26s ease-out both;
 }
 @keyframes ecKen { from { transform: scale(1); } to { transform: scale(1.07); } }
 @media (prefers-reduced-motion: reduce) { .ec-hero__img { animation: none; } }
 .ec-hero__veil {
-  grid-area: 1/1;
-  background: linear-gradient(180deg, rgba(20,32,28,.80) 0%, rgba(20,32,28,.68) 45%, rgba(20,32,28,.88) 100%);
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(20,32,28,.88) 0%, rgba(20,32,28,.80) 45%, rgba(20,32,28,.93) 100%);
 }
 .ec-hero__in {
-  grid-area: 1/1; position: relative; z-index: 2;
+  position: relative; z-index: 2; width: 100%;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; color: #fff; padding: clamp(1.75rem, 4vw, 3rem) var(--ec-gutter);
 }
@@ -219,10 +249,10 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-hero h1 { font-size: var(--ec-h1); font-weight: 600; letter-spacing: -.01em; margin: 1.1rem 0 0; max-width: 20ch; }
 .ec-hero h1 em { font-style: normal; color: var(--ec-brass); display: block; }
 .ec-hero__sub { margin-top: .9rem; max-width: 54ch; color: rgba(255,255,255,.82); font-size: var(--ec-lead); }
-.ec-hero__cta { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 1.6rem; }
+.ec-hero__cta { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 1.35rem; }
 .ec-trust {
   display: flex; flex-wrap: wrap; gap: .8rem 1.75rem; justify-content: center;
-  margin-top: 1.5rem; font-size: var(--ec-small); color: rgba(255,255,255,.9);
+  margin-top: 1.2rem; font-size: var(--ec-small); color: rgba(255,255,255,.9);
 }
 .ec-trust span { display: inline-flex; align-items: center; gap: .5rem; }
 .ec-trust svg { color: var(--ec-brass); flex: none; }
@@ -715,3 +745,53 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-empty { background: var(--ec-white); padding: 2.5rem 1.5rem; text-align: center; }
 .ec-empty p { color: var(--ec-ink-60); font-size: var(--ec-small); }
 .ec-empty__s { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.1rem; }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.ec-foot { padding-block: 0 1.75rem; border-top: 3px solid var(--ec-brass); }
+
+.ec-foot__top {
+  display: grid; gap: 2.5rem;
+  padding-block: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+}
+@media (min-width: 62rem) { .ec-foot__top { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; } }
+.ec-foot__top img { height: clamp(58px, 7vw, 82px); width: auto; }
+.ec-foot__claim {
+  margin-top: 1.5rem; max-width: 38ch;
+  font-family: var(--ec-disp); font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.4; color: rgba(255,255,255,.88);
+}
+
+/* contactele ca tinte mari, nu ca linkuri pierdute intr-o coloana */
+.ec-foot__reach { display: grid; gap: 1px; background: var(--ec-line-light); }
+.ec-foot__r {
+  background: var(--ec-emerald-700); padding: 1rem 1.25rem;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  transition: background var(--ec-fast), padding-left var(--ec-fast);
+}
+.ec-foot__r:hover { background: var(--ec-emerald); padding-left: 1.6rem; }
+.ec-foot__r span { font-size: var(--ec-micro); letter-spacing: .14em; text-transform: uppercase; color: var(--ec-emerald-200); }
+.ec-foot__r b { font-family: var(--ec-disp); font-size: 1.05rem; font-weight: 600; color: #fff; }
+
+/* banda de cifre */
+.ec-foot__stats {
+  display: grid; gap: 1px; background: var(--ec-line-light);
+  border-block: 1px solid var(--ec-line-light);
+}
+@media (min-width: 46rem) { .ec-foot__stats { grid-template-columns: repeat(4, 1fr); } }
+.ec-foot__stats div { background: var(--ec-emerald-700); padding: 1.25rem 1.4rem; }
+.ec-foot__stats b {
+  display: block; font-family: var(--ec-disp); font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600; color: #fff; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.ec-foot__stats span {
+  display: block; margin-top: .4rem; font-size: var(--ec-micro);
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ec-emerald-200);
+}
+
+.ec-foot__grid { padding-block: clamp(2rem, 4vw, 3rem); }
+.ec-foot__grid h4 { color: var(--ec-brass); }
+.ec-foot__grid a { transition: padding-left var(--ec-fast), color var(--ec-fast); display: inline-block; }
+.ec-foot__grid a:hover { padding-left: .35rem; color: #fff; }
