@@ -1,0 +1,4 @@
+unit_id,corp,scara,etaj,tip_apartament,nr_camere,su_utila,su_construita,su_balcon,su_terasa,su_curte,orientare,vedere,pret_eur,pret_mp_eur,tva_aplicabil,status,boxa_inclusa,su_boxa,parcare_inclusa,nr_loc_parcare,plan_pdf,plan_svg_id,etaj_plan_pdf,tur_virtual_url,data_finalizare,observatii
+C1-A-01-2A,C1,A,1,2A,2,58.40,68.20,6.10,0,0,SE,parc interior,92000,1575,9,disponibil,da,4.20,nu,,planuri/C1-A-2A.pdf,unit-c1-a-01,planuri/C1-etaj-1.pdf,,2027-Q2,
+C1-A-01-3A,C1,A,1,3A,3,74.90,86.50,8.30,0,0,SV,alee verde,118000,1575,9,rezervat,da,4.20,da,P1-014,planuri/C1-A-3A.pdf,unit-c1-a-02,planuri/C1-etaj-1.pdf,,2027-Q2,
+C1-A-00-3B,C1,A,0,3B,3,76.10,88.00,0,0,32.50,S,curte proprie,131000,1722,9,vandut,da,4.20,da,P1-015,planuri/C1-A-3B.pdf,unit-c1-a-03,planuri/C1-etaj-0.pdf,,2027-Q2,parter cu curte

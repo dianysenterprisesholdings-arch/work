@@ -1,0 +1,926 @@
+unit_id,corp,etapa,etaj,etaj_eticheta,tip_apartament,nr_camere,su_utila,su_balcon,su_curte,orientare,pret_eur,pret_mp_eur,status,boxa_disponibila,parcare_subterana,cota_teren
+C1-P-01,C1,I,0,Parter,1A,1,38.85,6.96,0.0,V,56500,1454.0,vandut,nu,da,85.1
+C1-P-02,C1,I,0,Parter,2A,2,53.87,0.0,22.0,E,78500,1457.0,disponibil,nu,da,85.1
+C1-P-03,C1,I,0,Parter,1A,1,38.85,0.0,16.75,V,56500,1454.0,disponibil,nu,da,85.1
+C1-P-04,C1,I,0,Parter,2B,2,60.61,10.86,0.0,N,88500,1460.0,disponibil,nu,da,85.1
+C1-P-05,C1,I,0,Parter,3B,3,80.81,14.48,0.0,S,120500,1491.0,disponibil,nu,da,85.1
+C1-P-06,C1,I,0,Parter,2A,2,53.87,0.0,22.45,E,78500,1457.0,vandut,nu,da,85.1
+C1-P-07,C1,I,0,Parter,2A,2,53.87,0.0,27.8,SE,80500,1494.0,disponibil,nu,da,85.1
+C1-P-08,C1,I,0,Parter,2B,2,60.61,10.86,0.0,SV,90500,1493.0,disponibil,nu,da,85.1
+C1-P-09,C1,I,0,Parter,2A,2,53.87,0.0,26.72,NV,78500,1457.0,disponibil,nu,da,85.1
+C1-P-10,C1,I,0,Parter,2B,2,60.61,0.0,32.78,S,90500,1493.0,disponibil,nu,da,85.1
+C1-P-11,C1,I,0,Parter,2B,2,60.61,0.0,26.01,SE,90500,1493.0,disponibil,nu,da,85.1
+C1-E1-01,C1,I,1,Etaj 1,3B,3,80.81,14.48,0.0,V,119500,1479.0,disponibil,nu,da,85.1
+C1-E1-02,C1,I,1,Etaj 1,2A,2,53.87,9.65,0.0,N,79500,1476.0,vandut,nu,da,85.1
+C1-E1-03,C1,I,1,Etaj 1,3A,3,73.55,13.18,0.0,N,109000,1482.0,vandut,nu,da,85.1
+C1-E1-04,C1,I,1,Etaj 1,2B,2,60.61,10.86,0.0,S,92000,1518.0,disponibil,nu,da,85.1
+C1-E1-05,C1,I,1,Etaj 1,3A,3,73.55,13.18,0.0,NE,109000,1482.0,disponibil,nu,da,85.1
+C1-E1-06,C1,I,1,Etaj 1,2B,2,60.61,10.86,0.0,E,89500,1477.0,vandut,nu,da,85.1
+C1-E1-07,C1,I,1,Etaj 1,2A,2,53.87,9.65,0.0,N,79500,1476.0,disponibil,nu,da,85.1
+C1-E1-08,C1,I,1,Etaj 1,2A,2,53.87,9.65,0.0,SV,81500,1513.0,disponibil,nu,da,85.1
+C1-E1-09,C1,I,1,Etaj 1,2A,2,53.87,9.65,0.0,N,79500,1476.0,disponibil,nu,da,85.1
+C1-E1-10,C1,I,1,Etaj 1,2A,2,53.87,9.65,0.0,SE,81500,1513.0,disponibil,nu,da,85.1
+C1-E1-11,C1,I,1,Etaj 1,1A,1,38.85,6.96,0.0,S,59000,1519.0,disponibil,nu,da,85.1
+C1-E2-01,C1,I,2,Etaj 2,2B,2,60.61,10.86,0.0,NE,91000,1501.0,vandut,nu,da,85.1
+C1-E2-02,C1,I,2,Etaj 2,2B,2,60.61,10.86,0.0,N,91000,1501.0,disponibil,nu,da,85.1
+C1-E2-03,C1,I,2,Etaj 2,1A,1,38.85,6.96,0.0,N,58500,1506.0,disponibil,nu,da,85.1
+C1-E2-04,C1,I,2,Etaj 2,1A,1,38.85,6.96,0.0,NV,58500,1506.0,disponibil,nu,da,85.1
+C1-E2-05,C1,I,2,Etaj 2,1A,1,38.85,6.96,0.0,NV,58500,1506.0,disponibil,nu,da,85.1
+C1-E2-06,C1,I,2,Etaj 2,3B,3,80.81,14.48,0.0,V,121500,1504.0,disponibil,nu,da,85.1
+C1-E2-07,C1,I,2,Etaj 2,1A,1,38.85,6.96,0.0,V,58500,1506.0,disponibil,nu,da,85.1
+C1-E2-08,C1,I,2,Etaj 2,3A,3,73.55,13.18,0.0,NV,110500,1502.0,vandut,nu,da,85.1
+C1-E2-09,C1,I,2,Etaj 2,2A,2,53.87,9.65,0.0,NV,81000,1504.0,vandut,nu,da,85.1
+C1-E2-10,C1,I,2,Etaj 2,2A,2,53.87,9.65,0.0,SV,82500,1531.0,rezervat,nu,da,85.1
+C1-E2-11,C1,I,2,Etaj 2,2A,2,53.87,9.65,0.0,S,82500,1531.0,disponibil,nu,da,85.1
+C1-E3-01,C1,I,3,Etaj 3,2B,2,60.61,10.86,0.0,NE,92500,1526.0,disponibil,nu,da,85.1
+C1-E3-02,C1,I,3,Etaj 3,2A,2,53.87,9.65,0.0,E,82000,1522.0,disponibil,nu,da,85.1
+C1-E3-03,C1,I,3,Etaj 3,2A,2,53.87,9.65,0.0,NE,82000,1522.0,vandut,nu,da,85.1
+C1-E3-04,C1,I,3,Etaj 3,2B,2,60.61,10.86,0.0,NE,92500,1526.0,rezervat,nu,da,85.1
+C1-E3-05,C1,I,3,Etaj 3,1A,1,38.85,6.96,0.0,V,59000,1519.0,disponibil,nu,da,85.1
+C1-E3-06,C1,I,3,Etaj 3,3A,3,73.55,13.18,0.0,S,114500,1557.0,disponibil,nu,da,85.1
+C1-E3-07,C1,I,3,Etaj 3,3A,3,73.55,13.18,0.0,SV,114500,1557.0,vandut,nu,da,85.1
+C1-E3-08,C1,I,3,Etaj 3,1A,1,38.85,6.96,0.0,N,59000,1519.0,disponibil,nu,da,85.1
+C1-E3-09,C1,I,3,Etaj 3,3A,3,73.55,13.18,0.0,N,112000,1523.0,vandut,nu,da,85.1
+C1-E3-10,C1,I,3,Etaj 3,2B,2,60.61,10.86,0.0,SE,94500,1559.0,vandut,nu,da,85.1
+C1-E3-11,C1,I,3,Etaj 3,3B,3,80.81,14.48,0.0,SV,126000,1559.0,disponibil,nu,da,85.1
+C1-E3-12,C1,I,3,Etaj 3,1A,1,38.85,6.96,0.0,S,60500,1557.0,disponibil,nu,da,85.1
+C2-P-01,C2,I,0,Parter,3A,3,73.55,0.0,32.88,V,106500,1448.0,disponibil,nu,da,82.1
+C2-P-02,C2,I,0,Parter,2A,2,53.87,10.25,0.0,NV,78000,1448.0,disponibil,nu,da,82.1
+C2-P-03,C2,I,0,Parter,3A,3,73.55,0.0,29.42,NV,106500,1448.0,vandut,nu,da,82.1
+C2-P-04,C2,I,0,Parter,2A,2,53.87,10.25,0.0,N,78000,1448.0,vandut,nu,da,82.1
+C2-P-05,C2,I,0,Parter,2A,2,53.87,10.25,0.0,V,78000,1448.0,disponibil,nu,da,82.1
+C2-P-06,C2,I,0,Parter,3B,3,80.81,0.0,31.55,SE,120000,1485.0,rezervat,nu,da,82.1
+C2-P-07,C2,I,0,Parter,2A,2,53.87,0.0,18.89,V,78000,1448.0,disponibil,nu,da,82.1
+C2-P-08,C2,I,0,Parter,2B,2,60.61,0.0,23.08,SV,90000,1485.0,vandut,nu,da,82.1
+C2-P-09,C2,I,0,Parter,1A,1,38.85,0.0,21.69,NE,56500,1454.0,disponibil,nu,da,82.1
+C2-P-10,C2,I,0,Parter,2B,2,60.61,0.0,36.95,S,90000,1485.0,vandut,nu,da,82.1
+C2-P-11,C2,I,0,Parter,2B,2,60.61,0.0,35.26,NE,88000,1452.0,disponibil,nu,da,82.1
+C2-E1-01,C2,I,1,Etaj 1,2B,2,60.61,11.53,0.0,N,89000,1468.0,rezervat,nu,da,82.1
+C2-E1-02,C2,I,1,Etaj 1,2B,2,60.61,11.53,0.0,E,89000,1468.0,vandut,nu,da,82.1
+C2-E1-03,C2,I,1,Etaj 1,2A,2,53.87,10.25,0.0,E,79500,1476.0,disponibil,nu,da,82.1
+C2-E1-04,C2,I,1,Etaj 1,3B,3,80.81,15.37,0.0,V,119000,1473.0,disponibil,nu,da,82.1
+C2-E1-05,C2,I,1,Etaj 1,1A,1,38.85,7.39,0.0,S,58500,1506.0,disponibil,nu,da,82.1
+C2-E1-06,C2,I,1,Etaj 1,1A,1,38.85,7.39,0.0,NV,57000,1467.0,vandut,nu,da,82.1
+C2-E1-07,C2,I,1,Etaj 1,3A,3,73.55,13.99,0.0,NE,108500,1475.0,vandut,nu,da,82.1
+C2-E1-08,C2,I,1,Etaj 1,1A,1,38.85,7.39,0.0,SV,58500,1506.0,disponibil,nu,da,82.1
+C2-E1-09,C2,I,1,Etaj 1,2A,2,53.87,10.25,0.0,V,79500,1476.0,disponibil,nu,da,82.1
+C2-E1-10,C2,I,1,Etaj 1,1A,1,38.85,7.39,0.0,NV,57000,1467.0,vandut,nu,da,82.1
+C2-E1-11,C2,I,1,Etaj 1,3B,3,80.81,15.37,0.0,V,119000,1473.0,disponibil,nu,da,82.1
+C2-E2-01,C2,I,2,Etaj 2,2A,2,53.87,10.25,0.0,SE,82500,1531.0,disponibil,nu,da,82.1
+C2-E2-02,C2,I,2,Etaj 2,1A,1,38.85,7.39,0.0,SV,59500,1532.0,disponibil,nu,da,82.1
+C2-E2-03,C2,I,2,Etaj 2,2B,2,60.61,11.53,0.0,N,90500,1493.0,vandut,nu,da,82.1
+C2-E2-04,C2,I,2,Etaj 2,1A,1,38.85,7.39,0.0,S,59500,1532.0,disponibil,nu,da,82.1
+C2-E2-05,C2,I,2,Etaj 2,2B,2,60.61,11.53,0.0,S,92500,1526.0,disponibil,nu,da,82.1
+C2-E2-06,C2,I,2,Etaj 2,2A,2,53.87,10.25,0.0,SE,82500,1531.0,disponibil,nu,da,82.1
+C2-E2-07,C2,I,2,Etaj 2,3B,3,80.81,15.37,0.0,E,120500,1491.0,disponibil,nu,da,82.1
+C2-E2-08,C2,I,2,Etaj 2,1A,1,38.85,7.39,0.0,S,59500,1532.0,disponibil,nu,da,82.1
+C2-E2-09,C2,I,2,Etaj 2,3A,3,73.55,13.99,0.0,NV,110000,1496.0,disponibil,nu,da,82.1
+C2-E2-10,C2,I,2,Etaj 2,2A,2,53.87,10.25,0.0,NV,80500,1494.0,disponibil,nu,da,82.1
+C2-E2-11,C2,I,2,Etaj 2,2B,2,60.61,11.53,0.0,SV,92500,1526.0,rezervat,nu,da,82.1
+C2-E3-01,C2,I,3,Etaj 3,3A,3,73.55,13.99,0.0,SE,114000,1550.0,vandut,nu,da,82.1
+C2-E3-02,C2,I,3,Etaj 3,2B,2,60.61,11.53,0.0,N,92000,1518.0,disponibil,nu,da,82.1
+C2-E3-03,C2,I,3,Etaj 3,2A,2,53.87,10.25,0.0,S,83500,1550.0,disponibil,nu,da,82.1
+C2-E3-04,C2,I,3,Etaj 3,2B,2,60.61,11.53,0.0,NV,92000,1518.0,vandut,nu,da,82.1
+C2-E3-05,C2,I,3,Etaj 3,3A,3,73.55,13.99,0.0,V,111500,1516.0,disponibil,nu,da,82.1
+C2-E3-06,C2,I,3,Etaj 3,1A,1,38.85,7.39,0.0,SV,60500,1557.0,vandut,nu,da,82.1
+C2-E3-07,C2,I,3,Etaj 3,2A,2,53.87,10.25,0.0,SV,83500,1550.0,disponibil,nu,da,82.1
+C2-E3-08,C2,I,3,Etaj 3,2A,2,53.87,10.25,0.0,E,81500,1513.0,disponibil,nu,da,82.1
+C2-E3-09,C2,I,3,Etaj 3,2A,2,53.87,10.25,0.0,SV,83500,1550.0,disponibil,nu,da,82.1
+C2-E3-10,C2,I,3,Etaj 3,1A,1,38.85,7.39,0.0,S,60500,1557.0,disponibil,nu,da,82.1
+C2-E3-11,C2,I,3,Etaj 3,2A,2,53.87,10.25,0.0,S,83500,1550.0,disponibil,nu,da,82.1
+C2-E3-12,C2,I,3,Etaj 3,2B,2,60.61,11.53,0.0,V,92000,1518.0,disponibil,nu,da,82.1
+C3-P-01,C3,I,0,Parter,2B,2,57.09,8.38,0.0,V,84000,1471.0,disponibil,da,nu,91.2
+C3-P-02,C3,I,0,Parter,2B,2,57.09,8.38,0.0,NV,84000,1471.0,disponibil,da,nu,91.2
+C3-P-03,C3,I,0,Parter,2A,2,50.75,0.0,34.5,S,76500,1507.0,rezervat,da,nu,91.2
+C3-P-04,C3,I,0,Parter,1A,1,36.6,5.37,0.0,SE,55000,1503.0,disponibil,da,nu,91.2
+C3-P-05,C3,I,0,Parter,1A,1,36.6,0.0,14.47,SV,55000,1503.0,disponibil,da,nu,91.2
+C3-P-06,C3,I,0,Parter,3A,3,69.29,10.17,0.0,E,102000,1472.0,rezervat,da,nu,91.2
+C3-P-07,C3,I,0,Parter,3B,3,76.12,11.18,0.0,SE,115000,1511.0,disponibil,da,nu,91.2
+C3-P-08,C3,I,0,Parter,3B,3,76.12,11.18,0.0,S,115000,1511.0,disponibil,da,nu,91.2
+C3-P-09,C3,I,0,Parter,2B,2,57.09,0.0,30.88,E,84000,1471.0,rezervat,da,nu,91.2
+C3-P-10,C3,I,0,Parter,2A,2,50.75,7.45,0.0,V,75000,1478.0,vandut,da,nu,91.2
+C3-P-11,C3,I,0,Parter,2B,2,57.09,0.0,36.17,NE,84000,1471.0,disponibil,da,nu,91.2
+C3-P-12,C3,I,0,Parter,3B,3,76.12,0.0,46.18,NE,112000,1471.0,vandut,da,nu,91.2
+C3-P-13,C3,I,0,Parter,1A,1,36.6,0.0,19.22,V,54000,1475.0,disponibil,da,nu,91.2
+C3-P-14,C3,I,0,Parter,2B,2,57.09,8.38,0.0,S,86000,1506.0,vandut,da,nu,91.2
+C3-P-15,C3,I,0,Parter,1A,1,36.6,0.0,17.59,E,54000,1475.0,disponibil,da,nu,91.2
+C3-E1-01,C3,I,1,Etaj 1,3B,3,76.12,11.18,0.0,NV,114000,1498.0,rezervat,da,nu,91.2
+C3-E1-02,C3,I,1,Etaj 1,3B,3,76.12,11.18,0.0,SE,116500,1530.0,rezervat,da,nu,91.2
+C3-E1-03,C3,I,1,Etaj 1,2A,2,50.75,7.45,0.0,N,76000,1498.0,disponibil,da,nu,91.2
+C3-E1-04,C3,I,1,Etaj 1,1A,1,36.6,5.37,0.0,NE,54500,1489.0,disponibil,da,nu,91.2
+C3-E1-05,C3,I,1,Etaj 1,2A,2,50.75,7.45,0.0,V,76000,1498.0,disponibil,da,nu,91.2
+C3-E1-06,C3,I,1,Etaj 1,1A,1,36.6,5.37,0.0,SV,56000,1530.0,vandut,da,nu,91.2
+C3-E1-07,C3,I,1,Etaj 1,2A,2,50.75,7.45,0.0,SV,77500,1527.0,disponibil,da,nu,91.2
+C3-E1-08,C3,I,1,Etaj 1,2B,2,57.09,8.38,0.0,SE,87500,1533.0,disponibil,da,nu,91.2
+C3-E1-09,C3,I,1,Etaj 1,2A,2,50.75,7.45,0.0,NV,76000,1498.0,disponibil,da,nu,91.2
+C3-E1-10,C3,I,1,Etaj 1,2A,2,50.75,7.45,0.0,NV,76000,1498.0,disponibil,da,nu,91.2
+C3-E1-11,C3,I,1,Etaj 1,2A,2,50.75,7.45,0.0,S,77500,1527.0,disponibil,da,nu,91.2
+C3-E1-12,C3,I,1,Etaj 1,3A,3,69.29,10.17,0.0,E,103500,1494.0,disponibil,da,nu,91.2
+C3-E1-13,C3,I,1,Etaj 1,2A,2,50.75,7.45,0.0,S,77500,1527.0,disponibil,da,nu,91.2
+C3-E1-14,C3,I,1,Etaj 1,1A,1,36.6,5.37,0.0,SV,56000,1530.0,rezervat,da,nu,91.2
+C3-E1-15,C3,I,1,Etaj 1,3B,3,76.12,11.18,0.0,E,114000,1498.0,vandut,da,nu,91.2
+C3-E2-01,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,SV,79000,1557.0,disponibil,da,nu,91.2
+C3-E2-02,C3,I,2,Etaj 2,3A,3,69.29,10.17,0.0,NV,105000,1515.0,disponibil,da,nu,91.2
+C3-E2-03,C3,I,2,Etaj 2,1A,1,36.6,5.37,0.0,NV,55500,1516.0,rezervat,da,nu,91.2
+C3-E2-04,C3,I,2,Etaj 2,1A,1,36.6,5.37,0.0,S,57000,1557.0,disponibil,da,nu,91.2
+C3-E2-05,C3,I,2,Etaj 2,2B,2,57.09,8.38,0.0,NE,86500,1515.0,disponibil,da,nu,91.2
+C3-E2-06,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,E,77000,1517.0,disponibil,da,nu,91.2
+C3-E2-07,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,S,79000,1557.0,disponibil,da,nu,91.2
+C3-E2-08,C3,I,2,Etaj 2,3A,3,69.29,10.17,0.0,N,105000,1515.0,disponibil,da,nu,91.2
+C3-E2-09,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,E,77000,1517.0,vandut,da,nu,91.2
+C3-E2-10,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,S,79000,1557.0,disponibil,da,nu,91.2
+C3-E2-11,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,NE,77000,1517.0,disponibil,da,nu,91.2
+C3-E2-12,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,NE,77000,1517.0,vandut,da,nu,91.2
+C3-E2-13,C3,I,2,Etaj 2,2B,2,57.09,8.38,0.0,SE,88500,1550.0,disponibil,da,nu,91.2
+C3-E2-14,C3,I,2,Etaj 2,2A,2,50.75,7.45,0.0,N,77000,1517.0,vandut,da,nu,91.2
+C3-E2-15,C3,I,2,Etaj 2,1A,1,36.6,5.37,0.0,SE,57000,1557.0,disponibil,da,nu,91.2
+C3-E3-01,C3,I,3,Etaj 3,1A,1,36.6,5.37,0.0,NE,56500,1544.0,rezervat,da,nu,91.2
+C3-E3-02,C3,I,3,Etaj 3,2B,2,57.09,8.38,0.0,S,90000,1576.0,disponibil,da,nu,91.2
+C3-E3-03,C3,I,3,Etaj 3,3A,3,69.29,10.17,0.0,S,109000,1573.0,disponibil,da,nu,91.2
+C3-E3-04,C3,I,3,Etaj 3,2B,2,57.09,8.38,0.0,S,90000,1576.0,disponibil,da,nu,91.2
+C3-E3-05,C3,I,3,Etaj 3,1A,1,36.6,5.37,0.0,E,56500,1544.0,disponibil,da,nu,91.2
+C3-E3-06,C3,I,3,Etaj 3,2B,2,57.09,8.38,0.0,NE,88000,1541.0,vandut,da,nu,91.2
+C3-E3-07,C3,I,3,Etaj 3,2B,2,57.09,8.38,0.0,SE,90000,1576.0,disponibil,da,nu,91.2
+C3-E3-08,C3,I,3,Etaj 3,2B,2,57.09,8.38,0.0,SE,90000,1576.0,rezervat,da,nu,91.2
+C3-E3-09,C3,I,3,Etaj 3,1A,1,36.6,5.37,0.0,S,57500,1571.0,disponibil,da,nu,91.2
+C3-E3-10,C3,I,3,Etaj 3,3A,3,69.29,10.17,0.0,SV,109000,1573.0,disponibil,da,nu,91.2
+C3-E3-11,C3,I,3,Etaj 3,2B,2,57.09,8.38,0.0,SE,90000,1576.0,disponibil,da,nu,91.2
+C3-E3-12,C3,I,3,Etaj 3,3A,3,69.29,10.17,0.0,SV,109000,1573.0,vandut,da,nu,91.2
+C3-E3-13,C3,I,3,Etaj 3,3A,3,69.29,10.17,0.0,V,106500,1537.0,rezervat,da,nu,91.2
+C3-E3-14,C3,I,3,Etaj 3,2B,2,57.09,8.38,0.0,SE,90000,1576.0,disponibil,da,nu,91.2
+C3-E3-15,C3,I,3,Etaj 3,2A,2,50.75,7.45,0.0,NE,78000,1537.0,vandut,da,nu,91.2
+C3-E3-16,C3,I,3,Etaj 3,2A,2,50.75,7.45,0.0,N,78000,1537.0,disponibil,da,nu,91.2
+C4-P-01,C4,I,0,Parter,2B,2,57.09,8.71,0.0,S,85500,1498.0,disponibil,da,nu,88.2
+C4-P-02,C4,I,0,Parter,1A,1,36.6,5.58,0.0,S,55000,1503.0,disponibil,da,nu,88.2
+C4-P-03,C4,I,0,Parter,2A,2,50.75,7.74,0.0,E,74500,1468.0,disponibil,da,nu,88.2
+C4-P-04,C4,I,0,Parter,1A,1,36.6,0.0,14.98,E,53500,1462.0,disponibil,da,nu,88.2
+C4-P-05,C4,I,0,Parter,2A,2,50.75,0.0,26.02,E,74500,1468.0,rezervat,da,nu,88.2
+C4-P-06,C4,I,0,Parter,2A,2,50.75,0.0,32.39,N,74500,1468.0,disponibil,da,nu,88.2
+C4-P-07,C4,I,0,Parter,3B,3,76.12,0.0,41.82,SV,114000,1498.0,disponibil,da,nu,88.2
+C4-P-08,C4,I,0,Parter,1A,1,36.6,5.58,0.0,NV,53500,1462.0,disponibil,da,nu,88.2
+C4-P-09,C4,I,0,Parter,3B,3,76.12,0.0,49.06,N,111500,1465.0,disponibil,da,nu,88.2
+C4-P-10,C4,I,0,Parter,2B,2,57.09,8.71,0.0,SE,85500,1498.0,vandut,da,nu,88.2
+C4-P-11,C4,I,0,Parter,2A,2,50.75,7.74,0.0,S,76000,1498.0,disponibil,da,nu,88.2
+C4-P-12,C4,I,0,Parter,2A,2,50.75,0.0,35.28,N,74500,1468.0,disponibil,da,nu,88.2
+C4-P-13,C4,I,0,Parter,2A,2,50.75,0.0,31.25,S,76000,1498.0,disponibil,da,nu,88.2
+C4-P-14,C4,I,0,Parter,3A,3,69.29,0.0,41.63,NE,101500,1465.0,disponibil,da,nu,88.2
+C4-P-15,C4,I,0,Parter,3B,3,76.12,11.61,0.0,V,111500,1465.0,disponibil,da,nu,88.2
+C4-E1-01,C4,I,1,Etaj 1,2B,2,57.09,8.71,0.0,E,85000,1489.0,disponibil,da,nu,88.2
+C4-E1-02,C4,I,1,Etaj 1,2B,2,57.09,8.71,0.0,N,85000,1489.0,disponibil,da,nu,88.2
+C4-E1-03,C4,I,1,Etaj 1,3A,3,69.29,10.57,0.0,V,103000,1487.0,disponibil,da,nu,88.2
+C4-E1-04,C4,I,1,Etaj 1,2B,2,57.09,8.71,0.0,NV,85000,1489.0,disponibil,da,nu,88.2
+C4-E1-05,C4,I,1,Etaj 1,2A,2,50.75,7.74,0.0,V,75500,1488.0,disponibil,da,nu,88.2
+C4-E1-06,C4,I,1,Etaj 1,1A,1,36.6,5.58,0.0,SE,55500,1516.0,disponibil,da,nu,88.2
+C4-E1-07,C4,I,1,Etaj 1,2B,2,57.09,8.71,0.0,V,85000,1489.0,disponibil,da,nu,88.2
+C4-E1-08,C4,I,1,Etaj 1,2A,2,50.75,7.74,0.0,V,75500,1488.0,disponibil,da,nu,88.2
+C4-E1-09,C4,I,1,Etaj 1,2A,2,50.75,7.74,0.0,S,77000,1517.0,disponibil,da,nu,88.2
+C4-E1-10,C4,I,1,Etaj 1,3A,3,69.29,10.57,0.0,N,103000,1487.0,vandut,da,nu,88.2
+C4-E1-11,C4,I,1,Etaj 1,2B,2,57.09,8.71,0.0,N,85000,1489.0,vandut,da,nu,88.2
+C4-E1-12,C4,I,1,Etaj 1,3A,3,69.29,10.57,0.0,V,103000,1487.0,disponibil,da,nu,88.2
+C4-E1-13,C4,I,1,Etaj 1,2B,2,57.09,8.71,0.0,SV,87000,1524.0,disponibil,da,nu,88.2
+C4-E1-14,C4,I,1,Etaj 1,2A,2,50.75,7.74,0.0,NV,75500,1488.0,disponibil,da,nu,88.2
+C4-E1-15,C4,I,1,Etaj 1,1A,1,36.6,5.58,0.0,NE,54500,1489.0,disponibil,da,nu,88.2
+C4-E2-01,C4,I,2,Etaj 2,2B,2,57.09,8.71,0.0,NE,86000,1506.0,disponibil,da,nu,88.2
+C4-E2-02,C4,I,2,Etaj 2,2A,2,50.75,7.74,0.0,SV,78500,1547.0,disponibil,da,nu,88.2
+C4-E2-03,C4,I,2,Etaj 2,1A,1,36.6,5.58,0.0,NV,55000,1503.0,disponibil,da,nu,88.2
+C4-E2-04,C4,I,2,Etaj 2,1A,1,36.6,5.58,0.0,S,56500,1544.0,disponibil,da,nu,88.2
+C4-E2-05,C4,I,2,Etaj 2,3B,3,76.12,11.61,0.0,N,115000,1511.0,disponibil,da,nu,88.2
+C4-E2-06,C4,I,2,Etaj 2,2A,2,50.75,7.74,0.0,E,76500,1507.0,disponibil,da,nu,88.2
+C4-E2-07,C4,I,2,Etaj 2,3B,3,76.12,11.61,0.0,S,117500,1544.0,disponibil,da,nu,88.2
+C4-E2-08,C4,I,2,Etaj 2,3B,3,76.12,11.61,0.0,SE,117500,1544.0,disponibil,da,nu,88.2
+C4-E2-09,C4,I,2,Etaj 2,2A,2,50.75,7.74,0.0,NE,76500,1507.0,rezervat,da,nu,88.2
+C4-E2-10,C4,I,2,Etaj 2,2B,2,57.09,8.71,0.0,SE,88000,1541.0,disponibil,da,nu,88.2
+C4-E2-11,C4,I,2,Etaj 2,2B,2,57.09,8.71,0.0,NV,86000,1506.0,disponibil,da,nu,88.2
+C4-E2-12,C4,I,2,Etaj 2,1A,1,36.6,5.58,0.0,N,55000,1503.0,rezervat,da,nu,88.2
+C4-E2-13,C4,I,2,Etaj 2,2B,2,57.09,8.71,0.0,V,86000,1506.0,disponibil,da,nu,88.2
+C4-E2-14,C4,I,2,Etaj 2,3A,3,69.29,10.57,0.0,NV,104500,1508.0,disponibil,da,nu,88.2
+C4-E2-15,C4,I,2,Etaj 2,2B,2,57.09,8.71,0.0,NE,86000,1506.0,disponibil,da,nu,88.2
+C4-E3-01,C4,I,3,Etaj 3,3A,3,69.29,10.57,0.0,V,106000,1530.0,disponibil,da,nu,88.2
+C4-E3-02,C4,I,3,Etaj 3,2A,2,50.75,7.74,0.0,SV,79500,1567.0,disponibil,da,nu,88.2
+C4-E3-03,C4,I,3,Etaj 3,1A,1,36.6,5.58,0.0,N,56000,1530.0,vandut,da,nu,88.2
+C4-E3-04,C4,I,3,Etaj 3,3A,3,69.29,10.57,0.0,S,108500,1566.0,disponibil,da,nu,88.2
+C4-E3-05,C4,I,3,Etaj 3,2B,2,57.09,8.71,0.0,NV,87500,1533.0,disponibil,da,nu,88.2
+C4-E3-06,C4,I,3,Etaj 3,3A,3,69.29,10.57,0.0,E,106000,1530.0,disponibil,da,nu,88.2
+C4-E3-07,C4,I,3,Etaj 3,2A,2,50.75,7.74,0.0,SE,79500,1567.0,vandut,da,nu,88.2
+C4-E3-08,C4,I,3,Etaj 3,1A,1,36.6,5.58,0.0,NE,56000,1530.0,disponibil,da,nu,88.2
+C4-E3-09,C4,I,3,Etaj 3,1A,1,36.6,5.58,0.0,NE,56000,1530.0,vandut,da,nu,88.2
+C4-E3-10,C4,I,3,Etaj 3,1A,1,36.6,5.58,0.0,SE,57500,1571.0,disponibil,da,nu,88.2
+C4-E3-11,C4,I,3,Etaj 3,1A,1,36.6,5.58,0.0,N,56000,1530.0,rezervat,da,nu,88.2
+C4-E3-12,C4,I,3,Etaj 3,2A,2,50.75,7.74,0.0,E,77500,1527.0,disponibil,da,nu,88.2
+C4-E3-13,C4,I,3,Etaj 3,2A,2,50.75,7.74,0.0,V,77500,1527.0,disponibil,da,nu,88.2
+C4-E3-14,C4,I,3,Etaj 3,2B,2,57.09,8.71,0.0,S,89500,1568.0,disponibil,da,nu,88.2
+C4-E3-15,C4,I,3,Etaj 3,2A,2,50.75,7.74,0.0,NV,77500,1527.0,disponibil,da,nu,88.2
+C4-E3-16,C4,I,3,Etaj 3,2A,2,50.75,7.74,0.0,V,77500,1527.0,disponibil,da,nu,88.2
+C5-P-01,C5,I,0,Parter,1A,1,37.61,5.95,0.0,E,55000,1462.0,disponibil,nu,da,85.2
+C5-P-02,C5,I,0,Parter,3B,3,78.23,12.37,0.0,E,114000,1457.0,disponibil,nu,da,85.2
+C5-P-03,C5,I,0,Parter,1A,1,37.61,0.0,23.56,NV,55000,1462.0,disponibil,nu,da,85.2
+C5-P-04,C5,I,0,Parter,2A,2,52.16,8.25,0.0,E,76000,1457.0,disponibil,nu,da,85.2
+C5-P-05,C5,I,0,Parter,3B,3,78.23,0.0,50.5,S,117000,1496.0,disponibil,nu,da,85.2
+C5-P-06,C5,I,0,Parter,1A,1,37.61,0.0,25.12,E,55000,1462.0,rezervat,nu,da,85.2
+C5-P-07,C5,I,0,Parter,3A,3,71.21,11.26,0.0,V,104000,1460.0,disponibil,nu,da,85.2
+C5-P-08,C5,I,0,Parter,2B,2,58.68,0.0,38.88,NV,85500,1457.0,disponibil,nu,da,85.2
+C5-P-09,C5,I,0,Parter,3A,3,71.21,11.26,0.0,V,104000,1460.0,disponibil,nu,da,85.2
+C5-P-10,C5,I,0,Parter,2B,2,58.68,0.0,38.06,E,85500,1457.0,disponibil,nu,da,85.2
+C5-P-11,C5,I,0,Parter,2A,2,52.16,0.0,21.4,NE,76000,1457.0,disponibil,nu,da,85.2
+C5-P-12,C5,I,0,Parter,2A,2,52.16,8.25,0.0,N,76000,1457.0,disponibil,nu,da,85.2
+C5-P-13,C5,I,0,Parter,2B,2,58.68,9.28,0.0,V,85500,1457.0,disponibil,nu,da,85.2
+C5-E1-01,C5,I,1,Etaj 1,2A,2,52.16,8.25,0.0,SV,79000,1515.0,vandut,nu,da,85.2
+C5-E1-02,C5,I,1,Etaj 1,2A,2,52.16,8.25,0.0,E,77000,1476.0,disponibil,nu,da,85.2
+C5-E1-03,C5,I,1,Etaj 1,3A,3,71.21,11.26,0.0,N,105500,1482.0,disponibil,nu,da,85.2
+C5-E1-04,C5,I,1,Etaj 1,3A,3,71.21,11.26,0.0,NV,105500,1482.0,disponibil,nu,da,85.2
+C5-E1-05,C5,I,1,Etaj 1,2B,2,58.68,9.28,0.0,SV,89000,1517.0,rezervat,nu,da,85.2
+C5-E1-06,C5,I,1,Etaj 1,2A,2,52.16,8.25,0.0,S,79000,1515.0,disponibil,nu,da,85.2
+C5-E1-07,C5,I,1,Etaj 1,2A,2,52.16,8.25,0.0,V,77000,1476.0,disponibil,nu,da,85.2
+C5-E1-08,C5,I,1,Etaj 1,1A,1,37.61,5.95,0.0,SE,57000,1516.0,vandut,nu,da,85.2
+C5-E1-09,C5,I,1,Etaj 1,3A,3,71.21,11.26,0.0,NE,105500,1482.0,vandut,nu,da,85.2
+C5-E1-10,C5,I,1,Etaj 1,3A,3,71.21,11.26,0.0,SV,108000,1517.0,disponibil,nu,da,85.2
+C5-E1-11,C5,I,1,Etaj 1,1A,1,37.61,5.95,0.0,S,57000,1516.0,disponibil,nu,da,85.2
+C5-E1-12,C5,I,1,Etaj 1,2A,2,52.16,8.25,0.0,E,77000,1476.0,disponibil,nu,da,85.2
+C5-E1-13,C5,I,1,Etaj 1,2A,2,52.16,8.25,0.0,N,77000,1476.0,disponibil,nu,da,85.2
+C5-E1-14,C5,I,1,Etaj 1,1A,1,37.61,5.95,0.0,E,55500,1476.0,rezervat,nu,da,85.2
+C5-E2-01,C5,I,2,Etaj 2,3A,3,71.21,11.26,0.0,S,109500,1538.0,disponibil,nu,da,85.2
+C5-E2-02,C5,I,2,Etaj 2,2A,2,52.16,8.25,0.0,N,78500,1505.0,disponibil,nu,da,85.2
+C5-E2-03,C5,I,2,Etaj 2,1A,1,37.61,5.95,0.0,SE,58000,1542.0,disponibil,nu,da,85.2
+C5-E2-04,C5,I,2,Etaj 2,2A,2,52.16,8.25,0.0,S,80000,1534.0,disponibil,nu,da,85.2
+C5-E2-05,C5,I,2,Etaj 2,2B,2,58.68,9.28,0.0,E,88000,1500.0,vandut,nu,da,85.2
+C5-E2-06,C5,I,2,Etaj 2,2B,2,58.68,9.28,0.0,N,88000,1500.0,disponibil,nu,da,85.2
+C5-E2-07,C5,I,2,Etaj 2,1A,1,37.61,5.95,0.0,NE,56500,1502.0,disponibil,nu,da,85.2
+C5-E2-08,C5,I,2,Etaj 2,2A,2,52.16,8.25,0.0,E,78500,1505.0,disponibil,nu,da,85.2
+C5-E2-09,C5,I,2,Etaj 2,3B,3,78.23,12.37,0.0,SE,120000,1534.0,rezervat,nu,da,85.2
+C5-E2-10,C5,I,2,Etaj 2,2B,2,58.68,9.28,0.0,SE,90000,1534.0,vandut,nu,da,85.2
+C5-E2-11,C5,I,2,Etaj 2,2B,2,58.68,9.28,0.0,SE,90000,1534.0,disponibil,nu,da,85.2
+C5-E2-12,C5,I,2,Etaj 2,2B,2,58.68,9.28,0.0,SV,90000,1534.0,disponibil,nu,da,85.2
+C5-E2-13,C5,I,2,Etaj 2,3B,3,78.23,12.37,0.0,N,117500,1502.0,disponibil,nu,da,85.2
+C5-E2-14,C5,I,2,Etaj 2,2A,2,52.16,8.25,0.0,NE,78500,1505.0,disponibil,nu,da,85.2
+C5-E3-01,C5,I,3,Etaj 3,1A,1,37.61,5.95,0.0,V,57500,1529.0,disponibil,nu,da,85.2
+C5-E3-02,C5,I,3,Etaj 3,3B,3,78.23,12.37,0.0,N,119000,1521.0,disponibil,nu,da,85.2
+C5-E3-03,C5,I,3,Etaj 3,1A,1,37.61,5.95,0.0,V,57500,1529.0,rezervat,nu,da,85.2
+C5-E3-04,C5,I,3,Etaj 3,1A,1,37.61,5.95,0.0,V,57500,1529.0,disponibil,nu,da,85.2
+C5-E3-05,C5,I,3,Etaj 3,2B,2,58.68,9.28,0.0,NE,89500,1525.0,vandut,nu,da,85.2
+C5-E3-06,C5,I,3,Etaj 3,2B,2,58.68,9.28,0.0,N,89500,1525.0,disponibil,nu,da,85.2
+C5-E3-07,C5,I,3,Etaj 3,2A,2,52.16,8.25,0.0,V,79500,1524.0,vandut,nu,da,85.2
+C5-E3-08,C5,I,3,Etaj 3,3B,3,78.23,12.37,0.0,NV,119000,1521.0,disponibil,nu,da,85.2
+C5-E3-09,C5,I,3,Etaj 3,2A,2,52.16,8.25,0.0,N,79500,1524.0,vandut,nu,da,85.2
+C5-E3-10,C5,I,3,Etaj 3,2A,2,52.16,8.25,0.0,E,79500,1524.0,disponibil,nu,da,85.2
+C5-E3-11,C5,I,3,Etaj 3,2B,2,58.68,9.28,0.0,S,91500,1559.0,disponibil,nu,da,85.2
+C5-E3-12,C5,I,3,Etaj 3,1A,1,37.61,5.95,0.0,SV,58500,1555.0,vandut,nu,da,85.2
+C5-E3-13,C5,I,3,Etaj 3,2A,2,52.16,8.25,0.0,NE,79500,1524.0,disponibil,nu,da,85.2
+C5-E3-14,C5,I,3,Etaj 3,2B,2,58.68,9.28,0.0,N,89500,1525.0,disponibil,nu,da,85.2
+C6-P-01,C6,I,0,Parter,3B,3,76.39,12.27,0.0,V,111000,1453.0,disponibil,nu,nu,84.8
+C6-P-02,C6,I,0,Parter,1A,1,36.73,0.0,24.17,V,53500,1457.0,disponibil,nu,nu,84.8
+C6-P-03,C6,I,0,Parter,2A,2,50.93,0.0,21.12,SE,76000,1492.0,disponibil,nu,nu,84.8
+C6-P-04,C6,I,0,Parter,3A,3,69.54,11.17,0.0,E,101500,1460.0,disponibil,nu,nu,84.8
+C6-P-05,C6,I,0,Parter,1A,1,36.73,0.0,15.11,NE,53500,1457.0,disponibil,nu,nu,84.8
+C6-P-06,C6,I,0,Parter,2A,2,50.93,8.18,0.0,NV,74000,1453.0,disponibil,nu,nu,84.8
+C6-P-07,C6,I,0,Parter,3A,3,69.54,11.17,0.0,S,103500,1488.0,disponibil,nu,nu,84.8
+C6-P-08,C6,I,0,Parter,2B,2,57.29,9.21,0.0,NV,83500,1457.0,disponibil,nu,nu,84.8
+C6-P-09,C6,I,0,Parter,1A,1,36.73,0.0,15.45,NV,53500,1457.0,vandut,nu,nu,84.8
+C6-P-10,C6,I,0,Parter,1A,1,36.73,5.9,0.0,E,53500,1457.0,disponibil,nu,nu,84.8
+C6-P-11,C6,I,0,Parter,2B,2,57.29,0.0,30.64,N,83500,1457.0,disponibil,nu,nu,84.8
+C6-P-12,C6,I,0,Parter,3B,3,76.39,0.0,42.04,NE,111000,1453.0,disponibil,nu,nu,84.8
+C6-P-13,C6,I,0,Parter,1A,1,36.73,5.9,0.0,NE,53500,1457.0,rezervat,nu,nu,84.8
+C6-E1-01,C6,I,1,Etaj 1,2A,2,50.93,8.18,0.0,V,75500,1482.0,vandut,nu,nu,84.8
+C6-E1-02,C6,I,1,Etaj 1,2B,2,57.29,9.21,0.0,V,84500,1475.0,disponibil,nu,nu,84.8
+C6-E1-03,C6,I,1,Etaj 1,2B,2,57.29,9.21,0.0,V,84500,1475.0,disponibil,nu,nu,84.8
+C6-E1-04,C6,I,1,Etaj 1,3A,3,69.54,11.17,0.0,NV,103000,1481.0,disponibil,nu,nu,84.8
+C6-E1-05,C6,I,1,Etaj 1,2A,2,50.93,8.18,0.0,NE,75500,1482.0,disponibil,nu,nu,84.8
+C6-E1-06,C6,I,1,Etaj 1,2A,2,50.93,8.18,0.0,V,75500,1482.0,vandut,nu,nu,84.8
+C6-E1-07,C6,I,1,Etaj 1,2B,2,57.29,9.21,0.0,SV,86500,1510.0,disponibil,nu,nu,84.8
+C6-E1-08,C6,I,1,Etaj 1,3A,3,69.54,11.17,0.0,V,103000,1481.0,disponibil,nu,nu,84.8
+C6-E1-09,C6,I,1,Etaj 1,1A,1,36.73,5.9,0.0,SE,55500,1511.0,disponibil,nu,nu,84.8
+C6-E1-10,C6,I,1,Etaj 1,3A,3,69.54,11.17,0.0,SV,105000,1510.0,vandut,nu,nu,84.8
+C6-E1-11,C6,I,1,Etaj 1,2A,2,50.93,8.18,0.0,SE,77000,1512.0,disponibil,nu,nu,84.8
+C6-E1-12,C6,I,1,Etaj 1,1A,1,36.73,5.9,0.0,S,55500,1511.0,disponibil,nu,nu,84.8
+C6-E1-13,C6,I,1,Etaj 1,2A,2,50.93,8.18,0.0,NE,75500,1482.0,vandut,nu,nu,84.8
+C6-E1-14,C6,I,1,Etaj 1,1A,1,36.73,5.9,0.0,NV,54500,1484.0,disponibil,nu,nu,84.8
+C6-E2-01,C6,I,2,Etaj 2,3A,3,69.54,11.17,0.0,SV,106500,1531.0,rezervat,nu,nu,84.8
+C6-E2-02,C6,I,2,Etaj 2,2B,2,57.29,9.21,0.0,E,86000,1501.0,disponibil,nu,nu,84.8
+C6-E2-03,C6,I,2,Etaj 2,2A,2,50.93,8.18,0.0,NE,76500,1502.0,disponibil,nu,nu,84.8
+C6-E2-04,C6,I,2,Etaj 2,3B,3,76.39,12.27,0.0,SE,117500,1538.0,vandut,nu,nu,84.8
+C6-E2-05,C6,I,2,Etaj 2,2B,2,57.29,9.21,0.0,NE,86000,1501.0,disponibil,nu,nu,84.8
+C6-E2-06,C6,I,2,Etaj 2,1A,1,36.73,5.9,0.0,V,55000,1497.0,disponibil,nu,nu,84.8
+C6-E2-07,C6,I,2,Etaj 2,1A,1,36.73,5.9,0.0,V,55000,1497.0,disponibil,nu,nu,84.8
+C6-E2-08,C6,I,2,Etaj 2,2A,2,50.93,8.18,0.0,NV,76500,1502.0,disponibil,nu,nu,84.8
+C6-E2-09,C6,I,2,Etaj 2,1A,1,36.73,5.9,0.0,NV,55000,1497.0,disponibil,nu,nu,84.8
+C6-E2-10,C6,I,2,Etaj 2,3B,3,76.39,12.27,0.0,N,114500,1499.0,vandut,nu,nu,84.8
+C6-E2-11,C6,I,2,Etaj 2,2A,2,50.93,8.18,0.0,NE,76500,1502.0,disponibil,nu,nu,84.8
+C6-E2-12,C6,I,2,Etaj 2,2B,2,57.29,9.21,0.0,NV,86000,1501.0,disponibil,nu,nu,84.8
+C6-E2-13,C6,I,2,Etaj 2,2B,2,57.29,9.21,0.0,N,86000,1501.0,disponibil,nu,nu,84.8
+C6-E2-14,C6,I,2,Etaj 2,2A,2,50.93,8.18,0.0,NV,76500,1502.0,disponibil,nu,nu,84.8
+C6-E3-01,C6,I,3,Etaj 3,2A,2,50.93,8.18,0.0,SE,79500,1561.0,disponibil,nu,nu,84.8
+C6-E3-02,C6,I,3,Etaj 3,2A,2,50.93,8.18,0.0,E,77500,1522.0,disponibil,nu,nu,84.8
+C6-E3-03,C6,I,3,Etaj 3,2A,2,50.93,8.18,0.0,NE,77500,1522.0,vandut,nu,nu,84.8
+C6-E3-04,C6,I,3,Etaj 3,1A,1,36.73,5.9,0.0,S,57000,1552.0,disponibil,nu,nu,84.8
+C6-E3-05,C6,I,3,Etaj 3,2B,2,57.29,9.21,0.0,E,87000,1519.0,disponibil,nu,nu,84.8
+C6-E3-06,C6,I,3,Etaj 3,3B,3,76.39,12.27,0.0,NV,116500,1525.0,disponibil,nu,nu,84.8
+C6-E3-07,C6,I,3,Etaj 3,2A,2,50.93,8.18,0.0,N,77500,1522.0,disponibil,nu,nu,84.8
+C6-E3-08,C6,I,3,Etaj 3,2A,2,50.93,8.18,0.0,E,77500,1522.0,disponibil,nu,nu,84.8
+C6-E3-09,C6,I,3,Etaj 3,3B,3,76.39,12.27,0.0,NV,116500,1525.0,vandut,nu,nu,84.8
+C6-E3-10,C6,I,3,Etaj 3,2B,2,57.29,9.21,0.0,SE,89000,1553.0,disponibil,nu,nu,84.8
+C6-E3-11,C6,I,3,Etaj 3,3A,3,69.54,11.17,0.0,V,106000,1524.0,disponibil,nu,nu,84.8
+C6-E3-12,C6,I,3,Etaj 3,2B,2,57.29,9.21,0.0,SV,89000,1553.0,disponibil,nu,nu,84.8
+C6-E3-13,C6,I,3,Etaj 3,2B,2,57.29,9.21,0.0,E,87000,1519.0,disponibil,nu,nu,84.8
+C6-E3-14,C6,I,3,Etaj 3,2A,2,50.93,8.18,0.0,S,79500,1561.0,vandut,nu,nu,84.8
+C7-P-01,C7,II,0,Parter,2B,2,58.68,0.0,38.39,E,86000,1466.0,disponibil,nu,da,86.9
+C7-P-02,C7,II,0,Parter,1A,1,37.61,6.32,0.0,E,55000,1462.0,disponibil,nu,da,86.9
+C7-P-03,C7,II,0,Parter,1A,1,37.61,0.0,22.72,S,56500,1502.0,vandut,nu,da,86.9
+C7-P-04,C7,II,0,Parter,2B,2,58.68,0.0,29.05,V,86000,1466.0,vandut,nu,da,86.9
+C7-P-05,C7,II,0,Parter,3A,3,71.21,0.0,36.36,SV,106500,1496.0,disponibil,nu,da,86.9
+C7-P-06,C7,II,0,Parter,2B,2,58.68,0.0,30.62,SE,88000,1500.0,disponibil,nu,da,86.9
+C7-P-07,C7,II,0,Parter,3A,3,71.21,11.97,0.0,NE,104000,1460.0,disponibil,nu,da,86.9
+C7-P-08,C7,II,0,Parter,2A,2,52.16,8.77,0.0,S,78000,1495.0,vandut,nu,da,86.9
+C7-P-09,C7,II,0,Parter,2A,2,52.16,8.77,0.0,V,76500,1467.0,vandut,nu,da,86.9
+C7-P-10,C7,II,0,Parter,1A,1,37.61,0.0,24.09,NE,55000,1462.0,vandut,nu,da,86.9
+C7-P-11,C7,II,0,Parter,2A,2,52.16,0.0,18.46,SV,78000,1495.0,disponibil,nu,da,86.9
+C7-P-12,C7,II,0,Parter,2A,2,52.16,0.0,28.47,NV,76500,1467.0,vandut,nu,da,86.9
+C7-P-13,C7,II,0,Parter,2B,2,58.68,0.0,31.23,N,86000,1466.0,disponibil,nu,da,86.9
+C7-E1-01,C7,II,1,Etaj 1,3B,3,78.23,13.15,0.0,S,119000,1521.0,disponibil,nu,da,86.9
+C7-E1-02,C7,II,1,Etaj 1,2A,2,52.16,8.77,0.0,S,79000,1515.0,disponibil,nu,da,86.9
+C7-E1-03,C7,II,1,Etaj 1,2A,2,52.16,8.77,0.0,N,77500,1486.0,vandut,nu,da,86.9
+C7-E1-04,C7,II,1,Etaj 1,2A,2,52.16,8.77,0.0,NE,77500,1486.0,disponibil,nu,da,86.9
+C7-E1-05,C7,II,1,Etaj 1,2A,2,52.16,8.77,0.0,S,79000,1515.0,disponibil,nu,da,86.9
+C7-E1-06,C7,II,1,Etaj 1,2A,2,52.16,8.77,0.0,SE,79000,1515.0,disponibil,nu,da,86.9
+C7-E1-07,C7,II,1,Etaj 1,3A,3,71.21,11.97,0.0,V,105500,1482.0,rezervat,nu,da,86.9
+C7-E1-08,C7,II,1,Etaj 1,2A,2,52.16,8.77,0.0,SV,79000,1515.0,disponibil,nu,da,86.9
+C7-E1-09,C7,II,1,Etaj 1,1A,1,37.61,6.32,0.0,N,56000,1489.0,disponibil,nu,da,86.9
+C7-E1-10,C7,II,1,Etaj 1,1A,1,37.61,6.32,0.0,NE,56000,1489.0,vandut,nu,da,86.9
+C7-E1-11,C7,II,1,Etaj 1,2B,2,58.68,9.86,0.0,S,89000,1517.0,disponibil,nu,da,86.9
+C7-E1-12,C7,II,1,Etaj 1,3A,3,71.21,11.97,0.0,SV,108000,1517.0,disponibil,nu,da,86.9
+C7-E1-13,C7,II,1,Etaj 1,3B,3,78.23,13.15,0.0,N,116000,1483.0,vandut,nu,da,86.9
+C7-E1-14,C7,II,1,Etaj 1,2A,2,52.16,8.77,0.0,NE,77500,1486.0,disponibil,nu,da,86.9
+C7-E2-01,C7,II,2,Etaj 2,2A,2,52.16,8.77,0.0,NV,78500,1505.0,disponibil,nu,da,86.9
+C7-E2-02,C7,II,2,Etaj 2,2B,2,58.68,9.86,0.0,NV,88500,1508.0,rezervat,nu,da,86.9
+C7-E2-03,C7,II,2,Etaj 2,2B,2,58.68,9.86,0.0,SE,90500,1542.0,disponibil,nu,da,86.9
+C7-E2-04,C7,II,2,Etaj 2,3B,3,78.23,13.15,0.0,SE,120500,1540.0,disponibil,nu,da,86.9
+C7-E2-05,C7,II,2,Etaj 2,3A,3,71.21,11.97,0.0,V,107000,1503.0,disponibil,nu,da,86.9
+C7-E2-06,C7,II,2,Etaj 2,2B,2,58.68,9.86,0.0,NV,88500,1508.0,disponibil,nu,da,86.9
+C7-E2-07,C7,II,2,Etaj 2,2B,2,58.68,9.86,0.0,E,88500,1508.0,disponibil,nu,da,86.9
+C7-E2-08,C7,II,2,Etaj 2,3B,3,78.23,13.15,0.0,V,118000,1508.0,disponibil,nu,da,86.9
+C7-E2-09,C7,II,2,Etaj 2,2A,2,52.16,8.77,0.0,S,80500,1543.0,disponibil,nu,da,86.9
+C7-E2-10,C7,II,2,Etaj 2,1A,1,37.61,6.32,0.0,E,56500,1502.0,rezervat,nu,da,86.9
+C7-E2-11,C7,II,2,Etaj 2,1A,1,37.61,6.32,0.0,N,56500,1502.0,disponibil,nu,da,86.9
+C7-E2-12,C7,II,2,Etaj 2,2B,2,58.68,9.86,0.0,S,90500,1542.0,rezervat,nu,da,86.9
+C7-E2-13,C7,II,2,Etaj 2,1A,1,37.61,6.32,0.0,S,58000,1542.0,vandut,nu,da,86.9
+C7-E2-14,C7,II,2,Etaj 2,2A,2,52.16,8.77,0.0,NV,78500,1505.0,disponibil,nu,da,86.9
+C7-E3-01,C7,II,3,Etaj 3,1A,1,37.61,6.32,0.0,E,57500,1529.0,disponibil,nu,da,86.9
+C7-E3-02,C7,II,3,Etaj 3,3B,3,78.23,13.15,0.0,NE,119500,1528.0,disponibil,nu,da,86.9
+C7-E3-03,C7,II,3,Etaj 3,2B,2,58.68,9.86,0.0,SE,91500,1559.0,disponibil,nu,da,86.9
+C7-E3-04,C7,II,3,Etaj 3,2A,2,52.16,8.77,0.0,S,81500,1562.0,disponibil,nu,da,86.9
+C7-E3-05,C7,II,3,Etaj 3,2B,2,58.68,9.86,0.0,V,89500,1525.0,vandut,nu,da,86.9
+C7-E3-06,C7,II,3,Etaj 3,2A,2,52.16,8.77,0.0,N,79500,1524.0,rezervat,nu,da,86.9
+C7-E3-07,C7,II,3,Etaj 3,2A,2,52.16,8.77,0.0,N,79500,1524.0,rezervat,nu,da,86.9
+C7-E3-08,C7,II,3,Etaj 3,2B,2,58.68,9.86,0.0,E,89500,1525.0,disponibil,nu,da,86.9
+C7-E3-09,C7,II,3,Etaj 3,1A,1,37.61,6.32,0.0,E,57500,1529.0,rezervat,nu,da,86.9
+C7-E3-10,C7,II,3,Etaj 3,3B,3,78.23,13.15,0.0,E,119500,1528.0,disponibil,nu,da,86.9
+C7-E3-11,C7,II,3,Etaj 3,1A,1,37.61,6.32,0.0,NE,57500,1529.0,disponibil,nu,da,86.9
+C7-E3-12,C7,II,3,Etaj 3,3A,3,71.21,11.97,0.0,SV,111500,1566.0,rezervat,nu,da,86.9
+C7-E3-13,C7,II,3,Etaj 3,1A,1,37.61,6.32,0.0,SV,59000,1569.0,disponibil,nu,da,86.9
+C7-E3-14,C7,II,3,Etaj 3,3A,3,71.21,11.97,0.0,NE,109000,1531.0,disponibil,nu,da,86.9
+C8-P-01,C8,II,0,Parter,2B,2,58.68,0.0,36.84,N,86000,1466.0,vandut,nu,da,88.4
+C8-P-02,C8,II,0,Parter,2A,2,52.16,0.0,27.47,SE,78500,1505.0,disponibil,nu,da,88.4
+C8-P-03,C8,II,0,Parter,2A,2,52.16,8.88,0.0,V,76500,1467.0,vandut,nu,da,88.4
+C8-P-04,C8,II,0,Parter,2A,2,52.16,0.0,27.0,V,76500,1467.0,disponibil,nu,da,88.4
+C8-P-05,C8,II,0,Parter,1A,1,37.61,0.0,15.96,S,56500,1502.0,disponibil,nu,da,88.4
+C8-P-06,C8,II,0,Parter,2B,2,58.68,9.99,0.0,N,86000,1466.0,disponibil,nu,da,88.4
+C8-P-07,C8,II,0,Parter,2B,2,58.68,0.0,27.86,V,86000,1466.0,rezervat,nu,da,88.4
+C8-P-08,C8,II,0,Parter,2B,2,58.68,0.0,27.34,NE,86000,1466.0,disponibil,nu,da,88.4
+C8-P-09,C8,II,0,Parter,2A,2,52.16,8.88,0.0,SE,78500,1505.0,disponibil,nu,da,88.4
+C8-P-10,C8,II,0,Parter,2A,2,52.16,0.0,21.23,V,76500,1467.0,disponibil,nu,da,88.4
+C8-P-11,C8,II,0,Parter,3A,3,71.21,0.0,31.06,V,104500,1467.0,vandut,nu,da,88.4
+C8-P-12,C8,II,0,Parter,2A,2,52.16,8.88,0.0,NE,76500,1467.0,vandut,nu,da,88.4
+C8-P-13,C8,II,0,Parter,3B,3,78.23,0.0,28.66,NE,114500,1464.0,disponibil,nu,da,88.4
+C8-E1-01,C8,II,1,Etaj 1,1A,1,37.61,6.4,0.0,SV,57500,1529.0,rezervat,nu,da,88.4
+C8-E1-02,C8,II,1,Etaj 1,2A,2,52.16,8.88,0.0,NV,77500,1486.0,vandut,nu,da,88.4
+C8-E1-03,C8,II,1,Etaj 1,1A,1,37.61,6.4,0.0,E,56000,1489.0,rezervat,nu,da,88.4
+C8-E1-04,C8,II,1,Etaj 1,2B,2,58.68,9.99,0.0,NV,87500,1491.0,vandut,nu,da,88.4
+C8-E1-05,C8,II,1,Etaj 1,2A,2,52.16,8.88,0.0,NV,77500,1486.0,disponibil,nu,da,88.4
+C8-E1-06,C8,II,1,Etaj 1,2A,2,52.16,8.88,0.0,N,77500,1486.0,disponibil,nu,da,88.4
+C8-E1-07,C8,II,1,Etaj 1,3A,3,71.21,12.13,0.0,N,106000,1489.0,disponibil,nu,da,88.4
+C8-E1-08,C8,II,1,Etaj 1,2A,2,52.16,8.88,0.0,E,77500,1486.0,disponibil,nu,da,88.4
+C8-E1-09,C8,II,1,Etaj 1,2B,2,58.68,9.99,0.0,SE,89500,1525.0,disponibil,nu,da,88.4
+C8-E1-10,C8,II,1,Etaj 1,3B,3,78.23,13.32,0.0,N,116500,1489.0,disponibil,nu,da,88.4
+C8-E1-11,C8,II,1,Etaj 1,1A,1,37.61,6.4,0.0,NV,56000,1489.0,vandut,nu,da,88.4
+C8-E1-12,C8,II,1,Etaj 1,2B,2,58.68,9.99,0.0,E,87500,1491.0,disponibil,nu,da,88.4
+C8-E1-13,C8,II,1,Etaj 1,3A,3,71.21,12.13,0.0,SE,108500,1524.0,disponibil,nu,da,88.4
+C8-E1-14,C8,II,1,Etaj 1,2A,2,52.16,8.88,0.0,NV,77500,1486.0,vandut,nu,da,88.4
+C8-E2-01,C8,II,2,Etaj 2,2B,2,58.68,9.99,0.0,V,88500,1508.0,disponibil,nu,da,88.4
+C8-E2-02,C8,II,2,Etaj 2,3A,3,71.21,12.13,0.0,N,107500,1510.0,disponibil,nu,da,88.4
+C8-E2-03,C8,II,2,Etaj 2,2A,2,52.16,8.88,0.0,NV,79000,1515.0,disponibil,nu,da,88.4
+C8-E2-04,C8,II,2,Etaj 2,3B,3,78.23,13.32,0.0,S,121000,1547.0,disponibil,nu,da,88.4
+C8-E2-05,C8,II,2,Etaj 2,2A,2,52.16,8.88,0.0,N,79000,1515.0,disponibil,nu,da,88.4
+C8-E2-06,C8,II,2,Etaj 2,3A,3,71.21,12.13,0.0,SV,110000,1545.0,disponibil,nu,da,88.4
+C8-E2-07,C8,II,2,Etaj 2,1A,1,37.61,6.4,0.0,E,57000,1516.0,disponibil,nu,da,88.4
+C8-E2-08,C8,II,2,Etaj 2,1A,1,37.61,6.4,0.0,N,57000,1516.0,disponibil,nu,da,88.4
+C8-E2-09,C8,II,2,Etaj 2,1A,1,37.61,6.4,0.0,NE,57000,1516.0,disponibil,nu,da,88.4
+C8-E2-10,C8,II,2,Etaj 2,2A,2,52.16,8.88,0.0,E,79000,1515.0,disponibil,nu,da,88.4
+C8-E2-11,C8,II,2,Etaj 2,3B,3,78.23,13.32,0.0,V,118000,1508.0,disponibil,nu,da,88.4
+C8-E2-12,C8,II,2,Etaj 2,2A,2,52.16,8.88,0.0,V,79000,1515.0,disponibil,nu,da,88.4
+C8-E2-13,C8,II,2,Etaj 2,1A,1,37.61,6.4,0.0,SE,58000,1542.0,vandut,nu,da,88.4
+C8-E2-14,C8,II,2,Etaj 2,3B,3,78.23,13.32,0.0,NE,118000,1508.0,disponibil,nu,da,88.4
+C8-E3-01,C8,II,3,Etaj 3,1A,1,37.61,6.4,0.0,S,59000,1569.0,disponibil,nu,da,88.4
+C8-E3-02,C8,II,3,Etaj 3,1A,1,37.61,6.4,0.0,E,57500,1529.0,disponibil,nu,da,88.4
+C8-E3-03,C8,II,3,Etaj 3,2B,2,58.68,9.99,0.0,N,90000,1534.0,rezervat,nu,da,88.4
+C8-E3-04,C8,II,3,Etaj 3,2A,2,52.16,8.88,0.0,E,80000,1534.0,rezervat,nu,da,88.4
+C8-E3-05,C8,II,3,Etaj 3,2B,2,58.68,9.99,0.0,S,92000,1568.0,rezervat,nu,da,88.4
+C8-E3-06,C8,II,3,Etaj 3,3A,3,71.21,12.13,0.0,S,111500,1566.0,rezervat,nu,da,88.4
+C8-E3-07,C8,II,3,Etaj 3,1A,1,37.61,6.4,0.0,S,59000,1569.0,vandut,nu,da,88.4
+C8-E3-08,C8,II,3,Etaj 3,1A,1,37.61,6.4,0.0,N,57500,1529.0,disponibil,nu,da,88.4
+C8-E3-09,C8,II,3,Etaj 3,2B,2,58.68,9.99,0.0,SV,92000,1568.0,vandut,nu,da,88.4
+C8-E3-10,C8,II,3,Etaj 3,2A,2,52.16,8.88,0.0,N,80000,1534.0,disponibil,nu,da,88.4
+C8-E3-11,C8,II,3,Etaj 3,2B,2,58.68,9.99,0.0,NV,90000,1534.0,rezervat,nu,da,88.4
+C8-E3-12,C8,II,3,Etaj 3,3A,3,71.21,12.13,0.0,N,109000,1531.0,disponibil,nu,da,88.4
+C8-E3-13,C8,II,3,Etaj 3,3B,3,78.23,13.32,0.0,SV,122500,1566.0,disponibil,nu,da,88.4
+C8-E3-14,C8,II,3,Etaj 3,2B,2,58.68,9.99,0.0,S,92000,1568.0,disponibil,nu,da,88.4
+C9-P-01,C9,II,0,Parter,2A,2,52.17,0.0,20.64,V,77000,1476.0,disponibil,nu,da,91.4
+C9-P-02,C9,II,0,Parter,2A,2,52.17,0.0,19.39,V,77000,1476.0,rezervat,nu,da,91.4
+C9-P-03,C9,II,0,Parter,1A,1,37.62,0.0,14.85,S,56500,1502.0,vandut,nu,da,91.4
+C9-P-04,C9,II,0,Parter,2A,2,52.17,0.0,21.31,N,77000,1476.0,disponibil,nu,da,91.4
+C9-P-05,C9,II,0,Parter,1A,1,37.62,0.0,23.75,NE,55500,1475.0,disponibil,nu,da,91.4
+C9-P-06,C9,II,0,Parter,1A,1,37.62,5.06,0.0,S,56500,1502.0,vandut,nu,da,91.4
+C9-P-07,C9,II,0,Parter,2A,2,52.17,0.0,30.05,E,77000,1476.0,disponibil,nu,da,91.4
+C9-P-08,C9,II,0,Parter,2B,2,58.69,7.89,0.0,SV,88500,1508.0,rezervat,nu,da,91.4
+C9-P-09,C9,II,0,Parter,2A,2,52.17,0.0,33.64,SV,78500,1505.0,rezervat,nu,da,91.4
+C9-P-10,C9,II,0,Parter,2B,2,58.69,7.89,0.0,S,88500,1508.0,disponibil,nu,da,91.4
+C9-P-11,C9,II,0,Parter,2A,2,52.17,0.0,23.43,SV,78500,1505.0,disponibil,nu,da,91.4
+C9-E1-01,C9,II,1,Etaj 1,2A,2,52.17,7.01,0.0,SE,80000,1533.0,vandut,nu,da,91.4
+C9-E1-02,C9,II,1,Etaj 1,2A,2,52.17,7.01,0.0,NV,78000,1495.0,disponibil,nu,da,91.4
+C9-E1-03,C9,II,1,Etaj 1,3B,3,78.25,10.52,0.0,E,117000,1495.0,rezervat,nu,da,91.4
+C9-E1-04,C9,II,1,Etaj 1,1A,1,37.62,5.06,0.0,NE,56000,1489.0,disponibil,nu,da,91.4
+C9-E1-05,C9,II,1,Etaj 1,1A,1,37.62,5.06,0.0,E,56000,1489.0,disponibil,nu,da,91.4
+C9-E1-06,C9,II,1,Etaj 1,1A,1,37.62,5.06,0.0,S,57500,1528.0,rezervat,nu,da,91.4
+C9-E1-07,C9,II,1,Etaj 1,3B,3,78.25,10.52,0.0,S,119500,1527.0,rezervat,nu,da,91.4
+C9-E1-08,C9,II,1,Etaj 1,2A,2,52.17,7.01,0.0,SE,80000,1533.0,rezervat,nu,da,91.4
+C9-E1-09,C9,II,1,Etaj 1,3B,3,78.25,10.52,0.0,NV,117000,1495.0,disponibil,nu,da,91.4
+C9-E1-10,C9,II,1,Etaj 1,2B,2,58.69,7.89,0.0,NE,87500,1491.0,disponibil,nu,da,91.4
+C9-E1-11,C9,II,1,Etaj 1,3A,3,71.23,9.57,0.0,SE,109000,1530.0,disponibil,nu,da,91.4
+C9-E2-01,C9,II,2,Etaj 2,3B,3,78.25,10.52,0.0,SE,121500,1553.0,disponibil,nu,da,91.4
+C9-E2-02,C9,II,2,Etaj 2,1A,1,37.62,5.06,0.0,NV,57000,1515.0,disponibil,nu,da,91.4
+C9-E2-03,C9,II,2,Etaj 2,3A,3,71.23,9.57,0.0,S,110500,1551.0,disponibil,nu,da,91.4
+C9-E2-04,C9,II,2,Etaj 2,3A,3,71.23,9.57,0.0,E,108000,1516.0,disponibil,nu,da,91.4
+C9-E2-05,C9,II,2,Etaj 2,2A,2,52.17,7.01,0.0,NE,79000,1514.0,disponibil,nu,da,91.4
+C9-E2-06,C9,II,2,Etaj 2,2B,2,58.69,7.89,0.0,NE,89000,1516.0,vandut,nu,da,91.4
+C9-E2-07,C9,II,2,Etaj 2,2A,2,52.17,7.01,0.0,E,79000,1514.0,disponibil,nu,da,91.4
+C9-E2-08,C9,II,2,Etaj 2,2A,2,52.17,7.01,0.0,NE,79000,1514.0,disponibil,nu,da,91.4
+C9-E2-09,C9,II,2,Etaj 2,2B,2,58.69,7.89,0.0,NE,89000,1516.0,disponibil,nu,da,91.4
+C9-E2-10,C9,II,2,Etaj 2,2B,2,58.69,7.89,0.0,V,89000,1516.0,vandut,nu,da,91.4
+C9-E2-11,C9,II,2,Etaj 2,1A,1,37.62,5.06,0.0,V,57000,1515.0,disponibil,nu,da,91.4
+C9-E3-01,C9,II,3,Etaj 3,1A,1,37.62,5.06,0.0,E,58000,1542.0,disponibil,nu,da,91.4
+C9-E3-02,C9,II,3,Etaj 3,2B,2,58.69,7.89,0.0,SE,92500,1576.0,disponibil,nu,da,91.4
+C9-E3-03,C9,II,3,Etaj 3,2A,2,52.17,7.01,0.0,NV,80500,1543.0,disponibil,nu,da,91.4
+C9-E3-04,C9,II,3,Etaj 3,2A,2,52.17,7.01,0.0,V,80500,1543.0,disponibil,nu,da,91.4
+C9-E3-05,C9,II,3,Etaj 3,2B,2,58.69,7.89,0.0,E,90500,1542.0,rezervat,nu,da,91.4
+C9-E3-06,C9,II,3,Etaj 3,2B,2,58.69,7.89,0.0,SE,92500,1576.0,disponibil,nu,da,91.4
+C9-E3-07,C9,II,3,Etaj 3,1A,1,37.62,5.06,0.0,SE,59000,1568.0,disponibil,nu,da,91.4
+C9-E3-08,C9,II,3,Etaj 3,3A,3,71.23,9.57,0.0,S,112000,1572.0,disponibil,nu,da,91.4
+C9-E3-09,C9,II,3,Etaj 3,2B,2,58.69,7.89,0.0,NV,90500,1542.0,disponibil,nu,da,91.4
+C9-E3-10,C9,II,3,Etaj 3,3A,3,71.23,9.57,0.0,SV,112000,1572.0,disponibil,nu,da,91.4
+C9-E3-11,C9,II,3,Etaj 3,3A,3,71.23,9.57,0.0,NV,109500,1537.0,vandut,nu,da,91.4
+C9-E3-12,C9,II,3,Etaj 3,2B,2,58.69,7.89,0.0,SE,92500,1576.0,disponibil,nu,da,91.4
+C10-P-01,C10,II,0,Parter,2B,2,58.69,0.0,40.15,SV,89000,1516.0,disponibil,nu,da,94.4
+C10-P-02,C10,II,0,Parter,2B,2,58.69,7.82,0.0,SE,89000,1516.0,disponibil,nu,da,94.4
+C10-P-03,C10,II,0,Parter,2B,2,58.69,7.82,0.0,N,87000,1482.0,disponibil,nu,da,94.4
+C10-P-04,C10,II,0,Parter,2A,2,52.17,0.0,25.39,SV,79000,1514.0,disponibil,nu,da,94.4
+C10-P-05,C10,II,0,Parter,2A,2,52.17,0.0,33.22,NE,77500,1486.0,vandut,nu,da,94.4
+C10-P-06,C10,II,0,Parter,3A,3,71.23,0.0,36.17,SE,108000,1516.0,disponibil,nu,da,94.4
+C10-P-07,C10,II,0,Parter,3A,3,71.23,9.5,0.0,SE,108000,1516.0,disponibil,nu,da,94.4
+C10-P-08,C10,II,0,Parter,2A,2,52.17,6.96,0.0,SE,79000,1514.0,disponibil,nu,da,94.4
+C10-P-09,C10,II,0,Parter,3B,3,78.25,0.0,34.44,N,116000,1482.0,rezervat,nu,da,94.4
+C10-P-10,C10,II,0,Parter,2B,2,58.69,0.0,20.82,E,87000,1482.0,disponibil,nu,da,94.4
+C10-P-11,C10,II,0,Parter,2B,2,58.69,7.82,0.0,NV,87000,1482.0,rezervat,nu,da,94.4
+C10-E1-01,C10,II,1,Etaj 1,1A,1,37.62,5.02,0.0,NV,56500,1502.0,disponibil,nu,da,94.4
+C10-E1-02,C10,II,1,Etaj 1,2B,2,58.69,7.82,0.0,NV,88000,1499.0,disponibil,nu,da,94.4
+C10-E1-03,C10,II,1,Etaj 1,3A,3,71.23,9.5,0.0,N,107000,1502.0,disponibil,nu,da,94.4
+C10-E1-04,C10,II,1,Etaj 1,2A,2,52.17,6.96,0.0,NV,78500,1505.0,rezervat,nu,da,94.4
+C10-E1-05,C10,II,1,Etaj 1,2A,2,52.17,6.96,0.0,E,78500,1505.0,vandut,nu,da,94.4
+C10-E1-06,C10,II,1,Etaj 1,1A,1,37.62,5.02,0.0,S,58000,1542.0,vandut,nu,da,94.4
+C10-E1-07,C10,II,1,Etaj 1,3B,3,78.25,10.43,0.0,NV,117500,1502.0,disponibil,nu,da,94.4
+C10-E1-08,C10,II,1,Etaj 1,3A,3,71.23,9.5,0.0,SE,109500,1537.0,disponibil,nu,da,94.4
+C10-E1-09,C10,II,1,Etaj 1,2B,2,58.69,7.82,0.0,SE,90500,1542.0,disponibil,nu,da,94.4
+C10-E1-10,C10,II,1,Etaj 1,1A,1,37.62,5.02,0.0,NE,56500,1502.0,rezervat,nu,da,94.4
+C10-E1-11,C10,II,1,Etaj 1,1A,1,37.62,5.02,0.0,E,56500,1502.0,disponibil,nu,da,94.4
+C10-E2-01,C10,II,2,Etaj 2,1A,1,37.62,5.02,0.0,SE,58500,1555.0,disponibil,nu,da,94.4
+C10-E2-02,C10,II,2,Etaj 2,1A,1,37.62,5.02,0.0,N,57500,1528.0,disponibil,nu,da,94.4
+C10-E2-03,C10,II,2,Etaj 2,3B,3,78.25,10.43,0.0,SV,122000,1559.0,disponibil,nu,da,94.4
+C10-E2-04,C10,II,2,Etaj 2,2A,2,52.17,6.96,0.0,NV,79500,1524.0,disponibil,nu,da,94.4
+C10-E2-05,C10,II,2,Etaj 2,2B,2,58.69,7.82,0.0,E,89500,1525.0,disponibil,nu,da,94.4
+C10-E2-06,C10,II,2,Etaj 2,2B,2,58.69,7.82,0.0,V,89500,1525.0,rezervat,nu,da,94.4
+C10-E2-07,C10,II,2,Etaj 2,2B,2,58.69,7.82,0.0,NV,89500,1525.0,disponibil,nu,da,94.4
+C10-E2-08,C10,II,2,Etaj 2,1A,1,37.62,5.02,0.0,N,57500,1528.0,disponibil,nu,da,94.4
+C10-E2-09,C10,II,2,Etaj 2,1A,1,37.62,5.02,0.0,N,57500,1528.0,rezervat,nu,da,94.4
+C10-E2-10,C10,II,2,Etaj 2,2A,2,52.17,6.96,0.0,SV,81500,1562.0,disponibil,nu,da,94.4
+C10-E2-11,C10,II,2,Etaj 2,2A,2,52.17,6.96,0.0,N,79500,1524.0,disponibil,nu,da,94.4
+C10-E3-01,C10,II,3,Etaj 3,2A,2,52.17,6.96,0.0,V,80500,1543.0,disponibil,nu,da,94.4
+C10-E3-02,C10,II,3,Etaj 3,2A,2,52.17,6.96,0.0,NE,80500,1543.0,vandut,nu,da,94.4
+C10-E3-03,C10,II,3,Etaj 3,2A,2,52.17,6.96,0.0,E,80500,1543.0,disponibil,nu,da,94.4
+C10-E3-04,C10,II,3,Etaj 3,1A,1,37.62,5.02,0.0,E,58000,1542.0,rezervat,nu,da,94.4
+C10-E3-05,C10,II,3,Etaj 3,3A,3,71.23,9.5,0.0,N,110000,1544.0,disponibil,nu,da,94.4
+C10-E3-06,C10,II,3,Etaj 3,2B,2,58.69,7.82,0.0,NV,91000,1551.0,disponibil,nu,da,94.4
+C10-E3-07,C10,II,3,Etaj 3,2A,2,52.17,6.96,0.0,SV,82500,1581.0,rezervat,nu,da,94.4
+C10-E3-08,C10,II,3,Etaj 3,3B,3,78.25,10.43,0.0,N,121000,1546.0,rezervat,nu,da,94.4
+C10-E3-09,C10,II,3,Etaj 3,2A,2,52.17,6.96,0.0,SE,82500,1581.0,disponibil,nu,da,94.4
+C10-E3-10,C10,II,3,Etaj 3,2A,2,52.17,6.96,0.0,V,80500,1543.0,vandut,nu,da,94.4
+C10-E3-11,C10,II,3,Etaj 3,1A,1,37.62,5.02,0.0,V,58000,1542.0,disponibil,nu,da,94.4
+C10-E3-12,C10,II,3,Etaj 3,3A,3,71.23,9.5,0.0,NV,110000,1544.0,rezervat,nu,da,94.4
+C11-P-01,C11,II,0,Parter,2A,2,51.32,0.0,29.66,V,77000,1500.0,disponibil,da,nu,103.1
+C11-P-02,C11,II,0,Parter,2A,2,51.32,0.0,26.88,SV,79000,1539.0,disponibil,da,nu,103.1
+C11-P-03,C11,II,0,Parter,3A,3,70.07,7.71,0.0,NE,105000,1499.0,disponibil,da,nu,103.1
+C11-P-04,C11,II,0,Parter,2A,2,51.32,0.0,23.06,V,77000,1500.0,vandut,da,nu,103.1
+C11-P-05,C11,II,0,Parter,2A,2,51.32,5.64,0.0,S,79000,1539.0,disponibil,da,nu,103.1
+C11-P-06,C11,II,0,Parter,2A,2,51.32,0.0,18.27,NE,77000,1500.0,disponibil,da,nu,103.1
+C11-P-07,C11,II,0,Parter,2B,2,57.73,6.35,0.0,SE,88500,1533.0,vandut,da,nu,103.1
+C11-P-08,C11,II,0,Parter,1A,1,37.01,0.0,18.35,NV,55500,1500.0,vandut,da,nu,103.1
+C11-P-09,C11,II,0,Parter,2B,2,57.73,0.0,31.43,NV,86500,1498.0,disponibil,da,nu,103.1
+C11-P-10,C11,II,0,Parter,2A,2,51.32,0.0,20.61,SE,79000,1539.0,disponibil,da,nu,103.1
+C11-P-11,C11,II,0,Parter,3A,3,70.07,7.71,0.0,SV,107500,1534.0,disponibil,da,nu,103.1
+C11-P-12,C11,II,0,Parter,3A,3,70.07,7.71,0.0,E,105000,1499.0,rezervat,da,nu,103.1
+C11-P-13,C11,II,0,Parter,2A,2,51.32,5.64,0.0,V,77000,1500.0,disponibil,da,nu,103.1
+C11-E1-01,C11,II,1,Etaj 1,2A,2,51.32,5.64,0.0,S,80000,1559.0,disponibil,da,nu,103.1
+C11-E1-02,C11,II,1,Etaj 1,1A,1,37.01,4.07,0.0,SV,57500,1554.0,disponibil,da,nu,103.1
+C11-E1-03,C11,II,1,Etaj 1,3B,3,76.98,8.47,0.0,N,117500,1526.0,disponibil,da,nu,103.1
+C11-E1-04,C11,II,1,Etaj 1,3A,3,70.07,7.71,0.0,V,107000,1527.0,disponibil,da,nu,103.1
+C11-E1-05,C11,II,1,Etaj 1,2B,2,57.73,6.35,0.0,S,90000,1559.0,disponibil,da,nu,103.1
+C11-E1-06,C11,II,1,Etaj 1,2B,2,57.73,6.35,0.0,V,88000,1524.0,disponibil,da,nu,103.1
+C11-E1-07,C11,II,1,Etaj 1,1A,1,37.01,4.07,0.0,NE,56500,1527.0,disponibil,da,nu,103.1
+C11-E1-08,C11,II,1,Etaj 1,1A,1,37.01,4.07,0.0,SE,57500,1554.0,disponibil,da,nu,103.1
+C11-E1-09,C11,II,1,Etaj 1,2A,2,51.32,5.64,0.0,N,78000,1520.0,disponibil,da,nu,103.1
+C11-E1-10,C11,II,1,Etaj 1,2B,2,57.73,6.35,0.0,SV,90000,1559.0,disponibil,da,nu,103.1
+C11-E1-11,C11,II,1,Etaj 1,3B,3,76.98,8.47,0.0,SV,120000,1559.0,disponibil,da,nu,103.1
+C11-E1-12,C11,II,1,Etaj 1,2A,2,51.32,5.64,0.0,N,78000,1520.0,disponibil,da,nu,103.1
+C11-E1-13,C11,II,1,Etaj 1,2B,2,57.73,6.35,0.0,E,88000,1524.0,vandut,da,nu,103.1
+C11-E1-14,C11,II,1,Etaj 1,2A,2,51.32,5.64,0.0,NV,78000,1520.0,vandut,da,nu,103.1
+C11-E2-01,C11,II,2,Etaj 2,3A,3,70.07,7.71,0.0,NE,108500,1548.0,disponibil,da,nu,103.1
+C11-E2-02,C11,II,2,Etaj 2,2A,2,51.32,5.64,0.0,NE,79500,1549.0,disponibil,da,nu,103.1
+C11-E2-03,C11,II,2,Etaj 2,1A,1,37.01,4.07,0.0,SV,58500,1581.0,vandut,da,nu,103.1
+C11-E2-04,C11,II,2,Etaj 2,2B,2,57.73,6.35,0.0,V,89500,1550.0,disponibil,da,nu,103.1
+C11-E2-05,C11,II,2,Etaj 2,3B,3,76.98,8.47,0.0,V,119000,1546.0,rezervat,da,nu,103.1
+C11-E2-06,C11,II,2,Etaj 2,2A,2,51.32,5.64,0.0,SE,81000,1578.0,disponibil,da,nu,103.1
+C11-E2-07,C11,II,2,Etaj 2,2B,2,57.73,6.35,0.0,V,89500,1550.0,vandut,da,nu,103.1
+C11-E2-08,C11,II,2,Etaj 2,1A,1,37.01,4.07,0.0,NE,57000,1540.0,vandut,da,nu,103.1
+C11-E2-09,C11,II,2,Etaj 2,3B,3,76.98,8.47,0.0,N,119000,1546.0,disponibil,da,nu,103.1
+C11-E2-10,C11,II,2,Etaj 2,2B,2,57.73,6.35,0.0,V,89500,1550.0,rezervat,da,nu,103.1
+C11-E2-11,C11,II,2,Etaj 2,3A,3,70.07,7.71,0.0,V,108500,1548.0,disponibil,da,nu,103.1
+C11-E2-12,C11,II,2,Etaj 2,2A,2,51.32,5.64,0.0,S,81000,1578.0,disponibil,da,nu,103.1
+C11-E2-13,C11,II,2,Etaj 2,3B,3,76.98,8.47,0.0,N,119000,1546.0,vandut,da,nu,103.1
+C11-E2-14,C11,II,2,Etaj 2,3B,3,76.98,8.47,0.0,V,119000,1546.0,rezervat,da,nu,103.1
+C11-E3-01,C11,II,3,Etaj 3,3A,3,70.07,7.71,0.0,V,110000,1570.0,vandut,da,nu,103.1
+C11-E3-02,C11,II,3,Etaj 3,2B,2,57.73,6.35,0.0,NE,90500,1568.0,disponibil,da,nu,103.1
+C11-E3-03,C11,II,3,Etaj 3,1A,1,37.01,4.07,0.0,SV,59500,1608.0,disponibil,da,nu,103.1
+C11-E3-04,C11,II,3,Etaj 3,2B,2,57.73,6.35,0.0,S,92500,1602.0,vandut,da,nu,103.1
+C11-E3-05,C11,II,3,Etaj 3,1A,1,37.01,4.07,0.0,NV,58000,1567.0,rezervat,da,nu,103.1
+C11-E3-06,C11,II,3,Etaj 3,1A,1,37.01,4.07,0.0,N,58000,1567.0,vandut,da,nu,103.1
+C11-E3-07,C11,II,3,Etaj 3,1A,1,37.01,4.07,0.0,N,58000,1567.0,disponibil,da,nu,103.1
+C11-E3-08,C11,II,3,Etaj 3,2B,2,57.73,6.35,0.0,N,90500,1568.0,vandut,da,nu,103.1
+C11-E3-09,C11,II,3,Etaj 3,1A,1,37.01,4.07,0.0,SV,59500,1608.0,vandut,da,nu,103.1
+C11-E3-10,C11,II,3,Etaj 3,2A,2,51.32,5.64,0.0,NE,80500,1569.0,rezervat,da,nu,103.1
+C11-E3-11,C11,II,3,Etaj 3,1A,1,37.01,4.07,0.0,V,58000,1567.0,vandut,da,nu,103.1
+C11-E3-12,C11,II,3,Etaj 3,2A,2,51.32,5.64,0.0,NV,80500,1569.0,disponibil,da,nu,103.1
+C11-E3-13,C11,II,3,Etaj 3,2A,2,51.32,5.64,0.0,NE,80500,1569.0,disponibil,da,nu,103.1
+C11-E3-14,C11,II,3,Etaj 3,2B,2,57.73,6.35,0.0,N,90500,1568.0,disponibil,da,nu,103.1
+C12-P-01,C12,II,0,Parter,2B,2,57.33,6.04,0.0,E,85500,1491.0,disponibil,da,nu,100.1
+C12-P-02,C12,II,0,Parter,2A,2,50.96,5.37,0.0,NV,76000,1491.0,disponibil,da,nu,100.1
+C12-P-03,C12,II,0,Parter,3A,3,69.58,7.33,0.0,SE,106500,1531.0,disponibil,da,nu,100.1
+C12-P-04,C12,II,0,Parter,2B,2,57.33,0.0,20.83,NV,85500,1491.0,disponibil,da,nu,100.1
+C12-P-05,C12,II,0,Parter,1A,1,36.75,0.0,21.24,V,55000,1497.0,disponibil,da,nu,100.1
+C12-P-06,C12,II,0,Parter,1A,1,36.75,3.87,0.0,SV,56000,1524.0,disponibil,da,nu,100.1
+C12-P-07,C12,II,0,Parter,2A,2,50.96,0.0,23.11,NV,76000,1491.0,disponibil,da,nu,100.1
+C12-P-08,C12,II,0,Parter,3A,3,69.58,7.33,0.0,SE,106500,1531.0,disponibil,da,nu,100.1
+C12-P-09,C12,II,0,Parter,3B,3,76.44,8.05,0.0,N,114500,1498.0,rezervat,da,nu,100.1
+C12-P-10,C12,II,0,Parter,1A,1,36.75,0.0,19.42,N,55000,1497.0,disponibil,da,nu,100.1
+C12-P-11,C12,II,0,Parter,1A,1,36.75,0.0,21.94,SV,56000,1524.0,disponibil,da,nu,100.1
+C12-P-12,C12,II,0,Parter,1A,1,36.75,3.87,0.0,SE,56000,1524.0,disponibil,da,nu,100.1
+C12-P-13,C12,II,0,Parter,2A,2,50.96,0.0,21.33,NV,76000,1491.0,disponibil,da,nu,100.1
+C12-E1-01,C12,II,1,Etaj 1,2B,2,57.33,6.04,0.0,NE,87000,1518.0,disponibil,da,nu,100.1
+C12-E1-02,C12,II,1,Etaj 1,3B,3,76.44,8.05,0.0,S,118500,1550.0,disponibil,da,nu,100.1
+C12-E1-03,C12,II,1,Etaj 1,2A,2,50.96,5.37,0.0,S,79000,1550.0,disponibil,da,nu,100.1
+C12-E1-04,C12,II,1,Etaj 1,2B,2,57.33,6.04,0.0,E,87000,1518.0,vandut,da,nu,100.1
+C12-E1-05,C12,II,1,Etaj 1,2A,2,50.96,5.37,0.0,SE,79000,1550.0,disponibil,da,nu,100.1
+C12-E1-06,C12,II,1,Etaj 1,2B,2,57.33,6.04,0.0,NV,87000,1518.0,disponibil,da,nu,100.1
+C12-E1-07,C12,II,1,Etaj 1,2B,2,57.33,6.04,0.0,V,87000,1518.0,vandut,da,nu,100.1
+C12-E1-08,C12,II,1,Etaj 1,2B,2,57.33,6.04,0.0,E,87000,1518.0,disponibil,da,nu,100.1
+C12-E1-09,C12,II,1,Etaj 1,1A,1,36.75,3.87,0.0,NE,55500,1510.0,rezervat,da,nu,100.1
+C12-E1-10,C12,II,1,Etaj 1,2A,2,50.96,5.37,0.0,SV,79000,1550.0,disponibil,da,nu,100.1
+C12-E1-11,C12,II,1,Etaj 1,3A,3,69.58,7.33,0.0,E,105500,1516.0,vandut,da,nu,100.1
+C12-E1-12,C12,II,1,Etaj 1,3B,3,76.44,8.05,0.0,NE,116000,1518.0,disponibil,da,nu,100.1
+C12-E1-13,C12,II,1,Etaj 1,3A,3,69.58,7.33,0.0,E,105500,1516.0,rezervat,da,nu,100.1
+C12-E1-14,C12,II,1,Etaj 1,2A,2,50.96,5.37,0.0,V,77500,1521.0,vandut,da,nu,100.1
+C12-E1-15,C12,II,1,Etaj 1,3A,3,69.58,7.33,0.0,N,105500,1516.0,disponibil,da,nu,100.1
+C12-E2-01,C12,II,2,Etaj 2,2A,2,50.96,5.37,0.0,SE,80000,1570.0,vandut,da,nu,100.1
+C12-E2-02,C12,II,2,Etaj 2,2B,2,57.33,6.04,0.0,SE,90000,1570.0,disponibil,da,nu,100.1
+C12-E2-03,C12,II,2,Etaj 2,2B,2,57.33,6.04,0.0,SV,90000,1570.0,disponibil,da,nu,100.1
+C12-E2-04,C12,II,2,Etaj 2,2B,2,57.33,6.04,0.0,SV,90000,1570.0,rezervat,da,nu,100.1
+C12-E2-05,C12,II,2,Etaj 2,2A,2,50.96,5.37,0.0,SE,80000,1570.0,disponibil,da,nu,100.1
+C12-E2-06,C12,II,2,Etaj 2,2B,2,57.33,6.04,0.0,S,90000,1570.0,rezervat,da,nu,100.1
+C12-E2-07,C12,II,2,Etaj 2,2B,2,57.33,6.04,0.0,S,90000,1570.0,disponibil,da,nu,100.1
+C12-E2-08,C12,II,2,Etaj 2,1A,1,36.75,3.87,0.0,V,56500,1537.0,disponibil,da,nu,100.1
+C12-E2-09,C12,II,2,Etaj 2,2A,2,50.96,5.37,0.0,V,78500,1540.0,disponibil,da,nu,100.1
+C12-E2-10,C12,II,2,Etaj 2,2A,2,50.96,5.37,0.0,S,80000,1570.0,vandut,da,nu,100.1
+C12-E2-11,C12,II,2,Etaj 2,2A,2,50.96,5.37,0.0,SV,80000,1570.0,disponibil,da,nu,100.1
+C12-E2-12,C12,II,2,Etaj 2,3B,3,76.44,8.05,0.0,E,117500,1537.0,rezervat,da,nu,100.1
+C12-E2-13,C12,II,2,Etaj 2,2A,2,50.96,5.37,0.0,NE,78500,1540.0,disponibil,da,nu,100.1
+C12-E2-14,C12,II,2,Etaj 2,2A,2,50.96,5.37,0.0,V,78500,1540.0,disponibil,da,nu,100.1
+C12-E3-01,C12,II,3,Etaj 3,1A,1,36.75,3.87,0.0,NE,57500,1565.0,disponibil,da,nu,100.1
+C12-E3-02,C12,II,3,Etaj 3,1A,1,36.75,3.87,0.0,NV,57500,1565.0,disponibil,da,nu,100.1
+C12-E3-03,C12,II,3,Etaj 3,3B,3,76.44,8.05,0.0,S,122000,1596.0,disponibil,da,nu,100.1
+C12-E3-04,C12,II,3,Etaj 3,3A,3,69.58,7.33,0.0,NV,108500,1559.0,disponibil,da,nu,100.1
+C12-E3-05,C12,II,3,Etaj 3,2B,2,57.33,6.04,0.0,N,89500,1561.0,vandut,da,nu,100.1
+C12-E3-06,C12,II,3,Etaj 3,3B,3,76.44,8.05,0.0,V,119500,1563.0,disponibil,da,nu,100.1
+C12-E3-07,C12,II,3,Etaj 3,1A,1,36.75,3.87,0.0,E,57500,1565.0,disponibil,da,nu,100.1
+C12-E3-08,C12,II,3,Etaj 3,2A,2,50.96,5.37,0.0,S,81500,1599.0,disponibil,da,nu,100.1
+C12-E3-09,C12,II,3,Etaj 3,2B,2,57.33,6.04,0.0,V,89500,1561.0,disponibil,da,nu,100.1
+C12-E3-10,C12,II,3,Etaj 3,1A,1,36.75,3.87,0.0,V,57500,1565.0,disponibil,da,nu,100.1
+C12-E3-11,C12,II,3,Etaj 3,2A,2,50.96,5.37,0.0,S,81500,1599.0,vandut,da,nu,100.1
+C12-E3-12,C12,II,3,Etaj 3,3A,3,69.58,7.33,0.0,SE,111000,1595.0,disponibil,da,nu,100.1
+C12-E3-13,C12,II,3,Etaj 3,1A,1,36.75,3.87,0.0,SE,58500,1592.0,vandut,da,nu,100.1
+C12-E3-14,C12,II,3,Etaj 3,2A,2,50.96,5.37,0.0,SV,81500,1599.0,disponibil,da,nu,100.1
+C13-P-01,C13,II,0,Parter,2A,2,50.95,0.0,27.03,NV,76000,1492.0,vandut,da,nu,97.1
+C13-P-02,C13,II,0,Parter,3B,3,76.42,0.0,50.66,NE,113500,1485.0,disponibil,da,nu,97.1
+C13-P-03,C13,II,0,Parter,3B,3,76.42,8.32,0.0,NV,113500,1485.0,vandut,da,nu,97.1
+C13-P-04,C13,II,0,Parter,2A,2,50.95,5.55,0.0,NV,76000,1492.0,vandut,da,nu,97.1
+C13-P-05,C13,II,0,Parter,2B,2,57.32,6.24,0.0,S,87000,1518.0,disponibil,da,nu,97.1
+C13-P-06,C13,II,0,Parter,2B,2,57.32,6.24,0.0,NE,85000,1483.0,disponibil,da,nu,97.1
+C13-P-07,C13,II,0,Parter,2A,2,50.95,5.55,0.0,NE,76000,1492.0,vandut,da,nu,97.1
+C13-P-08,C13,II,0,Parter,1A,1,36.74,0.0,14.67,S,56000,1524.0,disponibil,da,nu,97.1
+C13-P-09,C13,II,0,Parter,2B,2,57.32,6.24,0.0,NV,85000,1483.0,disponibil,da,nu,97.1
+C13-P-10,C13,II,0,Parter,1A,1,36.74,0.0,21.01,SV,56000,1524.0,disponibil,da,nu,97.1
+C13-P-11,C13,II,0,Parter,2A,2,50.95,0.0,19.71,S,77500,1521.0,disponibil,da,nu,97.1
+C13-P-12,C13,II,0,Parter,2A,2,50.95,0.0,18.53,V,76000,1492.0,disponibil,da,nu,97.1
+C13-P-13,C13,II,0,Parter,2B,2,57.32,0.0,27.74,SE,87000,1518.0,disponibil,da,nu,97.1
+C13-E1-01,C13,II,1,Etaj 1,1A,1,36.74,4.0,0.0,NE,55500,1511.0,disponibil,da,nu,97.1
+C13-E1-02,C13,II,1,Etaj 1,3A,3,69.56,7.57,0.0,S,107500,1545.0,disponibil,da,nu,97.1
+C13-E1-03,C13,II,1,Etaj 1,2A,2,50.95,5.55,0.0,NV,77000,1511.0,disponibil,da,nu,97.1
+C13-E1-04,C13,II,1,Etaj 1,3A,3,69.56,7.57,0.0,NE,105000,1509.0,disponibil,da,nu,97.1
+C13-E1-05,C13,II,1,Etaj 1,3A,3,69.56,7.57,0.0,NE,105000,1509.0,disponibil,da,nu,97.1
+C13-E1-06,C13,II,1,Etaj 1,2A,2,50.95,5.55,0.0,NE,77000,1511.0,vandut,da,nu,97.1
+C13-E1-07,C13,II,1,Etaj 1,2B,2,57.32,6.24,0.0,SE,88500,1544.0,disponibil,da,nu,97.1
+C13-E1-08,C13,II,1,Etaj 1,1A,1,36.74,4.0,0.0,NV,55500,1511.0,disponibil,da,nu,97.1
+C13-E1-09,C13,II,1,Etaj 1,3B,3,76.42,8.32,0.0,SV,118000,1544.0,disponibil,da,nu,97.1
+C13-E1-10,C13,II,1,Etaj 1,2A,2,50.95,5.55,0.0,S,78500,1541.0,disponibil,da,nu,97.1
+C13-E1-11,C13,II,1,Etaj 1,2B,2,57.32,6.24,0.0,SE,88500,1544.0,rezervat,da,nu,97.1
+C13-E1-12,C13,II,1,Etaj 1,1A,1,36.74,4.0,0.0,S,56500,1538.0,vandut,da,nu,97.1
+C13-E1-13,C13,II,1,Etaj 1,1A,1,36.74,4.0,0.0,V,55500,1511.0,disponibil,da,nu,97.1
+C13-E1-14,C13,II,1,Etaj 1,2A,2,50.95,5.55,0.0,NV,77000,1511.0,rezervat,da,nu,97.1
+C13-E1-15,C13,II,1,Etaj 1,3B,3,76.42,8.32,0.0,NE,115500,1511.0,rezervat,da,nu,97.1
+C13-E2-01,C13,II,2,Etaj 2,3B,3,76.42,8.32,0.0,SE,119500,1564.0,rezervat,da,nu,97.1
+C13-E2-02,C13,II,2,Etaj 2,2A,2,50.95,5.55,0.0,NV,78000,1531.0,disponibil,da,nu,97.1
+C13-E2-03,C13,II,2,Etaj 2,1A,1,36.74,4.0,0.0,NE,56000,1524.0,vandut,da,nu,97.1
+C13-E2-04,C13,II,2,Etaj 2,3B,3,76.42,8.32,0.0,V,117000,1531.0,rezervat,da,nu,97.1
+C13-E2-05,C13,II,2,Etaj 2,2B,2,57.32,6.24,0.0,NV,88000,1535.0,disponibil,da,nu,97.1
+C13-E2-06,C13,II,2,Etaj 2,2B,2,57.32,6.24,0.0,NE,88000,1535.0,disponibil,da,nu,97.1
+C13-E2-07,C13,II,2,Etaj 2,2B,2,57.32,6.24,0.0,N,88000,1535.0,vandut,da,nu,97.1
+C13-E2-08,C13,II,2,Etaj 2,3A,3,69.56,7.57,0.0,N,106500,1531.0,disponibil,da,nu,97.1
+C13-E2-09,C13,II,2,Etaj 2,2A,2,50.95,5.55,0.0,NE,78000,1531.0,vandut,da,nu,97.1
+C13-E2-10,C13,II,2,Etaj 2,2A,2,50.95,5.55,0.0,SE,80000,1570.0,disponibil,da,nu,97.1
+C13-E2-11,C13,II,2,Etaj 2,2A,2,50.95,5.55,0.0,S,80000,1570.0,disponibil,da,nu,97.1
+C13-E2-12,C13,II,2,Etaj 2,2B,2,57.32,6.24,0.0,SE,90000,1570.0,disponibil,da,nu,97.1
+C13-E2-13,C13,II,2,Etaj 2,1A,1,36.74,4.0,0.0,SE,57500,1565.0,disponibil,da,nu,97.1
+C13-E2-14,C13,II,2,Etaj 2,3A,3,69.56,7.57,0.0,E,106500,1531.0,disponibil,da,nu,97.1
+C13-E3-01,C13,II,3,Etaj 3,2A,2,50.95,5.55,0.0,N,79000,1551.0,rezervat,da,nu,97.1
+C13-E3-02,C13,II,3,Etaj 3,2B,2,57.32,6.24,0.0,V,89000,1553.0,disponibil,da,nu,97.1
+C13-E3-03,C13,II,3,Etaj 3,2A,2,50.95,5.55,0.0,NE,79000,1551.0,disponibil,da,nu,97.1
+C13-E3-04,C13,II,3,Etaj 3,1A,1,36.74,4.0,0.0,S,58500,1592.0,vandut,da,nu,97.1
+C13-E3-05,C13,II,3,Etaj 3,2B,2,57.32,6.24,0.0,E,89000,1553.0,vandut,da,nu,97.1
+C13-E3-06,C13,II,3,Etaj 3,2A,2,50.95,5.55,0.0,V,79000,1551.0,rezervat,da,nu,97.1
+C13-E3-07,C13,II,3,Etaj 3,3A,3,69.56,7.57,0.0,NE,108000,1553.0,disponibil,da,nu,97.1
+C13-E3-08,C13,II,3,Etaj 3,2B,2,57.32,6.24,0.0,NE,89000,1553.0,disponibil,da,nu,97.1
+C13-E3-09,C13,II,3,Etaj 3,1A,1,36.74,4.0,0.0,N,57000,1551.0,vandut,da,nu,97.1
+C13-E3-10,C13,II,3,Etaj 3,1A,1,36.74,4.0,0.0,V,57000,1551.0,vandut,da,nu,97.1
+C13-E3-11,C13,II,3,Etaj 3,2A,2,50.95,5.55,0.0,S,81000,1590.0,vandut,da,nu,97.1
+C13-E3-12,C13,II,3,Etaj 3,2B,2,57.32,6.24,0.0,SE,91000,1588.0,vandut,da,nu,97.1
+C13-E3-13,C13,II,3,Etaj 3,3A,3,69.56,7.57,0.0,N,108000,1553.0,disponibil,da,nu,97.1
+C13-E3-14,C13,II,3,Etaj 3,1A,1,36.74,4.0,0.0,V,57000,1551.0,disponibil,da,nu,97.1
+C14-P-01,C14,II,0,Parter,2A,2,50.95,5.74,0.0,SV,77000,1511.0,disponibil,da,nu,94.1
+C14-P-02,C14,II,0,Parter,2B,2,57.32,6.46,0.0,SE,87000,1518.0,disponibil,da,nu,94.1
+C14-P-03,C14,II,0,Parter,2B,2,57.32,0.0,30.7,E,85000,1483.0,rezervat,da,nu,94.1
+C14-P-04,C14,II,0,Parter,1A,1,36.74,4.14,0.0,NV,54500,1483.0,disponibil,da,nu,94.1
+C14-P-05,C14,II,0,Parter,3A,3,69.56,0.0,34.75,SE,105500,1517.0,disponibil,da,nu,94.1
+C14-P-06,C14,II,0,Parter,3A,3,69.56,0.0,33.32,N,103000,1481.0,disponibil,da,nu,94.1
+C14-P-07,C14,II,0,Parter,2A,2,50.95,5.74,0.0,N,75500,1482.0,vandut,da,nu,94.1
+C14-P-08,C14,II,0,Parter,1A,1,36.74,0.0,12.88,SV,55500,1511.0,disponibil,da,nu,94.1
+C14-P-09,C14,II,0,Parter,1A,1,36.74,0.0,20.82,E,54500,1483.0,disponibil,da,nu,94.1
+C14-P-10,C14,II,0,Parter,1A,1,36.74,0.0,14.98,N,54500,1483.0,disponibil,da,nu,94.1
+C14-P-11,C14,II,0,Parter,2A,2,50.95,5.74,0.0,NV,75500,1482.0,vandut,da,nu,94.1
+C14-P-12,C14,II,0,Parter,3A,3,69.56,0.0,46.37,SE,105500,1517.0,rezervat,da,nu,94.1
+C14-P-13,C14,II,0,Parter,3B,3,76.42,0.0,35.13,N,113000,1479.0,disponibil,da,nu,94.1
+C14-E1-01,C14,II,1,Etaj 1,2B,2,57.32,6.46,0.0,S,88000,1535.0,disponibil,da,nu,94.1
+C14-E1-02,C14,II,1,Etaj 1,2B,2,57.32,6.46,0.0,NE,86000,1500.0,vandut,da,nu,94.1
+C14-E1-03,C14,II,1,Etaj 1,1A,1,36.74,4.14,0.0,SV,56500,1538.0,rezervat,da,nu,94.1
+C14-E1-04,C14,II,1,Etaj 1,3A,3,69.56,7.84,0.0,N,104500,1502.0,disponibil,da,nu,94.1
+C14-E1-05,C14,II,1,Etaj 1,2A,2,50.95,5.74,0.0,S,78500,1541.0,disponibil,da,nu,94.1
+C14-E1-06,C14,II,1,Etaj 1,1A,1,36.74,4.14,0.0,V,55000,1497.0,disponibil,da,nu,94.1
+C14-E1-07,C14,II,1,Etaj 1,2A,2,50.95,5.74,0.0,NV,76500,1501.0,disponibil,da,nu,94.1
+C14-E1-08,C14,II,1,Etaj 1,1A,1,36.74,4.14,0.0,NV,55000,1497.0,disponibil,da,nu,94.1
+C14-E1-09,C14,II,1,Etaj 1,2B,2,57.32,6.46,0.0,V,86000,1500.0,disponibil,da,nu,94.1
+C14-E1-10,C14,II,1,Etaj 1,2A,2,50.95,5.74,0.0,S,78500,1541.0,disponibil,da,nu,94.1
+C14-E1-11,C14,II,1,Etaj 1,1A,1,36.74,4.14,0.0,E,55000,1497.0,disponibil,da,nu,94.1
+C14-E1-12,C14,II,1,Etaj 1,2B,2,57.32,6.46,0.0,N,86000,1500.0,disponibil,da,nu,94.1
+C14-E1-13,C14,II,1,Etaj 1,3A,3,69.56,7.84,0.0,NE,104500,1502.0,disponibil,da,nu,94.1
+C14-E1-14,C14,II,1,Etaj 1,2A,2,50.95,5.74,0.0,SE,78500,1541.0,disponibil,da,nu,94.1
+C14-E1-15,C14,II,1,Etaj 1,2B,2,57.32,6.46,0.0,SE,88000,1535.0,disponibil,da,nu,94.1
+C14-E2-01,C14,II,2,Etaj 2,1A,1,36.74,4.14,0.0,NE,56000,1524.0,disponibil,da,nu,94.1
+C14-E2-02,C14,II,2,Etaj 2,1A,1,36.74,4.14,0.0,S,57500,1565.0,disponibil,da,nu,94.1
+C14-E2-03,C14,II,2,Etaj 2,2B,2,57.32,6.46,0.0,SE,89500,1561.0,disponibil,da,nu,94.1
+C14-E2-04,C14,II,2,Etaj 2,2B,2,57.32,6.46,0.0,E,87500,1527.0,disponibil,da,nu,94.1
+C14-E2-05,C14,II,2,Etaj 2,2A,2,50.95,5.74,0.0,NV,77500,1521.0,rezervat,da,nu,94.1
+C14-E2-06,C14,II,2,Etaj 2,2A,2,50.95,5.74,0.0,SV,79500,1560.0,vandut,da,nu,94.1
+C14-E2-07,C14,II,2,Etaj 2,2A,2,50.95,5.74,0.0,SE,79500,1560.0,vandut,da,nu,94.1
+C14-E2-08,C14,II,2,Etaj 2,1A,1,36.74,4.14,0.0,S,57500,1565.0,disponibil,da,nu,94.1
+C14-E2-09,C14,II,2,Etaj 2,2B,2,57.32,6.46,0.0,N,87500,1527.0,rezervat,da,nu,94.1
+C14-E2-10,C14,II,2,Etaj 2,2B,2,57.32,6.46,0.0,S,89500,1561.0,rezervat,da,nu,94.1
+C14-E2-11,C14,II,2,Etaj 2,2A,2,50.95,5.74,0.0,SE,79500,1560.0,disponibil,da,nu,94.1
+C14-E2-12,C14,II,2,Etaj 2,2B,2,57.32,6.46,0.0,V,87500,1527.0,disponibil,da,nu,94.1
+C14-E2-13,C14,II,2,Etaj 2,2B,2,57.32,6.46,0.0,S,89500,1561.0,rezervat,da,nu,94.1
+C14-E2-14,C14,II,2,Etaj 2,2A,2,50.95,5.74,0.0,S,79500,1560.0,disponibil,da,nu,94.1
+C14-E3-01,C14,II,3,Etaj 3,3B,3,76.42,8.62,0.0,E,118000,1544.0,disponibil,da,nu,94.1
+C14-E3-02,C14,II,3,Etaj 3,1A,1,36.74,4.14,0.0,NE,57000,1551.0,rezervat,da,nu,94.1
+C14-E3-03,C14,II,3,Etaj 3,3A,3,69.56,7.84,0.0,NE,107500,1545.0,disponibil,da,nu,94.1
+C14-E3-04,C14,II,3,Etaj 3,2A,2,50.95,5.74,0.0,V,79000,1551.0,disponibil,da,nu,94.1
+C14-E3-05,C14,II,3,Etaj 3,3B,3,76.42,8.62,0.0,S,121000,1583.0,disponibil,da,nu,94.1
+C14-E3-06,C14,II,3,Etaj 3,2A,2,50.95,5.74,0.0,S,80500,1580.0,disponibil,da,nu,94.1
+C14-E3-07,C14,II,3,Etaj 3,2A,2,50.95,5.74,0.0,NE,79000,1551.0,disponibil,da,nu,94.1
+C14-E3-08,C14,II,3,Etaj 3,2A,2,50.95,5.74,0.0,NE,79000,1551.0,vandut,da,nu,94.1
+C14-E3-09,C14,II,3,Etaj 3,3B,3,76.42,8.62,0.0,NE,118000,1544.0,disponibil,da,nu,94.1
+C14-E3-10,C14,II,3,Etaj 3,3A,3,69.56,7.84,0.0,N,107500,1545.0,rezervat,da,nu,94.1
+C14-E3-11,C14,II,3,Etaj 3,3B,3,76.42,8.62,0.0,NV,118000,1544.0,disponibil,da,nu,94.1
+C14-E3-12,C14,II,3,Etaj 3,2B,2,57.32,6.46,0.0,N,88500,1544.0,vandut,da,nu,94.1
+C14-E3-13,C14,II,3,Etaj 3,2A,2,50.95,5.74,0.0,NV,79000,1551.0,vandut,da,nu,94.1
+C14-E3-14,C14,II,3,Etaj 3,3B,3,76.42,8.62,0.0,SV,121000,1583.0,disponibil,da,nu,94.1
+C15-P-01,C15,III,0,Parter,2B,2,58.69,0.0,38.66,NV,87500,1491.0,in_curand,nu,da,97.0
+C15-P-02,C15,III,0,Parter,1A,1,37.62,4.95,0.0,SE,57500,1528.0,in_curand,nu,da,97.0
+C15-P-03,C15,III,0,Parter,1A,1,37.62,0.0,20.58,NE,56000,1489.0,in_curand,nu,da,97.0
+C15-P-04,C15,III,0,Parter,1A,1,37.62,0.0,16.06,E,56000,1489.0,in_curand,nu,da,97.0
+C15-P-05,C15,III,0,Parter,3B,3,78.25,0.0,40.41,N,116500,1489.0,in_curand,nu,da,97.0
+C15-P-06,C15,III,0,Parter,1A,1,37.62,4.95,0.0,NE,56000,1489.0,in_curand,nu,da,97.0
+C15-P-07,C15,III,0,Parter,3A,3,71.23,0.0,30.93,NE,106000,1488.0,in_curand,nu,da,97.0
+C15-P-08,C15,III,0,Parter,3A,3,71.23,9.37,0.0,SV,108500,1523.0,in_curand,nu,da,97.0
+C15-P-09,C15,III,0,Parter,3A,3,71.23,9.37,0.0,SE,108500,1523.0,in_curand,nu,da,97.0
+C15-P-10,C15,III,0,Parter,2B,2,58.69,0.0,30.9,E,87500,1491.0,in_curand,nu,da,97.0
+C15-P-11,C15,III,0,Parter,2A,2,52.17,6.86,0.0,N,77500,1486.0,in_curand,nu,da,97.0
+C15-E1-01,C15,III,1,Etaj 1,1A,1,37.62,4.95,0.0,S,58000,1542.0,in_curand,nu,da,97.0
+C15-E1-02,C15,III,1,Etaj 1,2B,2,58.69,7.72,0.0,N,88500,1508.0,in_curand,nu,da,97.0
+C15-E1-03,C15,III,1,Etaj 1,2B,2,58.69,7.72,0.0,SV,90500,1542.0,in_curand,nu,da,97.0
+C15-E1-04,C15,III,1,Etaj 1,1A,1,37.62,4.95,0.0,E,57000,1515.0,in_curand,nu,da,97.0
+C15-E1-05,C15,III,1,Etaj 1,2B,2,58.69,7.72,0.0,E,88500,1508.0,in_curand,nu,da,97.0
+C15-E1-06,C15,III,1,Etaj 1,2A,2,52.17,6.86,0.0,N,78500,1505.0,in_curand,nu,da,97.0
+C15-E1-07,C15,III,1,Etaj 1,1A,1,37.62,4.95,0.0,V,57000,1515.0,in_curand,nu,da,97.0
+C15-E1-08,C15,III,1,Etaj 1,2A,2,52.17,6.86,0.0,N,78500,1505.0,in_curand,nu,da,97.0
+C15-E1-09,C15,III,1,Etaj 1,2B,2,58.69,7.72,0.0,V,88500,1508.0,in_curand,nu,da,97.0
+C15-E1-10,C15,III,1,Etaj 1,2B,2,58.69,7.72,0.0,N,88500,1508.0,in_curand,nu,da,97.0
+C15-E1-11,C15,III,1,Etaj 1,2B,2,58.69,7.72,0.0,V,88500,1508.0,in_curand,nu,da,97.0
+C15-E2-01,C15,III,2,Etaj 2,2A,2,52.17,6.86,0.0,SV,81500,1562.0,in_curand,nu,da,97.0
+C15-E2-02,C15,III,2,Etaj 2,1A,1,37.62,4.95,0.0,V,57500,1528.0,in_curand,nu,da,97.0
+C15-E2-03,C15,III,2,Etaj 2,3A,3,71.23,9.37,0.0,SV,111500,1565.0,in_curand,nu,da,97.0
+C15-E2-04,C15,III,2,Etaj 2,2A,2,52.17,6.86,0.0,N,80000,1533.0,in_curand,nu,da,97.0
+C15-E2-05,C15,III,2,Etaj 2,3B,3,78.25,10.29,0.0,N,120000,1534.0,in_curand,nu,da,97.0
+C15-E2-06,C15,III,2,Etaj 2,1A,1,37.62,4.95,0.0,SV,59000,1568.0,in_curand,nu,da,97.0
+C15-E2-07,C15,III,2,Etaj 2,3A,3,71.23,9.37,0.0,SV,111500,1565.0,in_curand,nu,da,97.0
+C15-E2-08,C15,III,2,Etaj 2,2A,2,52.17,6.86,0.0,N,80000,1533.0,in_curand,nu,da,97.0
+C15-E2-09,C15,III,2,Etaj 2,3B,3,78.25,10.29,0.0,NV,120000,1534.0,in_curand,nu,da,97.0
+C15-E2-10,C15,III,2,Etaj 2,2A,2,52.17,6.86,0.0,S,81500,1562.0,in_curand,nu,da,97.0
+C15-E2-11,C15,III,2,Etaj 2,2A,2,52.17,6.86,0.0,N,80000,1533.0,in_curand,nu,da,97.0
+C15-E3-01,C15,III,3,Etaj 3,2B,2,58.69,7.72,0.0,SV,93000,1585.0,in_curand,nu,da,97.0
+C15-E3-02,C15,III,3,Etaj 3,1A,1,37.62,4.95,0.0,NV,58500,1555.0,in_curand,nu,da,97.0
+C15-E3-03,C15,III,3,Etaj 3,2A,2,52.17,6.86,0.0,NE,81000,1553.0,in_curand,nu,da,97.0
+C15-E3-04,C15,III,3,Etaj 3,3A,3,71.23,9.37,0.0,NE,110500,1551.0,in_curand,nu,da,97.0
+C15-E3-05,C15,III,3,Etaj 3,2B,2,58.69,7.72,0.0,SV,93000,1585.0,in_curand,nu,da,97.0
+C15-E3-06,C15,III,3,Etaj 3,2A,2,52.17,6.86,0.0,E,81000,1553.0,in_curand,nu,da,97.0
+C15-E3-07,C15,III,3,Etaj 3,2A,2,52.17,6.86,0.0,N,81000,1553.0,in_curand,nu,da,97.0
+C15-E3-08,C15,III,3,Etaj 3,2A,2,52.17,6.86,0.0,NE,81000,1553.0,in_curand,nu,da,97.0
+C15-E3-09,C15,III,3,Etaj 3,2B,2,58.69,7.72,0.0,SE,93000,1585.0,in_curand,nu,da,97.0
+C15-E3-10,C15,III,3,Etaj 3,2A,2,52.17,6.86,0.0,NV,81000,1553.0,in_curand,nu,da,97.0
+C15-E3-11,C15,III,3,Etaj 3,2A,2,52.17,6.86,0.0,SV,83000,1591.0,in_curand,nu,da,97.0
+C15-E3-12,C15,III,3,Etaj 3,3B,3,78.25,10.29,0.0,NE,121500,1553.0,in_curand,nu,da,97.0
+C16-P-01,C16,III,0,Parter,2A,2,52.17,0.0,28.65,V,78000,1495.0,in_curand,nu,da,100.0
+C16-P-02,C16,III,0,Parter,2A,2,52.17,0.0,35.5,NE,78000,1495.0,in_curand,nu,da,100.0
+C16-P-03,C16,III,0,Parter,2A,2,52.17,0.0,20.57,SV,80000,1533.0,in_curand,nu,da,100.0
+C16-P-04,C16,III,0,Parter,2A,2,52.17,0.0,33.28,S,80000,1533.0,in_curand,nu,da,100.0
+C16-P-05,C16,III,0,Parter,2A,2,52.17,0.0,26.08,SE,80000,1533.0,in_curand,nu,da,100.0
+C16-P-06,C16,III,0,Parter,3A,3,71.23,0.0,49.72,NE,106500,1495.0,in_curand,nu,da,100.0
+C16-P-07,C16,III,0,Parter,3B,3,78.25,10.53,0.0,SE,119500,1527.0,in_curand,nu,da,100.0
+C16-P-08,C16,III,0,Parter,2B,2,58.69,7.9,0.0,NV,87500,1491.0,in_curand,nu,da,100.0
+C16-P-09,C16,III,0,Parter,2A,2,52.17,7.02,0.0,SE,80000,1533.0,in_curand,nu,da,100.0
+C16-P-10,C16,III,0,Parter,3B,3,78.25,10.53,0.0,N,117000,1495.0,in_curand,nu,da,100.0
+C16-P-11,C16,III,0,Parter,2B,2,58.69,0.0,32.44,SV,90000,1533.0,in_curand,nu,da,100.0
+C16-E1-01,C16,III,1,Etaj 1,2B,2,58.69,7.9,0.0,E,89000,1516.0,in_curand,nu,da,100.0
+C16-E1-02,C16,III,1,Etaj 1,2B,2,58.69,7.9,0.0,SV,91000,1551.0,in_curand,nu,da,100.0
+C16-E1-03,C16,III,1,Etaj 1,3B,3,78.25,10.53,0.0,NV,118500,1514.0,in_curand,nu,da,100.0
+C16-E1-04,C16,III,1,Etaj 1,1A,1,37.62,5.06,0.0,N,57000,1515.0,in_curand,nu,da,100.0
+C16-E1-05,C16,III,1,Etaj 1,2B,2,58.69,7.9,0.0,S,91000,1551.0,in_curand,nu,da,100.0
+C16-E1-06,C16,III,1,Etaj 1,1A,1,37.62,5.06,0.0,V,57000,1515.0,in_curand,nu,da,100.0
+C16-E1-07,C16,III,1,Etaj 1,3A,3,71.23,9.58,0.0,SV,110500,1551.0,in_curand,nu,da,100.0
+C16-E1-08,C16,III,1,Etaj 1,2A,2,52.17,7.02,0.0,N,79000,1514.0,in_curand,nu,da,100.0
+C16-E1-09,C16,III,1,Etaj 1,3A,3,71.23,9.58,0.0,SV,110500,1551.0,in_curand,nu,da,100.0
+C16-E1-10,C16,III,1,Etaj 1,2A,2,52.17,7.02,0.0,N,79000,1514.0,in_curand,nu,da,100.0
+C16-E1-11,C16,III,1,Etaj 1,2B,2,58.69,7.9,0.0,NV,89000,1516.0,in_curand,nu,da,100.0
+C16-E2-01,C16,III,2,Etaj 2,2A,2,52.17,7.02,0.0,E,80500,1543.0,in_curand,nu,da,100.0
+C16-E2-02,C16,III,2,Etaj 2,2B,2,58.69,7.9,0.0,NV,90500,1542.0,in_curand,nu,da,100.0
+C16-E2-03,C16,III,2,Etaj 2,1A,1,37.62,5.06,0.0,E,58000,1542.0,in_curand,nu,da,100.0
+C16-E2-04,C16,III,2,Etaj 2,2B,2,58.69,7.9,0.0,N,90500,1542.0,in_curand,nu,da,100.0
+C16-E2-05,C16,III,2,Etaj 2,1A,1,37.62,5.06,0.0,NE,58000,1542.0,in_curand,nu,da,100.0
+C16-E2-06,C16,III,2,Etaj 2,1A,1,37.62,5.06,0.0,E,58000,1542.0,in_curand,nu,da,100.0
+C16-E2-07,C16,III,2,Etaj 2,2B,2,58.69,7.9,0.0,SV,92500,1576.0,in_curand,nu,da,100.0
+C16-E2-08,C16,III,2,Etaj 2,2A,2,52.17,7.02,0.0,SV,82000,1572.0,in_curand,nu,da,100.0
+C16-E2-09,C16,III,2,Etaj 2,3A,3,71.23,9.58,0.0,S,112000,1572.0,in_curand,nu,da,100.0
+C16-E2-10,C16,III,2,Etaj 2,2A,2,52.17,7.02,0.0,N,80500,1543.0,in_curand,nu,da,100.0
+C16-E2-11,C16,III,2,Etaj 2,3A,3,71.23,9.58,0.0,NV,109500,1537.0,in_curand,nu,da,100.0
+C16-E3-01,C16,III,3,Etaj 3,1A,1,37.62,5.06,0.0,SE,60000,1595.0,in_curand,nu,da,100.0
+C16-E3-02,C16,III,3,Etaj 3,2A,2,52.17,7.02,0.0,SE,83500,1601.0,in_curand,nu,da,100.0
+C16-E3-03,C16,III,3,Etaj 3,1A,1,37.62,5.06,0.0,SV,60000,1595.0,in_curand,nu,da,100.0
+C16-E3-04,C16,III,3,Etaj 3,1A,1,37.62,5.06,0.0,SV,60000,1595.0,in_curand,nu,da,100.0
+C16-E3-05,C16,III,3,Etaj 3,2B,2,58.69,7.9,0.0,E,91500,1559.0,in_curand,nu,da,100.0
+C16-E3-06,C16,III,3,Etaj 3,3A,3,71.23,9.58,0.0,NE,111000,1558.0,in_curand,nu,da,100.0
+C16-E3-07,C16,III,3,Etaj 3,2B,2,58.69,7.9,0.0,N,91500,1559.0,in_curand,nu,da,100.0
+C16-E3-08,C16,III,3,Etaj 3,3B,3,78.25,10.53,0.0,S,125000,1597.0,in_curand,nu,da,100.0
+C16-E3-09,C16,III,3,Etaj 3,2A,2,52.17,7.02,0.0,N,81500,1562.0,in_curand,nu,da,100.0
+C16-E3-10,C16,III,3,Etaj 3,1A,1,37.62,5.06,0.0,N,58500,1555.0,in_curand,nu,da,100.0
+C16-E3-11,C16,III,3,Etaj 3,1A,1,37.62,5.06,0.0,S,60000,1595.0,in_curand,nu,da,100.0
+C16-E3-12,C16,III,3,Etaj 3,2A,2,52.17,7.02,0.0,SE,83500,1601.0,in_curand,nu,da,100.0
+C17-P-01,C17,III,0,Parter,3A,3,71.23,8.84,0.0,NV,107000,1502.0,in_curand,nu,da,103.0
+C17-P-02,C17,III,0,Parter,1A,1,37.62,0.0,19.75,NV,56500,1502.0,in_curand,nu,da,103.0
+C17-P-03,C17,III,0,Parter,2A,2,52.17,0.0,31.5,V,78500,1505.0,in_curand,nu,da,103.0
+C17-P-04,C17,III,0,Parter,3A,3,71.23,0.0,32.43,S,109500,1537.0,in_curand,nu,da,103.0
+C17-P-05,C17,III,0,Parter,2A,2,52.17,6.47,0.0,SV,80000,1533.0,in_curand,nu,da,103.0
+C17-P-06,C17,III,0,Parter,3A,3,71.23,8.84,0.0,NE,107000,1502.0,in_curand,nu,da,103.0
+C17-P-07,C17,III,0,Parter,1A,1,37.62,4.67,0.0,NE,56500,1502.0,in_curand,nu,da,103.0
+C17-P-08,C17,III,0,Parter,3B,3,78.25,9.71,0.0,S,120500,1540.0,in_curand,nu,da,103.0
+C17-P-09,C17,III,0,Parter,2A,2,52.17,0.0,24.81,SV,80000,1533.0,in_curand,nu,da,103.0
+C17-P-10,C17,III,0,Parter,2A,2,52.17,6.47,0.0,V,78500,1505.0,in_curand,nu,da,103.0
+C17-P-11,C17,III,0,Parter,3B,3,78.25,9.71,0.0,V,117500,1502.0,in_curand,nu,da,103.0
+C17-E1-01,C17,III,1,Etaj 1,1A,1,37.62,4.67,0.0,SV,58500,1555.0,in_curand,nu,da,103.0
+C17-E1-02,C17,III,1,Etaj 1,1A,1,37.62,4.67,0.0,E,57500,1528.0,in_curand,nu,da,103.0
+C17-E1-03,C17,III,1,Etaj 1,2A,2,52.17,6.47,0.0,S,81500,1562.0,in_curand,nu,da,103.0
+C17-E1-04,C17,III,1,Etaj 1,2A,2,52.17,6.47,0.0,E,79500,1524.0,in_curand,nu,da,103.0
+C17-E1-05,C17,III,1,Etaj 1,3A,3,71.23,8.84,0.0,E,108500,1523.0,in_curand,nu,da,103.0
+C17-E1-06,C17,III,1,Etaj 1,3A,3,71.23,8.84,0.0,NE,108500,1523.0,in_curand,nu,da,103.0
+C17-E1-07,C17,III,1,Etaj 1,2B,2,58.69,7.28,0.0,NE,89500,1525.0,in_curand,nu,da,103.0
+C17-E1-08,C17,III,1,Etaj 1,2B,2,58.69,7.28,0.0,V,89500,1525.0,in_curand,nu,da,103.0
+C17-E1-09,C17,III,1,Etaj 1,2B,2,58.69,7.28,0.0,SV,91500,1559.0,in_curand,nu,da,103.0
+C17-E1-10,C17,III,1,Etaj 1,2B,2,58.69,7.28,0.0,NV,89500,1525.0,in_curand,nu,da,103.0
+C17-E1-11,C17,III,1,Etaj 1,2B,2,58.69,7.28,0.0,S,91500,1559.0,in_curand,nu,da,103.0
+C17-E2-01,C17,III,2,Etaj 2,2B,2,58.69,7.28,0.0,V,90500,1542.0,in_curand,nu,da,103.0
+C17-E2-02,C17,III,2,Etaj 2,2B,2,58.69,7.28,0.0,E,90500,1542.0,in_curand,nu,da,103.0
+C17-E2-03,C17,III,2,Etaj 2,3A,3,71.23,8.84,0.0,N,110000,1544.0,in_curand,nu,da,103.0
+C17-E2-04,C17,III,2,Etaj 2,3B,3,78.25,9.71,0.0,NE,121000,1546.0,in_curand,nu,da,103.0
+C17-E2-05,C17,III,2,Etaj 2,2A,2,52.17,6.47,0.0,SE,82500,1581.0,in_curand,nu,da,103.0
+C17-E2-06,C17,III,2,Etaj 2,1A,1,37.62,4.67,0.0,V,58000,1542.0,in_curand,nu,da,103.0
+C17-E2-07,C17,III,2,Etaj 2,1A,1,37.62,4.67,0.0,V,58000,1542.0,in_curand,nu,da,103.0
+C17-E2-08,C17,III,2,Etaj 2,2B,2,58.69,7.28,0.0,N,90500,1542.0,in_curand,nu,da,103.0
+C17-E2-09,C17,III,2,Etaj 2,1A,1,37.62,4.67,0.0,SE,59500,1582.0,in_curand,nu,da,103.0
+C17-E2-10,C17,III,2,Etaj 2,1A,1,37.62,4.67,0.0,V,58000,1542.0,in_curand,nu,da,103.0
+C17-E2-11,C17,III,2,Etaj 2,2B,2,58.69,7.28,0.0,SE,93000,1585.0,in_curand,nu,da,103.0
+C17-E3-01,C17,III,3,Etaj 3,1A,1,37.62,4.67,0.0,S,60500,1608.0,in_curand,nu,da,103.0
+C17-E3-02,C17,III,3,Etaj 3,2B,2,58.69,7.28,0.0,N,92000,1568.0,in_curand,nu,da,103.0
+C17-E3-03,C17,III,3,Etaj 3,2A,2,52.17,6.47,0.0,NV,82000,1572.0,in_curand,nu,da,103.0
+C17-E3-04,C17,III,3,Etaj 3,1A,1,37.62,4.67,0.0,SE,60500,1608.0,in_curand,nu,da,103.0
+C17-E3-05,C17,III,3,Etaj 3,2A,2,52.17,6.47,0.0,NV,82000,1572.0,in_curand,nu,da,103.0
+C17-E3-06,C17,III,3,Etaj 3,3B,3,78.25,9.71,0.0,S,125500,1604.0,in_curand,nu,da,103.0
+C17-E3-07,C17,III,3,Etaj 3,2A,2,52.17,6.47,0.0,NE,82000,1572.0,in_curand,nu,da,103.0
+C17-E3-08,C17,III,3,Etaj 3,2B,2,58.69,7.28,0.0,NV,92000,1568.0,in_curand,nu,da,103.0
+C17-E3-09,C17,III,3,Etaj 3,2A,2,52.17,6.47,0.0,S,83500,1601.0,in_curand,nu,da,103.0
+C17-E3-10,C17,III,3,Etaj 3,2A,2,52.17,6.47,0.0,E,82000,1572.0,in_curand,nu,da,103.0
+C17-E3-11,C17,III,3,Etaj 3,2A,2,52.17,6.47,0.0,S,83500,1601.0,in_curand,nu,da,103.0
+C17-E3-12,C17,III,3,Etaj 3,2A,2,52.17,6.47,0.0,N,82000,1572.0,in_curand,nu,da,103.0
+C18-P-01,C18,III,0,Parter,2B,2,58.69,7.33,0.0,NV,88500,1508.0,in_curand,nu,da,106.0
+C18-P-02,C18,III,0,Parter,2A,2,52.17,6.52,0.0,E,79000,1514.0,in_curand,nu,da,106.0
+C18-P-03,C18,III,0,Parter,2B,2,58.69,0.0,24.4,NV,88500,1508.0,in_curand,nu,da,106.0
+C18-P-04,C18,III,0,Parter,1A,1,37.62,4.7,0.0,N,57000,1515.0,in_curand,nu,da,106.0
+C18-P-05,C18,III,0,Parter,2A,2,52.17,6.52,0.0,V,79000,1514.0,in_curand,nu,da,106.0
+C18-P-06,C18,III,0,Parter,2A,2,52.17,0.0,30.53,S,80500,1543.0,in_curand,nu,da,106.0
+C18-P-07,C18,III,0,Parter,1A,1,37.62,4.7,0.0,SV,58000,1542.0,in_curand,nu,da,106.0
+C18-P-08,C18,III,0,Parter,2B,2,58.69,0.0,21.18,SV,90500,1542.0,in_curand,nu,da,106.0
+C18-P-09,C18,III,0,Parter,2B,2,58.69,0.0,27.0,S,90500,1542.0,in_curand,nu,da,106.0
+C18-P-10,C18,III,0,Parter,3A,3,71.23,8.9,0.0,NV,107500,1509.0,in_curand,nu,da,106.0
+C18-P-11,C18,III,0,Parter,3A,3,71.23,8.9,0.0,S,110000,1544.0,in_curand,nu,da,106.0
+C18-E1-01,C18,III,1,Etaj 1,2A,2,52.17,6.52,0.0,E,80000,1533.0,in_curand,nu,da,106.0
+C18-E1-02,C18,III,1,Etaj 1,2B,2,58.69,7.33,0.0,N,90000,1533.0,in_curand,nu,da,106.0
+C18-E1-03,C18,III,1,Etaj 1,2B,2,58.69,7.33,0.0,SV,92000,1568.0,in_curand,nu,da,106.0
+C18-E1-04,C18,III,1,Etaj 1,1A,1,37.62,4.7,0.0,N,57500,1528.0,in_curand,nu,da,106.0
+C18-E1-05,C18,III,1,Etaj 1,1A,1,37.62,4.7,0.0,NV,57500,1528.0,in_curand,nu,da,106.0
+C18-E1-06,C18,III,1,Etaj 1,2B,2,58.69,7.33,0.0,SV,92000,1568.0,in_curand,nu,da,106.0
+C18-E1-07,C18,III,1,Etaj 1,2B,2,58.69,7.33,0.0,V,90000,1533.0,in_curand,nu,da,106.0
+C18-E1-08,C18,III,1,Etaj 1,3B,3,78.25,9.77,0.0,N,120000,1534.0,in_curand,nu,da,106.0
+C18-E1-09,C18,III,1,Etaj 1,2A,2,52.17,6.52,0.0,NE,80000,1533.0,in_curand,nu,da,106.0
+C18-E1-10,C18,III,1,Etaj 1,3A,3,71.23,8.9,0.0,S,111500,1565.0,in_curand,nu,da,106.0
+C18-E1-11,C18,III,1,Etaj 1,1A,1,37.62,4.7,0.0,SE,59000,1568.0,in_curand,nu,da,106.0
+C18-E2-01,C18,III,2,Etaj 2,3B,3,78.25,9.77,0.0,SV,124500,1591.0,in_curand,nu,da,106.0
+C18-E2-02,C18,III,2,Etaj 2,2A,2,52.17,6.52,0.0,N,81000,1553.0,in_curand,nu,da,106.0
+C18-E2-03,C18,III,2,Etaj 2,1A,1,37.62,4.7,0.0,SV,60000,1595.0,in_curand,nu,da,106.0
+C18-E2-04,C18,III,2,Etaj 2,2A,2,52.17,6.52,0.0,SE,83000,1591.0,in_curand,nu,da,106.0
+C18-E2-05,C18,III,2,Etaj 2,1A,1,37.62,4.7,0.0,SV,60000,1595.0,in_curand,nu,da,106.0
+C18-E2-06,C18,III,2,Etaj 2,3A,3,71.23,8.9,0.0,S,113000,1586.0,in_curand,nu,da,106.0
+C18-E2-07,C18,III,2,Etaj 2,1A,1,37.62,4.7,0.0,V,58500,1555.0,in_curand,nu,da,106.0
+C18-E2-08,C18,III,2,Etaj 2,1A,1,37.62,4.7,0.0,V,58500,1555.0,in_curand,nu,da,106.0
+C18-E2-09,C18,III,2,Etaj 2,3B,3,78.25,9.77,0.0,V,121500,1553.0,in_curand,nu,da,106.0
+C18-E2-10,C18,III,2,Etaj 2,1A,1,37.62,4.7,0.0,NV,58500,1555.0,in_curand,nu,da,106.0
+C18-E2-11,C18,III,2,Etaj 2,2A,2,52.17,6.52,0.0,NE,81000,1553.0,in_curand,nu,da,106.0
+C18-E3-01,C18,III,3,Etaj 3,2A,2,52.17,6.52,0.0,NE,82000,1572.0,in_curand,nu,da,106.0
+C18-E3-02,C18,III,3,Etaj 3,2B,2,58.69,7.33,0.0,NE,92500,1576.0,in_curand,nu,da,106.0
+C18-E3-03,C18,III,3,Etaj 3,2A,2,52.17,6.52,0.0,SE,84000,1610.0,in_curand,nu,da,106.0
+C18-E3-04,C18,III,3,Etaj 3,2A,2,52.17,6.52,0.0,N,82000,1572.0,in_curand,nu,da,106.0
+C18-E3-05,C18,III,3,Etaj 3,3A,3,71.23,8.9,0.0,SE,115000,1614.0,in_curand,nu,da,106.0
+C18-E3-06,C18,III,3,Etaj 3,2A,2,52.17,6.52,0.0,S,84000,1610.0,in_curand,nu,da,106.0
+C18-E3-07,C18,III,3,Etaj 3,3A,3,71.23,8.9,0.0,SV,115000,1614.0,in_curand,nu,da,106.0
+C18-E3-08,C18,III,3,Etaj 3,3B,3,78.25,9.77,0.0,SE,126000,1610.0,in_curand,nu,da,106.0
+C18-E3-09,C18,III,3,Etaj 3,2A,2,52.17,6.52,0.0,V,82000,1572.0,in_curand,nu,da,106.0
+C18-E3-10,C18,III,3,Etaj 3,2A,2,52.17,6.52,0.0,V,82000,1572.0,in_curand,nu,da,106.0
+C18-E3-11,C18,III,3,Etaj 3,2B,2,58.69,7.33,0.0,S,94500,1610.0,in_curand,nu,da,106.0
+C18-E3-12,C18,III,3,Etaj 3,2B,2,58.69,7.33,0.0,SV,94500,1610.0,in_curand,nu,da,106.0
