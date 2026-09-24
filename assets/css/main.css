@@ -66,7 +66,7 @@ body {
 
 h1, h2, h3, h4 { font-family: var(--ec-disp); font-weight: 500; margin: 0; line-height: 1.15; }
 p { margin: 0; text-wrap: pretty; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 
