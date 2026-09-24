@@ -1189,3 +1189,39 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-type__plan .pf, .ec-planbox .pf { stroke: #fff; stroke-width: 3.4; }
 .ec-type__plan .pu, .ec-planbox .pu { stroke: #fff; stroke-width: 3.6; }
 .ec-type__plan .pua, .ec-planbox .pua { fill: none; stroke: var(--ec-ink-30); stroke-width: .7; }
+
+/* ==========================================================================
+   Pictograma pe randul cifrei + colturi rotunjite
+   ========================================================================== */
+
+.ec-statrow { display: flex; align-items: center; gap: .7rem; }
+.ec-statrow svg { color: var(--ec-brass); flex: none; }
+.ec-statrow b { line-height: 1; }
+/* etichetele raman simple, fara pictograma dublata */
+.ec-manifest__stats > div > span,
+.ec-foot__stats span,
+.ec-hstat span { display: block; }
+
+:root { --ec-r: 7px; }
+
+/* containere care isi taie celulele: rotunjesc doar marginea exterioara */
+.ec-specs, .ec-fac, .ec-steps, .ec-pois, .ec-hstats, .ec-manifest__stats,
+.ec-types, .ec-cards, .ec-why, .ec-silo, .ec-harta, .ec-foot__stats,
+.ec-foot__reach, .ec-avail__grid {
+  border-radius: var(--ec-r); overflow: hidden;
+}
+/* piese de sine statatoare */
+.ec-block, .ec-stage, .ec-unit, .ec-type, .ec-panel, .ec-form, .ec-calc,
+.ec-table, .ec-faq, .ec-spot, .ec-av, .ec-facw__vis, .ec-media, .ec-planbox,
+.ec-plan, .ec-prose, .ec-empty, .ec-cmp, .ec-silo__c, .ec-finder__bar,
+.ec-filters, .ec-type__plan, .ec-harta__panza {
+  border-radius: var(--ec-r); overflow: hidden;
+}
+.ec-pricebar { border-radius: 0 var(--ec-r) var(--ec-r) 0; }
+.ec-strip { border-radius: var(--ec-r); }
+.ec-form input, .ec-form textarea { border-radius: 5px; }
+.ec-tag, .ec-stage__tag, .ec-av__tag { border-radius: 4px; }
+.ec-statrow svg { stroke-width: 1.4; }
+.ec-statrow { gap: .85rem; }
+/* in footer, pe fundal inchis, pictograma are nevoie de mai mult contrast */
+.ec-foot__stats .ec-statrow svg { color: var(--ec-brass); opacity: .95; }

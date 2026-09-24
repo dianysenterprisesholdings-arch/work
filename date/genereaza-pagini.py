@@ -179,7 +179,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       </div>
       <div class="ec-foot__reach">
         <a class="ec-foot__r" href="tel:{TEL}">
-          <span>Sună direct</span><b>{TEL_AFIS}</b>
+          <span>Sună direct</span><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg><b>{TEL_AFIS}</b>
         </a>
         <a class="ec-foot__r" href="{WA}">
           <span>Scrie pe WhatsApp</span><b>Răspundem azi</b>
@@ -194,10 +194,10 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
     </div>
 
     <div class="ec-foot__stats">
-      <div><b>925</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
-      <div><b>18</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg> Blocuri, parter + 3 etaje</span></div>
-      <div><b>30,85%</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-13 0 9-5 13-14 13z"/><path d="M5 19c3-4 6-6 10-7.5"/></svg> Spațiu verde</span></div>
-      <div><b>940</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M6 17V9l2-4h8l2 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg> Locuri de parcare</span></div>
+      <div><b>925</b></div><span>Apartamente</span></div>
+      <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg><b>18</b></div><span>Blocuri, parter + 3 etaje</span></div>
+      <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-13 0 9-5 13-14 13z"/><path d="M5 19c3-4 6-6 10-7.5"/></svg><b>30,85%</b></div><span>Spațiu verde</span></div>
+      <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M6 17V9l2-4h8l2 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg><b>940</b></div><span>Locuri de parcare</span></div>
     </div>
 
     <div class="ec-foot__grid">
@@ -442,7 +442,7 @@ def plan_interactiv(tip, nr_camere, r):
         spots += (f'<button class="ec-plan__spot" style="left:{c["x"]}%;top:{c["y"]}%" '
                   f'data-i="{i}" aria-label="{e(et)}">{i}</button>')
         legenda += (f'<li data-i="{i}"><i>{i}</i><span>{c["nume"]}</span>'
-                    f'<b>{mp(c["aria"])}</b></li>')
+                    f'<div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg><b>{mp(c["aria"])}</b></li>')
 
     return f"""<div class="ec-plan" data-plan>
   <figure class="ec-plan__fig">
@@ -1024,8 +1024,8 @@ def pagina_hub(unitati, grupe):
       Alege mai jos după numărul de camere, sau mergi direct la lista completă cu filtre.
     </p>
     <div class="ec-hstats">
-      <div class="ec-hstat"><b>{len(unitati)}</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
-      <div class="ec-hstat"><b>{len(disp_tot)}</b><span>Disponibile acum</span></div>
+      <div class="ec-hstat"><b>{len(unitati)}</b></div><span>Apartamente</span></div>
+      <div class="ec-hstat"><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg><b>{len(disp_tot)}</b><span>Disponibile acum</span></div>
       <div class="ec-hstat"><b>{mp(su_min)} – {mp(su_max)}</b><span>Suprafață utilă</span></div>
       <div class="ec-hstat"><b>{euro(p_min)}</b><span>Preț de pornire</span></div>
     </div>
@@ -1581,8 +1581,8 @@ def pagina_proiect():
       cartierul în care locuiești.
     </p>
     <div class="ec-hstats">
-      <div class="ec-hstat"><b>925</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
-      <div class="ec-hstat"><b>18</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg> Blocuri</span></div>
+      <div class="ec-hstat"><b>925</b></div><span>Apartamente</span></div>
+      <div class="ec-hstat"><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg><b>18</b></div><span>Blocuri</span></div>
       <div class="ec-hstat"><b>5,02 ha</b><span>Suprafață teren</span></div>
       <div class="ec-hstat"><b>3</b><span>Etape de construcție</span></div>
     </div>
