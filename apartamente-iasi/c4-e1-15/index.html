@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="../../assets/css/main.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Apartment", "@id": "https://emerald-city.ro/apartamente-iasi/c4-e1-15/#apartament", "name": "Apartament 1 cameră, 36,6 m² — blocul 4, etaj 1", "numberOfRooms": 1, "floorSize": {"@type": "QuantitativeValue", "value": 36.6, "unitCode": "MTK"}, "floorLevel": "1", "url": "https://emerald-city.ro/apartamente-iasi/c4-e1-15/", "address": {"@type": "PostalAddress", "streetAddress": "Strada Ion Nistor", "addressLocality": "Iași", "addressRegion": "Iași", "addressCountry": "RO"}, "containedInPlace": {"@id": "https://emerald-city.ro/#ansamblu"}, "amenityFeature": [{"@type": "LocationFeatureSpecification", "name": "Balcon", "value": true}, {"@type": "LocationFeatureSpecification", "name": "Boxă", "value": true}, {"@type": "LocationFeatureSpecification", "name": "Parcare subterană", "value": false}], "offers": {"@type": "Offer", "price": "54500", "priceCurrency": "EUR", "availability": "https://schema.org/InStock", "seller": {"@id": "https://emerald-city.ro/#dezvoltator"}}}</script>
 </head>
-<body>
+<body data-radacina="../../">
 
 <div class="ec-topbar">
   <div class="ec-topbar__in">
@@ -64,7 +64,7 @@
       <div class="ec-pricebar__p">54.500 €</div>
       <div class="ec-pricebar__s">1489 €/m² · TVA 9% inclus · avans 15%</div>
     </div>
-    <div class="ec-pricebar__cta"><a class="ec-btn ec-btn--brass" href="#cere-detalii">Cere detalii</a><a class="ec-btn ec-btn--wa" href="https://wa.me/40000000000">WhatsApp</a></div>
+    <div class="ec-pricebar__cta"><button class="ec-save" data-save="C4-E1-15" type="button" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2h8v12l-4-3-4 3z"/></svg><span data-save-t>Salvează</span></button><a class="ec-btn ec-btn--brass" href="#cere-detalii">Cere detalii</a><a class="ec-btn ec-btn--wa" href="https://wa.me/40000000000">WhatsApp</a></div>
   </div>
 
   <section class="ec-section" style="padding-block:2.5rem">
@@ -96,6 +96,51 @@
     </div>
   </div>
 
+  <div class="ec-split" style="margin-bottom:var(--ec-gap)">
+    <div class="ec-calc" data-calc-rata data-pret="54500">
+  <h3>Cât ar fi rata lunară</h3>
+  <p class="ec-calc__sub">Simulare orientativă pentru un credit ipotecar. Nu este o ofertă de creditare.</p>
+  <div class="ec-calc__f">
+    <div>
+      <label>Avans <span class="val" data-oav></span></label>
+      <input type="range" data-av min="15" max="60" step="5" value="15">
+    </div>
+    <div>
+      <label>Dobândă anuală <span class="val" data-odob></span></label>
+      <input type="range" data-dob min="4" max="9" step="0.1" value="6">
+    </div>
+    <div>
+      <label>Perioadă <span class="val" data-oani></span></label>
+      <input type="range" data-ani min="5" max="30" step="1" value="30">
+    </div>
+    <div>
+      <label>Sumă finanțată <span class="val" data-ocredit></span></label>
+      <p style="font-size:var(--ec-small);color:var(--ec-ink-60);margin-top:.6rem">
+        Diferența dintre preț și avans.</p>
+    </div>
+  </div>
+  <div class="ec-calc__out">
+    <div class="ec-calc__o"><b class="big" data-orata></b><span>Rată lunară</span></div>
+    <div class="ec-calc__o"><b data-ototal></b><span>Cost total</span></div>
+    <div class="ec-calc__o">
+      <a class="ec-btn ec-btn--out" href="tel:+40000000000">Discută cu un consultant</a>
+    </div>
+  </div>
+  <p class="ec-calc__note">
+    Calculul folosește formula de anuitate și nu include comisioane, asigurări sau taxe notariale.
+    Dobânda reală depinde de bancă și de profilul tău.
+  </p>
+</div>
+    <div class="ec-calc" style="display:flex;flex-direction:column;justify-content:center">
+      <h3>Îl cumperi ca investiție?</h3>
+      <p class="ec-calc__sub">Vezi ce randament ar aduce închiriat, cu chiriile actuale din zona Păcurari.</p>
+      <p><a class="ec-btn ec-btn--brass" href="../../investitie-apartamente-iasi/?pret=54500&amp;su=36.6">
+        Calculator de randament
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a></p>
+    </div>
+  </div>
+
   <div class="ec-split" style="margin-bottom:var(--ec-gap)" id="cere-detalii">
     <div class="ec-form">
   <h2 class="ec-title" style="font-size:1.2rem">Cere detalii</h2>
@@ -113,10 +158,13 @@
   </form>
 </div>
     <figure style="margin:0;overflow:hidden">
-      <img src="../../assets/img/living-02.jpg"
-           srcset="../../assets/img/living-02-800.jpg 800w, ../../assets/img/living-02.jpg 1600w"
-           sizes="(max-width: 62rem) 100vw, 50vw"
-           alt="Amenajare orientativă pentru tipologia 1A" loading="lazy" width="1600" height="900">
+      <picture>
+  <source type="image/webp" srcset="../../assets/img/living-02-800.webp 800w, ../../assets/img/living-02.webp 1600w" sizes="(max-width: 62rem) 100vw, 50vw">
+  <img src="../../assets/img/living-02.jpg"
+       srcset="../../assets/img/living-02-800.jpg 800w, ../../assets/img/living-02.jpg 1600w" sizes="(max-width: 62rem) 100vw, 50vw"
+       alt="Amenajare orientativă pentru tipologia 1A" width="1600" height="900" loading="lazy" decoding="async" style="background:#DCE7DE url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwAskkNkSsRQiRiQOcdMCmzuwwqFnbPKjrUnheZxYugb5RIeMVqXsUcsUjSIC3XPvUFGBi7bkYUdgRRUpmkV2QOdqsQB6CipKsf/2Q==) center/cover"
+       onload="this.style.background='none'">
+</picture>
     </figure>
   </div>
 
@@ -185,6 +233,7 @@
           <li><a href="../../apartamente-iasi/apartamente-2-camere/">2 camere</a></li>
           <li><a href="../../apartamente-iasi/apartamente-3-camere/">3 camere</a></li>
           <li><a href="../../apartamente-iasi/disponibilitate/">Disponibilitate</a></li>
+          <li><a href="../../investitie-apartamente-iasi/">Investiție</a></li>
         </ul>
       </div>
       <div>
@@ -251,6 +300,24 @@
     });
   });
 })();
+
+// prefetch la hover: cele 925 de pagini sunt statice, deci navigarea devine instanta
+(() => {
+  if (matchMedia('(hover: none)').matches) return;
+  const vazute = new Set();
+  const cere = u => {
+    if (vazute.has(u) || vazute.size > 40) return;
+    vazute.add(u);
+    const l = document.createElement('link');
+    l.rel = 'prefetch'; l.href = u; document.head.appendChild(l);
+  };
+  document.addEventListener('mouseover', ev => {
+    const a = ev.target.closest('a[href]');
+    if (!a || a.host !== location.host || a.hash) return;
+    cere(a.href);
+  }, { passive: true });
+})();
 </script>
+<script src="../../assets/js/unelte.js"></script>
 </body>
 </html>

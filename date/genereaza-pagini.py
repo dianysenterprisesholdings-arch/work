@@ -23,6 +23,7 @@ CSV = os.path.join(RAD, "date", "unitati-demo.csv")
 TEL = "+40000000000"
 TEL_AFIS = "+40 000 000 000"
 WA = "https://wa.me/40000000000"
+TEL_LINK = "tel:+40000000000"
 
 # ---------------------------------------------------------------- tipologii
 # Ponderile pe camera sunt orientative: documentatia nu contine defalcarea
@@ -114,7 +115,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 <link rel="stylesheet" href="{r}assets/css/main.css">
 {ld}
 </head>
-<body>
+<body data-radacina="{r}">
 
 <div class="ec-topbar">
   <div class="ec-topbar__in">
@@ -166,6 +167,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           <li><a href="{r}apartamente-iasi/apartamente-2-camere/">2 camere</a></li>
           <li><a href="{r}apartamente-iasi/apartamente-3-camere/">3 camere</a></li>
           <li><a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a></li>
+          <li><a href="{r}investitie-apartamente-iasi/">Investiție</a></li>
         </ul>
       </div>
       <div>
@@ -232,7 +234,25 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
     }});
   }});
 }})();
+
+// prefetch la hover: cele 925 de pagini sunt statice, deci navigarea devine instanta
+(() => {{
+  if (matchMedia('(hover: none)').matches) return;
+  const vazute = new Set();
+  const cere = u => {{
+    if (vazute.has(u) || vazute.size > 40) return;
+    vazute.add(u);
+    const l = document.createElement('link');
+    l.rel = 'prefetch'; l.href = u; document.head.appendChild(l);
+  }};
+  document.addEventListener('mouseover', ev => {{
+    const a = ev.target.closest('a[href]');
+    if (!a || a.host !== location.host || a.hash) return;
+    cere(a.href);
+  }}, {{ passive: true }});
+}})();
 </script>
+<script src="{r}assets/js/unelte.js"></script>
 </body>
 </html>
 """
@@ -306,6 +326,103 @@ def formular(u=None, r="../../"):
     </div>
     <p class="ec-form__note">Machetă de lucru — formularul nu trimite date.</p>
   </form>
+</div>"""
+
+
+# ------------------------------------------------------------- imagini
+_LQ = os.path.join(RAD, "assets", "data", "lqip.json")
+LQIP = json.load(open(_LQ, encoding="utf-8")) if os.path.exists(_LQ) else {}
+
+
+def imagine(nume, alt, r, sizes="100vw", eager=False, w=1600, h=900, cls=""):
+    """<picture> cu WebP si rezerva JPEG, plus blur-up din miniatura de 20px."""
+    lq = LQIP.get(nume, "")
+    stil = f' style="background:#DCE7DE url({lq}) center/cover"' if lq else ""
+    incarcare = 'fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
+    c = f' class="{cls}"' if cls else ""
+    return f"""<picture>
+  <source type="image/webp" srcset="{r}assets/img/{nume}-800.webp 800w, {r}assets/img/{nume}.webp 1600w" sizes="{sizes}">
+  <img{c} src="{r}assets/img/{nume}.jpg"
+       srcset="{r}assets/img/{nume}-800.jpg 800w, {r}assets/img/{nume}.jpg 1600w" sizes="{sizes}"
+       alt="{e(alt)}" width="{w}" height="{h}" {incarcare}{stil}
+       onload="this.style.background='none'">
+</picture>"""
+
+
+# ------------------------------------------------- unelte de conversie
+def buton_salvare(uid):
+    return (f'<button class="ec-save" data-save="{e(uid)}" type="button" aria-pressed="false">'
+            '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" '
+            'stroke-width="1.6"><path d="M4 2h8v12l-4-3-4 3z"/></svg>'
+            '<span data-save-t>Salvează</span></button>')
+
+
+def calc_rata(pret):
+    """Anuitate. Valorile implicite urmeaza practica pietei: 15% avans, 6%, 30 ani."""
+    return f"""<div class="ec-calc" data-calc-rata data-pret="{pret}">
+  <h3>Cât ar fi rata lunară</h3>
+  <p class="ec-calc__sub">Simulare orientativă pentru un credit ipotecar. Nu este o ofertă de creditare.</p>
+  <div class="ec-calc__f">
+    <div>
+      <label>Avans <span class="val" data-oav></span></label>
+      <input type="range" data-av min="15" max="60" step="5" value="15">
+    </div>
+    <div>
+      <label>Dobândă anuală <span class="val" data-odob></span></label>
+      <input type="range" data-dob min="4" max="9" step="0.1" value="6">
+    </div>
+    <div>
+      <label>Perioadă <span class="val" data-oani></span></label>
+      <input type="range" data-ani min="5" max="30" step="1" value="30">
+    </div>
+    <div>
+      <label>Sumă finanțată <span class="val" data-ocredit></span></label>
+      <p style="font-size:var(--ec-small);color:var(--ec-ink-60);margin-top:.6rem">
+        Diferența dintre preț și avans.</p>
+    </div>
+  </div>
+  <div class="ec-calc__out">
+    <div class="ec-calc__o"><b class="big" data-orata></b><span>Rată lunară</span></div>
+    <div class="ec-calc__o"><b data-ototal></b><span>Cost total</span></div>
+    <div class="ec-calc__o">
+      <a class="ec-btn ec-btn--out" href="{TEL_LINK}">Discută cu un consultant</a>
+    </div>
+  </div>
+  <p class="ec-calc__note">
+    Calculul folosește formula de anuitate și nu include comisioane, asigurări sau taxe notariale.
+    Dobânda reală depinde de bancă și de profilul tău.
+  </p>
+</div>"""
+
+
+def calc_randament(pret, chirie):
+    return f"""<div class="ec-calc" data-calc-randament>
+  <h3>Calculator de randament</h3>
+  <p class="ec-calc__sub">Estimează randamentul unei achiziții pentru închiriere.</p>
+  <div class="ec-calc__f">
+    <div>
+      <label>Preț de achiziție <span class="val" data-opret></span></label>
+      <input type="range" data-pret min="50000" max="130000" step="500" value="{pret}">
+    </div>
+    <div>
+      <label>Chirie lunară estimată <span class="val" data-ochirie></span></label>
+      <input type="range" data-chirie min="200" max="700" step="10" value="{chirie}">
+    </div>
+    <div>
+      <label>Perioade neînchiriat <span class="val" data-ogol></span></label>
+      <input type="range" data-gol min="0" max="25" step="1" value="8">
+    </div>
+  </div>
+  <div class="ec-calc__out">
+    <div class="ec-calc__o"><b class="big" data-obrut></b><span>Randament brut</span></div>
+    <div class="ec-calc__o"><b data-onet></b><span>Randament net</span></div>
+    <div class="ec-calc__o"><b data-oani2></b><span>Amortizare</span></div>
+  </div>
+  <p class="ec-calc__note">
+    Randamentul net scade din chiria anuală perioadele neînchiriate și aproximativ 8% cheltuieli
+    de administrare, impozit și reparații. Chiriile sunt estimări de piață pentru zona Păcurari,
+    nu valori garantate.
+  </p>
 </div>"""
 
 
@@ -391,7 +508,7 @@ def pagina_unitate(u, similare):
       <div class="ec-pricebar__p">{euro(u['pret_eur'])}</div>
       <div class="ec-pricebar__s">{round(u['pret_eur']/u['su_utila'])} €/m² · TVA {u.get('tva','9')}% inclus · avans 15%</div>
     </div>
-    <div class="ec-pricebar__cta">{cta}</div>
+    <div class="ec-pricebar__cta">{buton_salvare(uid)}{cta}</div>
   </div>
 
   <section class="ec-section" style="padding-block:2.5rem">
@@ -423,13 +540,22 @@ def pagina_unitate(u, similare):
     </div>
   </div>
 
+  <div class="ec-split" style="margin-bottom:var(--ec-gap)">
+    {calc_rata(u['pret_eur'])}
+    <div class="ec-calc" style="display:flex;flex-direction:column;justify-content:center">
+      <h3>Îl cumperi ca investiție?</h3>
+      <p class="ec-calc__sub">Vezi ce randament ar aduce închiriat, cu chiriile actuale din zona Păcurari.</p>
+      <p><a class="ec-btn ec-btn--brass" href="{r}investitie-apartamente-iasi/?pret={u['pret_eur']}&amp;su={u['su_utila']}">
+        Calculator de randament
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a></p>
+    </div>
+  </div>
+
   <div class="ec-split" style="margin-bottom:var(--ec-gap)" id="cere-detalii">
     {formular(u, r)}
     <figure style="margin:0;overflow:hidden">
-      <img src="{r}assets/img/{GALERIE_TIP[u['tip_apartament']][0]}.jpg"
-           srcset="{r}assets/img/{GALERIE_TIP[u['tip_apartament']][0]}-800.jpg 800w, {r}assets/img/{GALERIE_TIP[u['tip_apartament']][0]}.jpg 1600w"
-           sizes="(max-width: 62rem) 100vw, 50vw"
-           alt="Amenajare orientativă pentru tipologia {u['tip_apartament']}" loading="lazy" width="1600" height="900">
+      {imagine(GALERIE_TIP[u['tip_apartament']][0], f"Amenajare orientativă pentru tipologia {u['tip_apartament']}", r, "(max-width: 62rem) 100vw, 50vw")}
     </figure>
   </div>
 
@@ -463,11 +589,9 @@ def pagina_tipologie(cod, unitati):
       <td class="st"><span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></td>
     </tr>""" for u in sorted(unitati, key=lambda x: x["pret_eur"])[:60])
 
-    gal = "".join(f"""<figure><img src="{r}assets/img/{g}.jpg"
-        srcset="{r}assets/img/{g}-800.jpg 800w, {r}assets/img/{g}.jpg 1600w"
-        sizes="(max-width: 46rem) 100vw, 33vw"
-        alt="Amenajare orientativă, tipologia {cod}" loading="lazy" width="1600" height="900"></figure>"""
-        for g in GALERIE_TIP[cod])
+    gal = "".join('<figure>' + imagine(g, f"Amenajare orientativă, tipologia {cod}", r,
+                                    "(max-width: 46rem) 100vw, 33vw") + '</figure>'
+                  for g in GALERIE_TIP[cod])
 
     schema = {
         "@context": "https://schema.org", "@type": "Apartment",
@@ -699,10 +823,7 @@ def pagina_hub(unitati, grupe):
         tipuri = sorted({u["tip_apartament"] for u in us})
         silo += f"""<a class="ec-silo__c ec-rv" href="{r}apartamente-iasi/{c['slug']}/">
           <figure>
-            <img src="{r}assets/img/{c['img']}.jpg"
-                 srcset="{r}assets/img/{c['img']}-800.jpg 800w, {r}assets/img/{c['img']}.jpg 1600w"
-                 sizes="(max-width: 52rem) 100vw, 33vw"
-                 alt="{c['titlu']} în Emerald City" loading="lazy" width="1600" height="900">
+            {imagine(c['img'], c['titlu'] + " în Emerald City", r, "(max-width: 52rem) 100vw, 33vw")}
             <span class="ec-silo__badge">{len(d)} disponibile</span>
           </figure>
           <div class="ec-silo__b">
@@ -880,10 +1001,7 @@ def pagina_categorie(nr, unitati, grupe):
   <section class="ec-section" style="padding-block:1rem 3rem">
     <div class="ec-split">{formular(None, r)}
       <figure style="margin:0;overflow:hidden">
-        <img src="{r}assets/img/{c['img']}.jpg"
-             srcset="{r}assets/img/{c['img']}-800.jpg 800w, {r}assets/img/{c['img']}.jpg 1600w"
-             sizes="(max-width: 62rem) 100vw, 50vw"
-             alt="{c['titlu']} — amenajare orientativă" loading="lazy" width="1600" height="900">
+        {imagine(c['img'], c['titlu'] + " — amenajare orientativă", r, "(max-width: 62rem) 100vw, 50vw")}
       </figure>
     </div>
   </section>
@@ -911,6 +1029,182 @@ def pagina_categorie(nr, unitati, grupe):
         continut, r, None, "apartamente-iasi/" + c["slug"] + "/")
 
 
+
+# ======================================================= investitie ==
+def chirie_estimata(su):
+    """Estimare de piata pentru zona Pacurari, ~6,2 EUR/mp util."""
+    return int(round(su * 6.2 / 10) * 10)
+
+
+def pagina_investitie(unitati):
+    r = "../"
+    disp = [u for u in unitati if u["status"] == "disponibil"]
+    gars = [u for u in disp if u["nr_camere"] == 1]
+    ref = min(gars, key=lambda u: u["pret_eur"]) if gars else min(disp, key=lambda u: u["pret_eur"])
+    ch_ref = chirie_estimata(ref["su_utila"])
+
+    # cele mai bune randamente estimate
+    scor = sorted(disp, key=lambda u: -(chirie_estimata(u["su_utila"]) * 12 / u["pret_eur"]))[:12]
+    randuri = ""
+    for u in scor:
+        ch = chirie_estimata(u["su_utila"])
+        y = ch * 12 / u["pret_eur"] * 100
+        randuri += f"""<tr>
+          <td><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
+          <td>{camere_txt(u['nr_camere'])}</td>
+          <td class="num">{mp(u['su_utila'])}</td>
+          <td class="num">{euro(u['pret_eur'])}</td>
+          <td class="num">{euro(ch)}</td>
+          <td class="num"><b>{y:.2f}</b>%</td>
+        </tr>"""
+
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Investiție</nav>
+
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Investiție</p>
+    <h1 style="margin-top:1rem">Investiție în apartamente noi în Iași</h1>
+    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">
+      Emerald City are {len(gars)} de garsoniere disponibile — formatul cel mai cerut pe piața de
+      închirieri din Iași, unde cererea vine constant dinspre studenți și tineri angajați.
+      Calculează mai jos ce randament ar aduce o achiziție.
+    </p>
+  </header>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    {calc_randament(ref['pret_eur'], ch_ref)}
+  </section>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    <h2 class="ec-title" style="margin-bottom:1.5rem">Cele mai bune randamente estimate</h2>
+    <div class="ec-table">
+      <table>
+        <caption class="ec-sr">Apartamente ordonate după randamentul brut estimat</caption>
+        <thead><tr><th>Cod</th><th>Tip</th><th>Suprafață</th><th>Preț</th>
+          <th>Chirie estimată</th><th>Randament brut</th></tr></thead>
+        <tbody>{randuri}</tbody>
+      </table>
+    </div>
+    <p class="ec-calc__note">
+      Chiriile sunt estimări de piață pentru zona Păcurari, calculate la aproximativ 6,2 €/m² util.
+      Nu sunt valori garantate și nu constituie consultanță de investiții.
+    </p>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 3rem">
+    <h2 class="ec-title" style="margin-bottom:1.5rem">De ce Iași și de ce zona Păcurari</h2>
+    <div class="ec-why">
+      <div class="ec-why__i"><h3>Cerere constantă de chirii</h3>
+        <p>Iașul are unul dintre cele mai mari centre universitare din țară. Cererea de garsoniere
+           și apartamente de două camere nu depinde de un singur angajator.</p></div>
+      <div class="ec-why__i"><h3>Aproape de Copou</h3>
+        <p>Circa 5 km până în Copou și 6 km până la Universitatea „Alexandru Ioan Cuza”,
+           zona cu cea mai mare concentrare de studenți.</p></div>
+      <div class="ec-why__i"><h3>Locuință nouă, costuri mici</h3>
+        <p>Clădire nouă înseamnă cheltuieli de întreținere mai mici și mai puține reparații
+           neprevăzute decât într-un bloc vechi.</p></div>
+      <div class="ec-why__i"><h3>Direct de la dezvoltator</h3>
+        <p>Fără comision de intermediere la achiziție — un cost pe care îl recuperezi
+           din primele luni de chirie.</p></div>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 4rem">
+    <div class="ec-split">
+      {formular(None, r)}
+      <div class="ec-prose">
+        <h2>Ce trebuie știut înainte</h2>
+        <h3>Randament brut sau net</h3>
+        <p>
+          Randamentul brut împarte chiria anuală la prețul de achiziție. Cel net scade
+          perioadele neînchiriate, impozitul, cheltuielile de administrare și reparațiile.
+          Diferența dintre cele două este de obicei de un punct procentual sau mai mult.
+        </p>
+        <h3>Costuri care nu apar în calculator</h3>
+        <p>
+          Taxele notariale, intabularea, mobilarea inițială și eventualul comision de
+          administrare nu sunt incluse. Pentru o garsonieră, mobilarea completă pornește
+          în general de la câteva mii de euro.
+        </p>
+        <h3>Nu este consultanță financiară</h3>
+        <p>
+          Cifrele de pe această pagină sunt estimări bazate pe prețuri de listare și pe chirii
+          observate în zonă. Decizia de investiție rămâne a ta; pentru o evaluare completă
+          discută cu un consultant financiar.
+        </p>
+      </div>
+    </div>
+  </section>
+</div>"""
+
+    return pagina(
+        "Investiție în apartamente noi în Iași — randament și calculator | Emerald City",
+        "Calculator de randament pentru apartamente noi în Iași, zona Păcurari. "
+        f"{len(gars)} de garsoniere disponibile, cu estimări de chirie și amortizare.",
+        continut, r, None, "investitie-apartamente-iasi/")
+
+
+# ======================================================= comparator ==
+def pagina_comparator():
+    r = "../"
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Compară apartamente</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Comparator</p>
+    <h1 style="margin-top:1rem">Compară apartamentele salvate</h1>
+    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
+      Adaugă apartamente cu butonul „Salvează” de pe paginile de unitate, apoi trimite linkul
+      acestei pagini cui vrei. Lista se păstrează și în adresă, deci funcționează și pe alt dispozitiv.
+    </p>
+  </header>
+  <div id="cmpOut"></div>
+  <p style="margin:2rem 0 4rem"><a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">Caută alte apartamente</a></p>
+</div>
+<script src="{r}assets/js/compara.js"></script>"""
+    return pagina("Compară apartamente — Emerald City Iași",
+                  "Compară până la șase apartamente din Emerald City, Iași zona Păcurari.",
+                  continut, r, None, "compara/")
+
+
+# ========================================================== contact ==
+def pagina_contact():
+    r = "../"
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Contact</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Contact</p>
+    <h1 style="margin-top:1rem">Vorbește cu echipa de vânzări</h1>
+    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
+      Răspundem în aceeași zi lucrătoare. Pentru o vizionare la fața locului, programează-te
+      telefonic sau pe WhatsApp.
+    </p>
+  </header>
+
+  <div class="ec-split" style="margin-bottom:var(--ec-gap)">
+    {formular(None, r)}
+    <div class="ec-panel">
+      <h2 class="ec-title" style="font-size:1.1rem;margin-bottom:1.25rem">Date de contact</h2>
+      <div class="ec-dist">
+        <div><span>Telefon</span><b><a href="{TEL_LINK}">{TEL_AFIS}</a></b></div>
+        <div><span>Email</span><b><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></b></div>
+        <div><span>WhatsApp</span><b><a href="{WA}">Scrie-ne</a></b></div>
+        <div><span>Adresă</span><b>Str. Ion Nistor, Iași</b></div>
+        <div style="border:0"><span>Dezvoltator</span><b>Tala Sapphire S.R.L.</b></div>
+      </div>
+      <p class="ec-calc__note">Program: luni–vineri 9–18, sâmbătă 10–14.</p>
+    </div>
+  </div>
+
+  <div class="ec-media" style="min-height:22rem;margin-bottom:4rem">
+    <p>Hartă interactivă<br>— de implementat —</p>
+  </div>
+</div>"""
+    return pagina("Contact — Emerald City Iași",
+                  "Contact Emerald City, ansamblu rezidențial în Iași, zona Păcurari. "
+                  "Telefon, email și programare vizionare.",
+                  continut, r, None, "contact/")
+
+
 # ==================================================================== rulare
 def main():
     NUM = {"etaj": int, "nr_camere": int, "su_utila": float, "su_balcon": float,
@@ -919,7 +1213,7 @@ def main():
     for row in csv.DictReader(open(CSV, encoding="utf-8")):
         unitati.append({k: NUM[k](v) if k in NUM else v for k, v in row.items()})
 
-    for d in ("apartamente-iasi", "tipologii"):
+    for d in ("apartamente-iasi", "tipologii", "investitie-apartamente-iasi", "compara", "contact"):
         p = os.path.join(RAD, d)
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -959,6 +1253,15 @@ def main():
 
     with open(os.path.join(RAD, "tipologii", "index.html"), "w", encoding="utf-8") as f:
         f.write(pagina_hub_tipologii(grupe))
+
+    # pagini de sine statatoare
+    for nume, continut in (("investitie-apartamente-iasi", pagina_investitie(unitati)),
+                           ("compara", pagina_comparator()),
+                           ("contact", pagina_contact())):
+        d = os.path.join(RAD, nume)
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(continut)
 
     # tipologii
     for cod, us in grupe.items():

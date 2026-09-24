@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="../../assets/css/main.css">
 
 </head>
-<body>
+<body data-radacina="../../">
 
 <div class="ec-topbar">
   <div class="ec-topbar__in">
@@ -150,6 +150,7 @@
           <li><a href="../../apartamente-iasi/apartamente-2-camere/">2 camere</a></li>
           <li><a href="../../apartamente-iasi/apartamente-3-camere/">3 camere</a></li>
           <li><a href="../../apartamente-iasi/disponibilitate/">Disponibilitate</a></li>
+          <li><a href="../../investitie-apartamente-iasi/">Investiție</a></li>
         </ul>
       </div>
       <div>
@@ -216,6 +217,24 @@
     });
   });
 })();
+
+// prefetch la hover: cele 925 de pagini sunt statice, deci navigarea devine instanta
+(() => {
+  if (matchMedia('(hover: none)').matches) return;
+  const vazute = new Set();
+  const cere = u => {
+    if (vazute.has(u) || vazute.size > 40) return;
+    vazute.add(u);
+    const l = document.createElement('link');
+    l.rel = 'prefetch'; l.href = u; document.head.appendChild(l);
+  };
+  document.addEventListener('mouseover', ev => {
+    const a = ev.target.closest('a[href]');
+    if (!a || a.host !== location.host || a.hash) return;
+    cere(a.href);
+  }, { passive: true });
+})();
 </script>
+<script src="../../assets/js/unelte.js"></script>
 </body>
 </html>

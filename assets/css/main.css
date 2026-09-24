@@ -627,3 +627,80 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-plan__legend li:hover i, .ec-plan__legend li.is-on i { background: var(--ec-brass); color: #fff; }
 .ec-plan__legend b { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
 .ec-plan__note { font-size: var(--ec-micro); color: var(--ec-ink-40); margin-top: 1rem; }
+
+/* ==========================================================================
+   Calculatoare, lista scurta, cautare
+   ========================================================================== */
+
+.ec-calc { background: var(--ec-white); padding: clamp(1.5rem,3vw,2.25rem); }
+.ec-calc h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: .35rem; }
+.ec-calc__sub { font-size: var(--ec-small); color: var(--ec-ink-60); margin-bottom: 1.5rem; }
+.ec-calc__f { display: grid; gap: 1.1rem; }
+@media (min-width: 34rem) { .ec-calc__f { grid-template-columns: 1fr 1fr; } }
+.ec-calc__f label { display: block; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); margin-bottom: .4rem; }
+.ec-calc__f .val { float: right; text-transform: none; letter-spacing: 0; font-weight: 600; color: var(--ec-ink); font-variant-numeric: tabular-nums; }
+.ec-calc__f input[type=range] { width: 100%; accent-color: var(--ec-emerald); }
+.ec-calc__out {
+  margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--ec-line);
+  display: grid; gap: 1rem;
+}
+@media (min-width: 34rem) { .ec-calc__out { grid-template-columns: repeat(3, 1fr); } }
+.ec-calc__o b { display: block; font-family: var(--ec-disp); font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.ec-calc__o b.big { font-size: 2rem; color: var(--ec-emerald); }
+.ec-calc__o span { display: block; margin-top: .25rem; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-calc__note { font-size: var(--ec-micro); color: var(--ec-ink-40); margin-top: 1.25rem; }
+
+/* --- lista scurta: bara flotanta -------------------------------------- */
+.ec-fav {
+  position: fixed; left: 50%; bottom: 1.1rem; transform: translate(-50%, 140%);
+  z-index: 96; background: var(--ec-emerald); color: #fff;
+  border-radius: 100px; padding: .6rem .7rem .6rem 1.3rem;
+  display: flex; align-items: center; gap: 1rem;
+  box-shadow: 0 10px 34px rgba(20,32,28,.32);
+  transition: transform .4s var(--ec-ease);
+  max-width: calc(100vw - 2rem);
+}
+.ec-fav.is-on { transform: translate(-50%, 0); }
+.ec-fav__n { font-size: var(--ec-small); font-weight: 600; white-space: nowrap; }
+.ec-fav__b { display: flex; gap: .4rem; }
+.ec-fav .ec-btn { padding: .55rem 1rem; }
+
+/* buton de salvare pe card si pe pagina de unitate */
+.ec-save {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ec-ink-40);
+  border: 1px solid var(--ec-line); border-radius: 100px; padding: .4rem .8rem;
+  transition: all var(--ec-fast); background: #fff;
+}
+.ec-save:hover { border-color: var(--ec-brass); color: var(--ec-brass); }
+.ec-save.is-on { background: var(--ec-brass); border-color: var(--ec-brass); color: #fff; }
+.ec-save svg { flex: none; }
+
+/* --- comparator -------------------------------------------------------- */
+.ec-cmp { background: var(--ec-white); overflow-x: auto; }
+.ec-cmp table { border-collapse: collapse; width: 100%; font-size: var(--ec-small); }
+.ec-cmp th, .ec-cmp td { padding: .8rem 1rem; text-align: left; border-bottom: 1px solid var(--ec-line); vertical-align: top; }
+.ec-cmp thead th { font-family: var(--ec-disp); font-size: 1rem; font-weight: 600; background: var(--ec-mint); }
+.ec-cmp tbody th { font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); font-weight: 600; white-space: nowrap; }
+.ec-cmp td { font-variant-numeric: tabular-nums; }
+.ec-cmp .best {
+  color: var(--ec-emerald); font-weight: 600;
+  background: rgba(46,125,91,.1); padding: .15rem .45rem; border-radius: 3px;
+}
+.ec-cmp .best::after { content: " ✓"; font-size: .85em; }
+
+/* --- cautare instantanee ---------------------------------------------- */
+.ec-search { position: relative; }
+.ec-search input {
+  width: 100%; padding: .8rem 1rem .8rem 2.6rem;
+  border: 1px solid var(--ec-line); background: #fff; font: inherit;
+  font-size: var(--ec-small); border-radius: 100px;
+}
+.ec-search svg { position: absolute; left: .95rem; top: 50%; transform: translateY(-50%); color: var(--ec-ink-40); pointer-events: none; }
+.ec-search input:focus { outline: 2px solid var(--ec-brass); outline-offset: 1px; border-color: transparent; }
+
+/* --- stare goala ------------------------------------------------------- */
+.ec-empty { background: var(--ec-white); padding: 2.5rem 1.5rem; text-align: center; }
+.ec-empty p { color: var(--ec-ink-60); font-size: var(--ec-small); }
+.ec-empty__s { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.1rem; }
