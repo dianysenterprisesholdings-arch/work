@@ -219,7 +219,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   /* exact cat ramane vizibil sub topbar si navigatie.
      Imaginea sta absolut pozitionata: intr-un rand de grila auto, height:100%
      se rezolva la auto, iar randarea de 1600x900 impunea inaltimea sectiunii. */
-  height: clamp(26rem, calc(100svh - 8rem), 40rem);
+  height: clamp(35rem, calc(100svh - 6rem), 54rem);
   overflow: hidden;
   display: flex;
 }
@@ -231,7 +231,11 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 @media (prefers-reduced-motion: reduce) { .ec-hero__img { animation: none; } }
 .ec-hero__veil {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(20,32,28,.88) 0%, rgba(20,32,28,.80) 45%, rgba(20,32,28,.93) 100%);
+  /* voal general deschis, plus un scrim local in spatele textului:
+     imaginea ramane luminoasa, dar contrastul textului ramane peste prag */
+  background:
+    radial-gradient(60% 55% at 50% 52%, rgba(20,32,28,.52) 0%, rgba(20,32,28,0) 72%),
+    linear-gradient(180deg, rgba(20,32,28,.42) 0%, rgba(20,32,28,.34) 45%, rgba(20,32,28,.50) 100%);
 }
 .ec-hero__in {
   position: relative; z-index: 2; width: 100%;
@@ -1000,3 +1004,65 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-poi b { display: block; font-size: .9375rem; font-weight: 600; line-height: 1.25; }
 .ec-poi span { display: block; font-size: var(--ec-small); color: var(--ec-ink-60); margin-top: .25rem; }
 .ec-poi i { display: block; font-style: normal; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); margin-top: .4rem; }
+
+/* --- topbar cu pictograme ---------------------------------------------- */
+.ec-topbar__l, .ec-topbar__right a, .ec-topbar__right span {
+  display: inline-flex; align-items: center; gap: .45rem;
+}
+.ec-topbar svg { opacity: .7; flex: none; }
+.ec-topbar__right { gap: 1.35rem; }
+.ec-btn svg { flex: none; }
+
+/* ==========================================================================
+   Disponibilitate — bloc editorial, nu trei carduri egale
+   Ierarhia: intai ansamblul intreg, apoi etapele ca randuri comparabile.
+   ========================================================================== */
+
+.ec-av { background: var(--ec-emerald); color: #fff; }
+.ec-av__in { padding: clamp(2rem, 4.5vw, 3.5rem); }
+
+/* rezumatul pe tot ansamblul */
+.ec-av__sum { display: grid; gap: 2rem 3.5rem; align-items: end; }
+@media (min-width: 60rem) { .ec-av__sum { grid-template-columns: minmax(0,1fr) auto; } }
+.ec-av__big {
+  font-family: var(--ec-disp); font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 600; line-height: .9; letter-spacing: -.04em; font-variant-numeric: tabular-nums;
+}
+.ec-av__big small { display: block; font-size: var(--ec-micro); font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--ec-emerald-200); margin-top: .8rem; }
+.ec-av__legend { display: flex; flex-wrap: wrap; gap: .9rem 1.5rem; font-size: var(--ec-small); }
+.ec-av__legend span { display: inline-flex; align-items: center; gap: .5rem; color: rgba(255,255,255,.8); }
+.ec-av__legend i { width: 10px; height: 10px; border-radius: 2px; }
+.ec-av__legend b { font-weight: 600; color: #fff; font-variant-numeric: tabular-nums; }
+
+/* bara pe tot ansamblul */
+.ec-av__bar { display: flex; height: 10px; border-radius: 2px; overflow: hidden; margin-top: 2rem; background: rgba(255,255,255,.12); }
+.ec-av__bar i { display: block; transition: width 1.1s var(--ec-ease); }
+
+/* etapele ca randuri, nu ca trei cutii identice */
+.ec-av__rows { margin-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--ec-line-light); }
+.ec-av__row {
+  display: grid; gap: .75rem 1.5rem; align-items: center;
+  padding: 1.5rem 0; border-bottom: 1px solid var(--ec-line-light);
+  transition: padding-left var(--ec-fast);
+}
+.ec-av__row:hover { padding-left: .6rem; }
+@media (min-width: 62rem) {
+  .ec-av__row { grid-template-columns: 15rem minmax(0,1fr) 7.5rem 9rem 2.5rem; }
+}
+.ec-av__name b { display: block; font-family: var(--ec-disp); font-size: 1.3rem; font-weight: 600; }
+.ec-av__name span { display: block; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-emerald-200); margin-top: .3rem; }
+.ec-av__mini { display: flex; height: 6px; border-radius: 2px; overflow: hidden; background: rgba(255,255,255,.12); }
+.ec-av__mini i { display: block; transition: width 1.1s var(--ec-ease); }
+.ec-av__num { font-variant-numeric: tabular-nums; }
+.ec-av__num b { display: block; font-family: var(--ec-disp); font-size: 1.25rem; font-weight: 600; }
+.ec-av__num span { display: block; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-emerald-200); margin-top: .2rem; }
+.ec-av__go { justify-self: end; color: var(--ec-brass); }
+.ec-av__row:hover .ec-av__go svg { transform: translateX(5px); }
+.ec-av__go svg { transition: transform var(--ec-fast); }
+.ec-av__tag {
+  display: inline-block; font-size: var(--ec-micro); font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; padding: .2rem .55rem;
+  border-radius: 3px; background: rgba(184,147,79,.22); color: var(--ec-brass);
+}
+.ec-av__foot { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; margin-top: 2rem; }
+.ec-av__note { font-size: var(--ec-micro); color: rgba(255,255,255,.55); }

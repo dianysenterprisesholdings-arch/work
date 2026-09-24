@@ -119,10 +119,11 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 
 <div class="ec-topbar">
   <div class="ec-topbar__in">
-    <span>Apartamente cu 1, 2 și 3 camere în Iași, zona Păcurari — <strong>DIRECT DEZVOLTATOR</strong></span>
+    <span class="ec-topbar__l"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Iași, zona Păcurari — <strong>DIRECT DEZVOLTATOR</strong></span>
     <div class="ec-topbar__right">
-      <a href="tel:{TEL}">{TEL_AFIS}</a>
-      <a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a>
+      <a href="tel:+40000000000"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4h3l1.5 4-2 1.5a12 12 0 006 6L14.5 13l4 1.5v3a2 2 0 01-2.2 2A16 16 0 012.5 6.2 2 2 0 014.5 4z"/></svg> +40 000 000 000</a>
+      <a href="mailto:vanzari@emerald-city.ro"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg> vanzari@emerald-city.ro</a>
+      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> L–V 9–18 · S 10–14</span>
     </div>
   </div>
 </div>
@@ -143,13 +144,21 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           <a href="{r}aparitii-presa/">Apariții în presă</a>
         </span>
       </span>
-      <a href="{r}apartamente-iasi/">Apartamente</a>
+      <span class="ec-nav__has">
+        <a href="{r}apartamente-iasi/">Apartamente</a>
+        <span class="ec-nav__sub">
+          <a href="{r}apartamente-iasi/">Toate apartamentele</a>
+          <a href="{r}apartamente-iasi/apartamente-1-camera/">1 cameră</a>
+          <a href="{r}apartamente-iasi/apartamente-2-camere/">2 camere</a>
+          <a href="{r}apartamente-iasi/apartamente-3-camere/">3 camere</a>
+          <a href="{r}tipologii/">Tipuri de compartimentări</a>
+        </span>
+      </span>
       <a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a>
-      <a href="{r}tipologii/">Tipologii</a>
       <a href="{r}investitie-apartamente-iasi/">Investiție</a>
       <a href="{r}contact/">Contact</a>
     </nav>
-    <a class="ec-btn" href="{r}apartamente-iasi/">Vezi apartamentele</a>
+    <a class="ec-btn" href="{r}contact/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programează vizionare</a>
   </div>
 </header>
 
@@ -177,6 +186,9 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
         </a>
         <a class="ec-foot__r" href="mailto:vanzari@emerald-city.ro">
           <span>Email</span><b>vanzari@emerald-city.ro</b>
+        </a>
+        <a class="ec-foot__r" href="{r}investitie-apartamente-iasi/">
+          <span>Cumperi ca investiție?</span><b>Calculator de randament</b>
         </a>
       </div>
     </div>

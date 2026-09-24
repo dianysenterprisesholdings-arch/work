@@ -58,60 +58,59 @@
      din Lapis, dar numerele nu sunt scrise de mana, ci derivate din date.
      ================================================================== */
   function drawStages(corpuri) {
-    const grid = $('#stageGrid');
-    if (!grid) return;
+    const rows = $('#avRows'), bar = $('#avBar'), leg = $('#avLegend');
+    if (!rows) return;
 
     const ETAPE = [
       { cod: 'I',   titlu: 'Etapa I',   sub: 'Blocurile 1–6' },
       { cod: 'II',  titlu: 'Etapa II',  sub: 'Blocurile 7–14' },
       { cod: 'III', titlu: 'Etapa III', sub: 'Blocurile 15–18' }
     ];
+    const STARI = [
+      ['disponibil', 'Disponibile', 'var(--ec-available)'],
+      ['rezervat',   'Rezervate',   'var(--ec-reserved)'],
+      ['vandut',     'Vândute',     'var(--ec-sold)'],
+      ['in_curand',  'În curând',   'rgba(255,255,255,.28)']
+    ];
 
-    grid.innerHTML = ETAPE.map(et => {
+    const sum = (lista, k) => lista.reduce((a, c) => a + c[k], 0);
+    const total = sum(corpuri, 'total');
+
+    // numarul mare vine din date, nu din HTML
+    const mare = $('.ec-av__big [data-count]');
+    if (mare) { mare.dataset.count = sum(corpuri, 'disponibil'); countIO.observe(mare); }
+
+    // bara pe tot ansamblul + legenda cu valorile reale
+    bar.innerHTML = STARI.map(([k, , col]) => {
+      const n = sum(corpuri, k);
+      return n ? `<i style="width:${n / total * 100}%;background:${col}"></i>` : '';
+    }).join('');
+    leg.innerHTML = STARI.map(([k, et, col]) =>
+      `<span><i style="background:${col}"></i>${et} <b>${sum(corpuri, k)}</b></span>`).join('');
+
+    rows.innerHTML = ETAPE.map(et => {
       const s = corpuri.filter(c => c.etapa === et.cod);
-      const sum = k => s.reduce((a, c) => a + c[k], 0);
-      const total = sum('total'), disp = sum('disponibil');
-      const rez = sum('rezervat'), vand = sum('vandut'), soon = sum('in_curand');
+      const t = sum(s, 'total'), disp = sum(s, 'disponibil');
+      const rez = sum(s, 'rezervat'), vand = sum(s, 'vandut'), soon = sum(s, 'in_curand');
       const preturi = s.map(c => c.pret_min).filter(Boolean);
-      const vandutPct = total ? Math.round((vand + rez) / total * 100) : 0;
+      const vandutPct = t ? Math.round((vand + rez) / t * 100) : 0;
+      const stare = soon === t ? 'În curând' : disp === 0 ? 'Epuizat'
+                  : vandutPct > 70 ? 'Ultimele unități' : 'În vânzare';
+      const seg = (n, col) => n ? `<i style="width:${n / t * 100}%;background:${col}"></i>` : '';
 
-      const stare = soon === total ? 'În curând'
-                  : disp === 0     ? 'Epuizat'
-                  : vandutPct > 70 ? 'Ultimele unități'
-                                   : 'În vânzare';
-
-      const seg = (n, col) => n ? `<i style="width:${n / total * 100}%;background:${col}"></i>` : '';
-
-      return `
-        <article class="ec-stage ec-rv">
-          <div class="ec-stage__top">
-            <div>
-              <div class="ec-stage__n">${et.titlu}</div>
-              <div style="font-size:.8125rem;color:var(--ec-ink-40)">${et.sub}</div>
-            </div>
-            <span class="ec-stage__tag">${stare}</span>
-          </div>
-
-          <div class="ec-stage__bar">
-            ${seg(vand, 'var(--ec-sold)')}
-            ${seg(rez,  'var(--ec-reserved)')}
-            ${seg(disp, 'var(--ec-available)')}
-          </div>
-
-          <div class="ec-stage__rows">
-            <div class="ec-stage__row"><span>Total apartamente</span><b>${total}</b></div>
-            <div class="ec-stage__row"><span>Disponibile</span><b>${disp || '—'}</b></div>
-            <div class="ec-stage__row"><span>Rezervate</span><b>${rez || '—'}</b></div>
-            <div class="ec-stage__row"><span>Vândute</span><b>${vand || '—'}</b></div>
-          </div>
-
-          <div class="ec-stage__price">
-            ${preturi.length ? euro(Math.min(...preturi)) : 'Preț la cerere'}
-            <small>${preturi.length ? 'preț de pornire, TVA inclus' : 'în pregătire'}</small>
-          </div>
-
-          <a class="ec-btn ec-btn--out" href="apartamente-iasi/disponibilitate/?etapa=${et.cod}">Vezi apartamentele</a>
-        </article>`;
+      return `<a class="ec-av__row" href="apartamente-iasi/disponibilitate/?etapa=${et.cod}">
+        <div class="ec-av__name"><b>${et.titlu}</b><span>${et.sub} · ${t} apartamente</span></div>
+        <div class="ec-av__mini">
+          ${seg(vand, 'var(--ec-sold)')}${seg(rez, 'var(--ec-reserved)')}
+          ${seg(disp, 'var(--ec-available)')}${seg(soon, 'rgba(255,255,255,.28)')}
+        </div>
+        <div class="ec-av__num"><b>${disp || '—'}</b><span>Disponibile</span></div>
+        <div class="ec-av__num">
+          ${preturi.length ? `<b>${euro(Math.min(...preturi))}</b><span>Preț de la</span>`
+                           : `<span class="ec-av__tag">${stare}</span>`}
+        </div>
+        <span class="ec-av__go"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.4"/></svg></span>
+      </a>`;
     }).join('');
 
     observa();
