@@ -136,23 +136,47 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
     <nav class="ec-nav__menu">
       <span class="ec-nav__has">
         <a href="{r}despre-dezvoltator/">Despre noi</a>
-        <span class="ec-nav__sub">
-          <a href="{r}apartamente-iasi-pacurari/">Amplasament</a>
-          <a href="{r}stadiu-lucrari/">Jurnal de șantier</a>
-          <a href="{r}despre-dezvoltator/">Dezvoltator</a>
-          <a href="{r}proiect/">Proiect</a>
-          <a href="{r}aparitii-presa/">Apariții în presă</a>
-        </span>
+        <div class="ec-mega">
+          <div class="ec-mega__col">
+            <span class="ec-mega__h">Proiectul</span>
+            <a class="ec-mega__i" href="{r}proiect/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V7l9-4 9 4v14"/><path d="M3 12h18M12 3v18"/></svg></span><span class="ec-mega__tx"><b>Proiect</b><em>18 blocuri P+3E, indicatori urbanistici</em></span></a>
+            <a class="ec-mega__i" href="{r}apartamente-iasi-pacurari/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span><span class="ec-mega__tx"><b>Amplasament</b><em>Iași, zona Păcurari — distanțe și acces</em></span></a>
+            <a class="ec-mega__i" href="{r}stadiu-lucrari/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14v-2a8 8 0 0116 0v2"/><rect x="2" y="14" width="4" height="6" rx="1"/><rect x="18" y="14" width="4" height="6" rx="1"/></svg></span><span class="ec-mega__tx"><b>Jurnal de șantier</b><em>Stadiul lucrărilor, actualizat lunar</em></span></a>
+          </div>
+          <div class="ec-mega__col">
+            <span class="ec-mega__h">Compania</span>
+            <a class="ec-mega__i" href="{r}despre-dezvoltator/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg></span><span class="ec-mega__tx"><b>Dezvoltator</b><em>Tala Sapphire S.R.L., avize și echipă</em></span></a>
+            <a class="ec-mega__i" href="{r}aparitii-presa/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14a2 2 0 002-2V8h1v9a3 3 0 01-3 3H4z"/><path d="M7 9h7M7 12h7M7 15h4"/></svg></span><span class="ec-mega__tx"><b>Apariții în presă</b><em>Materiale și date pentru jurnaliști</em></span></a>
+            <a class="ec-mega__i" href="{r}#finisaje"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="ec-mega__tx"><b>Finisaje</b><em>Ce include predarea la cheie</em></span></a>
+          </div>
+          <a class="ec-mega__card" href="{r}stadiu-lucrari/">
+            <img src="{r}assets/img/hol-01-800.jpg" alt="" width="800" height="450" loading="lazy">
+            <span class="ec-mega__cardb"><b>Stadiul lucrărilor</b>
+              <em>Publicăm lunar progresul real, cu fotografii datate din teren</em></span>
+          </a>
+        </div>
       </span>
       <span class="ec-nav__has">
         <a href="{r}apartamente-iasi/">Apartamente</a>
-        <span class="ec-nav__sub">
-          <a href="{r}apartamente-iasi/">Toate apartamentele</a>
-          <a href="{r}apartamente-iasi/apartamente-1-camera/">Apartament 1 cameră</a>
-          <a href="{r}apartamente-iasi/apartamente-2-camere/">Apartamente 2 camere</a>
-          <a href="{r}apartamente-iasi/apartamente-3-camere/">Apartamente 3 camere</a>
-          <a href="{r}tipologii/">Tipuri de compartimentări</a>
-        </span>
+        <div class="ec-mega">
+          <div class="ec-mega__col">
+            <span class="ec-mega__h">După numărul de camere</span>
+            <a class="ec-mega__i" href="{r}apartamente-iasi/apartamente-1-camera/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V7l9-4 9 4v14"/><path d="M3 12h18M12 3v18"/></svg></span><span class="ec-mega__tx"><b>Apartament 1 cameră</b><em>109 libere · 37–39 m² · de la 53.500 €</em></span></a>
+            <a class="ec-mega__i" href="{r}apartamente-iasi/apartamente-2-camere/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V7l9-4 9 4v14"/><path d="M3 12h18M12 3v18"/></svg></span><span class="ec-mega__tx"><b>Apartamente 2 camere</b><em>285 libere · 51–61 m² · de la 74.000 €</em></span></a>
+            <a class="ec-mega__i" href="{r}apartamente-iasi/apartamente-3-camere/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V7l9-4 9 4v14"/><path d="M3 12h18M12 3v18"/></svg></span><span class="ec-mega__tx"><b>Apartamente 3 camere</b><em>123 libere · 69–81 m² · de la 101.500 €</em></span></a>
+          </div>
+          <div class="ec-mega__col">
+            <span class="ec-mega__h">Compartimentări</span>
+            <div class="ec-mega__tipuri"><a class="ec-mega__t" href="{r}tipologii/1a/"><b>1A</b><span>37–39 m²</span><i>109 libere</i></a><a class="ec-mega__t" href="{r}tipologii/2a/"><b>2A</b><span>51–54 m²</span><i>163 libere</i></a><a class="ec-mega__t" href="{r}tipologii/2b/"><b>2B</b><span>57–61 m²</span><i>122 libere</i></a><a class="ec-mega__t" href="{r}tipologii/3a/"><b>3A</b><span>69–74 m²</span><i>70 libere</i></a><a class="ec-mega__t" href="{r}tipologii/3b/"><b>3B</b><span>76–81 m²</span><i>53 libere</i></a></div>
+            <a class="ec-mega__i" href="{r}apartamente-iasi/disponibilitate/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></span><span class="ec-mega__tx"><b>Disponibilitate și prețuri</b><em>Toate cele 925, cu filtre</em></span></a>
+            <a class="ec-mega__i" href="{r}investitie-apartamente-iasi/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12h.01M8 16h2M12 16h2M16 16h.01"/></svg></span><span class="ec-mega__tx"><b>Investiție și randament</b><em>Calculator de chirie și amortizare</em></span></a>
+          </div>
+          <a class="ec-mega__card" href="{r}apartamente-iasi/">
+            <img src="{r}assets/img/living-01-800.jpg" alt="" width="800" height="450" loading="lazy">
+            <span class="ec-mega__cardb"><b>517 apartamente disponibile</b>
+              <em>Preț și disponibilitate actualizate din tabelul de vânzări</em></span>
+          </a>
+        </div>
       </span>
       <a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a>
       <a href="{r}investitie-apartamente-iasi/">Investiție</a>

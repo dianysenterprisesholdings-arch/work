@@ -1335,3 +1335,84 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 
 .ec-pin--main span { background: var(--ec-emerald); padding: 0; overflow: hidden; }
 .ec-pin--main img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+
+/* ==========================================================================
+   Megamenu
+   Panoul iese din antet pe toata latimea, cu descrieri si cifre reale.
+   Sub 64rem raman legaturile simple din meniul mobil.
+   ========================================================================== */
+
+.ec-nav__has { position: static; }
+.ec-mega { text-transform: none; letter-spacing: 0; font-weight: 400;
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: #fff; border-top: 1px solid var(--ec-line);
+  box-shadow: 0 22px 48px rgba(20,32,28,.14);
+  padding: clamp(1.5rem, 2.5vw, 2.25rem) var(--ec-gutter);
+  display: grid; gap: 2rem 3rem;
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: opacity .22s var(--ec-ease), transform .22s var(--ec-ease), visibility .22s;
+  z-index: 30;
+}
+@media (min-width: 64rem) { .ec-mega { grid-template-columns: 1.05fr 1.05fr .9fr; } }
+.ec-nav__has:hover .ec-mega,
+.ec-nav__has:focus-within .ec-mega { opacity: 1; visibility: visible; transform: none; }
+
+.ec-mega__tx { display: block; }
+.ec-mega__h {
+  display: block; font-size: var(--ec-micro); font-weight: 600; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ec-brass); margin-bottom: .9rem;
+}
+.ec-mega__col { display: flex; flex-direction: column; gap: .15rem; }
+
+.ec-mega__i {
+  display: flex; align-items: flex-start; gap: .85rem;
+  padding: .7rem .8rem; border-radius: var(--ec-r);
+  transition: background var(--ec-fast);
+}
+.ec-mega__i:hover { background: var(--ec-mint); }
+.ec-mega__ic {
+  flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald);
+  display: grid; place-items: center; transition: background var(--ec-fast), color var(--ec-fast);
+}
+.ec-mega__i:hover .ec-mega__ic { background: var(--ec-brass); color: #fff; }
+.ec-mega__i b {
+  display: block; font-size: .9375rem; font-weight: 600; color: var(--ec-ink);
+  text-transform: none; letter-spacing: 0;
+}
+.ec-mega__i em {
+  display: block; margin-top: .15rem; font-style: normal; font-size: var(--ec-small);
+  color: var(--ec-ink-60); text-transform: none; letter-spacing: 0;
+}
+
+/* compartimentarile, ca pastile compacte */
+.ec-mega__tipuri { display: grid; grid-template-columns: repeat(5, 1fr); gap: .35rem; margin-bottom: .6rem; }
+.ec-mega__t {
+  text-align: center; padding: .6rem .3rem; border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); transition: all var(--ec-fast);
+}
+.ec-mega__t:hover { background: var(--ec-emerald); border-color: var(--ec-emerald); }
+.ec-mega__t b { display: block; font-family: var(--ec-disp); font-size: 1rem; font-weight: 600; color: var(--ec-ink); }
+.ec-mega__t span { display: block; font-size: .6rem; letter-spacing: .04em; color: var(--ec-ink-40); margin-top: .15rem; text-transform: none; }
+.ec-mega__t i { display: block; font-style: normal; font-size: .6rem; color: var(--ec-brass); margin-top: .2rem; letter-spacing: .04em; }
+.ec-mega__t:hover b, .ec-mega__t:hover span, .ec-mega__t:hover i { color: #fff; }
+
+/* cardul vizual din dreapta */
+.ec-mega__card { position: relative; border-radius: var(--ec-r); overflow: hidden; display: block; min-height: 12rem; }
+.ec-mega__card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ec-ease); }
+.ec-mega__card:hover img { transform: scale(1.06); }
+.ec-mega__cardb {
+  position: absolute; inset: auto 0 0 0; padding: 1.1rem 1.25rem; color: #fff;
+  background: linear-gradient(0deg, rgba(20,32,28,.92) 10%, rgba(20,32,28,0) 100%);
+}
+.ec-mega__cardb b { display: block; font-family: var(--ec-disp); font-size: 1.05rem; font-weight: 600; text-transform: none; letter-spacing: 0; }
+.ec-mega__cardb em { display: block; margin-top: .3rem; font-style: normal; font-size: var(--ec-small); color: rgba(255,255,255,.8); text-transform: none; letter-spacing: 0; }
+
+@media (max-width: 64rem) { .ec-mega { display: none; } }
+/* pe telefon butonul spune "Suna acum" si apeleaza; pe desktop, unde
+   apelarea nu are sens, arata direct numarul */
+.ec-tel__d { display: none; }
+@media (min-width: 52rem) {
+  .ec-tel__m { display: none; }
+  .ec-tel__d { display: inline; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+}
