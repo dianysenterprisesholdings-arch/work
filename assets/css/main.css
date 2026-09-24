@@ -1439,3 +1439,19 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-manifest__stats > div > span,
 .ec-foot__stats span,
 .ec-hstat span { text-align: center; }
+
+/* ==========================================================================
+   Cifre — corectare finala
+   O regula ulterioara punea display:block pe toate span-urile din banda,
+   ceea ce anula centrarea din cerc: pictograma ramanea sus-stanga.
+   Aici o readuc, cu selector mai specific decat cel care o stricase.
+   ========================================================================== */
+.ec-statbox > .ec-statbox__i {
+  display: grid; place-items: center; line-height: 0;
+}
+.ec-statbox > .ec-statbox__i > svg { display: block; }
+
+/* toate cele patru blocuri au aceeasi latime de text, deci pictogramele
+   cad pe aceeasi pozitie in fiecare coloana */
+.ec-statbox__v { min-width: 8.5rem; }
+@media (max-width: 46rem) { .ec-statbox__v { min-width: 0; } }
