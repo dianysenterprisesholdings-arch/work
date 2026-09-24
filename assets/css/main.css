@@ -1333,8 +1333,8 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-traseu { stroke: var(--ec-emerald); stroke-dasharray: 1 8; stroke-linecap: round; }
 .ec-harta.is-satelit .ec-traseu { stroke: #fff; }
 
-.ec-pin--main span { background: var(--ec-emerald); padding: 0; overflow: hidden; }
-.ec-pin--main img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.ec-pin--main span { background: var(--ec-emerald); padding: 9px; overflow: hidden; }
+.ec-pin--main img { width: 100%; height: 100%; object-fit: contain; }
 
 /* ==========================================================================
    Megamenu
@@ -1416,3 +1416,11 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   .ec-tel__m { display: none; }
   .ec-tel__d { display: inline; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
 }
+
+/* --- cifre: grup centrat in celula, cerc vizibil pe orice fundal ------- */
+.ec-statbox { justify-content: center; }
+/* pe fundal mentă cercul mentă era invizibil */
+.ec-manifest__stats .ec-statbox__i, .ec-hstat .ec-statbox__i { background: #fff; }
+.ec-statbox__i svg { display: block; }
+
+
