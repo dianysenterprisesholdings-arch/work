@@ -219,7 +219,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   /* exact cat ramane vizibil sub topbar si navigatie.
      Imaginea sta absolut pozitionata: intr-un rand de grila auto, height:100%
      se rezolva la auto, iar randarea de 1600x900 impunea inaltimea sectiunii. */
-  height: clamp(20rem, calc(100svh - 11rem), 31rem);
+  height: clamp(26rem, calc(100svh - 8rem), 40rem);
   overflow: hidden;
   display: flex;
 }
@@ -795,3 +795,88 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-foot__grid h4 { color: var(--ec-brass); }
 .ec-foot__grid a { transition: padding-left var(--ec-fast), color var(--ec-fast); display: inline-block; }
 .ec-foot__grid a:hover { padding-left: .35rem; color: #fff; }
+
+/* ==========================================================================
+   Ritm editorial
+   Problema rezolvata aici: titlurile si textele stateau toate centrate, pe o
+   masura ingusta, si curgeau in jos ca o coloana subtire. Solutia nu e sa
+   largim masura — randurile prea lungi se citesc greu — ci sa folosim latimea
+   paginii prin structura: enunt mare intr-o parte, sustinere in cealalta.
+   ========================================================================== */
+
+/* --- antet de sectiune: numar, titlu, linie ---------------------------- */
+.ec-shead {
+  display: grid; gap: 1.25rem 3rem;
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--ec-line);
+  align-items: end;
+}
+@media (min-width: 58rem) { .ec-shead { grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); } }
+
+.ec-shead__n {
+  display: block; font-size: var(--ec-micro); font-weight: 600;
+  letter-spacing: .24em; color: var(--ec-brass); margin-bottom: .9rem;
+  font-variant-numeric: tabular-nums;
+}
+.ec-shead h2 {
+  font-family: var(--ec-disp);
+  font-size: clamp(1.75rem, 3.4vw, 2.9rem);
+  font-weight: 500; line-height: 1.08; letter-spacing: -.022em;
+  text-wrap: balance;
+}
+.ec-shead h2 em { font-style: normal; color: var(--ec-brass); }
+.ec-shead__p { font-size: var(--ec-lead); color: var(--ec-ink-60); max-width: 48ch; }
+.ec-shead--light { border-color: var(--ec-line-light); }
+.ec-shead--light h2 { color: #fff; }
+.ec-shead--light .ec-shead__p { color: rgba(255,255,255,.72); }
+
+/* --- concept: enunt mare + sustinere pe doua coloane -------------------- */
+.ec-manifest { padding-block: clamp(3.5rem, 7vw, 6.5rem); }
+.ec-manifest__grid { display: grid; gap: 2.5rem 4rem; }
+@media (min-width: 62rem) { .ec-manifest__grid { grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); } }
+
+.ec-manifest h2 {
+  font-family: var(--ec-disp);
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  font-weight: 500; line-height: 1.04; letter-spacing: -.028em;
+  color: var(--ec-emerald); max-width: 16ch; text-wrap: balance;
+}
+.ec-manifest h2 em { font-style: normal; color: var(--ec-brass); }
+.ec-manifest__body { padding-top: .5rem; }
+.ec-manifest__body p { font-size: var(--ec-lead); color: var(--ec-ink-60); max-width: 44ch; }
+.ec-manifest__body p + p { margin-top: 1rem; }
+.ec-manifest__foot {
+  margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--ec-line);
+  display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center;
+}
+
+/* cifrele de sub enunt, ca sa nu ramana pagina doar text */
+.ec-manifest__stats {
+  grid-column: 1 / -1; display: grid; gap: 1px; margin-top: clamp(2rem, 4vw, 3rem);
+  background: var(--ec-line); border-block: 1px solid var(--ec-line);
+}
+@media (min-width: 40rem) { .ec-manifest__stats { grid-template-columns: repeat(4, 1fr); } }
+.ec-manifest__stats div { background: var(--ec-mint); padding: 1.4rem 0 1.4rem 1.4rem; }
+.ec-manifest__stats b {
+  display: block; font-family: var(--ec-disp); font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 600; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+}
+.ec-manifest__stats span {
+  display: block; margin-top: .45rem; font-size: var(--ec-micro);
+  letter-spacing: .13em; text-transform: uppercase; color: var(--ec-ink-40);
+}
+
+/* --- dezvaluirea imaginii: perdea, nu fade ----------------------------- */
+.ec-rv figure img { clip-path: inset(0 0 0 0); }
+.ec-rv:not(.is-in) figure img { clip-path: inset(0 0 100% 0); }
+.ec-rv figure img { transition: clip-path 1s var(--ec-ease), transform .7s var(--ec-ease); }
+@media (prefers-reduced-motion: reduce) {
+  .ec-rv:not(.is-in) figure img { clip-path: none; }
+}
+
+/* --- bara de progres la scroll ----------------------------------------- */
+.ec-prog {
+  position: fixed; inset: 0 auto auto 0; height: 2px; width: 0;
+  background: var(--ec-brass); z-index: 99; transition: width .1s linear;
+}

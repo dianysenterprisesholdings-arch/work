@@ -45,6 +45,7 @@
 <body>
 
 <!-- ================================================================ TOPBAR -->
+<div class="ec-prog" id="prog" aria-hidden="true"></div>
 <div class="ec-topbar">
   <div class="ec-topbar__in">
     <span>Apartamente cu 1, 2 și 3 camere în Iași, zona Păcurari — <strong>DIRECT DEZVOLTATOR</strong></span>
@@ -109,17 +110,39 @@
 </section>
 
 <!-- =============================================================== CONCEPT -->
-<section class="ec-concept ec-wrap" id="despre">
-  <h2>Un nou standard de confort urban prinde contur în Iași.</h2>
-  <p>Emerald City redefinește experiența locuirii urbane prin atenția la detalii</p>
-  <p>și calitatea execuției. Fiecare spațiu este conceput pentru confort,</p>
-  <p>lumină și funcționalitate. Materiale premium și standarde ridicate</p>
-  <p>de construcție creează un mediu sigur, elegant și durabil.</p>
-  <p>Un loc în care te întorci cu plăcere, nu doar unde dormi.</p>
-  <a class="ec-btn ec-btn--out" href="apartamente-iasi/">
-    Vezi apartamentele
-    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.4"/></svg>
-  </a>
+<section class="ec-manifest ec-wrap" id="despre">
+  <div class="ec-manifest__grid">
+    <div>
+      <p class="ec-eyebrow">Conceptul</p>
+      <h2 style="margin-top:1.25rem">Un nou standard de <em>confort urban</em> prinde contur în Iași.</h2>
+    </div>
+
+    <div class="ec-manifest__body">
+      <p>
+        Emerald City redefinește experiența locuirii urbane prin atenția la detalii și
+        calitatea execuției. Fiecare spațiu este conceput pentru confort, lumină și
+        funcționalitate.
+      </p>
+      <p>
+        Materiale premium și standarde ridicate de construcție creează un mediu sigur,
+        elegant și durabil — un loc în care te întorci cu plăcere, nu doar unde dormi.
+      </p>
+      <div class="ec-manifest__foot">
+        <a class="ec-btn" href="apartamente-iasi/">
+          Vezi apartamentele
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.4"/></svg>
+        </a>
+        <a class="ec-link" href="proiect/">Cum e gândit ansamblul</a>
+      </div>
+    </div>
+
+    <div class="ec-manifest__stats">
+      <div><b>925</b><span>Apartamente</span></div>
+      <div><b>18</b><span>Blocuri joase</span></div>
+      <div><b>30,85%</b><span>Spațiu verde</span></div>
+      <div><b>940</b><span>Locuri de parcare</span></div>
+    </div>
+  </div>
 </section>
 
 <!-- ================================================ CARDURI ALTERNANTE ==== -->
@@ -199,12 +222,11 @@
 <!-- ======================================================= DISPONIBILITATE -->
 <section class="ec-section" id="disponibilitate">
   <div class="ec-wrap">
-    <p class="ec-eyebrow">Disponibilitate și prețuri</p>
-    <h2 class="ec-title" style="margin-top:1rem">Etapele ansamblului</h2>
-    <p class="ec-body" style="max-width:56ch">
-      Ansamblul se construiește în trei etape. Prețurile includ TVA, cu avans de 15% la
-      antecontract și diferența la predare.
-    </p>
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Disponibilitate</span>
+        <h2>Trei etape, <em>925 de locuințe</em></h2></div>
+      <p class="ec-shead__p">Prețurile includ TVA, cu avans de 15% la antecontract și diferența la predare.</p>
+    </div>
     <div class="ec-avail__grid" style="margin-top:2rem" id="stageGrid"></div>
   </div>
 </section>
@@ -212,8 +234,11 @@
 <!-- =============================================================== SELECTOR -->
 <section class="ec-section" style="background:var(--ec-mint-deep)">
   <div class="ec-wrap">
-    <p class="ec-eyebrow">Caută</p>
-    <h2 class="ec-title" style="margin-top:1rem">Găsește-ți apartamentul</h2>
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Caută</span>
+        <h2>Găsește-ți <em>apartamentul</em></h2></div>
+      <p class="ec-shead__p">Filtrează după camere, buget și etaj. Rezultatele se actualizează instant, fără reîncărcare.</p>
+    </div>
 
     <div class="ec-finder__bar" style="margin-top:2rem">
       <div class="ec-field">
@@ -252,8 +277,11 @@
 <!-- =============================================================== TIPOLOGII -->
 <section class="ec-section">
   <div class="ec-wrap">
-    <p class="ec-eyebrow">Tipologii</p>
-    <h2 class="ec-title" style="margin-top:1rem">Compartimentări</h2>
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Tipologii</span>
+        <h2>Cinci <em>compartimentări</em></h2></div>
+      <p class="ec-shead__p">De la garsonieră la trei camere, fiecare cu plan propriu și listă de unități disponibile.</p>
+    </div>
     <div class="ec-types" style="margin-top:2rem" id="typeGrid"></div>
   </div>
 </section>
@@ -261,10 +289,11 @@
 <!-- ================================================================ FINISAJE -->
 <section class="ec-section" id="finisaje">
   <div class="ec-wrap">
-    <p class="ec-eyebrow">Finisaje</p>
-    <h2 class="ec-title" style="margin-top:1rem">Te muți și locuiești</h2>
-    <p class="ec-body" style="max-width:56ch">Apartamentul se predă finisat. Nu urmează
-       încă șase luni de meseriași, praf și decizii despre gresie.</p>
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — Finisaje</span>
+        <h2>Te muți și <em>locuiești</em></h2></div>
+      <p class="ec-shead__p">Apartamentul se predă finisat. Nu urmează încă șase luni de meseriași, praf și decizii despre gresie.</p>
+    </div>
     <div class="ec-blocks" style="margin-top:2rem">
       <div class="ec-block ec-block--stack ec-rv">
         <figure><picture><source type="image/webp" srcset="assets/img/living-02-800.webp 800w, assets/img/living-02.webp 1600w" sizes="(max-width: 60rem) 100vw, 60vw"><img src="assets/img/living-02.jpg" srcset="assets/img/living-02-800.jpg 800w, assets/img/living-02.jpg 1600w" sizes="(max-width: 60rem) 100vw, 60vw" alt="Living deschis spre zona de zi" width="1600" height="900" loading="lazy" decoding="async" style="background:#DCE7DE url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwAskkNkSsRQiRiQOcdMCmzuwwqFnbPKjrUnheZxYugb5RIeMVqXsUcsUjSIC3XPvUFGBi7bkYUdgRRUpmkV2QOdqsQB6CipKsf/2Q==) center/cover" onload="this.style.background='none'"></picture></figure>
@@ -297,8 +326,11 @@
 <!-- ============================================================= AMPLASAMENT -->
 <section class="ec-section" id="amplasament">
   <div class="ec-wrap">
-    <p class="ec-eyebrow">Amplasament</p>
-    <h2 class="ec-title" style="margin-top:1rem">Iași, zona Păcurari</h2>
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">05 — Amplasament</span>
+        <h2>Iași, zona <em>Păcurari</em></h2></div>
+      <p class="ec-shead__p">La aproximativ 7 km de centru și 5 km de Copou, într-una dintre cele mai căutate zone ale orașului.</p>
+    </div>
     <div class="ec-split" style="margin-top:2rem">
       <div class="ec-panel">
         <div class="ec-dist">
@@ -321,8 +353,11 @@
 <!-- ===================================================================== FAQ -->
 <section class="ec-section">
   <div class="ec-wrap">
-    <p class="ec-eyebrow">Întrebări frecvente</p>
-    <h2 class="ec-title" style="margin-top:1rem;margin-bottom:2rem">Ce se întreabă cel mai des</h2>
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">06 — Întrebări</span>
+        <h2>Ce se întreabă <em>cel mai des</em></h2></div>
+      <p class="ec-shead__p">Dacă nu găsești răspunsul aici, sună-ne — răspundem în aceeași zi lucrătoare.</p>
+    </div>
     <div class="ec-faq">
       <details open>
         <summary>Unde este Emerald City?</summary>
@@ -456,6 +491,17 @@
     const l = document.createElement('link');
     l.rel = 'prefetch'; l.href = a.href; document.head.appendChild(l);
   }, { passive: true });
+})();
+</script>
+<script>
+(() => {
+  const b = document.getElementById('prog');
+  if (!b) return;
+  const upd = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    b.style.width = (h > 0 ? scrollY / h * 100 : 0) + '%';
+  };
+  addEventListener('scroll', upd, { passive: true }); upd();
 })();
 </script>
 </body>
