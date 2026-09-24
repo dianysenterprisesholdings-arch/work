@@ -193,7 +193,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 @media (prefers-reduced-motion: reduce) { .ec-hero__img { animation: none; } }
 .ec-hero__veil {
   grid-area: 1/1;
-  background: linear-gradient(180deg, rgba(20,32,28,.72) 0%, rgba(20,32,28,.58) 45%, rgba(20,32,28,.84) 100%);
+  background: linear-gradient(180deg, rgba(20,32,28,.80) 0%, rgba(20,32,28,.68) 45%, rgba(20,32,28,.88) 100%);
 }
 .ec-hero__in {
   grid-area: 1/1; position: relative; z-index: 2;
@@ -496,3 +496,85 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-planbox { background: var(--ec-white); padding: clamp(1.5rem,3vw,2.5rem); display: grid; place-items: center; }
 .ec-planbox svg { width: 100%; max-width: 30rem; height: auto; }
 .ec-planbox .wall { fill: var(--ec-emerald); }
+
+/* ==========================================================================
+   Hub de siloz: /apartamente-iasi/ si paginile de categorie
+   ========================================================================== */
+
+/* --- antet de pagina cu cifre ----------------------------------------- */
+.ec-hstats { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); margin-top: 2rem; }
+@media (min-width: 40rem) { .ec-hstats { grid-template-columns: repeat(4, 1fr); } }
+.ec-hstat { background: var(--ec-white); padding: 1.25rem 1.4rem; }
+.ec-hstat b { display: block; font-family: var(--ec-disp); font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.ec-hstat span { display: block; margin-top: .3rem; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); }
+
+/* --- cardurile de siloz: piesa centrala a paginii --------------------- */
+.ec-silo { display: grid; gap: var(--ec-gap); }
+@media (min-width: 52rem) { .ec-silo { grid-template-columns: repeat(3, 1fr); } }
+
+.ec-silo__c {
+  background: var(--ec-white); display: flex; flex-direction: column;
+  overflow: hidden; transition: transform var(--ec-fast);
+}
+.ec-silo__c:hover { transform: translateY(-4px); }
+.ec-silo__c figure { margin: 0; overflow: hidden; position: relative; }
+.ec-silo__c img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform .8s var(--ec-ease); }
+.ec-silo__c:hover img { transform: scale(1.06); }
+.ec-silo__badge {
+  position: absolute; left: 1rem; bottom: 1rem;
+  background: rgba(255,255,255,.94); backdrop-filter: blur(6px);
+  padding: .3rem .7rem; border-radius: 100px;
+  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .06em;
+  color: var(--ec-emerald);
+}
+.ec-silo__b { padding: 1.5rem; display: flex; flex-direction: column; gap: .9rem; flex: 1; }
+.ec-silo__t { font-family: var(--ec-disp); font-size: 1.35rem; font-weight: 600; line-height: 1.2; }
+.ec-silo__rows { font-size: var(--ec-small); }
+.ec-silo__rows div {
+  display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0;
+  border-bottom: 1px solid var(--ec-line); color: var(--ec-ink-60);
+  font-variant-numeric: tabular-nums;
+}
+.ec-silo__rows b { color: var(--ec-ink); font-weight: 600; }
+.ec-silo__foot { margin-top: auto; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.ec-silo__p { font-family: var(--ec-disp); font-size: 1.25rem; font-weight: 600; }
+.ec-silo__p small { display: block; font-size: var(--ec-micro); font-weight: 400; color: var(--ec-ink-40); }
+
+/* --- grila de argumente ----------------------------------------------- */
+.ec-why { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
+@media (min-width: 40rem) { .ec-why { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 68rem) { .ec-why { grid-template-columns: repeat(4, 1fr); } }
+.ec-why__i { background: var(--ec-white); padding: 1.75rem 1.5rem; }
+.ec-why__i svg { color: var(--ec-brass); margin-bottom: .9rem; }
+.ec-why__i h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .5rem; }
+.ec-why__i p { font-size: .875rem; color: var(--ec-ink-60); }
+
+/* --- doua liste de dotari --------------------------------------------- */
+.ec-lists { display: grid; gap: var(--ec-gap); }
+@media (min-width: 52rem) { .ec-lists { grid-template-columns: 1fr 1fr; } }
+.ec-list { background: var(--ec-white); padding: clamp(1.5rem,3vw,2.25rem); }
+.ec-list h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.1rem; }
+.ec-list ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+.ec-list li {
+  display: flex; gap: .7rem; align-items: baseline;
+  padding: .55rem 0; border-bottom: 1px solid var(--ec-line); font-size: .875rem;
+}
+.ec-list li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ec-brass); flex: none; transform: translateY(-2px); }
+.ec-list li:last-child { border-bottom: 0; }
+
+/* --- bloc de text SEO -------------------------------------------------- */
+.ec-prose { background: var(--ec-white); padding: clamp(1.5rem,3vw,2.75rem); }
+.ec-prose h2 { font-size: clamp(1.2rem,2vw,1.5rem); font-weight: 600; margin-bottom: 1rem; }
+.ec-prose h3 { font-size: 1.05rem; font-weight: 600; margin: 1.75rem 0 .6rem; }
+.ec-prose p { font-size: .9375rem; color: var(--ec-ink-60); max-width: 72ch; }
+.ec-prose p + p { margin-top: .8rem; }
+
+/* --- banda de trimitere catre tabelul complet -------------------------- */
+.ec-strip {
+  background: var(--ec-emerald); color: #fff;
+  padding: clamp(1.75rem,3.5vw,2.75rem);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2rem;
+}
+.ec-strip h2 { font-size: clamp(1.2rem,2.2vw,1.6rem); font-weight: 600; }
+.ec-strip p { color: rgba(255,255,255,.76); font-size: var(--ec-small); margin-top: .4rem; max-width: 52ch; }
+.ec-strip__cta { margin-left: auto; display: flex; flex-wrap: wrap; gap: .6rem; }

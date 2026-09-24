@@ -110,7 +110,7 @@
             <small>${preturi.length ? 'preț de pornire, TVA inclus' : 'în pregătire'}</small>
           </div>
 
-          <a class="ec-btn ec-btn--out" href="apartamente/?etapa=${et.cod}">Vezi apartamentele</a>
+          <a class="ec-btn ec-btn--out" href="apartamente-iasi/disponibilitate/?etapa=${et.cod}">Vezi apartamentele</a>
         </article>`;
     }).join('');
 
@@ -189,7 +189,7 @@
       out.innerHTML = divers.concat(rest).slice(0, 6)
         .sort((a, b) => a[F.pret] - b[F.pret])
         .map(u => `
-          <a class="ec-unit" href="apartamente/${u[F.id].toLowerCase()}/">
+          <a class="ec-unit" href="apartamente-iasi/${u[F.id].toLowerCase()}/">
             <div class="ec-unit__top">
               <span class="ec-unit__id">${u[F.id]}</span>
               <span class="ec-tag ec-tag--disponibil">Disponibil</span>

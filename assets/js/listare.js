@@ -53,7 +53,7 @@
   function rand(u) {
     const vandut = u[F.status] !== 'disponibil';
     return `<tr class="${vandut ? 'is-sold' : ''}">
-      <td><a href="../apartamente/${u[F.id].toLowerCase()}/">${u[F.id]}</a></td>
+      <td><a href="../${u[F.id].toLowerCase()}/">${u[F.id]}</a></td>
       <td>${bloc(u[F.corp])}</td>
       <td>${etajTxt(u[F.etaj])}</td>
       <td>${u[F.tip]}</td>
@@ -167,7 +167,7 @@
   }
 
   /* ---------------------------------------------------------------- init */
-  fetch('../assets/data/unitati.json')
+  fetch('../../assets/data/unitati.json')
     .then(r => r.json())
     .then(d => {
       d.campuri.forEach((n, i) => F[n] = i);

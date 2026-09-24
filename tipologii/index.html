@@ -31,12 +31,13 @@
     </a>
     <nav class="ec-nav__menu">
       <a href="../#despre">Despre</a>
-      <a href="../apartamente/">Apartamente</a>
+      <a href="../apartamente-iasi/">Apartamente</a>
+      <a href="../apartamente-iasi/disponibilitate/">Disponibilitate</a>
       <a href="../tipologii/">Tipologii</a>
       <a href="../#finisaje">Finisaje</a>
       <a href="../#amplasament">Amplasament</a>
     </nav>
-    <a class="ec-btn" href="../apartamente/">Vezi apartamentele</a>
+    <a class="ec-btn" href="../apartamente-iasi/">Vezi apartamentele</a>
   </div>
 </header>
 
@@ -114,10 +115,10 @@
       <div>
         <h4>Apartamente</h4>
         <ul>
-          <li><a href="../apartamente/?camere=1">1 cameră</a></li>
-          <li><a href="../apartamente/?camere=2">2 camere</a></li>
-          <li><a href="../apartamente/?camere=3">3 camere</a></li>
-          <li><a href="../apartamente/">Toate unitățile</a></li>
+          <li><a href="../apartamente-iasi/apartamente-1-camera/">1 cameră</a></li>
+          <li><a href="../apartamente-iasi/apartamente-2-camere/">2 camere</a></li>
+          <li><a href="../apartamente-iasi/apartamente-3-camere/">3 camere</a></li>
+          <li><a href="../apartamente-iasi/disponibilitate/">Disponibilitate</a></li>
         </ul>
       </div>
       <div>
@@ -143,5 +144,19 @@
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 01-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5a1 1 0 00-.7.3c-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5 0 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3z"/></svg>
   <span>Discută pe WhatsApp</span>
 </a>
+<script>
+// paginile interioare nu incarca main.js; reveal-ul e destul de mic cat sa stea inline
+(() => {
+  const n = [...document.querySelectorAll('.ec-rv')];
+  if (!n.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    n.forEach(x => x.classList.add('is-in')); return;
+  }
+  const o = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('is-in'); o.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+  n.forEach(x => o.observe(x));
+})();
+</script>
 </body>
 </html>
