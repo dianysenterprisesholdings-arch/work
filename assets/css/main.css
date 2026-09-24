@@ -488,6 +488,38 @@ table { border-collapse: collapse; width: 100%; }
   max-width: 62ch;
 }
 
+/* --- principii -------------------------------------------------------- */
+.ec-pillars {
+  display: grid;
+  gap: 1px;
+  background: var(--ec-line);
+  border-block: 1px solid var(--ec-line);
+}
+@media (min-width: 46rem) { .ec-pillars { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 72rem) { .ec-pillars { grid-template-columns: repeat(4, 1fr); } }
+
+.ec-pillar {
+  background: var(--ec-sand);
+  padding: 2.5rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  transition: background var(--ec-fast);
+}
+.ec-pillar:hover { background: #fff; }
+.ec-pillar__n {
+  font-size: var(--ec-eyebrow);
+  letter-spacing: .2em;
+  color: var(--ec-ink-30);
+  font-variant-numeric: tabular-nums;
+}
+.ec-pillar__t {
+  font-family: var(--ec-serif);
+  font-size: 1.75rem;
+  line-height: 1.1;
+}
+.ec-pillar p { font-size: .9375rem; color: var(--ec-ink-60); }
+
 /* ==========================================================================
    4. Parc — banda full-bleed
    ========================================================================== */

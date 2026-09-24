@@ -21,6 +21,8 @@
   const euro = n => new Intl.NumberFormat('ro-RO').format(n) + ' €';
   const mp   = n => new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
   const camere = n => n === 1 ? '1 cameră' : n + ' camere';
+  // C1..C18 sunt coduri din proiect; comercial se numesc blocuri
+  const bloc = cod => cod.replace(/^C/, '');
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -200,14 +202,18 @@
     if (!svg) return;
     const byCode = Object.fromEntries(corpuri.map(c => [c.cod, c]));
 
-    // grupez corpurile pe terase, dupa cota reala (praguri de ~3 m)
+    // grupez corpurile pe cele trei etape de constructie; sirurile lungi
+    // se rup in randuri de maximum 5, ca planul sa ramana lizibil
+    const ETAPE = [['I', 6], ['II', 8], ['III', 4]];
     const terase = [];
-    ORD.forEach(c => {
-      const last = terase[terase.length - 1];
-      if (last && COTE[c] - COTE[last[0]] < 3) last.push(c);
-      else terase.push([c]);
+    const eticheta = [];
+    ETAPE.forEach(([et]) => {
+      const lista = corpuri.filter(c => c.etapa === et).map(c => c.cod);
+      for (let i = 0; i < lista.length; i += 5) {
+        terase.push(lista.slice(i, i + 5));
+        eticheta.push(i === 0 ? 'ETAPA ' + et : '');
+      }
     });
-    terase.reverse();                       // cota mare = sus pe ecran
 
     /* Plan de sit: amprentele reale (adancime 14 m, lungime dedusa din AC),
        asezate pe curbe de nivel. Scara ~1,6 px/m. */
@@ -227,9 +233,11 @@
       const yC = padT + ri * rowH + rowH / 2;
       const amp = 9;
 
-      el('path', { d: contur(yC + rowH * .40, amp), class: 'terrace' }, svg);
-      const tl = el('text', { x: 0, y: yC + rowH * .40 + amp - 3, class: 'terrace-lbl' }, svg);
-      tl.textContent = '+' + COTE[row[0]].toFixed(2).replace('.', ',');
+      if (eticheta[ri]) {
+        el('path', { d: contur(yC - rowH * .52, amp * .5), class: 'terrace' }, svg);
+        const tl = el('text', { x: 0, y: yC - rowH * .52 + 2, class: 'terrace-lbl' }, svg);
+        tl.textContent = eticheta[ri];
+      }
 
       // latimile reale ale corpurilor din acest sir
       const lung = row.map(c => byCode[c].amprenta / ADANCIME * PX_M);
@@ -246,7 +254,7 @@
         const yy = yC - (1 - t * t) * amp * .8;
 
         const g = el('g', { class: 'corp', 'data-corp': c, tabindex: '0',
-                            role: 'button', 'aria-label': `Corp ${c}` }, svg);
+                            role: 'button', 'aria-label': `Blocul ${bloc(c)}` }, svg);
 
         const ratio = d.total ? d.disponibil / d.total : 0;
         let fill = '#7FA294', op = .4;
@@ -259,7 +267,7 @@
                      width: w.toFixed(1), height: h.toFixed(1),
                      fill, 'fill-opacity': op, rx: 1 }, g);
         const lbl = el('text', { x: (x + w / 2).toFixed(1), y: (yy + 2).toFixed(1) }, g);
-        lbl.textContent = c;
+        lbl.textContent = bloc(c);
         x += w + gap;
       });
     });
@@ -282,8 +290,8 @@
       if (!d) return;
       $$('.corp', svg).forEach(g => g.classList.toggle('is-active', g.dataset.corp === cod));
       panel.stage.textContent = 'Etapa ' + d.etapa;
-      panel.code.textContent = d.cod;
-      panel.cota.textContent = 'Cota ±0,00 = +' + d.cota.toFixed(2).replace('.', ',') + ' m';
+      panel.code.textContent = 'Blocul ' + bloc(d.cod);
+      panel.cota.textContent = d.total + ' apartamente · parter și 3 etaje';
 
       panel.bar.innerHTML = '';
       [['disponibil', 'var(--ec-available)'], ['rezervat', 'var(--ec-reserved)'],
@@ -297,11 +305,10 @@
         });
 
       const rows = [
-        ['Apartamente', d.total],
         ['Disponibile', d.disponibil || '—'],
+        ['Rezervate', d.rezervat || '—'],
         ['Suprafețe', mp(d.su_min) + ' – ' + mp(d.su_max)],
-        ['Preț de la', d.pret_min ? euro(d.pret_min) : '—'],
-        ['Amprentă la sol', mp(d.amprenta)]
+        ['Preț de la', d.pret_min ? euro(d.pret_min) : '—']
       ];
       if (d.comercial) rows.push(['Spațiu comercial', mp(d.comercial)]);
       panel.rows.innerHTML = rows.map(([l, v]) =>
@@ -404,7 +411,7 @@
             </div>
             <div class="ec-card__t">${camere(u[F.camere])} · ${mp(u[F.su])}</div>
             <div class="ec-card__meta">
-              <span>Corp ${u[F.corp]}</span>
+              <span>Blocul ${bloc(u[F.corp])}</span>
               <span>${u[F.etaj] === 0 ? 'Parter' : 'Etaj ' + u[F.etaj]}</span>
               <span>${u[F.orientare]}</span>
               ${u[F.balcon] > 0 ? `<span>Balcon ${mp(u[F.balcon])}</span>` : ''}
@@ -450,7 +457,6 @@
   /* ================================================================ INIT == */
 
   drawHero();
-  drawTerrain();
 
   Promise.all([
     fetch('assets/data/unitati.json').then(r => r.json()),
