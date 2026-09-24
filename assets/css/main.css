@@ -547,7 +547,10 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
    ========================================================================== */
 
 /* --- antet de pagina cu cifre ----------------------------------------- */
-.ec-hstats { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); margin-top: 2rem; }
+.ec-hstats {
+  display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line);
+  margin-top: 2rem; grid-template-columns: repeat(2, 1fr);
+}
 @media (min-width: 40rem) { .ec-hstats { grid-template-columns: repeat(4, 1fr); } }
 .ec-hstat { background: var(--ec-white); padding: 1.25rem 1.4rem; }
 .ec-hstat b { display: block; font-family: var(--ec-disp); font-size: 1.6rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
@@ -783,6 +786,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-foot__stats {
   display: grid; gap: 1px; background: var(--ec-line-light);
   border-block: 1px solid var(--ec-line-light);
+  grid-template-columns: repeat(2, 1fr);
 }
 @media (min-width: 46rem) { .ec-foot__stats { grid-template-columns: repeat(4, 1fr); } }
 .ec-foot__stats div { background: var(--ec-emerald-700); padding: 1.25rem 1.4rem; }
@@ -859,6 +863,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-manifest__stats {
   grid-column: 1 / -1; display: grid; gap: 1px; margin-top: clamp(2rem, 4vw, 3rem);
   background: var(--ec-line); border-block: 1px solid var(--ec-line);
+  grid-template-columns: repeat(2, 1fr);
 }
 @media (min-width: 40rem) { .ec-manifest__stats { grid-template-columns: repeat(4, 1fr); } }
 .ec-manifest__stats div { background: var(--ec-mint); padding: 1.4rem 0 1.4rem 1.4rem; }
@@ -866,10 +871,13 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   display: block; font-family: var(--ec-disp); font-size: clamp(1.6rem, 2.8vw, 2.2rem);
   font-weight: 600; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
 }
-.ec-manifest__stats span {
+/* eticheta e doar span-ul direct din celula; cel din interiorul lui <b>
+   este chiar numarul si trebuie sa mosteneasca stilul cifrei */
+.ec-manifest__stats > div > span {
   display: block; margin-top: .45rem; font-size: var(--ec-micro);
   letter-spacing: .13em; text-transform: uppercase; color: var(--ec-ink-40);
 }
+.ec-manifest__stats b span { font: inherit; color: inherit; letter-spacing: inherit; }
 
 /* --- dezvaluirea imaginii: perdea, nu fade ----------------------------- */
 .ec-rv figure img { clip-path: inset(0 0 0 0); }
@@ -922,19 +930,36 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-spot__list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ec-brass); flex: none; transform: translateY(-2px); }
 .ec-spot__cta { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.75rem; }
 
-/* --- facilitati ---------------------------------------------------------- */
-.ec-fac { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
-@media (min-width: 34rem) { .ec-fac { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 52rem) { .ec-fac { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 72rem) { .ec-fac { grid-template-columns: repeat(5, 1fr); } }
-.ec-fac__i {
-  background: var(--ec-white); padding: 1.4rem 1.25rem;
-  display: flex; flex-direction: column; gap: .8rem;
-  transition: background var(--ec-fast);
+/* --- facilitati: doua coloane mari, nu o grila de pictograme mici ------ */
+.ec-facw { display: grid; gap: var(--ec-gap); }
+@media (min-width: 62rem) { .ec-facw { grid-template-columns: .86fr 1.14fr; align-items: stretch; } }
+
+.ec-facw__vis { position: relative; overflow: hidden; background: var(--ec-emerald); min-height: 22rem; }
+.ec-facw__vis img { width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+.ec-facw__cap {
+  position: absolute; inset: auto 0 0 0; padding: clamp(1.5rem, 3vw, 2.25rem);
+  color: #fff;
+  background: linear-gradient(0deg, rgba(20,32,28,.9) 0%, rgba(20,32,28,0) 100%);
 }
-.ec-fac__i:hover { background: var(--ec-sand); }
-.ec-fac__i svg { color: var(--ec-brass); }
-.ec-fac__i span { font-size: .875rem; font-weight: 500; line-height: 1.35; }
+.ec-facw__cap b { display: block; font-family: var(--ec-disp); font-size: clamp(1.4rem,2.6vw,2rem); font-weight: 600; line-height: 1.1; }
+.ec-facw__cap span { display: block; margin-top: .6rem; font-size: var(--ec-small); color: rgba(255,255,255,.76); max-width: 34ch; }
+
+.ec-fac { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
+@media (min-width: 30rem) { .ec-fac { grid-template-columns: repeat(2, 1fr); } }
+.ec-fac__i {
+  background: var(--ec-white); padding: 1.35rem 1.4rem;
+  display: flex; align-items: center; gap: 1rem;
+  transition: background var(--ec-fast), padding-left var(--ec-fast);
+}
+.ec-fac__i:hover { background: var(--ec-sand); padding-left: 1.75rem; }
+.ec-fac__i i {
+  flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald);
+  display: grid; place-items: center;
+  transition: background var(--ec-fast), color var(--ec-fast);
+}
+.ec-fac__i:hover i { background: var(--ec-brass); color: #fff; }
+.ec-fac__i span { font-size: .9375rem; font-weight: 500; line-height: 1.3; }
 
 /* --- eticheta care urmareste cursorul pe imagini ------------------------ */
 .ec-cursor {
@@ -1066,3 +1091,62 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 }
 .ec-av__foot { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; margin-top: 2rem; }
 .ec-av__note { font-size: var(--ec-micro); color: rgba(255,255,255,.55); }
+
+/* ==========================================================================
+   Hartă interactivă
+   ========================================================================== */
+
+.ec-harta { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
+@media (min-width: 62rem) { .ec-harta { grid-template-columns: 1.55fr .95fr; } }
+
+.ec-harta__panza { min-height: 26rem; background: var(--ec-mint-deep); }
+@media (min-width: 62rem) { .ec-harta__panza { min-height: 32rem; } }
+.ec-harta:not(.is-gata) .ec-harta__panza {
+  display: grid; place-items: center;
+  background:
+    repeating-linear-gradient(-45deg, transparent 0 12px, rgba(31,62,54,.05) 12px 13px),
+    var(--ec-mint-deep);
+}
+.ec-harta:not(.is-gata) .ec-harta__panza::after {
+  content: "Se încarcă harta…";
+  font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--ec-ink-40);
+}
+
+.ec-harta__side { background: var(--ec-white); display: flex; flex-direction: column; }
+.ec-harta__head { padding: 1.4rem 1.5rem; border-bottom: 1px solid var(--ec-line); }
+.ec-harta__head b { display: block; font-family: var(--ec-disp); font-size: 1.1rem; font-weight: 600; }
+.ec-harta__head span { display: block; margin-top: .3rem; font-size: var(--ec-small); color: var(--ec-ink-60); }
+.ec-harta__lista { flex: 1; overflow-y: auto; max-height: 26rem; }
+
+.ec-harta__i {
+  width: 100%; text-align: left; display: flex; align-items: center; gap: 1rem;
+  padding: .95rem 1.5rem; border-bottom: 1px solid var(--ec-line);
+  transition: background var(--ec-fast), padding-left var(--ec-fast);
+}
+.ec-harta__i:hover { background: var(--ec-sand); padding-left: 1.85rem; }
+.ec-harta__i.is-on { background: var(--ec-mint); }
+.ec-harta__min {
+  flex: none; width: 2.7rem; height: 2.7rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald);
+  display: grid; place-content: center; text-align: center;
+  font-family: var(--ec-disp); font-size: 1rem; font-weight: 600; line-height: 1;
+  font-variant-numeric: tabular-nums; transition: background var(--ec-fast), color var(--ec-fast);
+}
+.ec-harta__i:hover .ec-harta__min, .ec-harta__i.is-on .ec-harta__min { background: var(--ec-brass); color: #fff; }
+.ec-harta__min small { display: block; font-size: .46rem; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+.ec-harta__t b { display: block; font-size: .9375rem; font-weight: 600; line-height: 1.25; }
+.ec-harta__t i { display: block; font-style: normal; font-size: var(--ec-micro); color: var(--ec-ink-40); margin-top: .2rem; letter-spacing: .06em; }
+.ec-harta__foot { padding: 1rem 1.5rem; border-top: 1px solid var(--ec-line); }
+.ec-harta__err { padding: 2rem; text-align: center; color: var(--ec-ink-60); font-size: var(--ec-small); }
+
+/* pinii, in culorile brandului */
+.ec-pin span {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  border-radius: 50%; background: var(--ec-brass); color: #fff;
+  font-family: var(--ec-disp); font-size: .75rem; font-weight: 600;
+  border: 2px solid #fff; box-shadow: 0 3px 10px rgba(20,32,28,.3);
+  font-variant-numeric: tabular-nums;
+}
+.ec-pin--main span { background: var(--ec-emerald); font-size: .9rem; letter-spacing: .04em; }
+.leaflet-popup-content-wrapper { border-radius: 3px; font-family: var(--ec-sans); font-size: .8125rem; }
+.leaflet-container { font-family: var(--ec-sans); }

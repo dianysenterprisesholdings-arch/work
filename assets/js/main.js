@@ -53,6 +53,33 @@
     muta();
   }
 
+
+  /* ---------------------------------------------------------- contoare
+     Valorile finale sunt deja in HTML, ca pagina sa fie corecta si fara
+     JavaScript. Animatia doar porneste de la zero si urca inapoi la ele. */
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const countIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const node = e.target;
+      countIO.unobserve(node);
+      const tinta = parseFloat(node.dataset.count);
+      if (!isFinite(tinta)) return;
+      const zec = parseInt(node.dataset.dec || '0', 10);
+      const scrie = v => node.textContent = v.toFixed(zec).replace('.', ',');
+      if (reduced) { scrie(tinta); return; }
+      const dur = 1300, t0 = performance.now();
+      const pas = t => {
+        const p = Math.min((t - t0) / dur, 1);
+        scrie(tinta * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(pas);
+      };
+      requestAnimationFrame(pas);
+    });
+  }, { threshold: .5 });
+  const numara = () => $$('[data-count]').forEach(n => countIO.observe(n));
+  numara();
+
   /* ================================================ DISPONIBILITATE ==
      Carduri pe etape, cu bara de progres si contoare calculate — tiparul
      din Lapis, dar numerele nu sunt scrise de mana, ci derivate din date.
@@ -78,7 +105,11 @@
 
     // numarul mare vine din date, nu din HTML
     const mare = $('.ec-av__big [data-count]');
-    if (mare) { mare.dataset.count = sum(corpuri, 'disponibil'); countIO.observe(mare); }
+    if (mare) {
+      mare.dataset.count = sum(corpuri, 'disponibil');
+      mare.textContent = sum(corpuri, 'disponibil');   // corect si fara animatie
+      countIO.observe(mare);
+    }
 
     // bara pe tot ansamblul + legenda cu valorile reale
     bar.innerHTML = STARI.map(([k, , col]) => {
