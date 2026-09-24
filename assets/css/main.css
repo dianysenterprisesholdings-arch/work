@@ -450,8 +450,9 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 /* ============================================================== FOOTER == */
 .ec-foot { background: var(--ec-emerald-700); color: rgba(255,255,255,.7); padding-block: 3rem 1.75rem; font-size: var(--ec-small); }
 .ec-foot__grid { display: grid; gap: 2rem; }
-@media (min-width: 56rem) { .ec-foot__grid { grid-template-columns: repeat(3, 1fr); gap: 2.25rem; } }
-@media (min-width: 72rem) { .ec-foot__grid { grid-template-columns: repeat(5, 1fr); gap: 2.25rem; } }
+@media (min-width: 56rem) { .ec-foot__grid { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 2.25rem; } }
+@media (min-width: 72rem) { .ec-foot__grid { grid-template-columns: repeat(5, minmax(0,1fr)); gap: 1.75rem; } }
+.ec-foot__grid ul { word-break: normal; overflow-wrap: anywhere; }
 .ec-foot h4 { font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: #fff; margin-bottom: 1rem; font-weight: 600; }
 .ec-foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
 .ec-foot a:hover { color: #fff; }
@@ -818,9 +819,9 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-foot__stats {
   display: grid; gap: 1px; background: var(--ec-line-light);
   border-block: 1px solid var(--ec-line-light);
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0,1fr));
 }
-@media (min-width: 46rem) { .ec-foot__stats { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 46rem) { .ec-foot__stats { grid-template-columns: repeat(4, minmax(0,1fr)); } }
 .ec-foot__stats div { background: var(--ec-emerald-700); padding: 1.25rem 1.4rem; }
 .ec-foot__stats b {
   display: block; font-family: var(--ec-disp); font-size: clamp(1.5rem, 2.6vw, 2rem);
@@ -1225,3 +1226,90 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-statrow { gap: .85rem; }
 /* in footer, pe fundal inchis, pictograma are nevoie de mai mult contrast */
 .ec-foot__stats .ec-statrow svg { color: var(--ec-brass); opacity: .95; }
+
+/* centrari si pictograme in randuri de date */
+.ec-center { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: center; align-items: center; }
+.ec-type__rows span, .ec-block__col h4 { display: inline-flex; align-items: center; gap: .5rem; }
+.ec-type__rows span svg, .ec-block__col h4 svg { color: var(--ec-brass); flex: none; }
+
+/* FAQ pe doua coloane */
+@media (min-width: 60rem) {
+  .ec-faq { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1px; background: var(--ec-line); }
+  .ec-faq details { background: var(--ec-white); border-bottom: 1px solid var(--ec-line); }
+  .ec-faq details:nth-last-child(-n+2) { border-bottom: 0; }
+}
+
+/* ==========================================================================
+   Cifre cu pictograma pe toata inaltimea, CTA final, acces
+   ========================================================================== */
+
+.ec-statbox { display: flex; align-items: center; gap: 1rem; }
+.ec-statbox__i {
+  flex: none; width: 2.9rem; height: 2.9rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald);
+  display: grid; place-items: center;
+}
+.ec-statbox__v b {
+  display: block; font-family: var(--ec-disp); font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+}
+.ec-statbox__v em {
+  display: block; margin-top: .35rem; font-style: normal; font-size: var(--ec-micro);
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40);
+}
+/* pe fundal inchis, in footer */
+.ec-foot__stats .ec-statbox__i { background: rgba(184,147,79,.16); color: var(--ec-brass); }
+.ec-foot__stats .ec-statbox__v b { color: #fff; }
+.ec-foot__stats .ec-statbox__v em { color: var(--ec-emerald-200); }
+
+/* --- acces ------------------------------------------------------------- */
+.ec-acces { display: flex; flex-direction: column; gap: 1.1rem; }
+.ec-acces > div { display: flex; gap: .9rem; align-items: flex-start; }
+.ec-acces__i {
+  flex: none; width: 2.3rem; height: 2.3rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald); display: grid; place-items: center;
+}
+.ec-acces b { display: block; font-size: .9375rem; font-weight: 600; }
+.ec-acces span span, .ec-acces > div > div > span {
+  display: block; margin-top: .25rem; font-size: var(--ec-small); color: var(--ec-ink-60);
+}
+
+/* --- CTA final --------------------------------------------------------- */
+.ec-cta { text-align: left; }
+.ec-cta__grid { display: grid; gap: 2.5rem 4rem; align-items: center; }
+@media (min-width: 62rem) { .ec-cta__grid { grid-template-columns: 1.05fr .95fr; } }
+.ec-cta h2 { font-size: clamp(1.6rem, 3.2vw, 2.5rem); font-weight: 600; letter-spacing: -.02em; }
+.ec-cta p { margin: 0; max-width: 46ch; color: rgba(255,255,255,.78); }
+.ec-cta__list { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; gap: .6rem; }
+.ec-cta__list li {
+  display: flex; align-items: center; gap: .65rem;
+  font-size: var(--ec-small); color: rgba(255,255,255,.88);
+}
+.ec-cta__list li::before {
+  content: ""; width: 16px; height: 16px; border-radius: 50%; flex: none;
+  background: var(--ec-brass);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/11px no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/11px no-repeat;
+}
+
+.ec-cta__acts { display: grid; gap: 1px; background: var(--ec-line-light); border-radius: var(--ec-r); overflow: hidden; }
+.ec-cta__a {
+  background: var(--ec-emerald-700); padding: 1.15rem 1.35rem;
+  display: flex; align-items: center; gap: 1rem;
+  transition: background var(--ec-fast), padding-left var(--ec-fast);
+}
+.ec-cta__a:hover { background: var(--ec-emerald); padding-left: 1.85rem; }
+.ec-cta__a--wa:hover { background: #1E9E52; }
+.ec-cta__a--brass { background: var(--ec-brass); }
+.ec-cta__a--brass:hover { background: #A5833F; }
+.ec-cta__i {
+  flex: none; width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  background: rgba(255,255,255,.14); color: #fff; display: grid; place-items: center;
+}
+.ec-cta__a em { display: block; font-style: normal; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+.ec-cta__a b { display: block; margin-top: .2rem; font-family: var(--ec-disp); font-size: 1.15rem; font-weight: 600; color: #fff; }
+
+/* facilitati: vizualul umple inaltimea randului */
+@media (min-width: 62rem) { .ec-facw__vis { min-height: 100%; } .ec-facw__vis img { height: 100%; } }
+
+.ec-foot__stats > div { background: var(--ec-emerald-700); padding: 1.25rem 1.4rem; }

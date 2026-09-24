@@ -20,10 +20,10 @@ from collections import defaultdict
 RAD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV = os.path.join(RAD, "date", "unitati-demo.csv")
 
-TEL = "+40000000000"
-TEL_AFIS = "+40 000 000 000"
-WA = "https://wa.me/40000000000"
-TEL_LINK = "tel:+40000000000"
+TEL = "+40757707080"
+TEL_AFIS = "0757 70 70 80"
+WA = "https://wa.me/40757707080"
+TEL_LINK = "tel:+40757707080"
 
 # ---------------------------------------------------------------- tipologii
 # Ponderile pe camera sunt orientative: documentatia nu contine defalcarea
@@ -121,7 +121,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
   <div class="ec-topbar__in">
     <span class="ec-topbar__l"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Iași, zona Păcurari — <strong>DIRECT DEZVOLTATOR</strong></span>
     <div class="ec-topbar__right">
-      <a href="tel:+40000000000"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4h3l1.5 4-2 1.5a12 12 0 006 6L14.5 13l4 1.5v3a2 2 0 01-2.2 2A16 16 0 012.5 6.2 2 2 0 014.5 4z"/></svg> +40 000 000 000</a>
+      <a href="tel:+40757707080"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4h3l1.5 4-2 1.5a12 12 0 006 6L14.5 13l4 1.5v3a2 2 0 01-2.2 2A16 16 0 012.5 6.2 2 2 0 014.5 4z"/></svg> 0757 70 70 80</a>
       <a href="mailto:vanzari@emerald-city.ro"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg> vanzari@emerald-city.ro</a>
       <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> L–V 9–18 · S 10–14</span>
     </div>
@@ -193,8 +193,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       </div>
     </div>
 
-    <div class="ec-foot__stats">
-      <div><b>925</b></div><span>Apartamente</span></div>
+    <div class="ec-foot__stats"><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg></span><span class="ec-statbox__v"><b>925</b><em>Apartamente</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg></span><span class="ec-statbox__v"><b>18</b><em>Blocuri, parter + 3 etaje</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-13 0 9-5 13-14 13z"/><path d="M5 19c3-4 6-6 10-7.5"/></svg></span><span class="ec-statbox__v"><b>30,85%</b><em>Spațiu verde</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M6 17V9l2-4h8l2 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg></span><span class="ec-statbox__v"><b>940</b><em>Locuri de parcare</em></span></div></div></div>
       <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg><b>18</b></div><span>Blocuri, parter + 3 etaje</span></div>
       <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-13 0 9-5 13-14 13z"/><path d="M5 19c3-4 6-6 10-7.5"/></svg><b>30,85%</b></div><span>Spațiu verde</span></div>
       <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M6 17V9l2-4h8l2 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg><b>940</b></div><span>Locuri de parcare</span></div>
@@ -917,9 +916,9 @@ def pagina_hub_tipologii(grupe):
           <div class="ec-type__plan">{plan_svg(us[0]['nr_camere'], cod, sum(x['su_utila'] for x in us) / len(us), True)}</div>
           <div class="ec-type__code">{cod}</div>
           <div class="ec-type__rows">
-            <div><span>Camere</span><b>{us[0]['nr_camere']}</b></div>
-            <div><span>Suprafață</span><b>{mp(min(u['su_utila'] for u in us))} – {mp(max(u['su_utila'] for u in us))}</b></div>
-            <div><span>Disponibile</span><b>{len(disp)} din {len(us)}</b></div>
+            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V7l9-4 9 4v14"/><path d="M3 12h18M12 3v18"/></svg> Camere</span><b>{us[0]['nr_camere']}</b></div>
+            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l12-12 6 6-12 12z"/><path d="M7 11l2 2M10 8l2 2M13 5l2 2"/></svg> Suprafață</span><b>{mp(min(u['su_utila'] for u in us))} – {mp(max(u['su_utila'] for u in us))}</b></div>
+            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9 2 2-2 2 2 2-3 3-2-2-2 2"/></svg> Disponibile</span><b>{len(disp)} din {len(us)}</b></div>
           </div>
           <span class="ec-unit__price">{'de la ' + euro(pmin) if pmin else '—'}</span>
         </a>"""
@@ -1119,8 +1118,8 @@ def pagina_categorie(nr, unitati, grupe):
           <div class="ec-type__plan">{plan_svg(nr, cod, sum(u['su_utila'] for u in tu) / len(tu), True)}</div>
           <div class="ec-type__code">{cod}</div>
           <div class="ec-type__rows">
-            <div><span>Suprafață</span><b>{mp(min(u['su_utila'] for u in tu))} – {mp(max(u['su_utila'] for u in tu))}</b></div>
-            <div><span>Disponibile</span><b>{len(td)} din {len(tu)}</b></div>
+            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l12-12 6 6-12 12z"/><path d="M7 11l2 2M10 8l2 2M13 5l2 2"/></svg> Suprafață</span><b>{mp(min(u['su_utila'] for u in tu))} – {mp(max(u['su_utila'] for u in tu))}</b></div>
+            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9 2 2-2 2 2 2-3 3-2-2-2 2"/></svg> Disponibile</span><b>{len(td)} din {len(tu)}</b></div>
           </div>
           <span class="ec-unit__price">{'de la ' + euro(tp) if tp else '—'}</span>
         </a>"""
