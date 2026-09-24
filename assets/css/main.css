@@ -128,6 +128,20 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 /* ---------------------------------------------------------------- reveal */
 .ec-rv { opacity: 0; transform: translateY(14px); transition: opacity .7s var(--ec-ease), transform .7s var(--ec-ease); }
 .ec-rv.is-in { opacity: 1; transform: none; }
+
+/* continutul cardului intra decalat fata de imagine, nu simultan */
+.ec-rv .ec-block__body > *, .ec-rv .ec-block__col > * {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .55s var(--ec-ease), transform .55s var(--ec-ease);
+}
+.ec-rv.is-in .ec-block__body > *, .ec-rv.is-in .ec-block__col > * { opacity: 1; transform: none; }
+.ec-rv.is-in .ec-block__body > *:nth-child(1), .ec-rv.is-in .ec-block__col > *:nth-child(1) { transition-delay: .12s; }
+.ec-rv.is-in .ec-block__body > *:nth-child(2), .ec-rv.is-in .ec-block__col > *:nth-child(2) { transition-delay: .19s; }
+.ec-rv.is-in .ec-block__body > *:nth-child(3), .ec-rv.is-in .ec-block__col > *:nth-child(3) { transition-delay: .26s; }
+.ec-rv.is-in .ec-block__body > *:nth-child(4), .ec-rv.is-in .ec-block__col > *:nth-child(4) { transition-delay: .33s; }
+@media (prefers-reduced-motion: reduce) {
+  .ec-rv .ec-block__body > *, .ec-rv .ec-block__col > * { opacity: 1; transform: none; transition: none; }
+}
 .ec-rv[data-d="1"] { transition-delay: .07s; }
 .ec-rv[data-d="2"] { transition-delay: .14s; }
 .ec-rv[data-d="3"] { transition-delay: .21s; }
@@ -171,10 +185,15 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 
 /* ================================================================ HERO == */
 .ec-hero { position: relative; min-height: min(78vh, 680px); display: grid; }
-.ec-hero__img { grid-area: 1/1; width: 100%; height: 100%; object-fit: cover; }
+.ec-hero__img {
+  grid-area: 1/1; width: 100%; height: 100%; object-fit: cover;
+  animation: ecKen 26s ease-out both;
+}
+@keyframes ecKen { from { transform: scale(1); } to { transform: scale(1.07); } }
+@media (prefers-reduced-motion: reduce) { .ec-hero__img { animation: none; } }
 .ec-hero__veil {
   grid-area: 1/1;
-  background: linear-gradient(180deg, rgba(20,32,28,.62) 0%, rgba(20,32,28,.5) 45%, rgba(20,32,28,.78) 100%);
+  background: linear-gradient(180deg, rgba(20,32,28,.72) 0%, rgba(20,32,28,.58) 45%, rgba(20,32,28,.84) 100%);
 }
 .ec-hero__in {
   grid-area: 1/1; position: relative; z-index: 2;
@@ -209,13 +228,25 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 
 /* ============================================= CARDURI ALTERNANTE (Azabudai) */
 .ec-blocks { display: flex; flex-direction: column; gap: var(--ec-gap); }
+
+/* zoom fin la hover pe imaginile din carduri — semnatura Azabudai */
+.ec-block figure, .ec-split figure { overflow: hidden; }
+.ec-block img, .ec-split img { transition: transform .7s var(--ec-ease); will-change: transform; }
+.ec-block figure { display: grid; }
+.ec-block:hover img, .ec-split figure:hover img { transform: translateY(var(--py, 0)) scale(1.045); }
+@media (prefers-reduced-motion: reduce) {
+  .ec-block:hover img, .ec-split figure:hover img { transform: none; }
+}
 .ec-block { background: var(--ec-white); display: grid; overflow: hidden; }
 @media (min-width: 60rem) {
   .ec-block { grid-template-columns: 1.35fr .65fr; }
   .ec-block--rev > figure { order: 2; }
 }
 .ec-block figure { margin: 0; }
-.ec-block img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16/10; }
+.ec-block img {
+  width: 100%; height: calc(100% + 28px); object-fit: cover; aspect-ratio: 16/10;
+  transform: translateY(var(--py, 0));
+}
 .ec-block__body { padding: clamp(1.5rem, 3vw, 2.5rem); display: flex; flex-direction: column; justify-content: center; }
 
 .ec-block--stack { display: block; }

@@ -27,6 +27,32 @@
   const observa = () => $$('.ec-rv:not(.is-in)').forEach(n => io.observe(n));
   observa();
 
+  /* ----------------------------------------------------------- parallax
+     Imaginile din carduri se misca putin mai lent decat pagina. Subtil,
+     dar e diferenta dintre "corect" si "scump". */
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced) {
+    const figuri = $$('.ec-block figure');
+    let tichet = false;
+    const muta = () => {
+      const vh = innerHeight;
+      figuri.forEach(f => {
+        const r = f.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        const centru = (r.top + r.height / 2 - vh / 2) / vh;   // -1 .. 1
+        const img = f.querySelector('img');
+        if (img && !f.matches(':hover')) img.style.setProperty('--py', (centru * -14).toFixed(1) + 'px');
+      });
+      tichet = false;
+    };
+    addEventListener('scroll', () => {
+      if (tichet) return;
+      tichet = true;
+      requestAnimationFrame(muta);
+    }, { passive: true });
+    muta();
+  }
+
   /* ================================================ DISPONIBILITATE ==
      Carduri pe etape, cu bara de progres si contoare calculate — tiparul
      din Lapis, dar numerele nu sunt scrise de mana, ci derivate din date.
