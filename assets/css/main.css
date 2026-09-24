@@ -1424,3 +1424,18 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-statbox__i svg { display: block; }
 
 
+
+/* --- alinierea cifrelor ------------------------------------------------
+   Celulele au inaltimi diferite cand eticheta se rupe pe doua randuri,
+   asa ca le centrez si pe verticala. Iar textul se centreaza in raport cu
+   el insusi, altfel cifra pare deplasata fata de o eticheta mai lata.
+   ---------------------------------------------------------------------- */
+.ec-manifest__stats > div,
+.ec-foot__stats > div,
+.ec-hstat {
+  display: flex; align-items: center; justify-content: center;
+}
+.ec-statbox__v { text-align: center; }
+.ec-manifest__stats > div > span,
+.ec-foot__stats span,
+.ec-hstat span { text-align: center; }
