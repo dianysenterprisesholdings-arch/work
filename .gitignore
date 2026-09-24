@@ -25,3 +25,6 @@ build/
 
 # fisier temporar de randare
 _preview.html
+
+# pagini generate din date (se regenereaza cu date/genereaza-pagini.py)
+# comentate: le tinem in repo ca sa functioneze linkurile in preview

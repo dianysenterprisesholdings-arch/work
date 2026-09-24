@@ -395,3 +395,104 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-wa:hover { transform: translateY(-2px); }
 .ec-wa span { display: none; }
 @media (min-width: 40rem) { .ec-wa span { display: inline; } }
+
+/* ==========================================================================
+   Pagini interioare: listare, unitate, tipologie
+   ========================================================================== */
+
+.ec-crumbs { font-size: var(--ec-micro); color: var(--ec-ink-40); padding-block: 1.25rem; }
+.ec-crumbs a:hover { color: var(--ec-emerald); }
+.ec-crumbs span { margin-inline: .4rem; opacity: .5; }
+
+.ec-phead { padding-block: 1rem 2.5rem; }
+.ec-phead h1 { font-size: clamp(1.6rem, 3.2vw, 2.5rem); font-weight: 600; letter-spacing: -.015em; }
+.ec-phead__meta { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; margin-top: .9rem; font-size: var(--ec-small); color: var(--ec-ink-60); }
+
+/* --- bara de pret de pe pagina de unitate ----------------------------- */
+.ec-pricebar {
+  background: var(--ec-white); padding: 1.5rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2.5rem;
+  border-left: 3px solid var(--ec-brass);
+}
+.ec-pricebar__p { font-family: var(--ec-disp); font-size: clamp(1.5rem,3vw,2.1rem); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+.ec-pricebar__s { font-size: var(--ec-micro); color: var(--ec-ink-40); margin-top: .35rem; }
+.ec-pricebar__cta { margin-left: auto; display: flex; flex-wrap: wrap; gap: .6rem; }
+
+/* --- specificatii ----------------------------------------------------- */
+.ec-specs { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
+@media (min-width: 40rem) { .ec-specs { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 64rem) { .ec-specs { grid-template-columns: repeat(4, 1fr); } }
+.ec-spec { background: var(--ec-white); padding: 1.1rem 1.25rem; }
+.ec-spec dt { font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-spec dd { margin: .35rem 0 0; font-family: var(--ec-disp); font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* --- tabel de suprafete pe camera ------------------------------------- */
+.ec-rooms { background: var(--ec-white); }
+.ec-rooms table { border-collapse: collapse; width: 100%; font-size: var(--ec-small); }
+.ec-rooms th, .ec-rooms td { padding: .7rem 1.25rem; text-align: left; border-bottom: 1px solid var(--ec-line); }
+.ec-rooms th { font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); font-weight: 600; }
+.ec-rooms td:last-child, .ec-rooms th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+.ec-rooms tfoot td { font-weight: 600; border-bottom: 0; }
+
+/* --- formular cu unitatea preluata ------------------------------------ */
+.ec-form { background: var(--ec-white); padding: clamp(1.5rem,3vw,2.25rem); }
+.ec-form__unit {
+  margin-bottom: 1.25rem; padding: .75rem .9rem;
+  background: var(--ec-mint); font-size: var(--ec-small); line-height: 1.5;
+  border-left: 2px solid var(--ec-brass);
+}
+.ec-form__unit b { font-weight: 600; }
+.ec-form__grid { display: grid; gap: .9rem; }
+@media (min-width: 40rem) { .ec-form__grid { grid-template-columns: 1fr 1fr; } }
+.ec-form label { display: block; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); margin-bottom: .35rem; }
+.ec-form input, .ec-form textarea {
+  width: 100%; padding: .7rem .8rem; border: 1px solid var(--ec-line);
+  background: #fff; font: inherit; font-size: var(--ec-small); border-radius: 2px;
+}
+.ec-form input:focus, .ec-form textarea:focus { outline: 2px solid var(--ec-brass); outline-offset: 1px; border-color: transparent; }
+.ec-form .full { grid-column: 1 / -1; }
+.ec-form__note { font-size: var(--ec-micro); color: var(--ec-ink-40); margin-top: .9rem; }
+
+/* --- tabel de disponibilitate (listare + tipologie) -------------------- */
+.ec-table { background: var(--ec-white); overflow-x: auto; }
+.ec-table table { border-collapse: collapse; width: 100%; font-size: var(--ec-small); white-space: nowrap; }
+.ec-table th, .ec-table td { padding: .75rem 1rem; text-align: left; border-bottom: 1px solid var(--ec-line); }
+.ec-table thead th {
+  font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ec-ink-40); font-weight: 600; cursor: pointer; user-select: none;
+  position: sticky; top: 0; background: var(--ec-white); z-index: 1;
+}
+.ec-table thead th:hover { color: var(--ec-emerald); }
+.ec-table thead th[data-dir]::after { content: " ↑"; color: var(--ec-brass); }
+.ec-table thead th[data-dir="desc"]::after { content: " ↓"; }
+.ec-table tbody tr:hover { background: var(--ec-mint); }
+.ec-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.ec-table tr.is-sold td:not(.st) { opacity: .55; }
+.ec-table a { font-weight: 600; color: var(--ec-emerald); }
+.ec-table a:hover { text-decoration: underline; }
+
+.ec-toolbar { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.ec-toolbar__n { font-size: var(--ec-small); color: var(--ec-ink-60); }
+.ec-more { display: flex; justify-content: center; margin-top: 1.5rem; }
+
+/* --- filtre extinse pe pagina de listare ------------------------------ */
+.ec-filters { background: var(--ec-white); padding: 1.5rem; display: grid; gap: 1.5rem; margin-bottom: var(--ec-gap); }
+@media (min-width: 52rem) { .ec-filters { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 76rem) { .ec-filters { grid-template-columns: repeat(4, 1fr); } }
+.ec-filters__foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; justify-content: space-between; border-top: 1px solid var(--ec-line); padding-top: 1rem; }
+
+/* --- unitati similare -------------------------------------------------- */
+.ec-similar { display: grid; gap: var(--ec-gap); }
+@media (min-width: 46rem) { .ec-similar { grid-template-columns: repeat(3, 1fr); } }
+
+/* --- galerie pe pagina de tipologie ------------------------------------ */
+.ec-gal { display: grid; gap: var(--ec-gap); }
+@media (min-width: 46rem) { .ec-gal { grid-template-columns: repeat(3, 1fr); } }
+.ec-gal figure { margin: 0; overflow: hidden; }
+.ec-gal img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform .7s var(--ec-ease); }
+.ec-gal figure:hover img { transform: scale(1.05); }
+
+/* --- planul mare pe pagina de unitate ---------------------------------- */
+.ec-planbox { background: var(--ec-white); padding: clamp(1.5rem,3vw,2.5rem); display: grid; place-items: center; }
+.ec-planbox svg { width: 100%; max-width: 30rem; height: auto; }
+.ec-planbox .wall { fill: var(--ec-emerald); }
