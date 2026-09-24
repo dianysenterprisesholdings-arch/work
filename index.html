@@ -4,15 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Apartamente noi în Iași, zona Păcurari — Emerald City</title>
-<meta name="description" content="Un nou standard de confort urban în Iași, zona Păcurari. 925 de apartamente cu 1, 2 și 3 camere, materiale premium și 30,85% spațiu verde, pe 5 hectare. Direct de la dezvoltator.">
+<meta name="description" content="Apartamente noi cu 1, 2 și 3 camere în Iași, zona Păcurari. 925 de apartamente în Emerald City, finisaje premium, parc dendrologic și parcare subterană. Direct de la dezvoltator.">
 <link rel="canonical" href="https://emerald-city.ro/">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 
-<!-- Schema: entitatea ansamblului. Pe paginile de unitate se adauga Apartment + Offer. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -28,7 +27,7 @@
       "@id": "https://emerald-city.ro/#ansamblu",
       "name": "Emerald City — apartamente noi în Iași, zona Păcurari",
       "url": "https://emerald-city.ro/",
-      "description": "Ansamblu rezidențial premium cu 925 de apartamente în 18 blocuri, în zona Păcurari din Iași. Teren de 50.235 m² cu 30,85% spațiu verde și parc dendrologic.",
+      "description": "Ansamblu rezidențial premium cu 925 de apartamente cu 1, 2 și 3 camere, în zona Păcurari din Iași. Finisaje premium, 30,85% spațiu verde, parcare subterană.",
       "numberOfRooms": "1-3",
       "developer": { "@id": "https://emerald-city.ro/#dezvoltator" },
       "address": {
@@ -45,210 +44,177 @@
 </head>
 <body>
 
-<!-- ============================================================ NAVIGATIE -->
-<header class="ec-nav" id="nav">
-  <a class="ec-nav__logo" href="/" aria-label="Emerald City — acasă">
-    <img src="brand/logo-alb.svg" alt="Emerald City" width="590" height="286">
-    <img src="brand/logo-verde.svg" alt="" aria-hidden="true" width="590" height="286">
-  </a>
-  <nav class="ec-nav__menu">
-    <a href="#ansamblu">Ansamblul</a>
-    <a href="#masterplan">Masterplan</a>
-    <a href="#apartamente">Apartamente</a>
-    <a href="#finisaje">Finisaje</a>
-    <a href="#amplasament">Amplasament</a>
-  </nav>
-  <div class="ec-nav__cta">
-    <a class="ec-nav__tel" href="tel:+40000000000">+40 000 000 000</a>
-    <a class="ec-btn ec-btn--light" href="#apartamente">Vezi apartamentele</a>
+<!-- ================================================================ TOPBAR -->
+<div class="ec-topbar">
+  <div class="ec-topbar__in">
+    <span>Apartamente cu 1, 2 și 3 camere în Iași, zona Păcurari — <strong>DIRECT DEZVOLTATOR</strong></span>
+    <div class="ec-topbar__right">
+      <a href="tel:+40000000000">+40 000 000 000</a>
+      <a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a>
+    </div>
+  </div>
+</div>
+
+<!-- =================================================================== NAV -->
+<header class="ec-nav">
+  <div class="ec-nav__in">
+    <a class="ec-nav__logo" href="/" aria-label="Emerald City — acasă">
+      <img src="brand/logo-verde.svg" alt="Emerald City" width="590" height="286">
+    </a>
+    <nav class="ec-nav__menu">
+      <a href="#despre">Despre</a>
+      <a href="#apartamente">Apartamente</a>
+      <a href="#disponibilitate">Disponibilitate</a>
+      <a href="#finisaje">Finisaje</a>
+      <a href="#amplasament">Amplasament</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="ec-btn" href="#disponibilitate">Vezi apartamentele</a>
   </div>
 </header>
 
 <main>
 
-<!-- ================================================================= HERO -->
+<!-- ================================================================== HERO -->
 <section class="ec-hero">
-  <svg class="ec-hero__terrain" id="heroTerrain" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true"></svg>
-
-  <div class="ec-hero__inner">
-    <p class="ec-eyebrow ec-eyebrow--light" data-rise="1">Iași · Păcurari</p>
-    <h1 class="ec-hero__title" data-rise="2">Un nou standard de<br><em>confort urban</em> în Iași.</h1>
-    <p class="ec-hero__sub" data-rise="3">
-      Emerald City redefinește experiența locuirii urbane prin atenția la detalii și calitatea execuției. Fiecare spațiu este conceput pentru confort, lumină și funcționalitate.
+  <img class="ec-hero__img" src="assets/img/hero-living.jpg" alt="Interior apartament Emerald City" fetchpriority="high" width="1800" height="1013">
+  <div class="ec-hero__veil"></div>
+  <div class="ec-hero__in">
+    <span class="ec-badge"><i></i> Direct dezvoltator · Tala Sapphire</span>
+    <h1>Apartamente noi în Iași<em>zona Păcurari</em></h1>
+    <p class="ec-hero__sub">
+      Un nou standard de confort urban: 925 de apartamente cu 1, 2 și 3 camere,
+      finisaje premium și spații verzi amenajate, într-un ansamblu de cinci hectare.
     </p>
-    <div class="ec-hero__foot" data-rise="4">
-      <a class="ec-btn ec-btn--light" href="#apartamente">
-        Caută apartamentul tău
-        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
-          <path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.4"/>
-        </svg>
-      </a>
-      <a class="ec-btn ec-btn--ghost-light" href="#masterplan">Explorează masterplanul</a>
-      <span class="ec-hero__loc">925 apartamente · 18 blocuri</span>
+    <div class="ec-hero__cta">
+      <a class="ec-btn ec-btn--white" href="tel:+40000000000">Sună acum</a>
+      <a class="ec-btn ec-btn--wa" href="https://wa.me/40000000000">WhatsApp</a>
+      <a class="ec-btn ec-btn--outlight" href="#disponibilitate">Vezi apartamente</a>
+    </div>
+    <div class="ec-trust">
+      <span><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l2 5h6l-4.8 3.6L13 14 8 10.5 3 14l1.8-5.4L0 5h6z"/></svg> 925 apartamente premium</span>
+      <span><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l2 5h6l-4.8 3.6L13 14 8 10.5 3 14l1.8-5.4L0 5h6z"/></svg> Finisaje premium incluse</span>
+      <span><svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0l2 5h6l-4.8 3.6L13 14 8 10.5 3 14l1.8-5.4L0 5h6z"/></svg> 940 locuri de parcare</span>
     </div>
   </div>
 </section>
 
-<!-- ================================================================ CIFRE -->
-<section class="ec-stats">
-  <div class="ec-wrap">
-    <div class="ec-stats__grid">
-      <div class="ec-stat ec-reveal">
-        <div class="ec-stat__n"><span data-count="925">0</span></div>
-        <div class="ec-stat__l">Apartamente<br>cu 1, 2 și 3 camere</div>
-      </div>
-      <div class="ec-stat ec-reveal" data-d="1">
-        <div class="ec-stat__n"><span data-count="30.85" data-dec="2">0</span><small>%</small></div>
-        <div class="ec-stat__l">Spațiu verde<br>parc și loc de joacă</div>
-      </div>
-      <div class="ec-stat ec-reveal" data-d="2">
-        <div class="ec-stat__n"><span data-count="5.02" data-dec="2">0</span><small>ha</small></div>
-        <div class="ec-stat__l">Un ansamblu întreg<br>nu un bloc izolat</div>
-      </div>
-      <div class="ec-stat ec-reveal" data-d="3">
-        <div class="ec-stat__n"><span data-count="940">0</span></div>
-        <div class="ec-stat__l">Locuri de parcare<br>258 la subsol</div>
-      </div>
-    </div>
-  </div>
+<!-- =============================================================== CONCEPT -->
+<section class="ec-concept ec-wrap" id="despre">
+  <h2>Un nou standard de confort urban prinde contur în Iași.</h2>
+  <p>Emerald City redefinește experiența locuirii urbane prin atenția la detalii</p>
+  <p>și calitatea execuției. Fiecare spațiu este conceput pentru confort,</p>
+  <p>lumină și funcționalitate. Materiale premium și standarde ridicate</p>
+  <p>de construcție creează un mediu sigur, elegant și durabil.</p>
+  <a class="ec-btn ec-btn--out" href="#apartamente">
+    Despre Emerald City
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M9 1l4 4-4 4M13 5H0" stroke="currentColor" stroke-width="1.4"/></svg>
+  </a>
 </section>
 
-<!-- ========================================================== PRINCIPII -->
-<section class="ec-section ec-terrain" id="ansamblu">
-  <div class="ec-wrap">
+<!-- ================================================ CARDURI ALTERNANTE ==== -->
+<div class="ec-wrap">
+  <div class="ec-blocks" id="apartamente">
 
-    <div class="ec-terrain__head">
-      <div>
-        <p class="ec-eyebrow">Conceptul</p>
-        <h2 class="ec-h2">Un loc în care<br><em class="ec-italic">te așezi, nu doar locuiești.</em></h2>
-      </div>
-      <div>
-        <p class="ec-lead">
-          Emerald City pornește de la felul în care trăiești efectiv: unde bei cafeaua
-          dimineața, unde se joacă copiii după școală, cât de aproape e mașina și cât
-          de liniște e seara.
+    <a class="ec-block ec-rv" href="#disponibilitate">
+      <figure><img src="assets/img/living-01.jpg" alt="Living apartament 3 camere" loading="lazy" width="1800" height="1013"></figure>
+      <div class="ec-block__body">
+        <h2 class="ec-title">Apartamente</h2>
+        <p class="ec-subtitle">1, 2 și 3 camere</p>
+        <p class="ec-body">
+          Compartimentări gândite pentru felul în care se locuiește efectiv, cu lumină
+          naturală în fiecare cameră și balcon la fiecare apartament. Suprafețe de la
+          37 la 81 m², cu boxă și parcare subterană disponibile.
         </p>
+        <span class="ec-arrow"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.3"/></svg></span>
       </div>
-    </div>
+    </a>
 
-    <div class="ec-pillars">
-      <article class="ec-pillar ec-reveal">
-        <span class="ec-pillar__n">01</span>
-        <h3 class="ec-pillar__t">Lumină toată ziua</h3>
-        <p>Clădiri joase, cu spațiu mare între ele. Dimineața în bucătărie, după-amiaza
-           în living — nu aprinzi becul la prânz.</p>
-      </article>
-      <article class="ec-pillar ec-reveal" data-d="1">
-        <span class="ec-pillar__n">02</span>
-        <h3 class="ec-pillar__t">Spațiu care se folosește</h3>
-        <p>Fără holuri pierdute. Fiecare metru are o funcție, iar boxa și balconul preiau
-           tot ce nu încape în casă.</p>
-      </article>
-      <article class="ec-pillar ec-reveal" data-d="2">
-        <span class="ec-pillar__n">03</span>
-        <h3 class="ec-pillar__t">Calitate care ține</h3>
-        <p>Materiale premium și execuție atentă — finisaje care arată la fel de bine
-           peste zece ani, nu doar în ziua mutării.</p>
-      </article>
-      <article class="ec-pillar ec-reveal" data-d="3">
-        <span class="ec-pillar__n">04</span>
-        <h3 class="ec-pillar__t">Verdeață la ușă</h3>
-        <p>Aproape o treime din ansamblu rămâne parc. Copiii au loc de joacă, tu ai unde
-           alerga dimineața, iar mașina stă în parcarea subterană.</p>
-      </article>
-    </div>
-
-  </div>
-</section>
-
-<!-- ================================================================ PARC -->
-<section class="ec-band">
-  <div class="ec-band__grid">
-    <div class="ec-media">
-      <p class="ec-media__note">Randare peisagistică<br>parc dendrologic<br>— de furnizat —</p>
-    </div>
-    <div class="ec-band__card">
-      <p class="ec-eyebrow ec-eyebrow--light">Spațiul dintre clădiri</p>
-      <h2 class="ec-h3">Un parc dendrologic, nu un scuar.</h2>
-      <p class="ec-mt-s" style="color:rgba(237,232,224,.74)">
-        Din cele 50.235 m² ale amplasamentului, 15.501 m² rămân spațiu verde amenajat —
-        30,85%. Parc dendrologic și loc de joacă pentru copii, cu alei care leagă
-        blocurile între ele, nu coridoare drepte între blocuri.
-      </p>
-      <p class="ec-mt-m"><a class="ec-link" href="#">Vezi amenajarea exterioară</a></p>
-    </div>
-  </div>
-</section>
-
-<!-- ========================================================== MASTERPLAN -->
-<section class="ec-section ec-master" id="masterplan">
-  <div class="ec-wrap">
-
-    <div class="ec-terrain__head" style="margin-bottom:3rem">
-      <div>
-        <p class="ec-eyebrow ec-eyebrow--light">Masterplan</p>
-        <h2 class="ec-h2">Alege-ți<br><em class="ec-italic">vecinătatea.</em></h2>
-      </div>
-      <div>
-        <p class="ec-lead" style="color:rgba(237,232,224,.7)">
-          Clădiri joase, cu spațiu între ele și parcare la subsol. Alege un bloc
-          pentru a vedea ce apartamente mai sunt libere.
+    <a class="ec-block ec-block--rev ec-rv" href="#finisaje">
+      <figure><img src="assets/img/bucatarie-01.jpg" alt="Bucătărie cu finisaje premium" loading="lazy" width="1800" height="1013"></figure>
+      <div class="ec-block__body">
+        <h2 class="ec-title">Finisaje</h2>
+        <p class="ec-subtitle">Premium, incluse în preț</p>
+        <p class="ec-body">
+          Paletă caldă în tonuri nisip și greige, stejar deschis pe pardoseală și piatră
+          naturală în băi. Finisaje care arată la fel de bine peste zece ani, nu doar
+          în ziua mutării.
         </p>
+        <span class="ec-arrow"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.3"/></svg></span>
       </div>
-    </div>
+    </a>
 
-    <div class="ec-master__layout">
-      <div class="ec-master__plan ec-reveal">
-        <svg class="ec-master__svg" id="masterSvg" viewBox="0 0 760 460" role="img"
-             aria-label="Schemă a ansamblului: 18 blocuri grupate pe cele trei etape de construcție"></svg>
-        <div class="ec-legend ec-mt-m">
-          <span><i style="background:var(--ec-available)"></i> Disponibil</span>
-          <span><i style="background:var(--ec-reserved)"></i> Rezervat</span>
-          <span><i style="background:var(--ec-sold)"></i> Vândut</span>
-          <span><i style="background:#7FA294;opacity:.45"></i> În curând</span>
+    <div class="ec-block ec-block--stack ec-rv">
+      <figure><img src="assets/img/living-03.jpg" alt="Spațiu de zi cu acces la balcon" loading="lazy" width="1800" height="686"></figure>
+      <div class="ec-block__cols">
+        <div class="ec-block__col">
+          <h2 class="ec-title">Spații verzi</h2>
+          <p class="ec-subtitle">Parc dendrologic și loc de joacă</p>
+          <p class="ec-body">
+            Aproape o treime din cele cinci hectare rămâne spațiu verde amenajat — 15.501 m²
+            din 50.235. Copiii au loc de joacă, iar mașina stă în parcarea subterană, nu
+            între blocuri.
+          </p>
+          <span class="ec-arrow"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.3"/></svg></span>
         </div>
+        <a class="ec-block__col" href="#amplasament">
+          <h4>Parcare subterană</h4>
+          <p class="ec-body">258 de locuri la subsol și 682 supraterane.</p>
+          <span class="ec-arrow"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.3"/></svg></span>
+        </a>
+        <a class="ec-block__col" href="#amplasament">
+          <h4>Spații comerciale</h4>
+          <p class="ec-body">Magazine și servicii la parterul ansamblului.</p>
+          <span class="ec-arrow"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.3"/></svg></span>
+        </a>
       </div>
-
-      <aside class="ec-master__side">
-        <div class="ec-master__panel" id="corpPanel" aria-live="polite">
-          <p class="ec-master__stage" id="cpStage">Etapa I</p>
-          <h3 id="cpCode">Blocul 1</h3>
-          <p style="font-size:.8125rem;color:var(--ec-emerald-200);margin-bottom:1.5rem" id="cpCota">45 apartamente · parter și 3 etaje</p>
-
-          <div class="ec-master__bar" id="cpBar"></div>
-          <div class="ec-master__rows" id="cpRows"></div>
-
-          <a class="ec-btn ec-btn--light" href="#apartamente" id="cpLink">Vezi unitățile</a>
-        </div>
-        <p class="ec-note" style="color:var(--ec-emerald-200);opacity:.7;margin:0">
-          Schemă de orientare. Nu reprezintă geometria exactă a planului de situație.
-        </p>
-      </aside>
     </div>
 
+    <a class="ec-block ec-rv" href="#amplasament">
+      <figure><img src="assets/img/dormitor-01.jpg" alt="Dormitor amenajat" loading="lazy" width="1800" height="1013"></figure>
+      <div class="ec-block__body">
+        <h2 class="ec-title">Amplasament</h2>
+        <p class="ec-subtitle">Iași, zona Păcurari</p>
+        <p class="ec-body">
+          Una dintre cele mai căutate zone ale Iașului, la câteva minute de Copou și de
+          universități — dar la marginea orașului, unde mai există spațiu pentru cinci
+          hectare de ansamblu și un parc.
+        </p>
+        <span class="ec-arrow"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.3"/></svg></span>
+      </div>
+    </a>
+
   </div>
-</section>
+</div>
 
-<!-- =========================================================== SELECTOR -->
-<section class="ec-section ec-finder" id="apartamente">
+<!-- ======================================================= DISPONIBILITATE -->
+<section class="ec-section" id="disponibilitate">
   <div class="ec-wrap">
-
-    <p class="ec-eyebrow">Apartamente</p>
-    <h2 class="ec-h2" style="max-width:18ch">Găsește-ți apartamentul.</h2>
-    <p class="ec-lead ec-mt-s" style="max-width:52ch">
-      Filtrează după ce contează pentru tine. Rezultatele se actualizează instant.
+    <p class="ec-eyebrow">Disponibilitate și prețuri</p>
+    <h2 class="ec-title" style="margin-top:1rem">Etapele ansamblului</h2>
+    <p class="ec-body" style="max-width:56ch">
+      Ansamblul se construiește în trei etape. Prețurile includ TVA, cu avans de 15% la
+      antecontract și diferența la predare.
     </p>
+    <div class="ec-avail__grid" style="margin-top:2rem" id="stageGrid"></div>
+  </div>
+</section>
 
-    <div class="ec-finder__bar ec-mt-l">
+<!-- =============================================================== SELECTOR -->
+<section class="ec-section" style="background:var(--ec-mint-deep)">
+  <div class="ec-wrap">
+    <p class="ec-eyebrow">Caută</p>
+    <h2 class="ec-title" style="margin-top:1rem">Găsește-ți apartamentul</h2>
+
+    <div class="ec-finder__bar" style="margin-top:2rem">
       <div class="ec-field">
-        <label id="lblCam">Camere</label>
-        <div class="ec-chips" id="fCamere" role="group" aria-labelledby="lblCam">
+        <label id="lc">Camere</label>
+        <div class="ec-chips" id="fCamere" role="group" aria-labelledby="lc">
           <button class="ec-chip" data-v="1">1 cameră</button>
           <button class="ec-chip" data-v="2">2 camere</button>
           <button class="ec-chip" data-v="3">3 camere</button>
         </div>
       </div>
-
       <div class="ec-field">
         <label for="fPret">Buget maxim</label>
         <div class="ec-range">
@@ -256,199 +222,154 @@
           <output for="fPret" id="oPret">130.000 €</output>
         </div>
       </div>
-
       <div class="ec-field">
-        <label id="lblEtaj">Etaj</label>
-        <div class="ec-chips" id="fEtaj" role="group" aria-labelledby="lblEtaj">
+        <label id="le">Etaj</label>
+        <div class="ec-chips" id="fEtaj" role="group" aria-labelledby="le">
           <button class="ec-chip" data-v="0">Parter</button>
           <button class="ec-chip" data-v="1">1</button>
           <button class="ec-chip" data-v="2">2</button>
           <button class="ec-chip" data-v="3">3</button>
         </div>
       </div>
-
-      <button class="ec-btn ec-btn--ghost" id="fReset" type="button">Resetează</button>
+      <button class="ec-btn ec-btn--out" id="fReset" type="button">Resetează</button>
     </div>
 
-    <p class="ec-finder__count" id="fCount">Se încarcă…</p>
+    <p class="ec-count" id="fCount">Se încarcă…</p>
     <div class="ec-cards" id="fResults"></div>
-
-    <p class="ec-mt-l"><a class="ec-link" href="#">Vezi toate cele 925 de apartamente</a></p>
-
+    <p style="margin-top:2rem"><a class="ec-btn ec-btn--brass" href="#">Vezi toate cele 925 de apartamente</a></p>
   </div>
 </section>
 
-<!-- =========================================================== TIPOLOGII -->
-<section class="ec-section" style="background:var(--ec-sand)">
+<!-- =============================================================== TIPOLOGII -->
+<section class="ec-section">
   <div class="ec-wrap">
     <p class="ec-eyebrow">Tipologii</p>
-    <h2 class="ec-h2" style="max-width:20ch">Cinci compartimentări.</h2>
-    <div class="ec-types__grid ec-mt-l" id="typeGrid"></div>
-    <p class="ec-note">
-      Suprafețele sunt din setul de date de lucru și se înlocuiesc la primirea tabelului
-      final de la dezvoltator.
+    <h2 class="ec-title" style="margin-top:1rem">Compartimentări</h2>
+    <div class="ec-types" style="margin-top:2rem" id="typeGrid"></div>
+  </div>
+</section>
+
+<!-- ================================================================ FINISAJE -->
+<section class="ec-section" id="finisaje">
+  <div class="ec-wrap">
+    <p class="ec-eyebrow">Finisaje</p>
+    <h2 class="ec-title" style="margin-top:1rem">Amenajări</h2>
+    <div class="ec-blocks" style="margin-top:2rem">
+      <div class="ec-block ec-block--stack ec-rv">
+        <figure><img src="assets/img/living-02.jpg" alt="Living amenajat, tipologia 2 camere" loading="lazy" width="1800" height="686"></figure>
+        <div class="ec-block__cols">
+          <div class="ec-block__col">
+            <h4>Living și bucătărie</h4>
+            <p class="ec-body">Zonă de zi deschisă, cu bucătărie integrată și acces direct la balcon.</p>
+          </div>
+          <div class="ec-block__col">
+            <h4>Dormitoare</h4>
+            <p class="ec-body">Tâmplărie cu geam termoizolant și iluminat ambiental integrat.</p>
+          </div>
+          <div class="ec-block__col">
+            <h4>Băi</h4>
+            <p class="ec-body">Piatră naturală, baterii încastrate și corpuri suspendate.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ec-split">
+        <figure style="margin:0"><img src="assets/img/baie-01.jpg" alt="Baie finisată cu piatră naturală" loading="lazy" width="1800" height="1013"></figure>
+        <figure style="margin:0"><img src="assets/img/bucatarie-03.jpg" alt="Bucătărie cu front din nuc" loading="lazy" width="1800" height="1013"></figure>
+      </div>
+    </div>
+    <p style="font-size:.8125rem;color:var(--ec-ink-40);margin-top:1rem">
+      Imaginile au caracter orientativ. Amenajarea nu este inclusă în prețul de vânzare.
     </p>
   </div>
 </section>
 
-<!-- ============================================================ FINISAJE -->
-<section class="ec-section ec-finish" id="finisaje">
+<!-- ============================================================= AMPLASAMENT -->
+<section class="ec-section" id="amplasament">
   <div class="ec-wrap">
-    <div class="ec-terrain__head" style="margin-bottom:3rem">
-      <div>
-        <p class="ec-eyebrow ec-eyebrow--light">Finisaje</p>
-        <h2 class="ec-h2">Materiale premium,<br><em class="ec-italic">standarde ridicate.</em></h2>
-      </div>
-      <div>
-        <p class="ec-lead" style="color:rgba(237,232,224,.7)">
-          Un mediu sigur, elegant și durabil. Paletă caldă în tonuri nisip și greige, stejar deschis pe pardoseală, piatră naturală în băi — design contemporan potrivit nevoilor reale ale vieții de zi cu zi.
+    <p class="ec-eyebrow">Amplasament</p>
+    <h2 class="ec-title" style="margin-top:1rem">Iași, zona Păcurari</h2>
+    <div class="ec-split" style="margin-top:2rem">
+      <div class="ec-panel">
+        <div class="ec-dist">
+          <div><span>Centrul Iașului</span><b>~7 km</b></div>
+          <div><span>Copou</span><b>~5 km</b></div>
+          <div><span>Universitatea „Alexandru Ioan Cuza”</span><b>~6 km</b></div>
+          <div><span>Palas Mall</span><b>~8 km</b></div>
+          <div><span>Aeroport Iași</span><b>~11 km</b></div>
+          <div style="border:0"><span>Spitalul Sf. Spiridon</span><b>~7 km</b></div>
+        </div>
+        <p style="font-size:.8125rem;color:var(--ec-ink-40);margin-top:1rem">
+          Distanțe orientative, de confirmat cu valori măsurate.
         </p>
       </div>
-    </div>
-
-    <div class="ec-finish__grid">
-      <div class="ec-media ec-reveal"><p class="ec-media__note">Randare living<br>— de furnizat —</p></div>
-      <div class="ec-media ec-reveal" data-d="1"><p class="ec-media__note">Randare bucătărie<br>— de furnizat —</p></div>
-      <div class="ec-media ec-reveal" data-d="2"><p class="ec-media__note">Randare baie<br>— de furnizat —</p></div>
-    </div>
-
-    <div class="ec-palette ec-mt-l ec-reveal">
-      <i style="background:#EDE8E0" title="Ivoire"></i>
-      <i style="background:#D6CEC2" title="Greige"></i>
-      <i style="background:#D9C5A8" title="Stejar deschis"></i>
-      <i style="background:#B8934F" title="Alamă"></i>
-      <i style="background:#8C3A33" title="Bordo"></i>
-      <i style="background:#6B4A33" title="Nuc"></i>
-      <i style="background:#1F3E36" title="Emerald"></i>
-    </div>
-    <p class="ec-note" style="color:var(--ec-emerald-200);opacity:.7">
-      Amenajările au caracter orientativ și nu fac parte din prețul de vânzare.
-    </p>
-  </div>
-</section>
-
-<!-- ===================================================== STADIU + AMPLASAMENT -->
-<section class="ec-section" id="amplasament">
-  <div class="ec-wrap ec-split">
-    <div>
-      <p class="ec-eyebrow">Amplasament</p>
-      <h2 class="ec-h2" style="margin-bottom:1.5rem">Păcurari,<br><em class="ec-italic">unde orașul respiră.</em></h2>
-      <p class="ec-lead" style="margin-bottom:2rem">
-        Una dintre cele mai căutate zone ale Iașului, la câteva minute de Copou și de universități — dar la marginea orașului, unde mai există spațiu pentru cinci hectare de ansamblu și un parc.
-      </p>
-      <div class="ec-dist">
-        <div><span>Centrul Iașului</span><b>~7 km</b></div>
-        <div><span>Palas Mall</span><b>~8 km</b></div>
-        <div><span>Universitatea „Alexandru Ioan Cuza"</span><b>~6 km</b></div>
-        <div><span>Aeroport Iași</span><b>~11 km</b></div>
-        <div><span>Spitalul Sf. Spiridon</span><b>~7 km</b></div>
-      </div>
-      <p class="ec-note">Distanțe orientative, de confirmat și înlocuit cu valori măsurate.</p>
-    </div>
-    <div class="ec-media" style="min-height:26rem">
-      <p class="ec-media__note">Hartă interactivă<br>+ puncte de interes<br>— de implementat —</p>
+      <div class="ec-media"><p>Hartă interactivă<br>puncte de interes<br>— de implementat —</p></div>
     </div>
   </div>
 </section>
 
-<section class="ec-section" style="background:var(--ec-sand-dark)">
-  <div class="ec-wrap ec-split">
-    <div>
-      <p class="ec-eyebrow">Stadiul lucrărilor</p>
-      <h2 class="ec-h2" style="margin-bottom:1.5rem">Actualizat lunar,<br>cu fotografii datate.</h2>
-      <p class="ec-lead">
-        Jurnalul de șantier e cel mai direct semn că proiectul avansează. Se publică
-        în fiecare lună, cu imagini din teren.
-      </p>
-    </div>
-    <div class="ec-timeline">
-      <div class="ec-timeline__i">
-        <div class="ec-timeline__d">Etapa I</div>
-        <div><div class="ec-timeline__t">Blocurile 1–6 · 322 apartamente</div>
-          <p style="color:var(--ec-ink-60);font-size:.875rem">Include spațiul comercial de 722 m² la parterul blocului 6.</p></div>
-      </div>
-      <div class="ec-timeline__i">
-        <div class="ec-timeline__d">Etapa II</div>
-        <div><div class="ec-timeline__t">Blocurile 7–14 · 423 apartamente</div>
-          <p style="color:var(--ec-ink-60);font-size:.875rem">Cea mai mare etapă, cu acces direct la parcul central.</p></div>
-      </div>
-      <div class="ec-timeline__i">
-        <div class="ec-timeline__d">Etapa III</div>
-        <div><div class="ec-timeline__t">Blocurile 15–18 · 180 apartamente</div>
-          <p style="color:var(--ec-ink-60);font-size:.875rem">Blocurile cu cea mai deschisă perspectivă spre oraș.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================================================================= FAQ -->
-<section class="ec-section" style="background:var(--ec-sand)">
-  <div class="ec-wrap ec-narrow">
+<!-- ===================================================================== FAQ -->
+<section class="ec-section">
+  <div class="ec-wrap">
     <p class="ec-eyebrow">Întrebări frecvente</p>
-    <h2 class="ec-h2" style="margin-bottom:3rem">Ce se întreabă cel mai des.</h2>
-
+    <h2 class="ec-title" style="margin-top:1rem;margin-bottom:2rem">Ce se întreabă cel mai des</h2>
     <div class="ec-faq">
       <details open>
-        <summary>Unde este exact Emerald City?</summary>
-        <div class="ec-faq__a">În zona Păcurari, la ieșirea de nord-vest a Iașului, cu acces din Strada Ion Nistor. Aproximativ 7 km până în centrul orașului.</div>
+        <summary>Unde este Emerald City?</summary>
+        <div class="ec-faq__a">În zona Păcurari, la ieșirea de nord-vest a Iașului, cu acces din Strada Ion Nistor.
+          Aproximativ 7 km până în centrul orașului.</div>
       </details>
       <details>
         <summary>Câte apartamente are ansamblul?</summary>
-        <div class="ec-faq__a">925 de apartamente, distribuite în 18 blocuri, construite în trei etape:
-          322 în Etapa I, 423 în Etapa II și 180 în Etapa III.</div>
+        <div class="ec-faq__a">925 de apartamente cu 1, 2 și 3 camere, distribuite în 18 blocuri și construite
+          în trei etape: 322 în Etapa I, 423 în Etapa II și 180 în Etapa III.</div>
       </details>
       <details>
-        <summary>Ce regim de înălțime au clădirile?</summary>
-        <div class="ec-faq__a">Toate cele 18 blocuri au parter și trei etaje, cu înălțimea maximă de 18 metri.
-          Apartamentele se află pe patru niveluri — parter și trei etaje — iar cele două demisoluri
-          adăpostesc parcarea și spațiile de depozitare.</div>
-      </details>
-      <details>
-        <summary>Cât spațiu verde are ansamblul?</summary>
-        <div class="ec-faq__a">15.501,80 m² din cei 50.235 m² ai terenului, adică 30,85%, incluzând
-          parc dendrologic și loc de joacă pentru copii.</div>
+        <summary>Ce suprafețe au apartamentele?</summary>
+        <div class="ec-faq__a">Între 37 și 81 m² suprafață utilă, cu balcon la fiecare apartament. Apartamentele
+          de la parter au curte proprie.</div>
       </details>
       <details>
         <summary>Câte locuri de parcare sunt?</summary>
         <div class="ec-faq__a">940 în total: 258 subterane și 682 supraterane.</div>
       </details>
+      <details>
+        <summary>Se cumpără direct de la dezvoltator?</summary>
+        <div class="ec-faq__a">Da. Vânzarea se face direct de la Tala Sapphire S.R.L., fără comision de intermediere.</div>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- ================================================================= CTA -->
-<section class="ec-section ec-cta">
-  <div class="ec-wrap ec-cta__in">
-    <h2 class="ec-h2">Vino să vezi ansamblul.</h2>
-    <p class="ec-lead ec-mt-s" style="color:rgba(237,232,224,.7)">
-      Calitatea execuției și lumina din apartamente se văd cel mai bine de pe loc.
-    </p>
+<!-- ============================================================== CTA FINAL -->
+<section class="ec-section ec-cta" id="contact">
+  <div class="ec-wrap">
+    <h2>Programează o vizionare</h2>
+    <p>Calitatea execuției și lumina din apartamente se văd cel mai bine de pe loc.</p>
     <div class="ec-cta__btns">
-      <a class="ec-btn ec-btn--light" href="#">Programează o vizionare</a>
-      <a class="ec-btn ec-btn--ghost-light" href="tel:+40000000000">Sună acum</a>
+      <a class="ec-btn ec-btn--white" href="tel:+40000000000">Sună acum</a>
+      <a class="ec-btn ec-btn--wa" href="https://wa.me/40000000000">Scrie pe WhatsApp</a>
     </div>
   </div>
 </section>
 
 </main>
 
-<!-- ============================================================== FOOTER -->
+<!-- ================================================================== FOOTER -->
 <footer class="ec-foot">
   <div class="ec-wrap">
     <div class="ec-foot__grid">
       <div>
-        <div class="ec-foot__mark"><img src="brand/logo-alb.svg" alt="Emerald City" width="590" height="286" style="height:46px;width:auto"></div>
-        <p class="ec-mt-m" style="max-width:34ch">
-          Ansamblu rezidențial în nordul Iașului.<br>
-          Str. Ion Nistor, zona Păcurari, Iași.<br>
+        <img src="brand/logo-alb.svg" alt="Emerald City" width="590" height="286">
+        <p style="margin-top:1.25rem;max-width:34ch">
+          Ansamblu rezidențial în Iași, zona Păcurari.<br>
+          Str. Ion Nistor.<br>
           Dezvoltator: Tala Sapphire S.R.L.
         </p>
       </div>
       <div>
         <h4>Proiect</h4>
         <ul>
-          <li><a href="#ansamblu">Ansamblul</a></li>
-          <li><a href="#masterplan">Masterplan</a></li>
+          <li><a href="#despre">Despre</a></li>
           <li><a href="#finisaje">Finisaje</a></li>
           <li><a href="#amplasament">Amplasament</a></li>
         </ul>
@@ -456,10 +377,9 @@
       <div>
         <h4>Apartamente</h4>
         <ul>
-          <li><a href="#apartamente">1 cameră</a></li>
-          <li><a href="#apartamente">2 camere</a></li>
-          <li><a href="#apartamente">3 camere</a></li>
-          <li><a href="#apartamente">Disponibilitate</a></li>
+          <li><a href="#disponibilitate">1 cameră</a></li>
+          <li><a href="#disponibilitate">2 camere</a></li>
+          <li><a href="#disponibilitate">3 camere</a></li>
         </ul>
       </div>
       <div>
@@ -467,7 +387,6 @@
         <ul>
           <li><a href="tel:+40000000000">+40 000 000 000</a></li>
           <li><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></li>
-          <li>Str. Ion Nistor, Păcurari, Iași</li>
         </ul>
       </div>
     </div>
@@ -477,6 +396,11 @@
     </div>
   </div>
 </footer>
+
+<a class="ec-wa" href="https://wa.me/40000000000" aria-label="Scrie-ne pe WhatsApp">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-3-.2-.3A8 8 0 1112 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 01-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5a1 1 0 00-.7.3c-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5 0 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2 0-.1-.2-.2-.4-.3z"/></svg>
+  <span>Discută pe WhatsApp</span>
+</a>
 
 <script src="assets/js/main.js"></script>
 </body>

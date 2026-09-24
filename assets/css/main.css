@@ -1,947 +1,366 @@
 /* ==========================================================================
    Emerald City — sistem de design
-   Tokens in :root, componente prefixate .ec-. Fiecare componenta corespunde
-   unui viitor template-part WordPress. Fara framework, fara build step.
+   Structura de pagina: Azabudai Hills (fundal pal, carduri albe alternante,
+   fotografie dominanta, sans-serif cu titluri in majuscule).
+   Mobilier de conversie: Lapis Residence (topbar, hero cu zona in accent,
+   trei CTA, rand de incredere, carduri de disponibilitate cu progres).
+   Fara framework. Fiecare componenta = un viitor template-part WordPress.
    ========================================================================== */
 
 :root {
-  /* --- culoare -------------------------------------------------------- */
-  --ec-emerald:      #1F3E36;   /* extras din logo.jpg, 79,4% din pixeli */
-  --ec-emerald-900:  #142B25;
-  --ec-emerald-700:  #1A352E;
-  --ec-emerald-400:  #3D6B5C;
-  --ec-emerald-200:  #7FA294;
+  --ec-emerald:     #1F3E36;   /* extras din logo.jpg */
+  --ec-emerald-700: #18322C;
+  --ec-emerald-400: #3D6B5C;
+  --ec-emerald-200: #8FB0A2;
 
-  --ec-sand:         #EDE8E0;   /* perete ivoire din randari */
-  --ec-sand-dark:    #DFD8CC;
-  --ec-greige:       #D6CEC2;
-  --ec-oak:          #D9C5A8;   /* parchet stejar */
-  --ec-brass:        #B8934F;   /* alama, randare 3A */
+  --ec-mint:        #E7EEE9;   /* fundal de pagina, ca la Azabudai */
+  --ec-mint-deep:   #DCE7DE;
+  --ec-white:       #FFFFFF;
+  --ec-sand:        #F3F0EA;
 
-  --ec-ink:          #141816;
-  --ec-ink-60:       #5A625E;
-  --ec-ink-30:       #9AA29E;
+  --ec-brass:       #B8934F;   /* accent — rolul galbenului din Lapis */
+  --ec-brass-soft:  #EFE3CC;
 
-  --ec-available:    #2E7D5B;
-  --ec-reserved:     #B8863B;
-  --ec-sold:         #8C3A33;   /* bordo, randare 2A */
+  --ec-ink:         #14201C;
+  --ec-ink-60:      #5C6863;
+  --ec-ink-40:      #8A938F;
 
-  --ec-line:         rgba(20, 24, 22, .14);
-  --ec-line-light:   rgba(255, 255, 255, .16);
+  --ec-available:   #2E7D5B;
+  --ec-reserved:    #B8863B;
+  --ec-sold:        #9A4A42;
 
-  /* --- tipografie ----------------------------------------------------- */
-  --ec-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --ec-line:        rgba(20, 32, 28, .12);
+  --ec-line-light:  rgba(255, 255, 255, .2);
+
   --ec-sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --ec-disp:  "Inter Tight", var(--ec-sans);
 
-  --ec-display: clamp(2.75rem, 7.2vw, 6.5rem);
-  --ec-h2:      clamp(2rem, 4.4vw, 3.75rem);
-  --ec-h3:      clamp(1.35rem, 2.2vw, 1.9rem);
-  --ec-lead:    clamp(1.05rem, 1.5vw, 1.3rem);
-  --ec-body:    1rem;
+  --ec-h1:      clamp(2.1rem, 4.6vw, 3.6rem);
+  --ec-lead:    clamp(.975rem, 1.15vw, 1.0625rem);
   --ec-small:   .8125rem;
-  --ec-eyebrow: .6875rem;
+  --ec-micro:   .6875rem;
 
-  /* --- ritm ----------------------------------------------------------- */
-  --ec-gutter:  clamp(1.25rem, 5vw, 5rem);
-  --ec-section: clamp(5rem, 11vw, 11rem);
-  --ec-max:     84rem;
-  --ec-narrow:  46rem;
+  --ec-gutter:  clamp(1rem, 3.5vw, 3rem);
+  --ec-gap:     clamp(1rem, 1.8vw, 1.5rem);
+  --ec-section: clamp(3rem, 6vw, 5.5rem);
+  --ec-max:     78rem;
 
-  /* --- miscare -------------------------------------------------------- */
-  --ec-ease:    cubic-bezier(.22, 1, .36, 1);
-  --ec-fast:    .22s var(--ec-ease);
-  --ec-slow:    .7s var(--ec-ease);
+  --ec-ease: cubic-bezier(.22, 1, .36, 1);
+  --ec-fast: .2s var(--ec-ease);
 }
 
-/* ==========================================================================
-   Baza
-   ========================================================================== */
-
+/* ------------------------------------------------------------------ baza */
 *, *::before, *::after { box-sizing: border-box; }
-
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
   margin: 0;
-  background: var(--ec-sand);
+  background: var(--ec-mint);
   color: var(--ec-ink);
   font-family: var(--ec-sans);
-  font-size: var(--ec-body);
-  line-height: 1.6;
-  font-feature-settings: "cv05" 1, "ss03" 1;
+  font-size: 1rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-h1, h2, h3 {
-  font-family: var(--ec-serif);
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -.018em;
-  margin: 0;
-  text-wrap: balance;
-}
-
+h1, h2, h3, h4 { font-family: var(--ec-disp); font-weight: 500; margin: 0; line-height: 1.15; }
 p { margin: 0; text-wrap: pretty; }
-img, svg { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-table { border-collapse: collapse; width: 100%; }
 
-::selection { background: var(--ec-emerald); color: var(--ec-sand); }
+::selection { background: var(--ec-emerald); color: #fff; }
+:focus-visible { outline: 2px solid var(--ec-brass); outline-offset: 3px; }
 
-:focus-visible {
-  outline: 2px solid var(--ec-brass);
-  outline-offset: 3px;
-}
-
-/* ==========================================================================
-   Primitive
-   ========================================================================== */
-
-.ec-wrap  { width: 100%; max-width: var(--ec-max); margin-inline: auto; padding-inline: var(--ec-gutter); }
-.ec-narrow{ max-width: var(--ec-narrow); }
+.ec-wrap { width: 100%; max-width: var(--ec-max); margin-inline: auto; padding-inline: var(--ec-gutter); }
 .ec-section { padding-block: var(--ec-section); }
+.ec-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
+/* titlu de sectiune in majuscule cu tracking larg — tiparul Azabudai */
+.ec-title {
+  font-family: var(--ec-disp);
+  font-size: clamp(1.35rem, 2.3vw, 1.9rem);
+  font-weight: 400;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+.ec-subtitle { font-size: var(--ec-small); font-weight: 600; margin-top: .3rem; color: var(--ec-ink); }
+.ec-body { font-size: .875rem; color: var(--ec-ink-60); margin-top: 1.1rem; max-width: 46ch; }
+
+/* eyebrow cu liniuta — preluat din Lapis */
 .ec-eyebrow {
-  font-size: var(--ec-eyebrow);
-  font-weight: 500;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--ec-ink-60);
-  margin: 0 0 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: .75rem;
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--ec-brass);
 }
-.ec-eyebrow::before {
-  content: "";
-  width: 2rem;
-  height: 1px;
-  background: currentColor;
-  opacity: .5;
-  flex: none;
-}
-.ec-eyebrow--light { color: var(--ec-emerald-200); }
+.ec-eyebrow::before { content: ""; width: 1.6rem; height: 2px; background: currentColor; }
 
-.ec-display { font-size: var(--ec-display); }
-.ec-h2      { font-size: var(--ec-h2); }
-.ec-h3      { font-size: var(--ec-h3); }
-.ec-lead    { font-size: var(--ec-lead); line-height: 1.5; color: var(--ec-ink-60); }
-
-.ec-italic { font-style: italic; }
-
-/* numere: grotesk, tabular, tracking larg */
-.ec-num {
-  font-family: var(--ec-sans);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -.02em;
-}
-
-/* --- buton ------------------------------------------------------------ */
+/* ---------------------------------------------------------------- butoane */
 .ec-btn {
-  --bg: var(--ec-emerald);
-  --fg: var(--ec-sand);
-  display: inline-flex;
-  align-items: center;
-  gap: .6rem;
-  padding: .95rem 1.6rem;
-  background: var(--bg);
-  color: var(--fg);
-  border-radius: 100px;
-  font-size: var(--ec-small);
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+  padding: .8rem 1.4rem; border-radius: 100px;
+  font-size: var(--ec-small); font-weight: 600; letter-spacing: .02em;
+  background: var(--ec-emerald); color: #fff;
   transition: transform var(--ec-fast), background var(--ec-fast);
-  will-change: transform;
 }
 .ec-btn:hover { transform: translateY(-2px); background: var(--ec-emerald-700); }
-.ec-btn:active { transform: translateY(0); }
-.ec-btn svg { transition: transform var(--ec-fast); }
-.ec-btn:hover svg { transform: translateX(3px); }
-
-.ec-btn--ghost {
-  --bg: transparent;
-  --fg: currentColor;
-  border: 1px solid var(--ec-line);
+.ec-btn--white { background: #fff; color: var(--ec-emerald); }
+.ec-btn--white:hover { background: var(--ec-sand); }
+.ec-btn--brass { background: var(--ec-brass); color: #fff; }
+.ec-btn--brass:hover { background: #A5833F; }
+.ec-btn--wa { background: #25D366; color: #0B3D22; }
+.ec-btn--wa:hover { background: #1FBE5B; }
+.ec-btn--out {
+  background: transparent; color: var(--ec-emerald);
+  border: 1px solid var(--ec-emerald); font-weight: 500;
 }
-.ec-btn--ghost:hover { background: rgba(31, 62, 54, .06); }
+.ec-btn--out:hover { background: var(--ec-emerald); color: #fff; }
+.ec-btn--outlight { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.55); }
+.ec-btn--outlight:hover { background: rgba(255,255,255,.14); }
 
-.ec-btn--light { --bg: var(--ec-sand); --fg: var(--ec-emerald); }
-.ec-btn--light:hover { background: #fff; }
+/* sageata din colt — semnatura Azabudai */
+.ec-arrow { margin-top: auto; padding-top: 1.5rem; display: flex; justify-content: flex-end; color: var(--ec-emerald); }
+.ec-arrow svg { transition: transform var(--ec-fast); }
+a:hover .ec-arrow svg { transform: translateX(5px); }
 
-.ec-btn--ghost-light {
-  --bg: transparent; --fg: var(--ec-sand);
-  border: 1px solid var(--ec-line-light);
-}
-.ec-btn--ghost-light:hover { background: rgba(255,255,255,.08); }
-
-/* --- link cu subliniere animata --------------------------------------- */
-.ec-link {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  font-size: var(--ec-small);
-  font-weight: 500;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding-bottom: .35rem;
-  background-image: linear-gradient(currentColor, currentColor);
-  background-size: 100% 1px;
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  transition: background-size var(--ec-fast);
-}
-.ec-link:hover { background-size: 30% 1px; }
-
-/* --- placeholder de imagine ------------------------------------------- */
-.ec-media {
-  position: relative;
-  background:
-    repeating-linear-gradient(-45deg,
-      transparent 0 14px,
-      rgba(31, 62, 54, .045) 14px 15px),
-    var(--ec-greige);
-  border: 1px solid var(--ec-line);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-}
-.ec-media__note {
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--ec-ink-60);
-  text-align: center;
-  padding: 1.5rem;
-  max-width: 24ch;
-  line-height: 1.7;
-}
-
-/* ==========================================================================
-   Reveal la scroll
-   ========================================================================== */
-
-.ec-reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .8s var(--ec-ease), transform .8s var(--ec-ease);
-}
-.ec-reveal.is-in { opacity: 1; transform: none; }
-.ec-reveal[data-d="1"] { transition-delay: .08s; }
-.ec-reveal[data-d="2"] { transition-delay: .16s; }
-.ec-reveal[data-d="3"] { transition-delay: .24s; }
-.ec-reveal[data-d="4"] { transition-delay: .32s; }
+/* ---------------------------------------------------------------- reveal */
+.ec-rv { opacity: 0; transform: translateY(14px); transition: opacity .7s var(--ec-ease), transform .7s var(--ec-ease); }
+.ec-rv.is-in { opacity: 1; transform: none; }
+.ec-rv[data-d="1"] { transition-delay: .07s; }
+.ec-rv[data-d="2"] { transition-delay: .14s; }
+.ec-rv[data-d="3"] { transition-delay: .21s; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .ec-reveal { opacity: 1; transform: none; transition: none; }
+  .ec-rv { opacity: 1; transform: none; transition: none; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
-/* ==========================================================================
-   Navigatie
-   ========================================================================== */
+/* ============================================================== TOPBAR == */
+.ec-topbar { background: var(--ec-emerald); color: rgba(255,255,255,.88); font-size: var(--ec-micro); letter-spacing: .03em; }
+.ec-topbar__in {
+  max-width: var(--ec-max); margin-inline: auto; padding: .55rem var(--ec-gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+}
+.ec-topbar strong { color: var(--ec-brass); font-weight: 600; }
+.ec-topbar__right { display: none; gap: 1.5rem; align-items: center; }
+.ec-topbar a:hover { color: #fff; }
+@media (min-width: 56rem) { .ec-topbar__right { display: flex; } }
 
+/* ================================================================= NAV == */
 .ec-nav {
-  position: fixed;
-  inset: 0 0 auto;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 1.1rem var(--ec-gutter);
-  color: var(--ec-sand);
-  transition: background var(--ec-slow), color var(--ec-slow), padding var(--ec-slow),
-              box-shadow var(--ec-slow);
-}
-.ec-nav.is-stuck {
-  background: rgba(237, 232, 224, .92);
-  backdrop-filter: blur(14px);
-  color: var(--ec-ink);
-  padding-block: .7rem;
-  box-shadow: 0 1px 0 var(--ec-line);
-}
-.ec-nav__logo { flex: none; position: relative; display: block; }
-.ec-nav__logo img {
-  height: 34px;
-  width: auto;
-  transition: height var(--ec-slow), opacity var(--ec-slow);
-}
-.ec-nav.is-stuck .ec-nav__logo img { height: 28px; }
-/* varianta verde sta suprapusa si apare doar cand bara e deschisa la culoare */
-.ec-nav__logo img + img { position: absolute; inset: 0; opacity: 0; }
-.ec-nav.is-stuck .ec-nav__logo img         { opacity: 0; }
-.ec-nav.is-stuck .ec-nav__logo img + img   { opacity: 1; }
-.ec-nav__mark { fill: currentColor; }
-
-.ec-nav__menu {
-  display: none;
-  gap: 2rem;
-  font-size: var(--ec-small);
-  letter-spacing: .06em;
-}
-.ec-nav__menu a { opacity: .85; transition: opacity var(--ec-fast); }
-.ec-nav__menu a:hover { opacity: 1; }
-
-.ec-nav__cta { display: flex; align-items: center; gap: 1rem; flex: none; }
-.ec-nav__tel { display: none; font-size: var(--ec-small); letter-spacing: .04em; }
-
-@media (min-width: 62rem) {
-  .ec-nav__menu { display: flex; }
-  .ec-nav__tel  { display: inline; }
-}
-
-/* ==========================================================================
-   1. Hero
-   ========================================================================== */
-
-.ec-hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background: var(--ec-emerald-900);
-  color: var(--ec-sand);
-  overflow: hidden;
-  padding-bottom: clamp(3rem, 7vw, 5.5rem);
-}
-
-/* profil de teren desenat din cotele reale */
-.ec-hero__terrain {
-  position: absolute;
-  inset: auto 0 0;
-  width: 100%;
-  height: 78%;
-  pointer-events: none;
-}
-@keyframes ecDraw { to { stroke-dashoffset: 0; } }
-.ec-hero__terrain .ridge  { fill: none; stroke: var(--ec-emerald-400); stroke-width: 1; opacity: .5; }
-.ec-hero__terrain .ridge2 { fill: none; stroke: var(--ec-emerald-400); stroke-width: 1; opacity: .25; }
-.ec-hero__terrain .blk    { fill: #1B372F; stroke: var(--ec-emerald-400); stroke-width: .7; stroke-opacity: .7; }
-
-.ec-hero__grain {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: .5;
-  mix-blend-mode: overlay;
-}
-
-.ec-hero__inner {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  max-width: var(--ec-max);
-  margin-inline: auto;
-  padding-inline: var(--ec-gutter);
-}
-
-.ec-hero__title {
-  font-size: var(--ec-display);
-  max-width: 16ch;
-  margin-bottom: 1.5rem;
-}
-.ec-hero__title em { font-style: italic; color: var(--ec-emerald-200); }
-
-.ec-hero__sub {
-  font-size: var(--ec-lead);
-  color: rgba(237, 232, 224, .74);
-  max-width: 44ch;
-  margin-bottom: 2.5rem;
-}
-
-.ec-hero__foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.25rem 2.5rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--ec-line-light);
-}
-.ec-hero__loc {
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--ec-emerald-200);
-  margin-left: auto;
-}
-
-/* apari?ie secven?iala a titlului */
-.ec-hero [data-rise] {
-  opacity: 0;
-  transform: translateY(26px);
-  animation: ecRise 1.1s var(--ec-ease) forwards;
-}
-.ec-hero [data-rise="1"] { animation-delay: .15s; }
-.ec-hero [data-rise="2"] { animation-delay: .3s; }
-.ec-hero [data-rise="3"] { animation-delay: .45s; }
-.ec-hero [data-rise="4"] { animation-delay: .6s; }
-
-@keyframes ecRise { to { opacity: 1; transform: none; } }
-
-@media (prefers-reduced-motion: reduce) {
-  .ec-hero [data-rise] { opacity: 1; transform: none; animation: none; }
-}
-
-/* ==========================================================================
-   2. Cifre
-   ========================================================================== */
-
-.ec-stats {
-  background: var(--ec-emerald);
-  color: var(--ec-sand);
-  padding-block: clamp(3rem, 6vw, 5rem);
-}
-.ec-stats__grid {
-  display: grid;
-  gap: 2.5rem 1rem;
-  grid-template-columns: repeat(2, 1fr);
-}
-@media (min-width: 52rem) { .ec-stats__grid { grid-template-columns: repeat(4, 1fr); } }
-
-.ec-stat__n {
-  font-family: var(--ec-serif);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  line-height: 1;
-  letter-spacing: -.03em;
-  font-variant-numeric: tabular-nums;
-}
-.ec-stat__n small { font-size: .42em; letter-spacing: 0; opacity: .7; margin-left: .15em; }
-.ec-stat__l {
-  margin-top: .7rem;
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--ec-emerald-200);
-  line-height: 1.6;
-}
-
-/* ==========================================================================
-   3. Terenul — sec?iunea semnatura
-   ========================================================================== */
-
-.ec-terrain { background: var(--ec-sand); }
-.ec-terrain__head {
-  display: grid;
-  gap: 2rem;
-  margin-bottom: clamp(3rem, 6vw, 5rem);
-}
-@media (min-width: 60rem) {
-  .ec-terrain__head { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
-}
-
-.ec-terrain__fig {
-  position: relative;
-  border-top: 1px solid var(--ec-line);
-  padding-top: 2rem;
-}
-.ec-terrain__svg { width: 100%; height: auto; overflow: visible; }
-
-.ec-terrain__svg .ground   { fill: var(--ec-sand-dark); }
-.ec-terrain__svg .grid-l   { stroke: var(--ec-line); stroke-width: .5; stroke-dasharray: 2 4; }
-.ec-terrain__svg .bld      { fill: var(--ec-emerald); transition: fill var(--ec-fast); }
-.ec-terrain__svg .bld--s2  { fill: var(--ec-emerald-400); }
-.ec-terrain__svg .bld--s3  { fill: var(--ec-emerald-200); }
-.ec-terrain__svg .bld-g:hover .bld { fill: var(--ec-brass); }
-.ec-terrain__svg .lbl {
-  font-family: var(--ec-sans);
-  font-size: 7px;
-  letter-spacing: .06em;
-  fill: var(--ec-ink-60);
-  text-anchor: middle;
-}
-.ec-terrain__svg .cota {
-  font-family: var(--ec-sans);
-  font-size: 6px;
-  fill: var(--ec-ink-30);
-  text-anchor: middle;
-  font-variant-numeric: tabular-nums;
-}
-.ec-terrain__svg .axis {
-  font-family: var(--ec-sans);
-  font-size: 6px;
-  fill: var(--ec-ink-30);
-  font-variant-numeric: tabular-nums;
-}
-
-.ec-terrain__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-top: 2rem;
-  font-size: var(--ec-small);
-  color: var(--ec-ink-60);
-}
-.ec-terrain__legend span { display: inline-flex; align-items: center; gap: .5rem; }
-.ec-terrain__legend i {
-  width: 12px; height: 12px; border-radius: 2px; display: block;
-}
-
-.ec-note {
-  font-size: var(--ec-small);
-  color: var(--ec-ink-30);
-  margin-top: 1.25rem;
-  max-width: 62ch;
-}
-
-/* --- principii -------------------------------------------------------- */
-.ec-pillars {
-  display: grid;
-  gap: 1px;
-  background: var(--ec-line);
-  border-block: 1px solid var(--ec-line);
-}
-@media (min-width: 46rem) { .ec-pillars { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 72rem) { .ec-pillars { grid-template-columns: repeat(4, 1fr); } }
-
-.ec-pillar {
-  background: var(--ec-sand);
-  padding: 2.5rem 2rem 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: .9rem;
-  transition: background var(--ec-fast);
-}
-.ec-pillar:hover { background: #fff; }
-.ec-pillar__n {
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .2em;
-  color: var(--ec-ink-30);
-  font-variant-numeric: tabular-nums;
-}
-.ec-pillar__t {
-  font-family: var(--ec-serif);
-  font-size: 1.75rem;
-  line-height: 1.1;
-}
-.ec-pillar p { font-size: .9375rem; color: var(--ec-ink-60); }
-
-/* ==========================================================================
-   4. Parc — banda full-bleed
-   ========================================================================== */
-
-.ec-band { position: relative; }
-.ec-band .ec-media { min-height: clamp(22rem, 52vw, 38rem); }
-.ec-band__card {
-  background: var(--ec-emerald);
-  color: var(--ec-sand);
-  padding: clamp(2rem, 4vw, 3.5rem);
-}
-@media (min-width: 60rem) {
-  .ec-band__grid { display: grid; grid-template-columns: 1.6fr 1fr; align-items: stretch; }
-}
-
-/* ==========================================================================
-   5. Masterplan
-   ========================================================================== */
-
-.ec-master { background: var(--ec-emerald-900); color: var(--ec-sand); }
-.ec-master__layout { display: grid; gap: 3rem; }
-@media (min-width: 66rem) {
-  .ec-master__layout { grid-template-columns: 1fr 20rem; gap: 4rem; }
-}
-
-.ec-master__plan { position: relative; }
-.ec-master__svg { width: 100%; height: auto; overflow: visible; }
-
-.ec-master__svg .plot {
-  fill: rgba(255,255,255,.035);
-  stroke: var(--ec-line-light);
-  stroke-width: .6;
-}
-.ec-master__svg .corp {
-  cursor: pointer;
-  transition: transform .3s var(--ec-ease);
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.ec-master__svg .corp rect {
-  transition: fill var(--ec-fast), stroke var(--ec-fast);
-  stroke: rgba(255,255,255,.3);
-  stroke-width: .5;
-}
-.ec-master__svg .corp:hover { transform: scale(1.06); }
-.ec-master__svg .corp text {
-  font-family: var(--ec-sans);
-  font-size: 7px;
-  font-weight: 500;
-  fill: #fff;
-  text-anchor: middle;
-  pointer-events: none;
-  letter-spacing: .02em;
-}
-.ec-master__svg .corp.is-active rect { stroke: var(--ec-brass); stroke-width: 1.4; }
-
-.ec-master__svg .terrace {
-  fill: none;
-  stroke: var(--ec-emerald-400);
-  stroke-width: .7;
-  stroke-dasharray: 4 4;
-  opacity: .85;
-}
-.ec-master__svg .terrace-lbl {
-  font-family: var(--ec-sans);
-  font-size: 5px;
-  fill: var(--ec-emerald-200);
-  letter-spacing: .12em;
-}
-
-.ec-master__side { display: flex; flex-direction: column; gap: 1.5rem; }
-.ec-master__panel {
-  border: 1px solid var(--ec-line-light);
-  padding: 1.75rem;
-  min-height: 19rem;
-}
-.ec-master__panel h3 { font-size: 1.9rem; margin-bottom: .25rem; }
-.ec-master__stage {
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--ec-emerald-200);
-  margin-bottom: 1.5rem;
-}
-.ec-master__rows { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 1.75rem; }
-.ec-master__row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  font-size: var(--ec-small);
-  padding-bottom: .7rem;
-  border-bottom: 1px solid var(--ec-line-light);
-}
-.ec-master__row span:first-child { color: var(--ec-emerald-200); }
-.ec-master__row b { font-weight: 500; font-variant-numeric: tabular-nums; }
-
-.ec-master__bar {
-  height: 3px;
-  background: rgba(255,255,255,.14);
-  display: flex;
-  overflow: hidden;
-  margin-bottom: .75rem;
-}
-.ec-master__bar i { display: block; height: 100%; transition: width .5s var(--ec-ease); }
-
-.ec-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--ec-emerald-200);
-}
-.ec-legend span { display: inline-flex; align-items: center; gap: .45rem; }
-.ec-legend i { width: 9px; height: 9px; border-radius: 50%; }
-
-/* ==========================================================================
-   6. Selector rapid
-   ========================================================================== */
-
-.ec-finder { background: var(--ec-sand-dark); }
-.ec-finder__bar {
-  display: grid;
-  gap: 1.25rem;
-  padding: 1.75rem;
-  background: var(--ec-sand);
-  border: 1px solid var(--ec-line);
-  margin-bottom: 2.5rem;
-}
-@media (min-width: 60rem) {
-  .ec-finder__bar { grid-template-columns: repeat(3, 1fr) auto; align-items: end; gap: 2rem; }
-}
-
-.ec-field label {
-  display: block;
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--ec-ink-60);
-  margin-bottom: .75rem;
-}
-.ec-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
-.ec-chip {
-  padding: .5rem .9rem;
-  border: 1px solid var(--ec-line);
-  border-radius: 100px;
-  font-size: var(--ec-small);
-  font-variant-numeric: tabular-nums;
-  transition: all var(--ec-fast);
-}
-.ec-chip:hover { border-color: var(--ec-emerald-400); }
-.ec-chip.is-on { background: var(--ec-emerald); color: var(--ec-sand); border-color: var(--ec-emerald); }
-
-.ec-range { display: flex; align-items: center; gap: .75rem; }
-.ec-range input { flex: 1; accent-color: var(--ec-emerald); }
-.ec-range output {
-  font-size: var(--ec-small);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  min-width: 7ch;
-  text-align: right;
-}
-
-.ec-finder__count {
-  font-size: var(--ec-small);
-  color: var(--ec-ink-60);
-  margin-bottom: 1.5rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.ec-cards {
-  display: grid;
-  gap: 1px;
-  background: var(--ec-line);
-  border: 1px solid var(--ec-line);
-}
-@media (min-width: 44rem) { .ec-cards { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 70rem) { .ec-cards { grid-template-columns: repeat(3, 1fr); } }
-
-.ec-card {
-  background: var(--ec-sand);
-  padding: 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-  transition: background var(--ec-fast);
-}
-.ec-card:hover { background: #fff; }
-.ec-card__top { display: flex; justify-content: space-between; align-items: start; gap: 1rem; }
-.ec-card__id {
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .14em;
-  color: var(--ec-ink-30);
-  font-variant-numeric: tabular-nums;
-}
-.ec-card__t { font-family: var(--ec-serif); font-size: 1.6rem; line-height: 1.1; }
-.ec-card__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .4rem 1.1rem;
-  font-size: var(--ec-small);
-  color: var(--ec-ink-60);
-  font-variant-numeric: tabular-nums;
-}
-.ec-card__foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  margin-top: auto;
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--ec-line);
-}
-.ec-card__price {
-  font-family: var(--ec-serif);
-  font-size: 1.45rem;
-  font-variant-numeric: tabular-nums;
-}
-.ec-card__ppm { font-size: var(--ec-eyebrow); color: var(--ec-ink-30); }
-
-.ec-tag {
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  padding: .3rem .6rem;
-  border-radius: 3px;
-  white-space: nowrap;
-  flex: none;
-}
-.ec-tag--disponibil { background: rgba(46,125,91,.12);  color: var(--ec-available); }
-.ec-tag--rezervat   { background: rgba(184,134,59,.14); color: var(--ec-reserved); }
-.ec-tag--vandut     { background: rgba(140,58,51,.12);  color: var(--ec-sold); }
-.ec-tag--in_curand  { background: rgba(20,24,22,.07);   color: var(--ec-ink-60); }
-
-/* ==========================================================================
-   7. Tipologii
-   ========================================================================== */
-
-.ec-types__grid { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
-@media (min-width: 48rem) { .ec-types__grid { grid-template-columns: repeat(2, 1fr); } }
-/* 5 tipologii: 5 coloane la ecran lat, ca sa nu ramana un gol pe ultimul rand */
-@media (min-width: 72rem) { .ec-types__grid { grid-template-columns: repeat(5, 1fr); } }
-
-.ec-type {
-  background: var(--ec-sand);
-  padding: 2rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transition: background var(--ec-fast);
-}
-.ec-type:hover { background: #fff; }
-.ec-type__plan {
-  aspect-ratio: 4 / 3;
-  margin-bottom: .5rem;
-  background: var(--ec-greige);
-  border: 1px solid var(--ec-line);
-  display: grid;
-  place-items: center;
-}
-.ec-type__plan svg { width: 72%; height: auto; }
-.ec-type__plan .wall { fill: var(--ec-emerald); }
-.ec-type__code {
-  font-family: var(--ec-serif);
-  font-size: 2.2rem;
-  line-height: 1;
-}
-.ec-type__rows { font-size: var(--ec-small); color: var(--ec-ink-60); }
-.ec-type__rows div {
-  display: flex; justify-content: space-between; gap: 1rem;
-  padding: .45rem 0; border-bottom: 1px solid var(--ec-line);
-  font-variant-numeric: tabular-nums;
-}
-
-/* ==========================================================================
-   8. Finisaje
-   ========================================================================== */
-
-.ec-finish { background: var(--ec-emerald); color: var(--ec-sand); }
-.ec-finish__grid { display: grid; gap: 1.5rem; }
-@media (min-width: 56rem) { .ec-finish__grid { grid-template-columns: repeat(3, 1fr); } }
-.ec-finish .ec-media {
-  aspect-ratio: 3 / 4;
-  background:
-    repeating-linear-gradient(-45deg, transparent 0 14px, rgba(255,255,255,.05) 14px 15px),
-    var(--ec-emerald-700);
-  border-color: var(--ec-line-light);
-}
-.ec-finish .ec-media__note { color: var(--ec-emerald-200); }
-
-.ec-palette { display: flex; gap: 0; margin-top: 2.5rem; border: 1px solid var(--ec-line-light); }
-.ec-palette i { flex: 1; height: 3.5rem; display: block; }
-/* ultimul esantion este chiar verdele de fundal — il delimitez */
-.ec-palette i + i { border-left: 1px solid var(--ec-line-light); }
-
-/* ==========================================================================
-   9-10. Stadiu + amplasament
-   ========================================================================== */
-
-.ec-split { display: grid; gap: 3rem; }
-@media (min-width: 62rem) { .ec-split { grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: center; } }
-
-.ec-dist { border-top: 1px solid var(--ec-line); }
-.ec-dist div {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-  padding: .95rem 0; border-bottom: 1px solid var(--ec-line);
-  font-size: var(--ec-small);
-}
-.ec-dist b { font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ec-ink); }
-.ec-dist span { color: var(--ec-ink-60); }
-
-.ec-timeline { display: flex; flex-direction: column; }
-.ec-timeline__i {
-  display: grid;
-  grid-template-columns: 5.5rem 1fr;
-  gap: 1.5rem;
-  padding: 1.5rem 0;
+  position: sticky; top: 0; z-index: 90;
+  background: rgba(255,255,255,.94); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--ec-line);
 }
-.ec-timeline__d {
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--ec-ink-30);
-  padding-top: .3rem;
+.ec-nav__in {
+  max-width: var(--ec-max); margin-inline: auto; padding: .7rem var(--ec-gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
 }
-.ec-timeline__t { font-family: var(--ec-serif); font-size: 1.25rem; margin-bottom: .3rem; }
+.ec-nav__logo img { height: 40px; width: auto; }
+.ec-nav__menu { display: none; gap: 1.6rem; }
+.ec-nav__menu a {
+  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ec-emerald); padding-block: .3rem;
+  border-bottom: 2px solid transparent; transition: border-color var(--ec-fast);
+}
+.ec-nav__menu a:hover { border-color: var(--ec-brass); }
+@media (min-width: 64rem) { .ec-nav__menu { display: flex; } }
 
-/* ==========================================================================
-   11. FAQ
-   ========================================================================== */
+/* ================================================================ HERO == */
+.ec-hero { position: relative; min-height: min(78vh, 680px); display: grid; }
+.ec-hero__img { grid-area: 1/1; width: 100%; height: 100%; object-fit: cover; }
+.ec-hero__veil {
+  grid-area: 1/1;
+  background: linear-gradient(180deg, rgba(20,32,28,.62) 0%, rgba(20,32,28,.5) 45%, rgba(20,32,28,.78) 100%);
+}
+.ec-hero__in {
+  grid-area: 1/1; position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; color: #fff; padding: clamp(3rem, 7vw, 5rem) var(--ec-gutter);
+}
+.ec-badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .4rem .9rem; border-radius: 100px;
+  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28);
+  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .06em; backdrop-filter: blur(6px);
+}
+.ec-badge i { width: 7px; height: 7px; border-radius: 50%; background: #4ADE80; }
 
-.ec-faq { border-top: 1px solid var(--ec-line); }
+.ec-hero h1 { font-size: var(--ec-h1); font-weight: 600; letter-spacing: -.01em; margin: 1.4rem 0 0; max-width: 20ch; }
+.ec-hero h1 em { font-style: normal; color: var(--ec-brass); display: block; }
+.ec-hero__sub { margin-top: 1.1rem; max-width: 54ch; color: rgba(255,255,255,.82); font-size: var(--ec-lead); }
+.ec-hero__cta { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 2rem; }
+.ec-trust {
+  display: flex; flex-wrap: wrap; gap: .8rem 1.75rem; justify-content: center;
+  margin-top: 2rem; font-size: var(--ec-small); color: rgba(255,255,255,.9);
+}
+.ec-trust span { display: inline-flex; align-items: center; gap: .5rem; }
+.ec-trust svg { color: var(--ec-brass); flex: none; }
+
+/* ============================================================== CONCEPT == */
+.ec-concept { text-align: center; padding-block: clamp(3.5rem, 7vw, 6rem); }
+.ec-concept h2 { font-size: clamp(1.25rem, 2.3vw, 1.75rem); font-weight: 500; color: var(--ec-emerald); max-width: 30ch; margin-inline: auto; }
+.ec-concept p { margin: 1.75rem auto 0; max-width: 62ch; color: var(--ec-ink-60); font-size: var(--ec-lead); }
+.ec-concept p + p { margin-top: .35rem; }
+.ec-concept .ec-btn { margin-top: 2.25rem; }
+
+/* ============================================= CARDURI ALTERNANTE (Azabudai) */
+.ec-blocks { display: flex; flex-direction: column; gap: var(--ec-gap); }
+.ec-block { background: var(--ec-white); display: grid; overflow: hidden; }
+@media (min-width: 60rem) {
+  .ec-block { grid-template-columns: 1.35fr .65fr; }
+  .ec-block--rev > figure { order: 2; }
+}
+.ec-block figure { margin: 0; }
+.ec-block img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 16/10; }
+.ec-block__body { padding: clamp(1.5rem, 3vw, 2.5rem); display: flex; flex-direction: column; justify-content: center; }
+
+.ec-block--stack { display: block; }
+.ec-block--stack figure img { aspect-ratio: 21/8; }
+.ec-block__cols { display: grid; }
+@media (min-width: 60rem) { .ec-block__cols { grid-template-columns: 1.6fr .7fr .7fr; } }
+.ec-block__col { padding: clamp(1.5rem, 3vw, 2.5rem); display: flex; flex-direction: column; }
+.ec-block__col + .ec-block__col { border-left: 1px solid var(--ec-line); }
+.ec-block__col h4 { font-size: .9375rem; font-weight: 600; }
+
+/* ============================================= DISPONIBILITATE (Lapis) == */
+.ec-avail__grid { display: grid; gap: var(--ec-gap); }
+@media (min-width: 46rem) { .ec-avail__grid { grid-template-columns: repeat(3, 1fr); } }
+
+.ec-stage {
+  background: var(--ec-white); padding: 1.75rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  border-top: 3px solid var(--ec-brass); transition: transform var(--ec-fast);
+}
+.ec-stage:hover { transform: translateY(-3px); }
+.ec-stage__top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.ec-stage__n { font-family: var(--ec-disp); font-size: 1.5rem; font-weight: 500; }
+.ec-stage__tag {
+  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: .25rem .6rem; border-radius: 3px; background: var(--ec-brass-soft); color: #8A6A28;
+}
+.ec-stage__bar { height: 6px; border-radius: 100px; background: var(--ec-mint-deep); display: flex; overflow: hidden; }
+.ec-stage__bar i { display: block; height: 100%; }
+.ec-stage__rows { display: flex; flex-direction: column; gap: .45rem; font-size: var(--ec-small); }
+.ec-stage__row { display: flex; justify-content: space-between; gap: 1rem; }
+.ec-stage__row span { color: var(--ec-ink-60); }
+.ec-stage__row b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.ec-stage__price { font-family: var(--ec-disp); font-size: 1.25rem; font-weight: 600; padding-top: .9rem; border-top: 1px solid var(--ec-line); }
+.ec-stage__price small { display: block; font-size: var(--ec-micro); font-weight: 400; color: var(--ec-ink-40); }
+
+/* =========================================================== SELECTOR == */
+.ec-finder__bar { background: var(--ec-white); padding: 1.5rem; display: grid; gap: 1.25rem; margin-bottom: var(--ec-gap); }
+@media (min-width: 62rem) { .ec-finder__bar { grid-template-columns: repeat(3, 1fr) auto; align-items: end; gap: 2rem; } }
+.ec-field label {
+  display: block; font-size: var(--ec-micro); font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ec-ink-40); margin-bottom: .6rem;
+}
+.ec-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.ec-chip { padding: .45rem .85rem; border: 1px solid var(--ec-line); border-radius: 100px; font-size: var(--ec-small); transition: all var(--ec-fast); }
+.ec-chip:hover { border-color: var(--ec-emerald-400); }
+.ec-chip.is-on { background: var(--ec-emerald); color: #fff; border-color: var(--ec-emerald); }
+.ec-range { display: flex; align-items: center; gap: .75rem; }
+.ec-range input { flex: 1; accent-color: var(--ec-emerald); }
+.ec-range output { font-size: var(--ec-small); font-variant-numeric: tabular-nums; min-width: 7ch; text-align: right; }
+
+.ec-count { font-size: var(--ec-small); color: var(--ec-ink-60); margin-bottom: 1rem; }
+.ec-cards { display: grid; gap: var(--ec-gap); }
+@media (min-width: 46rem) { .ec-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 70rem) { .ec-cards { grid-template-columns: repeat(3, 1fr); } }
+
+.ec-unit { background: var(--ec-white); padding: 1.5rem; display: flex; flex-direction: column; gap: .9rem; transition: transform var(--ec-fast); }
+.ec-unit:hover { transform: translateY(-3px); }
+.ec-unit__top { display: flex; justify-content: space-between; align-items: start; gap: 1rem; }
+.ec-unit__id { font-size: var(--ec-micro); letter-spacing: .1em; color: var(--ec-ink-40); font-variant-numeric: tabular-nums; }
+.ec-unit__t { font-family: var(--ec-disp); font-size: 1.2rem; font-weight: 600; }
+.ec-unit__meta { display: flex; flex-wrap: wrap; gap: .3rem .9rem; font-size: var(--ec-small); color: var(--ec-ink-60); }
+.ec-unit__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: auto; padding-top: .9rem; border-top: 1px solid var(--ec-line); }
+.ec-unit__price { font-family: var(--ec-disp); font-size: 1.2rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ec-unit__ppm { font-size: var(--ec-micro); color: var(--ec-ink-40); }
+
+.ec-tag { font-size: var(--ec-micro); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: .25rem .55rem; border-radius: 3px; white-space: nowrap; flex: none; }
+.ec-tag--disponibil { background: rgba(46,125,91,.12);  color: var(--ec-available); }
+.ec-tag--rezervat   { background: rgba(184,134,59,.15); color: var(--ec-reserved); }
+.ec-tag--vandut     { background: rgba(154,74,66,.12);  color: var(--ec-sold); }
+.ec-tag--in_curand  { background: rgba(20,32,28,.07);   color: var(--ec-ink-60); }
+
+/* ========================================================== TIPOLOGII == */
+.ec-types { display: grid; gap: var(--ec-gap); }
+@media (min-width: 46rem) { .ec-types { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 72rem) { .ec-types { grid-template-columns: repeat(5, 1fr); } }
+.ec-type { background: var(--ec-white); padding: 1.5rem; display: flex; flex-direction: column; gap: .8rem; }
+.ec-type:hover { background: var(--ec-sand); }
+.ec-type__plan { aspect-ratio: 3/2; background: var(--ec-mint); display: grid; place-items: center; }
+.ec-type__plan svg { width: 86%; }
+.ec-type__plan .wall { fill: var(--ec-emerald); }
+.ec-type__code { font-family: var(--ec-disp); font-size: 1.6rem; font-weight: 600; }
+.ec-type__rows { font-size: var(--ec-small); }
+.ec-type__rows div { display: flex; justify-content: space-between; gap: .75rem; padding: .35rem 0; border-bottom: 1px solid var(--ec-line); color: var(--ec-ink-60); font-variant-numeric: tabular-nums; }
+.ec-type__rows b { color: var(--ec-ink); font-weight: 600; }
+
+/* ======================================================== AMPLASAMENT == */
+.ec-split { display: grid; gap: var(--ec-gap); }
+@media (min-width: 62rem) { .ec-split { grid-template-columns: 1fr 1fr; } }
+.ec-panel { background: var(--ec-white); padding: clamp(1.5rem, 3vw, 2.5rem); }
+.ec-dist div { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--ec-line); font-size: var(--ec-small); }
+.ec-dist b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.ec-dist span { color: var(--ec-ink-60); }
+
+.ec-media {
+  background: repeating-linear-gradient(-45deg, transparent 0 12px, rgba(31,62,54,.05) 12px 13px), var(--ec-mint-deep);
+  display: grid; place-items: center; min-height: 18rem;
+}
+.ec-media p { font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--ec-ink-40); text-align: center; line-height: 1.8; padding: 1.5rem; }
+
+/* ================================================================= FAQ == */
+.ec-faq { background: var(--ec-white); }
 .ec-faq details { border-bottom: 1px solid var(--ec-line); }
+.ec-faq details:last-child { border-bottom: 0; }
 .ec-faq summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 1.6rem 3rem 1.6rem 0;
-  position: relative;
-  font-family: var(--ec-serif);
-  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
-  line-height: 1.3;
-  transition: color var(--ec-fast);
+  list-style: none; cursor: pointer; padding: 1.25rem clamp(1.5rem,3vw,2.5rem);
+  padding-right: 3.5rem; position: relative; font-weight: 600; font-size: .9375rem;
 }
 .ec-faq summary::-webkit-details-marker { display: none; }
 .ec-faq summary:hover { color: var(--ec-emerald-400); }
-.ec-faq summary::after {
-  content: "";
-  position: absolute;
-  right: .4rem; top: 50%;
-  width: 13px; height: 1px;
-  background: currentColor;
-  transition: transform var(--ec-fast);
-}
-.ec-faq summary::before {
-  content: "";
-  position: absolute;
-  right: .4rem; top: 50%;
-  width: 13px; height: 1px;
-  background: currentColor;
-  transform: rotate(90deg);
+.ec-faq summary::after, .ec-faq summary::before {
+  content: ""; position: absolute; right: clamp(1.5rem,3vw,2.5rem); top: 50%;
+  width: 12px; height: 2px; background: var(--ec-brass);
   transition: transform var(--ec-fast), opacity var(--ec-fast);
 }
+.ec-faq summary::before { transform: rotate(90deg); }
 .ec-faq details[open] summary::before { transform: rotate(0); opacity: 0; }
-.ec-faq__a { padding: 0 3rem 1.7rem 0; color: var(--ec-ink-60); max-width: 68ch; }
+.ec-faq__a { padding: 0 clamp(1.5rem,3vw,2.5rem) 1.4rem; padding-right: 3.5rem; color: var(--ec-ink-60); font-size: .875rem; max-width: 70ch; }
 
-/* ==========================================================================
-   12. Contact + footer
-   ========================================================================== */
+/* ============================================================ CTA FINAL == */
+.ec-cta { background: var(--ec-emerald); color: #fff; text-align: center; }
+.ec-cta h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 600; }
+.ec-cta p { margin: 1rem auto 0; max-width: 46ch; color: rgba(255,255,255,.78); }
+.ec-cta__btns { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 2rem; }
 
-.ec-cta {
-  background: var(--ec-emerald-900);
-  color: var(--ec-sand);
-  text-align: center;
-}
-.ec-cta__in { max-width: 44rem; margin-inline: auto; }
-.ec-cta__btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
-
-.ec-foot {
-  background: var(--ec-emerald-900);
-  color: var(--ec-emerald-200);
-  border-top: 1px solid var(--ec-line-light);
-  padding-block: 3.5rem 2.5rem;
-  font-size: var(--ec-small);
-}
-.ec-foot__grid { display: grid; gap: 2.5rem; }
-@media (min-width: 56rem) { .ec-foot__grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 3rem; } }
-.ec-foot h4 {
-  font-family: var(--ec-sans);
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--ec-sand);
-  margin: 0 0 1.1rem;
-  font-weight: 500;
-}
-.ec-foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .6rem; }
-.ec-foot a:hover { color: var(--ec-sand); }
-.ec-foot__mark svg { height: 46px; width: auto; }
-.ec-foot__mark .ec-nav__mark { fill: var(--ec-sand); }
+/* ============================================================== FOOTER == */
+.ec-foot { background: var(--ec-emerald-700); color: rgba(255,255,255,.7); padding-block: 3rem 1.75rem; font-size: var(--ec-small); }
+.ec-foot__grid { display: grid; gap: 2rem; }
+@media (min-width: 56rem) { .ec-foot__grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; } }
+.ec-foot h4 { font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: #fff; margin-bottom: 1rem; font-weight: 600; }
+.ec-foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
+.ec-foot a:hover { color: #fff; }
+.ec-foot img { height: 44px; width: auto; }
 .ec-foot__bottom {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--ec-line-light);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 2rem;
-  justify-content: space-between;
-  font-size: var(--ec-eyebrow);
-  letter-spacing: .06em;
+  margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--ec-line-light);
+  display: flex; flex-wrap: wrap; gap: .75rem 2rem; justify-content: space-between; font-size: var(--ec-micro);
 }
 
-/* ==========================================================================
-   Utilitare
-   ========================================================================== */
-
-.ec-sr {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+/* ============================================ WHATSAPP FLOTANT (Lapis) == */
+.ec-wa {
+  position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 95;
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .75rem 1.1rem; border-radius: 100px;
+  background: #25D366; color: #0B3D22; font-size: var(--ec-small); font-weight: 600;
+  box-shadow: 0 6px 24px rgba(20,32,28,.24); transition: transform var(--ec-fast);
 }
-.ec-mt-s { margin-top: 1rem; }
-.ec-mt-m { margin-top: 2rem; }
-.ec-mt-l { margin-top: 3rem; }
+.ec-wa:hover { transform: translateY(-2px); }
+.ec-wa span { display: none; }
+@media (min-width: 40rem) { .ec-wa span { display: inline; } }
