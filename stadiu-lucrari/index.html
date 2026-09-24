@@ -203,6 +203,33 @@
       el.addEventListener('click', e => { e.preventDefault(); arata(i, true); });
     });
   });
+
+// eticheta care urmareste cursorul peste imaginile care duc undeva
+(() => {
+  if (matchMedia('(hover: none)').matches) return;
+  const c = document.createElement('div');
+  c.className = 'ec-cursor'; c.textContent = 'Vezi';
+  document.body.appendChild(c);
+  let activ = false;
+  addEventListener('mousemove', ev => {
+    c.style.transform = `translate(${ev.clientX}px, ${ev.clientY}px) translate(-50%,-50%) scale(${activ ? 1 : 0})`;
+  }, { passive: true });
+  document.addEventListener('mouseover', ev => {
+    const t = ev.target.closest('a.ec-block, a.ec-silo__c, .ec-gal figure, a.ec-type');
+    activ = !!t;
+    c.classList.toggle('is-on', activ);
+  }, { passive: true });
+})();
+
+// bara lipita pe mobil: pretul si actiunile raman la indemana
+(() => {
+  const b = document.querySelector('[data-sticky]');
+  if (!b) return;
+  const reper = document.querySelector('.ec-pricebar');
+  if (!reper) return;
+  new IntersectionObserver(es => {
+    b.classList.toggle('is-on', !es[0].isIntersecting);
+  }, { rootMargin: '-80px 0px 0px 0px' }).observe(reper);
 })();
 
 // prefetch la hover: cele 925 de pagini sunt statice, deci navigarea devine instanta

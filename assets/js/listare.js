@@ -64,15 +64,15 @@
   function rand(u) {
     const vandut = u[F.status] !== 'disponibil';
     return `<tr class="${vandut ? 'is-sold' : ''}">
-      <td><a href="../${u[F.id].toLowerCase()}/">${u[F.id]}</a></td>
-      <td>${bloc(u[F.corp])}</td>
-      <td>${etajTxt(u[F.etaj])}</td>
-      <td>${u[F.tip]}</td>
-      <td class="num">${u[F.camere]}</td>
-      <td class="num">${mp(u[F.su])}</td>
-      <td>${u[F.orientare]}</td>
-      <td class="num">${euro(u[F.pret])}</td>
-      <td class="st"><span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span></td>
+      <td data-et="Cod"><a href="../${u[F.id].toLowerCase()}/">${u[F.id]}</a></td>
+      <td data-et="Bloc">${bloc(u[F.corp])}</td>
+      <td data-et="Etaj">${etajTxt(u[F.etaj])}</td>
+      <td data-et="Tip">${u[F.tip]}</td>
+      <td class="num" data-et="Camere">${u[F.camere]}</td>
+      <td class="num" data-et="Suprafață">${mp(u[F.su])}</td>
+      <td data-et="Orientare">${u[F.orientare]}</td>
+      <td class="num" data-et="Preț">${euro(u[F.pret])}</td>
+      <td class="st" data-et="Stare"><span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span></td>
     </tr>`;
   }
 

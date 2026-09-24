@@ -274,6 +274,33 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       el.addEventListener('click', e => {{ e.preventDefault(); arata(i, true); }});
     }});
   }});
+
+// eticheta care urmareste cursorul peste imaginile care duc undeva
+(() => {{
+  if (matchMedia('(hover: none)').matches) return;
+  const c = document.createElement('div');
+  c.className = 'ec-cursor'; c.textContent = 'Vezi';
+  document.body.appendChild(c);
+  let activ = false;
+  addEventListener('mousemove', ev => {{
+    c.style.transform = `translate(${{ev.clientX}}px, ${{ev.clientY}}px) translate(-50%,-50%) scale(${{activ ? 1 : 0}})`;
+  }}, {{ passive: true }});
+  document.addEventListener('mouseover', ev => {{
+    const t = ev.target.closest('a.ec-block, a.ec-silo__c, .ec-gal figure, a.ec-type');
+    activ = !!t;
+    c.classList.toggle('is-on', activ);
+  }}, {{ passive: true }});
+}})();
+
+// bara lipita pe mobil: pretul si actiunile raman la indemana
+(() => {{
+  const b = document.querySelector('[data-sticky]');
+  if (!b) return;
+  const reper = document.querySelector('.ec-pricebar');
+  if (!reper) return;
+  new IntersectionObserver(es => {{
+    b.classList.toggle('is-on', !es[0].isIntersecting);
+  }}, {{ rootMargin: '-80px 0px 0px 0px' }}).observe(reper);
 }})();
 
 // prefetch la hover: cele 925 de pagini sunt statice, deci navigarea devine instanta
@@ -600,6 +627,14 @@ def pagina_unitate(u, similare):
     </figure>
   </div>
 
+  <div class="ec-sticky" data-sticky>
+    <span class="ec-sticky__p">{euro(u['pret_eur'])}<small>{camere_txt(u['nr_camere'])} · {mp(u['su_utila'])}</small></span>
+    <span class="ec-sticky__b">
+      {buton_salvare(uid)}
+      <a class="ec-btn ec-btn--brass" href="{TEL_LINK}">Sună</a>
+    </span>
+  </div>
+
   <section class="ec-section" style="padding-block:2rem 4rem">
     <p class="ec-eyebrow">Alternative</p>
     <h2 class="ec-title" style="margin:1rem 0 1.5rem">Apartamente similare</h2>
@@ -626,8 +661,8 @@ def pagina_tipologie(cod, unitati):
       <td><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
       <td>{bloc(u['corp'])}</td><td>{etaj_txt(u['etaj'])}</td>
       <td class="num">{mp(u['su_utila'])}</td><td>{u['orientare']}</td>
-      <td class="num">{euro(u['pret_eur'])}</td>
-      <td class="st"><span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></td>
+      <td class="num" data-et="Preț">{euro(u['pret_eur'])}</td>
+      <td class="st" data-et="Stare"><span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></td>
     </tr>""" for u in sorted(unitati, key=lambda x: x["pret_eur"])[:60])
 
     gal = "".join('<figure>' + imagine(g, f"Amenajare orientativă, tipologia {cod}", r,
@@ -1004,11 +1039,11 @@ def pagina_categorie(nr, unitati, grupe):
         </a>"""
 
     randuri = "".join(f"""<tr class="{'is-sold' if u['status'] != 'disponibil' else ''}">
-      <td><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
-      <td>{bloc(u['corp'])}</td><td>{etaj_txt(u['etaj'])}</td><td>{u['tip_apartament']}</td>
-      <td class="num">{mp(u['su_utila'])}</td><td>{u['orientare']}</td>
-      <td class="num">{euro(u['pret_eur'])}</td>
-      <td class="st"><span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></td>
+      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
+      <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td><td data-et="Tip">{u['tip_apartament']}</td>
+      <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td><td data-et="Orientare">{u['orientare']}</td>
+      <td class="num" data-et="Preț">{euro(u['pret_eur'])}</td>
+      <td class="st" data-et="Stare"><span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></td>
     </tr>""" for u in sorted(disp, key=lambda x: x["pret_eur"])[:40])
 
     continut = f"""<div class="ec-wrap">

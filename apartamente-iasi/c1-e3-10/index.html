@@ -176,6 +176,14 @@
     </figure>
   </div>
 
+  <div class="ec-sticky" data-sticky>
+    <span class="ec-sticky__p">94.500 €<small>2 camere · 60,6 m²</small></span>
+    <span class="ec-sticky__b">
+      <button class="ec-save" data-save="C1-E3-10" type="button" aria-pressed="false"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2h8v12l-4-3-4 3z"/></svg><span data-save-t>Salvează</span></button>
+      <a class="ec-btn ec-btn--brass" href="tel:+40000000000">Sună</a>
+    </span>
+  </div>
+
   <section class="ec-section" style="padding-block:2rem 4rem">
     <p class="ec-eyebrow">Alternative</p>
     <h2 class="ec-title" style="margin:1rem 0 1.5rem">Apartamente similare</h2>
@@ -340,6 +348,33 @@
       el.addEventListener('click', e => { e.preventDefault(); arata(i, true); });
     });
   });
+
+// eticheta care urmareste cursorul peste imaginile care duc undeva
+(() => {
+  if (matchMedia('(hover: none)').matches) return;
+  const c = document.createElement('div');
+  c.className = 'ec-cursor'; c.textContent = 'Vezi';
+  document.body.appendChild(c);
+  let activ = false;
+  addEventListener('mousemove', ev => {
+    c.style.transform = `translate(${ev.clientX}px, ${ev.clientY}px) translate(-50%,-50%) scale(${activ ? 1 : 0})`;
+  }, { passive: true });
+  document.addEventListener('mouseover', ev => {
+    const t = ev.target.closest('a.ec-block, a.ec-silo__c, .ec-gal figure, a.ec-type');
+    activ = !!t;
+    c.classList.toggle('is-on', activ);
+  }, { passive: true });
+})();
+
+// bara lipita pe mobil: pretul si actiunile raman la indemana
+(() => {
+  const b = document.querySelector('[data-sticky]');
+  if (!b) return;
+  const reper = document.querySelector('.ec-pricebar');
+  if (!reper) return;
+  new IntersectionObserver(es => {
+    b.classList.toggle('is-on', !es[0].isIntersecting);
+  }, { rootMargin: '-80px 0px 0px 0px' }).observe(reper);
 })();
 
 // prefetch la hover: cele 925 de pagini sunt statice, deci navigarea devine instanta

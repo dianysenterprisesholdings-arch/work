@@ -880,3 +880,123 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   position: fixed; inset: 0 auto auto 0; height: 2px; width: 0;
   background: var(--ec-brass); z-index: 99; transition: width .1s linear;
 }
+
+/* ==========================================================================
+   Sectiuni noi: pasii de achizitie, produs evidentiat, facilitati
+   ========================================================================== */
+
+/* --- pasi de achizitie -------------------------------------------------- */
+.ec-steps { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); counter-reset: pas; }
+@media (min-width: 52rem) { .ec-steps { grid-template-columns: repeat(3, 1fr); } }
+.ec-step { background: var(--ec-white); padding: clamp(1.75rem, 3vw, 2.5rem); position: relative; }
+.ec-step__n {
+  font-family: var(--ec-disp); font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 600; line-height: 1; color: var(--ec-mint-deep);
+  font-variant-numeric: tabular-nums; letter-spacing: -.04em;
+}
+.ec-step h3 { font-size: 1.1rem; font-weight: 600; margin: .9rem 0 .6rem; }
+.ec-step p { font-size: .9375rem; color: var(--ec-ink-60); }
+.ec-step__opt {
+  display: inline-block; margin-top: .9rem; font-size: var(--ec-micro);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ec-brass);
+  border: 1px solid currentColor; border-radius: 100px; padding: .2rem .6rem;
+}
+
+/* --- produs evidentiat --------------------------------------------------- */
+.ec-spot { background: var(--ec-emerald); color: #fff; display: grid; overflow: hidden; }
+@media (min-width: 60rem) { .ec-spot { grid-template-columns: .92fr 1.08fr; } }
+.ec-spot figure { margin: 0; overflow: hidden; }
+.ec-spot img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; }
+.ec-spot__b { padding: clamp(1.75rem, 4vw, 3.25rem); display: flex; flex-direction: column; justify-content: center; }
+.ec-spot__b h2 { font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 600; letter-spacing: -.02em; margin-top: 1rem; }
+.ec-spot__b > p { color: rgba(255,255,255,.76); margin-top: 1rem; max-width: 46ch; font-size: var(--ec-lead); }
+.ec-spot__list { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; gap: 1px; }
+.ec-spot__list li {
+  display: flex; gap: .75rem; align-items: baseline;
+  padding: .7rem 0; border-bottom: 1px solid var(--ec-line-light); font-size: .9375rem;
+}
+.ec-spot__list li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ec-brass); flex: none; transform: translateY(-2px); }
+.ec-spot__cta { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.75rem; }
+
+/* --- facilitati ---------------------------------------------------------- */
+.ec-fac { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
+@media (min-width: 34rem) { .ec-fac { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 52rem) { .ec-fac { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 72rem) { .ec-fac { grid-template-columns: repeat(5, 1fr); } }
+.ec-fac__i {
+  background: var(--ec-white); padding: 1.4rem 1.25rem;
+  display: flex; flex-direction: column; gap: .8rem;
+  transition: background var(--ec-fast);
+}
+.ec-fac__i:hover { background: var(--ec-sand); }
+.ec-fac__i svg { color: var(--ec-brass); }
+.ec-fac__i span { font-size: .875rem; font-weight: 500; line-height: 1.35; }
+
+/* --- eticheta care urmareste cursorul pe imagini ------------------------ */
+.ec-cursor {
+  position: fixed; top: 0; left: 0; z-index: 97; pointer-events: none;
+  width: 5.5rem; height: 5.5rem; border-radius: 50%;
+  background: var(--ec-brass); color: #fff;
+  display: grid; place-items: center;
+  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform .3s var(--ec-ease);
+}
+.ec-cursor.is-on { transform: translate(-50%, -50%) scale(1); }
+@media (hover: none) { .ec-cursor { display: none; } }
+
+/* --- bara lipita pe mobil, pe pagina de unitate ------------------------- */
+.ec-sticky {
+  position: fixed; inset: auto 0 0 0; z-index: 94;
+  background: #fff; border-top: 1px solid var(--ec-line);
+  padding: .7rem var(--ec-gutter);
+  display: flex; align-items: center; gap: .75rem;
+  box-shadow: 0 -6px 24px rgba(20,32,28,.1);
+  transform: translateY(110%); transition: transform .35s var(--ec-ease);
+}
+.ec-sticky.is-on { transform: none; }
+.ec-sticky__p { font-family: var(--ec-disp); font-weight: 600; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.ec-sticky__p small { display: block; font-size: var(--ec-micro); font-weight: 400; color: var(--ec-ink-40); }
+.ec-sticky__b { margin-left: auto; display: flex; gap: .45rem; }
+.ec-sticky .ec-btn { padding: .6rem 1rem; }
+@media (min-width: 52rem) { .ec-sticky { display: none; } }
+
+/* --- tabele care devin carduri pe mobil -------------------------------- */
+@media (max-width: 46rem) {
+  .ec-table table, .ec-table thead, .ec-table tbody, .ec-table tr, .ec-table td { display: block; width: 100%; }
+  .ec-table thead { display: none; }
+  .ec-table table { white-space: normal; }
+  .ec-table tr {
+    border: 1px solid var(--ec-line); margin-bottom: .75rem; padding: .5rem .25rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: .1rem;
+  }
+  .ec-table td { border: 0; padding: .35rem .75rem; display: flex; justify-content: space-between; gap: .75rem; }
+  .ec-table td::before {
+    content: attr(data-et); font-size: var(--ec-micro); letter-spacing: .1em;
+    text-transform: uppercase; color: var(--ec-ink-40); font-weight: 600;
+  }
+  .ec-table td:first-child { grid-column: 1 / -1; font-weight: 600; }
+  .ec-table td.num { text-align: left; }
+}
+
+/* --- repere de proximitate --------------------------------------------- */
+.ec-pois { display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line); }
+@media (min-width: 40rem) { .ec-pois { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 64rem) { .ec-pois { grid-template-columns: repeat(4, 1fr); } }
+.ec-poi {
+  background: var(--ec-white); padding: 1.4rem 1.25rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+  transition: background var(--ec-fast);
+}
+.ec-poi:hover { background: var(--ec-sand); }
+.ec-poi__t {
+  flex: none; width: 3.1rem; height: 3.1rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald);
+  display: grid; place-content: center; text-align: center;
+  font-family: var(--ec-disp); font-size: 1.15rem; font-weight: 600; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ec-poi__t small { display: block; font-size: .5rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; opacity: .65; margin-top: .15rem; }
+.ec-poi b { display: block; font-size: .9375rem; font-weight: 600; line-height: 1.25; }
+.ec-poi span { display: block; font-size: var(--ec-small); color: var(--ec-ink-60); margin-top: .25rem; }
+.ec-poi i { display: block; font-style: normal; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); margin-top: .4rem; }
