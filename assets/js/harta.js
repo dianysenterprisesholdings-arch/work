@@ -4,7 +4,7 @@
    ecran, ca să nu coste nimic pe restul paginii.
 
    Funcții: filtre pe categorii, izocrone (5 și 10 minute), traseu real
-   desenat la click, comutare hartă/satelit, pin cu marca Emerald City.
+   desenat la click, comutare hartă/satelit, marker clasic pentru ansamblu.
    Coordonatele vin din assets/data/distante.json.
    ========================================================================== */
 
@@ -47,10 +47,15 @@
     iconSize: [30, 30], iconAnchor: [15, 15],
   });
 
+  // marker clasic de harta: varful atinge exact punctul, deci ancora e jos
   const pinMarca = () => window.L.divIcon({
-    className: 'ec-pin ec-pin--main',
-    html: '<span><img src="brand/marca.png" alt="" width="48" height="48"></span>',
-    iconSize: [52, 52], iconAnchor: [26, 26],
+    className: 'ec-pinmap',
+    html: `<svg width="40" height="52" viewBox="0 0 40 52" fill="none" aria-hidden="true">
+      <path d="M20 51C20 51 37 31.5 37 19A17 17 0 103 19c0 12.5 17 32 17 32z"
+            fill="var(--ec-emerald)" stroke="#fff" stroke-width="2.5"/>
+      <circle cx="20" cy="19" r="6.5" fill="#fff"/>
+    </svg>`,
+    iconSize: [40, 52], iconAnchor: [20, 52], popupAnchor: [0, -46],
   });
 
   async function porneste() {

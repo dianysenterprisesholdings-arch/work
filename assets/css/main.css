@@ -1333,8 +1333,8 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-traseu { stroke: var(--ec-emerald); stroke-dasharray: 1 8; stroke-linecap: round; }
 .ec-harta.is-satelit .ec-traseu { stroke: #fff; }
 
-.ec-pin--main span { background: var(--ec-emerald); padding: 9px; overflow: hidden; }
-.ec-pin--main img { width: 100%; height: 100%; object-fit: contain; }
+.ec-pinmap { filter: drop-shadow(0 4px 8px rgba(20,32,28,.35)); }
+.ec-pinmap svg { display: block; }
 
 /* ==========================================================================
    Megamenu
