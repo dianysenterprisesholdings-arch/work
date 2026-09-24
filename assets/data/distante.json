@@ -18,11 +18,11 @@
    "lon": 27.513241
   },
   {
-   "nume": "Palas Mall",
-   "km": 6.0,
-   "min": 10,
-   "lat": 47.154994,
-   "lon": 27.587302
+   "nume": "Universitatea „Alexandru Ioan Cuza”",
+   "km": 3.7,
+   "min": 7,
+   "lat": 47.174207,
+   "lon": 27.571375
   },
   {
    "nume": "Parcul Copou",
@@ -32,18 +32,18 @@
    "lon": 27.566802
   },
   {
-   "nume": "Universitatea „Alexandru Ioan Cuza”",
-   "km": 3.7,
-   "min": 7,
-   "lat": 47.174207,
-   "lon": 27.571375
-  },
-  {
    "nume": "Centrul orașului",
    "km": 4.7,
    "min": 8,
    "lat": 47.166691,
    "lon": 27.580116
+  },
+  {
+   "nume": "Palas Mall",
+   "km": 6.0,
+   "min": 10,
+   "lat": 47.154994,
+   "lon": 27.587302
   },
   {
    "nume": "Aeroportul Iași",

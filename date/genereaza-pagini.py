@@ -194,10 +194,10 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
     </div>
 
     <div class="ec-foot__stats">
-      <div><b>925</b><span>Apartamente</span></div>
-      <div><b>18</b><span>Blocuri, parter + 3 etaje</span></div>
-      <div><b>30,85%</b><span>Spațiu verde</span></div>
-      <div><b>940</b><span>Locuri de parcare</span></div>
+      <div><b>925</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
+      <div><b>18</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg> Blocuri, parter + 3 etaje</span></div>
+      <div><b>30,85%</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-13 0 9-5 13-14 13z"/><path d="M5 19c3-4 6-6 10-7.5"/></svg> Spațiu verde</span></div>
+      <div><b>940</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M6 17V9l2-4h8l2 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg> Locuri de parcare</span></div>
     </div>
 
     <div class="ec-foot__grid">
@@ -298,22 +298,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
     }});
   }});
 
-// eticheta care urmareste cursorul peste imaginile care duc undeva
-(() => {{
-  if (matchMedia('(hover: none)').matches) return;
-  const c = document.createElement('div');
-  c.className = 'ec-cursor'; c.textContent = 'Vezi';
-  document.body.appendChild(c);
-  let activ = false;
-  addEventListener('mousemove', ev => {{
-    c.style.transform = `translate(${{ev.clientX}}px, ${{ev.clientY}}px) translate(-50%,-50%) scale(${{activ ? 1 : 0}})`;
-  }}, {{ passive: true }});
-  document.addEventListener('mouseover', ev => {{
-    const t = ev.target.closest('a.ec-block, a.ec-silo__c, .ec-gal figure, a.ec-type');
-    activ = !!t;
-    c.classList.toggle('is-on', activ);
-  }}, {{ passive: true }});
-}})();
+
 
 // bara lipita pe mobil: pretul si actiunile raman la indemana
 (() => {{
@@ -403,6 +388,26 @@ def plan_svg(nr_camere, tip=None, su=None, compact=False):
             if not mic:
                 piese.append(f'<text class="pa" x="{cx:.1f}" y="{cy + 8:.1f}">'
                              f'{arie:.1f}'.replace(".", ",") + ' m²</text>')
+
+    # ferestre pe peretele exterior si usi pe peretii interiori:
+    # o schema fara ele arata ca o diagrama, nu ca un plan
+    fer = lambda x1, y1, x2, y2: piese.append(
+        f'<line class="pf" x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}"/>')
+    # zona de zi: doua ferestre pe latura stanga
+    fer(GROS / 2, H * .22, GROS / 2, H * .44)
+    fer(GROS / 2, H * .58, GROS / 2, H * .80)
+    # camerele din dreapta: cate o fereastra pe latura exterioara
+    for _, _, x, yy, w, h in incaperi[1:]:
+        if h > 26:
+            fer(W - GROS / 2, yy + h * .3, W - GROS / 2, yy + h * .7)
+    # usi: o intrerupere alba plus arcul de deschidere, pe peretele comun
+    for _, _, x, yy, w, h in incaperi[1:]:
+        cy = yy + h / 2
+        d = min(11.0, h * .45)
+        piese.append(f'<line class="pu" x1="{x:.1f}" y1="{cy - d/2:.1f}" '
+                     f'x2="{x:.1f}" y2="{cy + d/2:.1f}"/>')
+        piese.append(f'<path class="pua" d="M{x:.1f} {cy - d/2:.1f} '
+                     f'a{d:.1f} {d:.1f} 0 0 1 {d:.1f} {d:.1f}"/>')
 
     # cote generale, jos si in dreapta
     lat = (total ** .5) * 1.35
@@ -1019,7 +1024,7 @@ def pagina_hub(unitati, grupe):
       Alege mai jos după numărul de camere, sau mergi direct la lista completă cu filtre.
     </p>
     <div class="ec-hstats">
-      <div class="ec-hstat"><b>{len(unitati)}</b><span>Apartamente</span></div>
+      <div class="ec-hstat"><b>{len(unitati)}</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
       <div class="ec-hstat"><b>{len(disp_tot)}</b><span>Disponibile acum</span></div>
       <div class="ec-hstat"><b>{mp(su_min)} – {mp(su_max)}</b><span>Suprafață utilă</span></div>
       <div class="ec-hstat"><b>{euro(p_min)}</b><span>Preț de pornire</span></div>
@@ -1576,8 +1581,8 @@ def pagina_proiect():
       cartierul în care locuiești.
     </p>
     <div class="ec-hstats">
-      <div class="ec-hstat"><b>925</b><span>Apartamente</span></div>
-      <div class="ec-hstat"><b>18</b><span>Blocuri</span></div>
+      <div class="ec-hstat"><b>925</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
+      <div class="ec-hstat"><b>18</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg> Blocuri</span></div>
       <div class="ec-hstat"><b>5,02 ha</b><span>Suprafață teren</span></div>
       <div class="ec-hstat"><b>3</b><span>Etape de construcție</span></div>
     </div>
@@ -1676,9 +1681,9 @@ def pagina_presa():
           <div><span>Denumire</span><b>Emerald City</b></div>
           <div><span>Dezvoltator</span><b>Tala Sapphire S.R.L.</b></div>
           <div><span>Amplasament</span><b>Str. Ion Nistor, Iași</b></div>
-          <div><span>Apartamente</span><b>925, în 18 blocuri</b></div>
+          <div><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span><b>925, în 18 blocuri</b></div>
           <div><span>Suprafață teren</span><b>50.235 m²</b></div>
-          <div><span>Spațiu verde</span><b>15.501 m² · 30,85%</b></div>
+          <div><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-13 0 9-5 13-14 13z"/><path d="M5 19c3-4 6-6 10-7.5"/></svg> Spațiu verde</span><b>15.501 m² · 30,85%</b></div>
           <div><span>Regim</span><b>Parter + 3 etaje</b></div>
           <div style="border:0"><span>Etape</span><b>3 · 322 / 423 / 180 apartamente</b></div>
         </div>

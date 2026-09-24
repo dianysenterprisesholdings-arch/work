@@ -72,7 +72,7 @@
       Alege mai jos după numărul de camere, sau mergi direct la lista completă cu filtre.
     </p>
     <div class="ec-hstats">
-      <div class="ec-hstat"><b>925</b><span>Apartamente</span></div>
+      <div class="ec-hstat"><b>925</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
       <div class="ec-hstat"><b>517</b><span>Disponibile acum</span></div>
       <div class="ec-hstat"><b>36,6 m² – 80,8 m²</b><span>Suprafață utilă</span></div>
       <div class="ec-hstat"><b>53.500 €</b><span>Preț de pornire</span></div>
@@ -239,10 +239,10 @@
     </div>
 
     <div class="ec-foot__stats">
-      <div><b>925</b><span>Apartamente</span></div>
-      <div><b>18</b><span>Blocuri, parter + 3 etaje</span></div>
-      <div><b>30,85%</b><span>Spațiu verde</span></div>
-      <div><b>940</b><span>Locuri de parcare</span></div>
+      <div><b>925</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16"/><path d="M15 21V10h4a1 1 0 011 1v10"/><path d="M7 8h2M7 12h2M7 16h2M11 8h1M11 12h1M11 16h1"/><path d="M2 21h20"/></svg> Apartamente</span></div>
+      <div><b>18</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l5-3 5 3v13"/><path d="M13 21V12h8v9"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 16h2"/><path d="M2 21h20"/></svg> Blocuri, parter + 3 etaje</span></div>
+      <div><b>30,85%</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-13 0 9-5 13-14 13z"/><path d="M5 19c3-4 6-6 10-7.5"/></svg> Spațiu verde</span></div>
+      <div><b>940</b><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17h14M6 17V9l2-4h8l2 4v8"/><circle cx="8" cy="17" r="2"/><circle cx="16" cy="17" r="2"/></svg> Locuri de parcare</span></div>
     </div>
 
     <div class="ec-foot__grid">
@@ -343,22 +343,7 @@
     });
   });
 
-// eticheta care urmareste cursorul peste imaginile care duc undeva
-(() => {
-  if (matchMedia('(hover: none)').matches) return;
-  const c = document.createElement('div');
-  c.className = 'ec-cursor'; c.textContent = 'Vezi';
-  document.body.appendChild(c);
-  let activ = false;
-  addEventListener('mousemove', ev => {
-    c.style.transform = `translate(${ev.clientX}px, ${ev.clientY}px) translate(-50%,-50%) scale(${activ ? 1 : 0})`;
-  }, { passive: true });
-  document.addEventListener('mouseover', ev => {
-    const t = ev.target.closest('a.ec-block, a.ec-silo__c, .ec-gal figure, a.ec-type');
-    activ = !!t;
-    c.classList.toggle('is-on', activ);
-  }, { passive: true });
-})();
+
 
 // bara lipita pe mobil: pretul si actiunile raman la indemana
 (() => {

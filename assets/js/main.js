@@ -218,6 +218,16 @@
         if (!mic) out += `<text class="pa" x="${cx.toFixed(1)}" y="${(cy + 8).toFixed(1)}">${nr(total * p)} m²</text>`;
       }
     });
+    // ferestre pe exterior, usi cu arc pe peretii comuni
+    const fer = (x1,y1,x2,y2) => out += `<line class="pf" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+    fer(G/2, H*.22, G/2, H*.44); fer(G/2, H*.58, G/2, H*.80);
+    camere.slice(1).forEach(([,,x,yy,w,h]) => { if (h > 26) fer(W-G/2, yy+h*.3, W-G/2, yy+h*.7); });
+    camere.slice(1).forEach(([,,x,yy,w,h]) => {
+      const cy = yy + h/2, d = Math.min(11, h*.45);
+      out += `<line class="pu" x1="${x.toFixed(1)}" y1="${(cy-d/2).toFixed(1)}" x2="${x.toFixed(1)}" y2="${(cy+d/2).toFixed(1)}"/>`;
+      out += `<path class="pua" d="M${x.toFixed(1)} ${(cy-d/2).toFixed(1)} a${d.toFixed(1)} ${d.toFixed(1)} 0 0 1 ${d.toFixed(1)} ${d.toFixed(1)}"/>`;
+    });
+
     const lat = Math.sqrt(total) * 1.35;
     out += `<line class="pc" x1="0" y1="${H + 9}" x2="${W}" y2="${H + 9}"/>`;
     out += `<text class="pd" x="${W / 2}" y="${H + 20}">${nr(lat)} m</text>`;

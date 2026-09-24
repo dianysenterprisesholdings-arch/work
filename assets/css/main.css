@@ -450,7 +450,8 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 /* ============================================================== FOOTER == */
 .ec-foot { background: var(--ec-emerald-700); color: rgba(255,255,255,.7); padding-block: 3rem 1.75rem; font-size: var(--ec-small); }
 .ec-foot__grid { display: grid; gap: 2rem; }
-@media (min-width: 56rem) { .ec-foot__grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 2.5rem; } }
+@media (min-width: 56rem) { .ec-foot__grid { grid-template-columns: repeat(3, 1fr); gap: 2.25rem; } }
+@media (min-width: 72rem) { .ec-foot__grid { grid-template-columns: repeat(5, 1fr); gap: 2.25rem; } }
 .ec-foot h4 { font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: #fff; margin-bottom: 1rem; font-weight: 600; }
 .ec-foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
 .ec-foot a:hover { color: #fff; }
@@ -996,19 +997,6 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-fac__i:hover i { background: var(--ec-brass); color: #fff; }
 .ec-fac__i span { font-size: .9375rem; font-weight: 500; line-height: 1.3; }
 
-/* --- eticheta care urmareste cursorul pe imagini ------------------------ */
-.ec-cursor {
-  position: fixed; top: 0; left: 0; z-index: 97; pointer-events: none;
-  width: 5.5rem; height: 5.5rem; border-radius: 50%;
-  background: var(--ec-brass); color: #fff;
-  display: grid; place-items: center;
-  font-size: var(--ec-micro); font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform .3s var(--ec-ease);
-}
-.ec-cursor.is-on { transform: translate(-50%, -50%) scale(1); }
-@media (hover: none) { .ec-cursor { display: none; } }
-
 /* --- bara lipita pe mobil, pe pagina de unitate ------------------------- */
 .ec-sticky {
   position: fixed; inset: auto 0 0 0; z-index: 94;
@@ -1188,3 +1176,16 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 /* in cardurile mici textul se micsoreaza, ca sa nu se taie numele camerelor */
 .ec-type__plan .pn { font-size: 9px; }
 .ec-type__plan .pd { font-size: 8px; }
+
+/* numele camerelor, mai lizibile in schema */
+.ec-type__plan .pn { font-size: 10.5px; }
+.ec-planbox .pn { font-size: 8.5px; }
+/* pictograme in listele de distante si pe cifre */
+.ec-dist span svg, .ec-foot__stats span svg, .ec-manifest__stats > div > span svg {
+  color: var(--ec-brass); flex: none;
+}
+.ec-dist span { display: flex; align-items: center; gap: .55rem; }
+/* ferestre si usi in schema de compartimentare */
+.ec-type__plan .pf, .ec-planbox .pf { stroke: #fff; stroke-width: 3.4; }
+.ec-type__plan .pu, .ec-planbox .pu { stroke: #fff; stroke-width: 3.6; }
+.ec-type__plan .pua, .ec-planbox .pua { fill: none; stroke: var(--ec-ink-30); stroke-width: .7; }
