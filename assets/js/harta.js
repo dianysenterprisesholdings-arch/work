@@ -1,8 +1,11 @@
 /* ==========================================================================
    Emerald City — hartă interactivă
-   Leaflet + tile-uri OpenStreetMap. Biblioteca se încarcă abia când harta
-   intră în ecran, ca să nu coste nimic pe restul paginii.
-   Coordonatele vin din assets/data/distante.json, calculate cu OSRM/Nominatim.
+   Leaflet + OpenStreetMap. Biblioteca se încarcă abia când harta intră în
+   ecran, ca să nu coste nimic pe restul paginii.
+
+   Funcții: filtre pe categorii, izocrone (5 și 10 minute), traseu real
+   desenat la click, comutare hartă/satelit, pin cu marca Emerald City.
+   Coordonatele vin din assets/data/distante.json.
    ========================================================================== */
 
 (() => {
@@ -14,6 +17,22 @@
   const CSS = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
   const JS  = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
 
+  const CATEGORII = {
+    cumparaturi: 'Cumpărături',
+    educatie:    'Educație',
+    verde:       'Spații verzi',
+    transport:   'Transport',
+    oras:        'Oraș',
+  };
+
+  // Izocrone aproximative: in oras se circula cu ~28 km/h in medie,
+  // deci 5 minute inseamna aproximativ 2,3 km pe traseu, adica ~1,7 km in
+  // linie dreapta. Cercurile sunt orientative si asa sunt si etichetate.
+  const IZO = [
+    { min: 5,  raza: 1700 },
+    { min: 10, raza: 3400 },
+  ];
+
   const incarca = () => new Promise((rezolva, respinge) => {
     if (window.L) return rezolva();
     const l = document.createElement('link');
@@ -23,11 +42,15 @@
     document.head.appendChild(s);
   });
 
-  const pin = (text, principal) => window.L.divIcon({
-    className: 'ec-pin' + (principal ? ' ec-pin--main' : ''),
-    html: `<span>${text}</span>`,
-    iconSize: principal ? [46, 46] : [30, 30],
-    iconAnchor: principal ? [23, 23] : [15, 15],
+  const pinNumar = min => window.L.divIcon({
+    className: 'ec-pin', html: `<span>${min}</span>`,
+    iconSize: [30, 30], iconAnchor: [15, 15],
+  });
+
+  const pinMarca = () => window.L.divIcon({
+    className: 'ec-pin ec-pin--main',
+    html: '<span><img src="brand/marca.png" alt="" width="48" height="48"></span>',
+    iconSize: [52, 52], iconAnchor: [26, 26],
   });
 
   async function porneste() {
@@ -46,62 +69,130 @@
     const harta = L.map(panza, { scrollWheelZoom: false, zoomControl: true })
                    .setView([date.lat, date.lon], 13);
 
-    // tile-uri OpenStreetMap: libere, fara cheie. CARTO cere acum API key.
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19,
-    }).addTo(harta);
+    /* --- straturi de fundal ------------------------------------------- */
+    const strat = {
+      harta: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19,
+      }),
+      satelit: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri, Maxar, Earthstar Geographics',
+        maxZoom: 19,
+      }),
+    };
+    let fundal = 'harta';
+    strat.harta.addTo(harta);
 
-    const acasa = L.marker([date.lat, date.lon], { icon: pin('EC', true), zIndexOffset: 1000 })
-      .addTo(harta)
-      .bindPopup('<b>Emerald City</b><br>Iași, zona Păcurari');
+    /* --- izocrone ------------------------------------------------------ */
+    const izocrone = L.layerGroup(
+      IZO.map(z => L.circle([date.lat, date.lon], {
+        radius: z.raza, className: 'ec-izo',
+        interactive: false, fillOpacity: .06, weight: 1,
+      }).bindTooltip(`${z.min} minute cu mașina`, { permanent: false, direction: 'top' }))
+    );
+
+    /* --- reperul principal si punctele ---------------------------------- */
+    const acasa = L.marker([date.lat, date.lon], { icon: pinMarca(), zIndexOffset: 1000 })
+      .addTo(harta).bindPopup('<b>Emerald City</b><br>Apartamente Iași, zona Păcurari');
 
     const marcaje = date.puncte.map((p, i) => {
-      const m = L.marker([p.lat, p.lon], { icon: pin(p.min) }).addTo(harta);
-      const kmTxt = String(p.km).replace('.', ',');
-      m.bindPopup(`<b>${p.nume}</b><br>${kmTxt} km · ${p.min} min cu mașina`);
+      const m = L.marker([p.lat, p.lon], { icon: pinNumar(p.min) });
+      m.bindPopup(`<b>${p.nume}</b><br>${String(p.km).replace('.', ',')} km · ${p.min} min cu mașina`);
       m.on('click', () => selecteaza(i));
+      m._cat = p.cat || 'oras';
+      m.addTo(harta);
       return m;
     });
 
-    // incadrez tot, dar nu prea departe
-    harta.fitBounds(L.featureGroup([acasa, ...marcaje]).getBounds().pad(0.18));
+    /* --- traseu desenat ------------------------------------------------- */
+    let traseu = null;
+    async function deseneazaTraseu(p) {
+      if (traseu) { harta.removeLayer(traseu); traseu = null; }
+      try {
+        const u = `https://router.project-osrm.org/route/v1/driving/`
+                + `${date.lon},${date.lat};${p.lon},${p.lat}?overview=full&geometries=geojson`;
+        const r = await fetch(u);
+        const d = await r.json();
+        if (d.code !== 'Ok' || !d.routes.length) return;
+        const pct = d.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+        traseu = L.polyline(pct, { className: 'ec-traseu', weight: 4 }).addTo(harta);
+        harta.fitBounds(traseu.getBounds().pad(0.2));
+      } catch { /* fara traseu, raman doar pinii */ }
+    }
 
-    // lista laterala, sincronizata cu harta
+    /* --- lista laterala --------------------------------------------------*/
     const lista = gazda.querySelector('[data-lista]');
-    lista.innerHTML = date.puncte.map((p, i) =>
-      `<button class="ec-harta__i" data-i="${i}" type="button">
+    const randuri = () => date.puncte.map((p, i) =>
+      `<button class="ec-harta__i" data-i="${i}" data-cat="${p.cat || 'oras'}" type="button">
         <span class="ec-harta__min">${p.min}<small>min</small></span>
         <span class="ec-harta__t"><b>${p.nume}</b><i>${String(p.km).replace('.', ',')} km</i></span>
       </button>`).join('');
+    lista.innerHTML = randuri();
 
     let curent = -1;
     function selecteaza(i) {
       curent = i;
       [...lista.children].forEach((b, k) => b.classList.toggle('is-on', k === i));
       const p = date.puncte[i];
-      harta.flyTo([p.lat, p.lon], 15, { duration: .7 });
       marcaje[i].openPopup();
+      deseneazaTraseu(p);
     }
     lista.addEventListener('click', ev => {
       const b = ev.target.closest('[data-i]');
       if (b) selecteaza(+b.dataset.i);
     });
-    lista.addEventListener('mouseover', ev => {
-      const b = ev.target.closest('[data-i]');
-      if (b && +b.dataset.i !== curent) marcaje[+b.dataset.i].openPopup();
+
+    /* --- controale ------------------------------------------------------ */
+    const bara = gazda.querySelector('[data-controale]');
+    bara.innerHTML =
+      Object.entries(CATEGORII).map(([k, et]) =>
+        `<button class="ec-chip is-on" data-filtru="${k}" type="button">${et}</button>`).join('')
+      + `<button class="ec-chip" data-izo type="button">Timpi de mers</button>`
+      + `<button class="ec-chip" data-satelit type="button">Satelit</button>`;
+
+    const active = new Set(Object.keys(CATEGORII));
+    const aplicaFiltre = () => {
+      marcaje.forEach(m => {
+        const vizibil = active.has(m._cat);
+        if (vizibil && !harta.hasLayer(m)) m.addTo(harta);
+        if (!vizibil && harta.hasLayer(m)) harta.removeLayer(m);
+      });
+      [...lista.children].forEach(b => {
+        b.style.display = active.has(b.dataset.cat) ? '' : 'none';
+      });
+    };
+
+    bara.addEventListener('click', ev => {
+      const b = ev.target.closest('button');
+      if (!b) return;
+      if (b.dataset.filtru) {
+        const k = b.dataset.filtru;
+        active.has(k) ? active.delete(k) : active.add(k);
+        b.classList.toggle('is-on');
+        aplicaFiltre();
+      } else if (b.hasAttribute('data-izo')) {
+        b.classList.toggle('is-on');
+        harta.hasLayer(izocrone) ? harta.removeLayer(izocrone) : izocrone.addTo(harta);
+      } else if (b.hasAttribute('data-satelit')) {
+        b.classList.toggle('is-on');
+        harta.removeLayer(strat[fundal]);
+        fundal = fundal === 'harta' ? 'satelit' : 'harta';
+        strat[fundal].addTo(harta);
+        gazda.classList.toggle('is-satelit', fundal === 'satelit');
+      }
     });
 
     gazda.querySelector('[data-reset]')?.addEventListener('click', () => {
       [...lista.children].forEach(b => b.classList.remove('is-on'));
+      if (traseu) { harta.removeLayer(traseu); traseu = null; }
       harta.flyTo([date.lat, date.lon], 13, { duration: .7 });
       acasa.openPopup();
     });
 
+    harta.fitBounds(L.featureGroup([acasa, ...marcaje]).getBounds().pad(0.18));
     gazda.classList.add('is-gata');
   }
 
-  // pornesc doar cand harta se apropie de ecran
   new IntersectionObserver((es, obs) => {
     if (!es[0].isIntersecting) return;
     obs.disconnect();

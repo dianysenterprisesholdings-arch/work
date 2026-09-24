@@ -8,49 +8,56 @@
    "km": 1.0,
    "min": 2,
    "lat": 47.174624,
-   "lon": 27.536557
+   "lon": 27.536557,
+   "cat": "cumparaturi"
   },
   {
    "nume": "Mall Moldova",
    "km": 3.6,
    "min": 6,
    "lat": 47.16868,
-   "lon": 27.513241
+   "lon": 27.513241,
+   "cat": "cumparaturi"
   },
   {
    "nume": "Universitatea „Alexandru Ioan Cuza”",
    "km": 3.7,
    "min": 7,
    "lat": 47.174207,
-   "lon": 27.571375
+   "lon": 27.571375,
+   "cat": "educatie"
   },
   {
    "nume": "Parcul Copou",
    "km": 4.3,
    "min": 7,
    "lat": 47.178888,
-   "lon": 27.566802
+   "lon": 27.566802,
+   "cat": "verde"
   },
   {
    "nume": "Centrul orașului",
    "km": 4.7,
    "min": 8,
    "lat": 47.166691,
-   "lon": 27.580116
+   "lon": 27.580116,
+   "cat": "oras"
   },
   {
    "nume": "Palas Mall",
    "km": 6.0,
    "min": 10,
    "lat": 47.154994,
-   "lon": 27.587302
+   "lon": 27.587302,
+   "cat": "cumparaturi"
   },
   {
    "nume": "Aeroportul Iași",
    "km": 11.2,
    "min": 18,
    "lat": 47.179896,
-   "lon": 27.62038
+   "lon": 27.62038,
+   "cat": "transport"
   }
  ]
 }
