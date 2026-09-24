@@ -70,6 +70,8 @@ img { display: block; max-width: 100%; height: auto; }
 /* <picture> nu trebuie sa genereze o cutie proprie: altfel devine el copilul
    din grila sau din flex, iar regulile scrise pentru <img> nu se mai aplica */
 picture { display: contents; }
+/* miniatura blurata se stinge odata cu aparitia imaginii */
+img[style*='background'] { transition: background-color .6s var(--ec-ease); }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 
@@ -223,6 +225,26 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   overflow: hidden;
   display: flex;
 }
+.ec-hero__video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border: 0; pointer-events: none; opacity: 0;
+  transition: opacity 1.2s var(--ec-ease);
+}
+.ec-hero__video.is-on { opacity: 1; }
+/* iframe-ul pastreaza 16:9; il maresc pana acopera cadrul, oricat de inalt ar fi */
+.ec-hero__vwrap {
+  position: absolute; inset: 0; overflow: hidden;
+}
+.ec-hero__vwrap iframe {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100vw; height: 56.25vw; min-height: 100%; min-width: 177.77vh;
+  border: 0; pointer-events: none;
+}
+/* pe ecran mic si la miscare redusa ramane randarea statica */
+@media (max-width: 52rem), (prefers-reduced-motion: reduce) {
+  .ec-hero__vwrap { display: none; }
+}
+
 .ec-hero__img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
   animation: ecKen 26s ease-out both;
@@ -888,12 +910,16 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 }
 .ec-manifest__stats b span { font: inherit; color: inherit; letter-spacing: inherit; }
 
-/* --- dezvaluirea imaginii: perdea, nu fade ----------------------------- */
-.ec-rv figure img { clip-path: inset(0 0 0 0); }
-.ec-rv:not(.is-in) figure img { clip-path: inset(0 0 100% 0); }
-.ec-rv figure img { transition: clip-path 1s var(--ec-ease), transform .7s var(--ec-ease); }
+/* --- dezvaluirea imaginii ---------------------------------------------
+   Perdeaua cu clip-path se termina brusc, pentru ca marginea e taiata net.
+   Un fade lung cu o urma de zoom se aseaza mult mai linistit. */
+.ec-rv figure img {
+  opacity: 1; transform: scale(1);
+  transition: opacity 1.1s var(--ec-ease), transform 1.4s var(--ec-ease);
+}
+.ec-rv:not(.is-in) figure img { opacity: 0; transform: scale(1.035); }
 @media (prefers-reduced-motion: reduce) {
-  .ec-rv:not(.is-in) figure img { clip-path: none; }
+  .ec-rv:not(.is-in) figure img { opacity: 1; transform: none; }
 }
 
 /* --- bara de progres la scroll ----------------------------------------- */
@@ -1159,3 +1185,6 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-pin--main span { background: var(--ec-emerald); font-size: .9rem; letter-spacing: .04em; }
 .leaflet-popup-content-wrapper { border-radius: 3px; font-family: var(--ec-sans); font-size: .8125rem; }
 .leaflet-container { font-family: var(--ec-sans); }
+/* in cardurile mici textul se micsoreaza, ca sa nu se taie numele camerelor */
+.ec-type__plan .pn { font-size: 9px; }
+.ec-type__plan .pd { font-size: 8px; }

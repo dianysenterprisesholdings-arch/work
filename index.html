@@ -97,6 +97,9 @@
 <!-- ================================================================== HERO -->
 <section class="ec-hero">
   <picture><source type="image/webp" srcset="assets/img/hero-living-800.webp 800w, assets/img/hero-living.webp 1600w" sizes="(max-width: 60rem) 100vw, 60vw"><img class="ec-hero__img" src="assets/img/hero-living.jpg" srcset="assets/img/hero-living-800.jpg 800w, assets/img/hero-living.jpg 1600w" sizes="(max-width: 60rem) 100vw, 60vw" alt="Living dintr-un apartament Emerald City" width="1600" height="900" fetchpriority="high" style="background:#DCE7DE url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwC3cxzR6DHdRvIJyiko2Hpse2QAvwNoOc9eOaqSO0ujBXY4UqBg4xz7VT1CRwqqHbGz1qCwm8hpW3bsg4+8aKyXdtx+Y0UrDP/Z) center/cover" onload="this.style.background='none'"></picture>
+  <!-- DEMONSTRATIV: videoul apartine altui proiect (Vimeo 1042080770).
+       Se inlocuieste cu filmarea Emerald City inainte de lansare. -->
+  <div class="ec-hero__vwrap" data-video="1042080770" aria-hidden="true"></div>
   <div class="ec-hero__veil"></div>
   <div class="ec-hero__in">
     <span class="ec-badge"><i></i> Direct dezvoltator · Tala Sapphire</span>
@@ -368,7 +371,7 @@
                width="1600" height="900" loading="lazy" decoding="async">
         </picture>
         <div class="ec-facw__cap">
-          <b>Zece dotări, toate prevăzute în proiect</b>
+          <b>10 dotări, toate prevăzute în proiect</b>
           <span>De la parcarea subterană și panourile fotovoltaice, până la pistele de biciclete și colectarea îngropată a deșeurilor.</span>
         </div>
       </div>
@@ -409,9 +412,7 @@
           </a>
           <a class="ec-btn ec-btn--outlight" href="contact/">Programează o vizionare</a>
         </div>
-        <p style="font-size:var(--ec-micro);color:rgba(255,255,255,.55);margin-top:1.25rem">
-          123 de apartamente cu curte în ansamblu · prețuri de la 53.500 €
-        </p>
+        <p style="font-size:var(--ec-micro);color:rgba(255,255,255,.55);margin-top:1.25rem;white-space:nowrap">123 de apartamente cu curte · de la 53.500 €</p>
       </div>
     </div>
   </div>
@@ -655,6 +656,17 @@
           <li><a href="#finisaje">Finisaje</a></li>
         </ul>
       </div>
+      <div>
+        <h4>Informații legale</h4>
+        <ul>
+          <li><a href="termeni-si-conditii/">Termeni și condiții</a></li>
+          <li><a href="politica-de-confidentialitate/">Politica de confidențialitate</a></li>
+          <li><a href="politica-de-cookies/">Politica de cookies</a></li>
+          <li><a href="informare-gdpr/">Informare GDPR</a></li>
+          <li><a href="https://anpc.ro/ce-este-sal/" rel="nofollow noopener" target="_blank">ANPC — SAL</a></li>
+          <li><a href="https://ec.europa.eu/consumers/odr" rel="nofollow noopener" target="_blank">ANPC — SOL</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="ec-foot__bottom">
@@ -726,6 +738,28 @@
     });
   }, { rootMargin: '-45% 0px -50% 0px' });
   tinte.forEach(t => o.observe(t));
+})();
+</script>
+<script>
+// Fundal video in hero: se incarca dupa ce pagina e utilizabila, peste
+// randarea statica, si apare in fade. Randarea ramane vizibila pana atunci
+// si ramane singura sursa pe mobil sau la prefers-reduced-motion.
+(() => {
+  const w = document.querySelector('[data-video]');
+  if (!w || !matchMedia('(min-width: 52rem)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const porneste = () => {
+    const f = document.createElement('iframe');
+    f.src = `https://player.vimeo.com/video/${w.dataset.video}`
+          + '?background=1&autoplay=1&loop=1&muted=1&autopause=0&controls=0&dnt=1';
+    f.allow = 'autoplay; fullscreen';
+    f.title = 'Prezentare video a ansamblului';
+    f.className = 'ec-hero__video';
+    f.addEventListener('load', () => requestAnimationFrame(() => f.classList.add('is-on')));
+    w.appendChild(f);
+  };
+  if ('requestIdleCallback' in window) requestIdleCallback(porneste, { timeout: 2500 });
+  else setTimeout(porneste, 1200);
 })();
 </script>
 </body>

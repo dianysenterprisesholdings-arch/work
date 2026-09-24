@@ -165,7 +165,7 @@
       .sort((a, b) => a.cod.localeCompare(b.cod))
       .map(t => `
         <a class="ec-type ec-rv" href="tipologii/${t.cod.toLowerCase()}/">
-          <div class="ec-type__plan">${planSVG(t.camere)}</div>
+          <div class="ec-type__plan">${planSVG(t.camere, t.cod, t.su.reduce((a,b)=>a+b,0)/t.su.length, true)}</div>
           <div class="ec-type__code">${t.cod}</div>
           <div class="ec-type__rows">
             <div><span>Camere</span><b>${t.camere}</b></div>
@@ -180,14 +180,50 @@
 
   /* Schita schematica. Se inlocuieste cu SVG-ul extras din planurile
      vectoriale ale biroului de design, cand sunt disponibile. */
-  function planSVG(nrCamere) {
-    const rooms = nrCamere === 1 ? [[4,4,40,34],[46,4,26,20],[46,26,26,12]]
-                : nrCamere === 2 ? [[4,4,42,40],[48,4,28,22],[48,28,28,16]]
-                : [[4,4,38,40],[44,4,32,20],[44,26,15,18],[61,26,15,18]];
-    return `<svg viewBox="0 0 80 48" aria-hidden="true">
-      <rect class="wall" x="0" y="0" width="80" height="48"/>
-      ${rooms.map(([x,y,w,h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#fff"/>`).join('')}
-    </svg>`;
+  /* Schema de compartimentare, desenata din ariile tipologiei.
+     Aceeasi logica ca in generator, ca sa arate identic peste tot. */
+  const CAMERE_TIP = {
+    '1A': [['Living și bucătărie', .66], ['Baie', .17], ['Hol', .17]],
+    '2A': [['Living și bucătărie', .45], ['Dormitor', .27], ['Baie', .16], ['Hol', .12]],
+    '2B': [['Living și bucătărie', .43], ['Dormitor', .28], ['Baie', .17], ['Hol', .12]],
+    '3A': [['Living', .30], ['Dormitor 1', .24], ['Dormitor 2', .20], ['Baie', .14], ['Hol', .12]],
+    '3B': [['Living și bucătărie', .36], ['Dormitor', .24], ['Birou', .18], ['Baie', .13], ['Hol', .09]]
+  };
+
+  const SCURT = {"Living si bucatarie": "Living", "Living și bucătărie": "Living", "Living": "Living", "Dormitor 1": "Dorm. 1", "Dormitor 2": "Dorm. 2", "Dormitor": "Dormitor", "Bucatarie": "Bucătărie", "Bucătărie": "Bucătărie", "Baie": "Baie", "Baie 2": "Baie 2", "Hol": "Hol", "Debara": "Debara", "Birou": "Birou"};
+
+  function planSVG(nrCamere, tip, su, compact) {
+    const cam = CAMERE_TIP[tip] || CAMERE_TIP['2A'];
+    const total = su || 60, W = 200, H = 128, G = 3.4;
+    const [pNume, pPond] = cam[0], rest = cam.slice(1);
+    const wp = W * Math.min(Math.max(pPond * 1.55, .42), .58);
+    const camere = [[pNume, pPond, 0, 0, wp, H]];
+    const sp = rest.reduce((a, r) => a + r[1], 0) || 1;
+    let y = 0;
+    rest.forEach(([n, p], i) => {
+      const h = i === rest.length - 1 ? H - y : H * (p / sp);
+      camere.push([n, p, wp, y, W - wp, h]); y += h;
+    });
+    const nr = v => v.toFixed(1).replace('.', ',');
+    let out = `<rect x="0" y="0" width="${W}" height="${H}" fill="var(--ec-emerald)"/>`;
+    camere.forEach(([n, p, x, yy, w, h]) => {
+      out += `<rect x="${(x + G).toFixed(1)}" y="${(yy + G).toFixed(1)}" width="${Math.max(w - G * 2, 1).toFixed(1)}" height="${Math.max(h - G * 2, 1).toFixed(1)}" fill="#fff"/>`;
+      const cx = x + w / 2, cy = yy + h / 2;
+      const et = compact ? (SCURT[n] || n) : n;
+      if (compact) {
+        if (h >= 22) out += `<text class="pn" x="${cx.toFixed(1)}" y="${(cy + 2.5).toFixed(1)}">${et}</text>`;
+      } else {
+        const mic = h < 34;
+        out += `<text class="pn" x="${cx.toFixed(1)}" y="${(cy - (mic ? 1 : 4)).toFixed(1)}">${et}</text>`;
+        if (!mic) out += `<text class="pa" x="${cx.toFixed(1)}" y="${(cy + 8).toFixed(1)}">${nr(total * p)} m²</text>`;
+      }
+    });
+    const lat = Math.sqrt(total) * 1.35;
+    out += `<line class="pc" x1="0" y1="${H + 9}" x2="${W}" y2="${H + 9}"/>`;
+    out += `<text class="pd" x="${W / 2}" y="${H + 20}">${nr(lat)} m</text>`;
+    out += `<line class="pc" x1="${W + 9}" y1="0" x2="${W + 9}" y2="${H}"/>`;
+    out += `<text class="pd" x="${W + 20}" y="${H / 2}" transform="rotate(90 ${W + 20} ${H / 2})">${nr(total / lat)} m</text>`;
+    return `<svg viewBox="-4 -4 ${W + 34} ${H + 32}" role="img" aria-label="Schemă de compartimentare ${tip || ''}">${out}</svg>`;
   }
 
   /* ========================================================== SELECTOR == */

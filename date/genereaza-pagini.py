@@ -233,6 +233,17 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           <li><a href="{r}#finisaje">Finisaje</a></li>
         </ul>
       </div>
+      <div>
+        <h4>Informații legale</h4>
+        <ul>
+          <li><a href="{r}termeni-si-conditii/">Termeni și condiții</a></li>
+          <li><a href="{r}politica-de-confidentialitate/">Politica de confidențialitate</a></li>
+          <li><a href="{r}politica-de-cookies/">Politica de cookies</a></li>
+          <li><a href="{r}informare-gdpr/">Informare GDPR</a></li>
+          <li><a href="https://anpc.ro/ce-este-sal/" rel="nofollow noopener" target="_blank">ANPC — SAL</a></li>
+          <li><a href="https://ec.europa.eu/consumers/odr" rel="nofollow noopener" target="_blank">ANPC — SOL</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="ec-foot__bottom">
@@ -338,15 +349,74 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 """
 
 
-def plan_svg(nr):
-    rooms = ([[4,4,40,34],[46,4,26,20],[46,26,26,12]] if nr == 1 else
-             [[4,4,42,40],[48,4,28,22],[48,28,28,16]] if nr == 2 else
-             [[4,4,38,40],[44,4,32,20],[44,26,15,18],[61,26,15,18]])
-    inner = "".join(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#fff"/>'
-                    for x, y, w, h in rooms)
-    return (f'<svg viewBox="0 0 80 48" role="img" aria-label="Schiță orientativă de plan">'
-            f'<rect class="wall" x="0" y="0" width="80" height="48"/>{inner}</svg>')
+SCURT = {'Living si bucatarie': 'Living', 'Living și bucătărie': 'Living', 'Living': 'Living', 'Dormitor 1': 'Dorm. 1', 'Dormitor 2': 'Dorm. 2', 'Dormitor': 'Dormitor', 'Bucatarie': 'Bucătărie', 'Bucătărie': 'Bucătărie', 'Baie': 'Baie', 'Baie 2': 'Baie 2', 'Hol': 'Hol', 'Debara': 'Debara', 'Birou': 'Birou'}
 
+
+def plan_svg(nr_camere, tip=None, su=None, compact=False):
+    """Schema de compartimentare: camere proportionale cu aria, cotate.
+
+    Impartire prin taieturi succesive (slice layout): zona de zi ocupa banda
+    din stanga, restul se aseaza pe coloana din dreapta, in ordinea ariei.
+    """
+    cam = CAMERE_TIP.get(tip or "", None)
+    if not cam:
+        cam = ([("Living si bucatarie", .66), ("Baie", .17), ("Hol", .17)] if nr_camere == 1
+               else [("Living si bucatarie", .45), ("Dormitor", .3), ("Baie", .13), ("Hol", .12)]
+               if nr_camere == 2
+               else [("Living", .34), ("Dormitor 1", .22), ("Dormitor 2", .18),
+                     ("Baie", .13), ("Hol", .13)])
+    total = su or 60.0
+
+    W, H = 200.0, 128.0          # cadrul desenului
+    GROS = 3.4                    # grosimea peretelui
+    principal = cam[0]
+    rest = cam[1:]
+
+    # banda principala in stanga, proportionala cu aria zonei de zi
+    wp = W * min(max(principal[1] * 1.55, .42), .58)
+    incaperi = [(principal[0], principal[1], 0.0, 0.0, wp, H)]
+
+    # restul, stivuite pe coloana din dreapta, proportional cu aria
+    rest_pond = sum(p for _, p in rest) or 1
+    y = 0.0
+    for i, (nume, pond) in enumerate(rest):
+        h = H - y if i == len(rest) - 1 else H * (pond / rest_pond)
+        incaperi.append((nume, pond, wp, y, W - wp, h))
+        y += h
+
+    piese = [f'<rect x="0" y="0" width="{W}" height="{H}" fill="var(--ec-emerald)"/>']
+    for nume, pond, x, yy, w, h in incaperi:
+        piese.append(f'<rect x="{x + GROS:.1f}" y="{yy + GROS:.1f}" '
+                     f'width="{max(w - GROS * 2, 1):.1f}" height="{max(h - GROS * 2, 1):.1f}" '
+                     f'fill="#fff"/>')
+        cx, cy = x + w / 2, yy + h / 2
+        arie = total * pond
+        # in cardurile mici nu incape si numele, si aria: pastrez numele, scurtat
+        et = SCURT.get(nume, nume) if compact else nume
+        if compact:
+            if h >= 22:
+                piese.append(f'<text class="pn" x="{cx:.1f}" y="{cy + 2.5:.1f}">{et}</text>')
+        else:
+            mic = h < 34
+            piese.append(
+                f'<text class="pn" x="{cx:.1f}" y="{cy - (4 if not mic else 1):.1f}">{et}</text>')
+            if not mic:
+                piese.append(f'<text class="pa" x="{cx:.1f}" y="{cy + 8:.1f}">'
+                             f'{arie:.1f}'.replace(".", ",") + ' m²</text>')
+
+    # cote generale, jos si in dreapta
+    lat = (total ** .5) * 1.35
+    piese.append(f'<line class="pc" x1="0" y1="{H + 9}" x2="{W}" y2="{H + 9}"/>')
+    piese.append(f'<text class="pd" x="{W/2:.0f}" y="{H + 20}">'
+                 + f'{lat:.1f}'.replace(".", ",") + ' m</text>')
+    piese.append(f'<line class="pc" x1="{W + 9}" y1="0" x2="{W + 9}" y2="{H}"/>')
+    piese.append(f'<text class="pd" x="{W + 20}" y="{H/2:.0f}" '
+                 f'transform="rotate(90 {W + 20} {H/2:.0f})">'
+                 + f'{total / lat:.1f}'.replace(".", ",") + ' m</text>')
+
+    return (f'<svg viewBox="-4 -4 {W + 34:.0f} {H + 32:.0f}" role="img" '
+            f'aria-label="Schemă de compartimentare, tipologia {tip or nr_camere}">'
+            + "".join(piese) + '</svg>')
 
 # ----------------------------------------------------- planuri interactive
 _PL = os.path.join(RAD, "assets", "data", "planuri.json")
@@ -839,7 +909,7 @@ def pagina_hub_tipologii(grupe):
         disp = [u for u in us if u["status"] == "disponibil"]
         pmin = min((u["pret_eur"] for u in disp), default=None)
         carduri += f"""<a class="ec-type" href="{r}tipologii/{cod.lower()}/">
-          <div class="ec-type__plan">{plan_svg(us[0]['nr_camere'])}</div>
+          <div class="ec-type__plan">{plan_svg(us[0]['nr_camere'], cod, sum(x['su_utila'] for x in us) / len(us), True)}</div>
           <div class="ec-type__code">{cod}</div>
           <div class="ec-type__rows">
             <div><span>Camere</span><b>{us[0]['nr_camere']}</b></div>
@@ -1041,7 +1111,7 @@ def pagina_categorie(nr, unitati, grupe):
         td = [u for u in tu if u["status"] == "disponibil"]
         tp = min((u["pret_eur"] for u in td), default=None)
         carduri += f"""<a class="ec-type" href="{r}tipologii/{cod.lower()}/">
-          <div class="ec-type__plan">{plan_svg(nr)}</div>
+          <div class="ec-type__plan">{plan_svg(nr, cod, sum(u['su_utila'] for u in tu) / len(tu), True)}</div>
           <div class="ec-type__code">{cod}</div>
           <div class="ec-type__rows">
             <div><span>Suprafață</span><b>{mp(min(u['su_utila'] for u in tu))} – {mp(max(u['su_utila'] for u in tu))}</b></div>
@@ -1627,6 +1697,58 @@ def pagina_presa():
                   continut, r, None, "aparitii-presa/")
 
 
+
+# ========================================================= pagini legale ==
+LEGALE = {
+    "termeni-si-conditii": ("Termeni și condiții",
+        "Condițiile de utilizare a site-ului emerald-city.ro și regulile aplicabile "
+        "solicitărilor transmise prin formularele de contact."),
+    "politica-de-confidentialitate": ("Politica de confidențialitate",
+        "Cum sunt colectate, folosite și păstrate datele cu caracter personal transmise "
+        "prin acest site."),
+    "politica-de-cookies": ("Politica de cookies",
+        "Ce module cookie folosește site-ul, în ce scop și cum îți poți retrage acordul."),
+    "informare-gdpr": ("Informare GDPR",
+        "Drepturile pe care le ai asupra datelor tale personale conform Regulamentului "
+        "(UE) 2016/679 și cum le poți exercita."),
+}
+
+
+def pagina_legala(slug):
+    r = "../"
+    titlu, descriere = LEGALE[slug]
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>{titlu}</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Informații legale</p>
+    <h1 style="margin-top:1rem">{titlu}</h1>
+    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">{descriere}</p>
+  </header>
+
+  <div class="ec-prose" style="margin-bottom:2rem">
+    <h2>Document în pregătire</h2>
+    <p>
+      Textul acestui document se redactează împreună cu consilierul juridic al
+      dezvoltatorului și va fi publicat înainte de lansarea site-ului. Până atunci,
+      pentru orice întrebare privind datele tale sau condițiile de utilizare, ne poți
+      scrie la <a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a>.
+    </p>
+    <h3>Operator de date</h3>
+    <p>Tala Sapphire S.R.L., Str. Ion Nistor, Iași.</p>
+    <h3>Soluționarea reclamațiilor</h3>
+    <p>
+      Pentru soluționarea alternativă a litigiilor poți folosi platforma
+      <a href="https://anpc.ro/ce-este-sal/" rel="nofollow noopener" target="_blank">ANPC SAL</a>
+      sau platforma europeană
+      <a href="https://ec.europa.eu/consumers/odr" rel="nofollow noopener" target="_blank">SOL</a>.
+    </p>
+  </div>
+
+  <div style="margin-bottom:4rem">{formular(None, r)}</div>
+</div>"""
+    return pagina(f"{titlu} — Emerald City Iași", descriere, continut, r, None, slug + "/")
+
+
 # ==================================================================== rulare
 def main():
     NUM = {"etaj": int, "nr_camere": int, "su_utila": float, "su_balcon": float,
@@ -1637,7 +1759,7 @@ def main():
 
     for d in ("apartamente-iasi", "tipologii", "investitie-apartamente-iasi", "compara", "contact",
               "apartamente-iasi-pacurari", "stadiu-lucrari", "despre-dezvoltator",
-              "proiect", "aparitii-presa"):
+              "proiect", "aparitii-presa", *LEGALE):
         p = os.path.join(RAD, d)
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -1691,6 +1813,12 @@ def main():
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(continut)
+
+    for slug in LEGALE:
+        d = os.path.join(RAD, slug)
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(pagina_legala(slug))
 
     # tipologii
     for cod, us in grupe.items():
