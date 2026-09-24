@@ -1,14 +1,14 @@
 {
- "reper": "Strada Dealul Zorilor, Iasi, Romania",
- "lat": 47.180226,
- "lon": 27.532587,
+ "reper": "Emerald City, Strada Dealul Zorilor, Iasi",
+ "lat": 47.1805,
+ "lon": 27.5342,
  "puncte": [
   {
    "nume": "Kaufland Păcurari",
-   "km": 1.0,
-   "min": 2,
-   "lat": 47.174624,
-   "lon": 27.536557,
+   "km": 1.1,
+   "min": 3,
+   "lat": 47.173972,
+   "lon": 27.536982,
    "cat": "cumparaturi"
   },
   {
@@ -20,40 +20,40 @@
    "cat": "cumparaturi"
   },
   {
-   "nume": "Universitatea „Alexandru Ioan Cuza”",
-   "km": 3.7,
-   "min": 7,
-   "lat": 47.174207,
-   "lon": 27.571375,
-   "cat": "educatie"
+   "nume": "Palas Mall",
+   "km": 6.1,
+   "min": 10,
+   "lat": 47.155462,
+   "lon": 27.586879,
+   "cat": "cumparaturi"
   },
   {
    "nume": "Parcul Copou",
-   "km": 4.3,
-   "min": 7,
+   "km": 4.4,
+   "min": 8,
    "lat": 47.178888,
    "lon": 27.566802,
    "cat": "verde"
   },
   {
+   "nume": "Universitatea „Alexandru Ioan Cuza”",
+   "km": 3.9,
+   "min": 7,
+   "lat": 47.174251,
+   "lon": 27.571137,
+   "cat": "educatie"
+  },
+  {
    "nume": "Centrul orașului",
-   "km": 4.7,
+   "km": 4.8,
    "min": 8,
    "lat": 47.166691,
    "lon": 27.580116,
    "cat": "oras"
   },
   {
-   "nume": "Palas Mall",
-   "km": 6.0,
-   "min": 10,
-   "lat": 47.154994,
-   "lon": 27.587302,
-   "cat": "cumparaturi"
-  },
-  {
    "nume": "Aeroportul Iași",
-   "km": 11.2,
+   "km": 11.3,
    "min": 18,
    "lat": 47.179896,
    "lon": 27.62038,

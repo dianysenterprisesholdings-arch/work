@@ -15,7 +15,11 @@ import json, os, subprocess, time, urllib.parse
 RAD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = {"User-Agent": "EmeraldCityDev/1.0 (calcul distante pentru site)"}
 
-REPER = "Strada Dealul Zorilor, Iasi, Romania"
+# Amplasamentul: parcela libera dintre Strada Dealul Zorilor si Cimitirul
+# Evreiesc din Canta, indicata de client pe harta. Coordonatele sunt fixate
+# direct, nu geocodate — terenul nu are inca adresa postala in OSM.
+REPER = "Emerald City, Strada Dealul Zorilor, Iasi"
+REPER_COORD = (47.18050, 27.53420)
 
 PUNCTE = [
     ("Kaufland Păcurari",                    "Kaufland, Soseaua Pacurari, Iasi, Romania"),
@@ -60,10 +64,9 @@ def ruta(a, b):
 
 
 def main():
-    origine = geocode(REPER)
-    print(f"Reper: {origine[0]:.5f}, {origine[1]:.5f}")
-    print(f"       {origine[2][:95]}\n")
-    time.sleep(1.1)
+    origine = (REPER_COORD[0], REPER_COORD[1], REPER)
+    print("Reper: %.5f, %.5f  (fixat manual)" % (origine[0], origine[1]))
+
 
     rezultat = []
     for eticheta, interogare in PUNCTE:
