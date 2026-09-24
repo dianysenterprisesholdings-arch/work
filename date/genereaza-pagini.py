@@ -138,6 +138,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       <a href="{r}tipologii/">Tipologii</a>
       <a href="{r}#finisaje">Finisaje</a>
       <a href="{r}#amplasament">Amplasament</a>
+      <a href="{r}contact/">Contact</a>
     </nav>
     <a class="ec-btn" href="{r}apartamente-iasi/">Vezi apartamentele</a>
   </div>
@@ -203,6 +204,34 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
   }}), {{ rootMargin: '0px 0px -8% 0px', threshold: .08 }});
   n.forEach(x => o.observe(x));
 }})();
+
+// plan interactiv: hotspot-urile si legenda se evidentiaza reciproc
+(() => {{
+  document.querySelectorAll('[data-plan]').forEach(p => {{
+    const tip = p.querySelector('[data-tip]');
+    const spots = [...p.querySelectorAll('.ec-plan__spot')];
+    const randuri = [...p.querySelectorAll('.ec-plan__legend li')];
+    const arata = (i, on) => {{
+      spots.forEach(s => s.classList.toggle('is-on', on && s.dataset.i === i));
+      randuri.forEach(r => r.classList.toggle('is-on', on && r.dataset.i === i));
+      const s = spots.find(x => x.dataset.i === i);
+      if (on && s) {{
+        tip.innerHTML = s.getAttribute('aria-label');
+        tip.style.left = s.style.left;
+        tip.style.top = s.style.top;
+        tip.classList.add('is-on');
+      }} else tip.classList.remove('is-on');
+    }};
+    [...spots, ...randuri].forEach(el => {{
+      const i = el.dataset.i;
+      el.addEventListener('mouseenter', () => arata(i, true));
+      el.addEventListener('mouseleave', () => arata(i, false));
+      el.addEventListener('focus', () => arata(i, true));
+      el.addEventListener('blur', () => arata(i, false));
+      el.addEventListener('click', e => {{ e.preventDefault(); arata(i, true); }});
+    }});
+  }});
+}})();
 </script>
 </body>
 </html>
@@ -217,6 +246,42 @@ def plan_svg(nr):
                     for x, y, w, h in rooms)
     return (f'<svg viewBox="0 0 80 48" role="img" aria-label="Schiță orientativă de plan">'
             f'<rect class="wall" x="0" y="0" width="80" height="48"/>{inner}</svg>')
+
+
+# ----------------------------------------------------- planuri interactive
+_PL = os.path.join(RAD, "assets", "data", "planuri.json")
+PLANURI = json.load(open(_PL, encoding="utf-8")) if os.path.exists(_PL) else {}
+
+
+def plan_interactiv(tip, nr_camere, r):
+    """Plan cu hotspot-uri pe camere. Cade pe schita schematica daca nu exista."""
+    d = PLANURI.get(tip)
+    if not d:
+        return (f'<div class="ec-planbox">{plan_svg(nr_camere)}'
+                f'<p class="ec-plan__note">Schiță orientativă. Planul cotat se predă la semnarea '
+                f'antecontractului.</p></div>')
+
+    spots, legenda = "", ""
+    for i, c in enumerate(d["camere"], 1):
+        et = f'{c["nume"]} &middot; {mp(c["aria"])}'
+        spots += (f'<button class="ec-plan__spot" style="left:{c["x"]}%;top:{c["y"]}%" '
+                  f'data-i="{i}" aria-label="{e(et)}">{i}</button>')
+        legenda += (f'<li data-i="{i}"><i>{i}</i><span>{c["nume"]}</span>'
+                    f'<b>{mp(c["aria"])}</b></li>')
+
+    return f"""<div class="ec-plan" data-plan>
+  <figure class="ec-plan__fig">
+    <img src="{r}{d['img']}" alt="Plan apartament tip {tip}" loading="lazy"
+         width="{d['w']}" height="{d['h']}">
+    {spots}
+    <span class="ec-plan__tip" data-tip></span>
+  </figure>
+  <ul class="ec-plan__legend">{legenda}</ul>
+  <p class="ec-plan__note">
+    Treci cu mouse-ul peste numerele de pe plan pentru suprafața fiecărei camere.
+    Plan orientativ; cotele definitive se predau la semnarea antecontractului.
+  </p>
+</div>"""
 
 
 def formular(u=None, r="../../"):
@@ -344,7 +409,7 @@ def pagina_unitate(u, similare):
   </section>
 
   <div class="ec-split" style="margin-bottom:var(--ec-gap)">
-    <div class="ec-planbox">{plan_svg(u['nr_camere'])}</div>
+    {plan_interactiv(u['tip_apartament'], u['nr_camere'], r)}
     <div class="ec-rooms">
       <table>
         <caption class="ec-sr">Suprafețe pe cameră</caption>
@@ -432,7 +497,7 @@ def pagina_tipologie(cod, unitati):
   </dl>
 
   <div class="ec-split" style="margin-bottom:var(--ec-gap)">
-    <div class="ec-planbox">{plan_svg(nr)}</div>
+    {plan_interactiv(cod, nr, r)}
     {formular(None, r)}
   </div>
 

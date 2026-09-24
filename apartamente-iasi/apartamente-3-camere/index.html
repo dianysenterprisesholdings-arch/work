@@ -36,6 +36,7 @@
       <a href="../../tipologii/">Tipologii</a>
       <a href="../../#finisaje">Finisaje</a>
       <a href="../../#amplasament">Amplasament</a>
+      <a href="../../contact/">Contact</a>
     </nav>
     <a class="ec-btn" href="../../apartamente-iasi/">Vezi apartamentele</a>
   </div>
@@ -429,6 +430,34 @@
     if (e.isIntersecting) { e.target.classList.add('is-in'); o.unobserve(e.target); }
   }), { rootMargin: '0px 0px -8% 0px', threshold: .08 });
   n.forEach(x => o.observe(x));
+})();
+
+// plan interactiv: hotspot-urile si legenda se evidentiaza reciproc
+(() => {
+  document.querySelectorAll('[data-plan]').forEach(p => {
+    const tip = p.querySelector('[data-tip]');
+    const spots = [...p.querySelectorAll('.ec-plan__spot')];
+    const randuri = [...p.querySelectorAll('.ec-plan__legend li')];
+    const arata = (i, on) => {
+      spots.forEach(s => s.classList.toggle('is-on', on && s.dataset.i === i));
+      randuri.forEach(r => r.classList.toggle('is-on', on && r.dataset.i === i));
+      const s = spots.find(x => x.dataset.i === i);
+      if (on && s) {
+        tip.innerHTML = s.getAttribute('aria-label');
+        tip.style.left = s.style.left;
+        tip.style.top = s.style.top;
+        tip.classList.add('is-on');
+      } else tip.classList.remove('is-on');
+    };
+    [...spots, ...randuri].forEach(el => {
+      const i = el.dataset.i;
+      el.addEventListener('mouseenter', () => arata(i, true));
+      el.addEventListener('mouseleave', () => arata(i, false));
+      el.addEventListener('focus', () => arata(i, true));
+      el.addEventListener('blur', () => arata(i, false));
+      el.addEventListener('click', e => { e.preventDefault(); arata(i, true); });
+    });
+  });
 })();
 </script>
 </body>

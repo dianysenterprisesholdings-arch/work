@@ -170,10 +170,10 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   border-bottom: 1px solid var(--ec-line);
 }
 .ec-nav__in {
-  max-width: var(--ec-max); margin-inline: auto; padding: .7rem var(--ec-gutter);
+  max-width: var(--ec-max); margin-inline: auto; padding: .55rem var(--ec-gutter);
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
 }
-.ec-nav__logo img { height: 40px; width: auto; }
+.ec-nav__logo img { height: 52px; width: auto; }
 .ec-nav__menu { display: none; gap: 1.6rem; }
 .ec-nav__menu a {
   font-size: var(--ec-micro); font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
@@ -378,7 +378,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-foot h4 { font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: #fff; margin-bottom: 1rem; font-weight: 600; }
 .ec-foot ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5rem; }
 .ec-foot a:hover { color: #fff; }
-.ec-foot img { height: 44px; width: auto; }
+.ec-foot img { height: 56px; width: auto; }
 .ec-foot__bottom {
   margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--ec-line-light);
   display: flex; flex-wrap: wrap; gap: .75rem 2rem; justify-content: space-between; font-size: var(--ec-micro);
@@ -578,3 +578,52 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-strip h2 { font-size: clamp(1.2rem,2.2vw,1.6rem); font-weight: 600; }
 .ec-strip p { color: rgba(255,255,255,.76); font-size: var(--ec-small); margin-top: .4rem; max-width: 52ch; }
 .ec-strip__cta { margin-left: auto; display: flex; flex-wrap: wrap; gap: .6rem; }
+
+/* ==========================================================================
+   Plan interactiv
+   Hotspot-urile nu sunt desenate de mana: pozitiile vin din etichetele
+   vectoriale ale planului, extrase cu date/extrage-planuri.py
+   ========================================================================== */
+
+.ec-plan { background: var(--ec-white); padding: clamp(1rem,2.5vw,2rem); }
+.ec-plan__fig { position: relative; margin: 0; }
+.ec-plan__fig img { width: 100%; height: auto; }
+
+.ec-plan__spot {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--ec-brass); color: #fff;
+  border: 2px solid #fff; box-shadow: 0 2px 8px rgba(20,32,28,.28);
+  display: grid; place-items: center; cursor: pointer;
+  font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
+  transition: transform .25s var(--ec-ease), background .25s var(--ec-ease);
+  padding: 0;
+}
+.ec-plan__spot:hover, .ec-plan__spot.is-on { background: var(--ec-emerald); transform: translate(-50%,-50%) scale(1.25); z-index: 3; }
+
+.ec-plan__tip {
+  position: absolute; transform: translate(-50%, -140%);
+  background: var(--ec-emerald); color: #fff; padding: .4rem .7rem;
+  border-radius: 4px; font-size: var(--ec-small); white-space: nowrap;
+  pointer-events: none; opacity: 0; transition: opacity .2s var(--ec-ease); z-index: 4;
+}
+.ec-plan__tip b { font-weight: 600; }
+.ec-plan__tip.is-on { opacity: 1; }
+
+.ec-plan__legend { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; gap: 1px; }
+@media (min-width: 34rem) { .ec-plan__legend { grid-template-columns: 1fr 1fr; gap: 1px 1.5rem; } }
+.ec-plan__legend li {
+  display: flex; align-items: baseline; gap: .6rem; cursor: pointer;
+  padding: .45rem 0; border-bottom: 1px solid var(--ec-line); font-size: var(--ec-small);
+  transition: color var(--ec-fast);
+}
+.ec-plan__legend li:hover, .ec-plan__legend li.is-on { color: var(--ec-emerald); }
+.ec-plan__legend i {
+  flex: none; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--ec-mint-deep); color: var(--ec-ink-60);
+  display: grid; place-items: center; font-size: 10px; font-weight: 600; font-style: normal;
+  transition: background var(--ec-fast), color var(--ec-fast);
+}
+.ec-plan__legend li:hover i, .ec-plan__legend li.is-on i { background: var(--ec-brass); color: #fff; }
+.ec-plan__legend b { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ec-plan__note { font-size: var(--ec-micro); color: var(--ec-ink-40); margin-top: 1rem; }

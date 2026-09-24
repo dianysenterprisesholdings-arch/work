@@ -1,0 +1,140 @@
+{
+ "2A": {
+  "img": "assets/img/planuri/2a.png",
+  "w": 1183,
+  "h": 818,
+  "total": 45.73,
+  "camere": [
+   {
+    "nume": "Living și bucătărie",
+    "aria": 25.75,
+    "x": 57.11,
+    "y": 42.49
+   },
+   {
+    "nume": "Birou",
+    "aria": 9.8,
+    "x": 77.67,
+    "y": 62.54
+   },
+   {
+    "nume": "Baie",
+    "aria": 5.65,
+    "x": 26.91,
+    "y": 27.19
+   },
+   {
+    "nume": "Hol de intrare",
+    "aria": 4.53,
+    "x": 22.33,
+    "y": 72.81
+   }
+  ]
+ },
+ "3A": {
+  "img": "assets/img/planuri/3a.png",
+  "w": 1500,
+  "h": 918,
+  "total": 70.69,
+  "camere": [
+   {
+    "nume": "Living",
+    "aria": 21.93,
+    "x": 66.56,
+    "y": 73.78
+   },
+   {
+    "nume": "Dormitor 1",
+    "aria": 15.08,
+    "x": 20.14,
+    "y": 76.68
+   },
+   {
+    "nume": "Dormitor 2",
+    "aria": 11.61,
+    "x": 43.02,
+    "y": 75.06
+   },
+   {
+    "nume": "Bucătărie",
+    "aria": 9.62,
+    "x": 82.6,
+    "y": 61.96
+   },
+   {
+    "nume": "Baie",
+    "aria": 4.75,
+    "x": 83.06,
+    "y": 29.06
+   },
+   {
+    "nume": "Baie",
+    "aria": 3.64,
+    "x": 16.94,
+    "y": 45.75
+   },
+   {
+    "nume": "Vestibul",
+    "aria": 2.2,
+    "x": 45.76,
+    "y": 42.94
+   },
+   {
+    "nume": "Hol de intrare",
+    "aria": 1.86,
+    "x": 67.84,
+    "y": 23.32
+   }
+  ]
+ },
+ "3B": {
+  "img": "assets/img/planuri/3b.png",
+  "w": 1500,
+  "h": 815,
+  "total": 72.46,
+  "camere": [
+   {
+    "nume": "Living și bucătărie",
+    "aria": 26.32,
+    "x": 54.54,
+    "y": 31.91
+   },
+   {
+    "nume": "Dormitor",
+    "aria": 12.32,
+    "x": 19.7,
+    "y": 43.45
+   },
+   {
+    "nume": "Birou",
+    "aria": 9.96,
+    "x": 37.66,
+    "y": 24.27
+   },
+   {
+    "nume": "Hol de intrare",
+    "aria": 7.8,
+    "x": 33.81,
+    "y": 62.69
+   },
+   {
+    "nume": "Balcon",
+    "aria": 7.04,
+    "x": 84.35,
+    "y": 25.72
+   },
+   {
+    "nume": "Baie",
+    "aria": 5.31,
+    "x": 70.75,
+    "y": 59.85
+   },
+   {
+    "nume": "Baie",
+    "aria": 3.71,
+    "x": 15.65,
+    "y": 75.73
+   }
+  ]
+ }
+}
