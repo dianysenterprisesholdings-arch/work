@@ -16,6 +16,8 @@
   // C1..C18 sunt coduri din proiect; comercial se numesc blocuri
   const bloc   = cod => cod.replace(/^C/, '');
 
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* ------------------------------------------------------------- reveal */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -30,7 +32,6 @@
   /* ----------------------------------------------------------- parallax
      Imaginile din carduri se misca putin mai lent decat pagina. Subtil,
      dar e diferenta dintre "corect" si "scump". */
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!reduced) {
     const figuri = $$('.ec-block figure');
     let tichet = false;
@@ -57,7 +58,6 @@
   /* ---------------------------------------------------------- contoare
      Valorile finale sunt deja in HTML, ca pagina sa fie corecta si fara
      JavaScript. Animatia doar porneste de la zero si urca inapoi la ele. */
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const countIO = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;

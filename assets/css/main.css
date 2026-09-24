@@ -255,10 +255,19 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-hero__sub { margin-top: .9rem; max-width: 54ch; color: rgba(255,255,255,.82); font-size: var(--ec-lead); }
 .ec-hero__cta { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 1.35rem; }
 .ec-trust {
-  display: flex; flex-wrap: wrap; gap: .8rem 1.75rem; justify-content: center;
-  margin-top: 1.2rem; font-size: var(--ec-small); color: rgba(255,255,255,.9);
+  display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center;
+  margin-top: 1.6rem;
 }
-.ec-trust span { display: inline-flex; align-items: center; gap: .5rem; }
+/* pastile cu contur, nu un rand de text cu stelute */
+.ec-trust span {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .5rem .95rem; border-radius: 100px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(8px);
+  font-size: var(--ec-small); font-weight: 500; color: #fff;
+  transition: background var(--ec-fast), border-color var(--ec-fast);
+}
+.ec-trust span:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.4); }
 .ec-trust svg { color: var(--ec-brass); flex: none; }
 
 /* ============================================================== CONCEPT == */
