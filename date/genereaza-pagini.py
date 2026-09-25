@@ -176,7 +176,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           </div>
           <div class="ec-mega__col">
             <span class="ec-mega__h">Compartimentări</span>
-            <div class="ec-mega__tipuri"><a class="ec-mega__t" href="{r}tipologii/1a/"><b>1A</b><span>37–39 m²</span><i>109 libere</i></a><a class="ec-mega__t" href="{r}tipologii/2a/"><b>2A</b><span>51–54 m²</span><i>163 libere</i></a><a class="ec-mega__t" href="{r}tipologii/2b/"><b>2B</b><span>57–61 m²</span><i>122 libere</i></a><a class="ec-mega__t" href="{r}tipologii/3a/"><b>3A</b><span>69–74 m²</span><i>70 libere</i></a><a class="ec-mega__t" href="{r}tipologii/3b/"><b>3B</b><span>76–81 m²</span><i>53 libere</i></a></div>
+            <div class="ec-mega__tipuri"><a class="ec-mega__t" href="{r}apartamente-iasi/{CATEGORII[1]["slug"]}/tip-1a/"><b>1A</b><span>37–39 m²</span><i>109 libere</i></a><a class="ec-mega__t" href="{r}apartamente-iasi/{CATEGORII[2]["slug"]}/tip-2a/"><b>2A</b><span>51–54 m²</span><i>163 libere</i></a><a class="ec-mega__t" href="{r}apartamente-iasi/{CATEGORII[2]["slug"]}/tip-2b/"><b>2B</b><span>57–61 m²</span><i>122 libere</i></a><a class="ec-mega__t" href="{r}apartamente-iasi/{CATEGORII[3]["slug"]}/tip-3a/"><b>3A</b><span>69–74 m²</span><i>70 libere</i></a><a class="ec-mega__t" href="{r}apartamente-iasi/{CATEGORII[3]["slug"]}/tip-3b/"><b>3B</b><span>76–81 m²</span><i>53 libere</i></a></div>
             <a class="ec-mega__i" href="{r}apartamente-iasi/disponibilitate/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></span><span class="ec-mega__tx"><b>Disponibilitate și prețuri</b><em>Toate cele 925, cu filtre</em></span></a>
             <a class="ec-mega__i" href="{r}investitie-apartamente-iasi/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12h.01M8 16h2M12 16h2M16 16h.01"/></svg></span><span class="ec-mega__tx"><b>Investiție și randament</b><em>Calculator de chirie și amortizare</em></span></a>
           </div>
@@ -241,7 +241,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       </div>
       <div>
         <h4>Tipologii</h4>
-        <ul>{"".join(f'<li><a href="{r}tipologii/{c.lower()}/">Apartament Tip {c}</a></li>' for c in CAMERE_TIP)}</ul>
+        <ul>{"".join(f'<li><a href="{r}{slug_tip(c)}">Apartament Tip {c}</a></li>' for c in CAMERE_TIP)}</ul>
       </div>
       <div>
         <h4>Despre noi</h4>
@@ -1111,80 +1111,343 @@ def pagina_unitate(u, similare):
 
 
 # ========================================================== pagina tipologie
-def pagina_tipologie(cod, unitati):
-    r = "../../"
-    nr = unitati[0]["nr_camere"]
-    disp = [u for u in unitati if u["status"] == "disponibil"]
-    su_min, su_max = min(u["su_utila"] for u in unitati), max(u["su_utila"] for u in unitati)
+# Ce recomanda fiecare compartimentare, pe scurt.
+AVANTAJE_TIP = {
+ "1A": [("maximize", "Zonă de zi deschisă",
+         "Bucătăria integrată în living folosește eficient suprafața și lasă senzația "
+         "de spațiu mai amplu decât o compartimentare închisă."),
+        ("box-archive", "Spațiu de depozitare",
+         "Debaraua separată preia lucrurile de sezon, fără să ocupe din zona de zi."),
+        ("chart-line", "Cea mai cerută la închiriere",
+         "Formatul cu cel mai scurt timp de ocupare pe piața de închirieri din Iași."),
+        ("tag", "Prag de intrare redus",
+         "Cel mai mic preț de achiziție din ansamblu, cu aceleași finisaje incluse.")],
+ "2A": [("door-open", "Dormitor separat",
+         "Zona de noapte este despărțită complet de zona de zi, fără uși de trecere."),
+        ("maximize", "Living deschis spre bucătărie",
+         "O singură zonă continuă pentru gătit, masă și relaxare."),
+        ("scale-balanced", "Raport echilibrat",
+         "Cel mai bun raport între suprafață utilă și preț din tot ansamblul."),
+        ("chart-line", "Cerere constantă",
+         "Compartimentarea cu cea mai stabilă cerere pe piața din Iași.")],
+ "2B": [("expand", "Dormitor mai generos",
+         "Câțiva metri pătrați în plus față de 2A, suficienți pentru un pat dublu și "
+         "un dulap pe toată lățimea peretelui."),
+        ("box-archive", "Depozitare suplimentară",
+         "Spațiu de depozitare peste cel standard, util pentru familii."),
+        ("maximize", "Zonă de zi amplă",
+         "Living deschis spre bucătărie, cu loc pentru masă de patru persoane."),
+        ("ruler-combined", "Cea mai mare suprafață de 2 camere",
+         "Până la 61 m² utili, la un preț pe metru pătrat comparabil.")],
+ "3A": [("bath", "Două grupuri sanitare",
+         "Al doilea grup sanitar elimină punctul de blocaj de dimineață."),
+        ("utensils", "Bucătărie închisă",
+         "Zonă de gătit separată, fără mirosuri și zgomot în living."),
+        ("bed", "Două dormitoare",
+         "Configurația clasică pentru o familie cu unul sau doi copii."),
+        ("ruler-combined", "Suprafețe generoase",
+         "Între 69 și 74 m² utili, cu balcon pe măsură.")],
+ "3B": [("briefcase", "Cameră pentru birou",
+         "A treia cameră poate fi folosită ca birou, fără să reducă spațiul de locuit."),
+        ("bath", "Două grupuri sanitare",
+         "Ambele complet finisate și echipate, incluse în preț."),
+        ("maximize", "Living deschis",
+         "Zona de zi continuă, cu bucătăria integrată, pentru o senzație de amplitudine."),
+        ("ruler-combined", "Cele mai mari suprafețe",
+         "Până la 81 m² utili, cele mai spațioase apartamente din ansamblu.")],
+}
+
+
+def slug_tip(cod):
+    """Adresa unei compartimentari, in silozul categoriei ei."""
+    return f"apartamente-iasi/{CATEGORII[int(cod[0])]['slug']}/tip-{cod.lower()}/"
+
+
+def pagina_tip(cod, unitati_tip, grupe):
+    r = "../../../"
+    nr = int(cod[0])
+    c = CATEGORII[nr]
+    us = unitati_tip
+    disp = [u for u in us if u["status"] == "disponibil"]
+    su_min, su_max = min(u["su_utila"] for u in us), max(u["su_utila"] for u in us)
     pmin = min((u["pret_eur"] for u in disp), default=None)
+    ppm = [u["pret_eur"] / u["su_utila"] for u in disp]
+    su_med = sum(u["su_utila"] for u in us) / len(us)
+    lista = f"{r}apartamente-iasi/disponibilitate/?tip={cod}&amp;status=disponibil"
+    imagini = GALERIE_TIP.get(cod, ["living-01"])
+    NUME_CAMERA = {"living-01": "Living", "living-02": "Living", "dining-01": "Dining",
+                   "bucatarie-01": "Bucătărie", "dormitor-01": "Dormitor",
+                   "dormitor-02": "Dormitor", "baie-01": "Grup sanitar", "hol-01": "Hol",
+                   "hero-living": "Living"}
+
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b{attr}>{e(val)}</b><em>{e(et)}</em></span></div>'
+        for val, et, pic, attr in [
+            (str(len(disp)), "Disponibile acum", "key", f' data-num="{len(disp)}"'),
+            (f"{su_min:.0f}–{su_max:.0f} m²", "Suprafață utilă", "ruler-combined", ""),
+            (euro(pmin) if pmin else "—", "Preț de pornire", "tag", ""),
+            (f"{min(ppm):.0f} €/m²" if ppm else "—", "De la", "calculator", ""),
+        ])
+
+    randuri_cam = "".join(
+        f"<tr><td>{nume}</td><td>{mp(round(su_med * pond, 2))}</td></tr>"
+        for nume, pond in CAMERE_TIP[cod])
+
+    galerie = "".join(
+        f'<figure class="ec-pgal__i ec-rv">'
+        f'{imagine(x, NUME_CAMERA.get(x, "Interior") + f" — apartament tip {cod}", r, "(min-width: 70rem) 33vw, 100vw")}'
+        f'<figcaption class="ec-pgal__c"><b>{e(NUME_CAMERA.get(x, "Interior"))}</b>'
+        f'<span>Tip {cod}</span></figcaption></figure>'
+        for x in imagini[:3])
+
+    et_lista = []
+    for etj in sorted({u["etaj"] for u in us}):
+        n = [u for u in disp if u["etaj"] == etj]
+        if n:
+            et_lista.append((etaj_txt(etj), len(n), f"{lista}&amp;etaj={etj}",
+                             "house-chimney" if etj == 0 else "building"))
+    DOT = [("Curte proprie", "curte", "seedling", lambda x: x["su_curte"] > 0),
+           ("Balcon", "balcon", "sun", lambda x: x["su_balcon"] > 0),
+           ("Boxă de depozitare", "boxa", "box-archive", lambda x: x["boxa_disponibila"] == "da"),
+           ("Parcare subterană", "parcare", "square-parking", lambda x: x["parcare_subterana"] == "da")]
+    dot_lista = [(et, len([u for u in disp if t(u)]), f"{lista}&amp;extra={k}", p)
+                 for et, k, p, t in DOT if [u for u in disp if t(u)]]
+
+    def panou_filtru(titlu, pictograma, eticheta, randuri):
+        li = "".join(
+            f'<li><a href="{x[2]}"><span class="ec-dot__i">{ic(x[3])}</span>'
+            f'<span>{e(x[0])}</span><b>{x[1]}</b></a></li>' for x in randuri)
+        return (f'<div class="ec-dot ec-rv">'
+                f'<div class="ec-dot__h"><span class="ec-dot__c">{ic(pictograma)}</span>'
+                f'<span class="ec-dot__tx"><b>{e(titlu)}</b><em>{e(eticheta)}</em></span></div>'
+                f'<ul class="ec-dot__l ec-dot__l--link">{li}</ul></div>')
 
     randuri = "".join(f"""<tr class="{'is-sold' if u['status'] != 'disponibil' else ''}">
-      <td><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
-      <td>{bloc(u['corp'])}</td><td>{etaj_txt(u['etaj'])}</td>
-      <td class="num">{mp(u['su_utila'])}</td><td>{u['orientare']}</td>
+      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
+      <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td>
+      <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td>
+      <td data-et="Orientare">{u['orientare']}</td>
       <td class="num" data-et="Preț">{euro(u['pret_eur'])}</td>
+      <td class="num" data-et="Preț/m²">{round(u['pret_eur'] / u['su_utila'])} €/m²</td>
       <td class="st" data-et="Stare"><span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></td>
-    </tr>""" for u in sorted(unitati, key=lambda x: x["pret_eur"])[:60])
+    </tr>""" for u in sorted(us, key=lambda x: (x["status"] != "disponibil", x["pret_eur"]))[:40])
 
-    gal = "".join('<figure>' + imagine(g, f"Amenajare orientativă, tipologia {cod}", r,
-                                    "(max-width: 46rem) 100vw, 33vw") + '</figure>'
-                  for g in GALERIE_TIP[cod])
+    avantaje = "".join(
+        f'<div class="ec-why__i ec-rv">{ic(pic)}<h3>{e(t)}</h3><p>{e(d)}</p></div>'
+        for pic, t, d in AVANTAJE_TIP[cod])
+
+    surori = sorted(x for x in grupe if int(x[0]) == nr and x != cod)
+    alte = ""
+    for x in surori:
+        gx = grupe[x]
+        dx = [u for u in gx if u["status"] == "disponibil"]
+        px = min((u["pret_eur"] for u in dx), default=None)
+        imx = GALERIE_TIP.get(x, ["living-01"])[0]
+        alte += f"""<article class="ec-tipc ec-rv">
+          <figure class="ec-tipc__f">
+            {imagine(imx, f"Apartament tip {x} la Emerald City", r, "(min-width: 62rem) 52vw, 100vw")}
+            <span class="ec-tipc__badge">{len(dx)} disponibile</span>
+          </figure>
+          <div class="ec-tipc__b">
+            <span class="ec-tipc__k">Compartimentare</span>
+            <h3>Tip {x}</h3>
+            <p>{e(DESC_TIP.get(x, ''))}</p>
+            <div class="ec-tipc__row">
+              <figure class="ec-tipc__p">{plan_svg(nr, x, sum(u['su_utila'] for u in gx) / len(gx), compact=True)}</figure>
+              <dl>
+                <div><dt>Suprafață utilă</dt><dd>{min(u['su_utila'] for u in gx):.0f}–{max(u['su_utila'] for u in gx):.0f} m²</dd></div>
+                <div><dt>Disponibile</dt><dd>{len(dx)} din {len(gx)}</dd></div>
+                <div><dt>Preț de pornire</dt><dd>{euro(px) if px else '—'}</dd></div>
+              </dl>
+            </div>
+            <div class="ec-tipc__cta">
+              <a class="ec-btn" href="{r}{slug_tip(x)}">{ic("compass-drafting")} Vezi compartimentarea {x}</a>
+            </div>
+          </div>
+        </article>"""
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_CAT[nr])
+
+    sectiune_alte = ""
+    if alte:
+        sectiune_alte = (
+            '<section class="ec-section" id="alte">'
+            '<div class="ec-shead"><div><span class="ec-shead__n">06 — Alternative</span>'
+            f'<h2>Cealaltă compartimentare <em>de {camere_txt(nr)}</em></h2></div>'
+            '<p class="ec-shead__p">Aceeași categorie, alt plan. Diferă suprafețele '
+            'și organizarea camerelor.</p></div>'
+            f'<div class="ec-tipuri" style="margin-top:2.5rem">{alte}</div></section>')
+    pad_intrebari = "0" if alte else "var(--ec-section)"
+    nr_intrebari = "07" if alte else "06"
+    nr_showroom = "08" if alte else "07"
 
     schema = {
-        "@context": "https://schema.org", "@type": "Apartment",
-        "@id": f"https://emerald-city.ro/tipologii/{cod.lower()}/#tipologie",
-        "name": f"Apartament {camere_txt(nr)} tip {cod} — Emerald City Iași",
-        "numberOfRooms": nr,
-        "floorSize": {"@type": "QuantitativeValue", "minValue": su_min, "maxValue": su_max, "unitCode": "MTK"},
-        "url": f"https://emerald-city.ro/tipologii/{cod.lower()}/",
-        "address": {"@type": "PostalAddress", "streetAddress": "Strada Ion Nistor",
-                    "addressLocality": "Iași", "addressRegion": "Iași", "addressCountry": "RO"},
-    }
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "CollectionPage",
+             "name": f"Apartamente {camere_txt(nr)} tip {cod} — Emerald City Iași",
+             "url": f"https://emerald-city.ro/{slug_tip(cod)}"},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_CAT[nr]]},
+        ]}
 
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span><a href="{r}tipologii/">Tipologii</a><span>/</span>Tip {cod}</nav>
-
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Tipologia {cod}</p>
-    <h1 style="margin-top:1rem">Apartament {camere_txt(nr)}, tip {cod}</h1>
-    <p class="ec-body" style="max-width:60ch;font-size:var(--ec-lead)">{DESC_TIP[cod]}</p>
-  </header>
-
-  <dl class="ec-specs" style="margin-bottom:var(--ec-gap)">
-    <div class="ec-spec"><dt>Suprafață utilă</dt><dd>{mp(su_min)} – {mp(su_max)}</dd></div>
-    <div class="ec-spec"><dt>Camere</dt><dd>{nr}</dd></div>
-    <div class="ec-spec"><dt>Disponibile</dt><dd>{len(disp)} din {len(unitati)}</dd></div>
-    <div class="ec-spec"><dt>Preț de la</dt><dd>{euro(pmin) if pmin else '—'}</dd></div>
-  </dl>
-
-  <div class="ec-split" style="margin-bottom:var(--ec-gap)">
-    {plan_interactiv(cod, nr, r)}
-    {formular(None, r)}
+    continut = f"""<section class="ec-phero">
+  {imagine(imagini[0], "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>
+      <a href="{r}apartamente-iasi/">Apartamente</a><span>/</span>
+      <a href="{r}apartamente-iasi/{c['slug']}/">{e(c['titlu'])}</a><span>/</span>Tip {cod}</nav>
+    <p class="ec-eyebrow">Compartimentarea {cod}</p>
+    <h1>Apartament {camere_txt(nr)} tip {cod}, în Iași</h1>
+    <p class="ec-phero__sub">{e(DESC_TIP.get(cod, ''))} Între {su_min:.0f} și {su_max:.0f} m²
+      suprafață utilă, cu {len(disp)} unități disponibile în acest moment.</p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#unitati">{ic("table-list")} Cele {len(disp)} unități disponibile</a>
+      <a class="ec-btn ec-btn--outlight" href="#plan">{ic("compass-drafting")} Planul compartimentării</a>
+    </div>
   </div>
+</section>
 
-  <section class="ec-section" style="padding-block:2rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Amenajare</h2>
-    <div class="ec-gal">{gal}</div>
-    <p class="ec-form__note">Imaginile au caracter orientativ. Amenajarea nu este inclusă în prețul de vânzare.</p>
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="plan">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Planul</span>
+        <h2>Compartimentarea <em>tip {cod}</em></h2></div>
+      <p class="ec-shead__p">
+        Suprafețele pe cameră sunt calculate pentru suprafața medie a acestei
+        compartimentări. Cotele exacte diferă de la o unitate la alta.
+      </p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      {plan_interactiv(cod, nr, r)}
+      <div class="ec-rooms">
+        <table>
+          <caption class="ec-sr">Suprafețe pe cameră, tip {cod}</caption>
+          <tbody>{randuri_cam}
+            <tr class="is-total"><td>Suprafață utilă medie</td><td>{mp(su_med)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
 
-  <section class="ec-section" style="padding-block:2rem 4rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Unități disponibile de acest tip</h2>
-    <div class="ec-table">
+  <section class="ec-section" id="galerie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Galerie</span>
+        <h2>Cum arată <em>finisat</em></h2></div>
+      <p class="ec-shead__p">
+        Randări din apartamentul-model de tip {cod}, cu finisajele incluse în preț.
+      </p>
+    </div>
+    <div class="ec-pgal ec-pgal--3" style="margin-top:2.5rem">{galerie}</div>
+  </section>
+
+  <section class="ec-section" id="selectie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Selecție rapidă</span>
+        <h2>Selecție <em>după etaj și dotări</em></h2></div>
+      <p class="ec-shead__p">
+        Fiecare rând deschide lista filtrată pe compartimentarea {cod}.
+      </p>
+    </div>
+    <div class="ec-dotari" style="margin-top:2.5rem">
+      {panou_filtru("După etaj", "building", "Nivelul apartamentului", et_lista)}
+      {panou_filtru("După dotări", "list-check", "Curte, boxă, parcare", dot_lista)}
+    </div>
+  </section>
+
+  <section class="ec-section" id="unitati" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — Unități</span>
+        <h2>Apartamentele <em>de tip {cod}</em></h2></div>
+      <p class="ec-shead__p">
+        {len(us)} unități în ansamblu, ordonate după preț. Lista completă, cu filtre,
+        este în secțiunea de disponibilitate.
+      </p>
+    </div>
+    <div class="ec-table" style="margin-top:2.5rem">
       <table>
-        <thead><tr><th>Cod</th><th>Bloc</th><th>Etaj</th><th>Suprafață</th><th>Orientare</th><th>Preț</th><th>Stare</th></tr></thead>
+        <caption class="ec-sr">Apartamente de tip {cod}</caption>
+        <thead><tr><th scope="col">Cod</th><th scope="col">Bloc</th><th scope="col">Etaj</th>
+          <th scope="col">Suprafață</th><th scope="col">Orientare</th>
+          <th scope="col">Preț</th><th scope="col">Preț/m²</th><th scope="col">Stare</th></tr></thead>
         <tbody>{randuri}</tbody>
       </table>
     </div>
-    <p class="ec-more"><a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/?tip={cod}">Vezi toate unitățile tip {cod}</a></p>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn" href="{lista}">{ic("table-list")} Lista completă, cu filtre</a>
+    </div>
   </section>
-</div>"""
+</div>
 
-    return pagina(
-        f"Apartament {camere_txt(nr)} tip {cod} în Iași — Emerald City",
-        f"Apartament {camere_txt(nr)} tip {cod}, {mp(su_min)}–{mp(su_max)}, în Emerald City, Iași zona Păcurari. "
-        f"{len(disp)} unități disponibile, de la {euro(pmin) if pmin else '—'}.",
-        continut, r, schema, f"tipologii/{cod.lower()}/")
+<section class="ec-band" id="avantaje">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">05 — Avantaje</span>
+          <h2>Ce recomandă <em>compartimentarea {cod}</em></h2></div>
+        <p class="ec-shead__p">Patru criterii pentru care acest plan este cel potrivit.</p>
+      </div>
+      <div class="ec-why" style="margin-top:2.5rem">{avantaje}</div>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  {sectiune_alte}
+
+  <section class="ec-section" id="intrebari" style="padding-block:{pad_intrebari} var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">{nr_intrebari} — Întrebări</span>
+        <h2>Despre <em>{e(c['titlu'].lower())}</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_CAT[nr])} întrebări despre suprafețe, compartimentări, dotări și condiții.
+      </p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    {cta_dublu(r, cod)}
+  </section>
+
+  {showroom(r, nr_showroom)}
+</div>
+
+<script>
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (!nr.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (!x.isIntersecting) return;
+    const el = x.target, tinta = parseFloat(el.dataset.num), t0 = performance.now();
+    const pas = t => {{
+      const p = Math.min((t - t0) / 1100, 1);
+      el.textContent = Math.round(tinta * (1 - Math.pow(1 - p, 3))).toLocaleString('ro-RO');
+      if (p < 1) requestAnimationFrame(pas);
+    }};
+    requestAnimationFrame(pas);
+    o.unobserve(el);
+  }}), {{ threshold: .4 }});
+  nr.forEach(x => o.observe(x));
+}})();
+</script>"""
+
+    return pagina(f"Apartament {camere_txt(nr)} tip {cod} în Iași, zona Păcurari | Emerald City",
+                  f"{DESC_TIP.get(cod, '')} Între {su_min:.0f} și {su_max:.0f} m² suprafață utilă, "
+                  f"{len(disp)} unități disponibile, de la {euro(pmin) if pmin else '—'}. "
+                  "Predare la cheie, direct de la dezvoltator.",
+                  continut, r, schema, slug_tip(cod))
 
 
 # ============================================================ pagina listare
@@ -1278,42 +1541,6 @@ def pagina_listare(unitati):
         f"Toate cele {len(unitati)} de apartamente din Emerald City, Iași zona Păcurari. "
         "Filtrează după camere, etaj, suprafață și preț. Direct de la dezvoltator.",
         continut, r, None, "apartamente-iasi/disponibilitate/")
-
-
-def pagina_hub_tipologii(grupe):
-    r = "../"
-    carduri = ""
-    for cod in sorted(grupe):
-        us = grupe[cod]
-        disp = [u for u in us if u["status"] == "disponibil"]
-        pmin = min((u["pret_eur"] for u in disp), default=None)
-        carduri += f"""<a class="ec-type" href="{r}tipologii/{cod.lower()}/">
-          <div class="ec-type__plan">{plan_svg(us[0]['nr_camere'], cod, sum(x['su_utila'] for x in us) / len(us), True)}</div>
-          <div class="ec-type__code">{cod}</div>
-          <div class="ec-type__rows">
-            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V7l9-4 9 4v14"/><path d="M3 12h18M12 3v18"/></svg> Camere</span><b>{us[0]['nr_camere']}</b></div>
-            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l12-12 6 6-12 12z"/><path d="M7 11l2 2M10 8l2 2M13 5l2 2"/></svg> Suprafață</span><b>{mp(min(u['su_utila'] for u in us))} – {mp(max(u['su_utila'] for u in us))}</b></div>
-            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9 2 2-2 2 2 2-3 3-2-2-2 2"/></svg> Disponibile</span><b>{len(disp)} din {len(us)}</b></div>
-          </div>
-          <span class="ec-unit__price">{'de la ' + euro(pmin) if pmin else '—'}</span>
-        </a>"""
-
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Tipologii</nav>
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Tipologii</p>
-    <h1 style="margin-top:1rem">Compartimentări disponibile</h1>
-    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
-      Cinci compartimentări, de la garsonieră la trei camere. Fiecare tipologie are pagină proprie,
-      cu plan, amenajare și lista unităților disponibile.
-    </p>
-  </header>
-  <div class="ec-types" style="padding-bottom:4rem">{carduri}</div>
-</div>"""
-    return pagina("Tipologii de apartamente — Emerald City Iași",
-                  "Cinci compartimentări de apartamente în Emerald City, Iași zona Păcurari: "
-                  "garsonieră, 2 camere și 3 camere.", continut, r, None, "tipologii/")
-
 
 
 # ============================================== hub de siloz /apartamente-iasi/
@@ -1517,7 +1744,7 @@ def pagina_hub(unitati, grupe):
         us = grupe[cod]
         d = [u for u in us if u["status"] == "disponibil"]
         pm = min((x["pret_eur"] for x in d), default=None)
-        tipuri += f"""<a class="ec-type ec-rv" href="{r}tipologii/{cod.lower()}/">
+        tipuri += f"""<a class="ec-type ec-rv" href="{r}{slug_tip(cod)}">
           <div class="ec-type__plan">{plan_svg(us[0]['nr_camere'], cod, us[0]['su_utila'], compact=True)}</div>
           <div class="ec-type__code">{cod}</div>
           <div class="ec-type__rows">
@@ -1553,7 +1780,7 @@ def pagina_hub(unitati, grupe):
           <p class="ec-etp__s">{stare}</p>
           <div class="ec-etp__bar"><i data-w="{ocupat}"></i></div>
           <div class="ec-etp__f"><span>{eticheta}</span>
-            {f'<a href="{lista}&amp;etapa={cod}">{ic("arrow-right")} Vezi lista</a>' if d else ''}</div>
+            {f'<a href="{lista}?etapa={cod}&amp;status=disponibil">{ic("arrow-right")} Vezi lista</a>' if d else ''}</div>
         </article>"""
 
     # ---- 05: cu curte proprie --------------------------------------------
@@ -1937,7 +2164,7 @@ def pagina_categorie(nr, unitati, grupe):
               </dl>
             </div>
             <div class="ec-tipc__cta">
-              <a class="ec-btn" href="{r}tipologii/{cod.lower()}/">{ic("compass-drafting")} Planul complet</a>
+              <a class="ec-btn" href="{r}{slug_tip(cod)}">{ic("compass-drafting")} Planul complet</a>
               <a class="ec-btn ec-btn--out" href="{lista}&amp;tip={cod}">{ic("table-list")} Unitățile de tip {cod}</a>
             </div>
           </div>
@@ -3670,7 +3897,7 @@ def pagina_proiect(unitati):
     <div class="ec-distr" style="margin-top:2.5rem">{distr}</div>
     <div class="ec-center" style="margin-top:2rem">
       <a class="ec-btn" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Toate cele {total} de apartamente</a>
-      <a class="ec-btn ec-btn--out" href="{r}tipologii/">{ic("compass-drafting")} Compartimentări</a>
+      <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/">{ic("compass-drafting")} Compartimentări</a>
     </div>
   </section>
 
@@ -4010,7 +4237,7 @@ def pagina_finisaje():
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
     <div class="ec-center" style="margin-top:2rem">
       <a class="ec-btn ec-btn--out" href="{r}despre-emerald-city/#garantii">{ic("shield-halved")} Garanții</a>
-      <a class="ec-btn ec-btn--out" href="{r}tipologii/">{ic("compass-drafting")} Compartimentări</a>
+      <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/">{ic("compass-drafting")} Compartimentări</a>
     </div>
   </section>
 
@@ -4832,7 +5059,7 @@ def main():
     for row in csv.DictReader(open(CSV, encoding="utf-8")):
         unitati.append({k: NUM[k](v) if k in NUM else v for k, v in row.items()})
 
-    for d in ("apartamente-iasi", "tipologii", "investitie-apartamente-iasi", "compara", "contact",
+    for d in ("apartamente-iasi", "investitie-apartamente-iasi", "compara", "contact",
               "apartamente-iasi-pacurari", "stadiu-lucrari", "despre-dezvoltator",
               "proiect", "aparitii-presa", "despre-emerald-city", "finisaje", *LEGALE):
         p = os.path.join(RAD, d)
@@ -4872,9 +5099,6 @@ def main():
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(pagina_categorie(nr, unitati, grupe))
 
-    with open(os.path.join(RAD, "tipologii", "index.html"), "w", encoding="utf-8") as f:
-        f.write(pagina_hub_tipologii(grupe))
-
     # pagini de sine statatoare
     for nume, continut in (("investitie-apartamente-iasi", pagina_investitie(unitati)),
                            ("compara", pagina_comparator()),
@@ -4897,12 +5121,12 @@ def main():
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(pagina_legala(slug))
 
-    # tipologii
+    # compartimentari, in silozul categoriei
     for cod, us in grupe.items():
-        d = os.path.join(RAD, "tipologii", cod.lower())
+        d = os.path.join(RAD, *slug_tip(cod).rstrip("/").split("/"))
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
-            f.write(pagina_tipologie(cod, us))
+            f.write(pagina_tip(cod, us, grupe))
 
     # unitati
     for u in unitati:
@@ -4917,11 +5141,11 @@ def main():
 
     n_unit = len(unitati)
     dim = sum(os.path.getsize(os.path.join(dp, f))
-              for d in ("apartamente-iasi", "tipologii")
+              for d in ("apartamente-iasi",)
               for dp, _, fs in os.walk(os.path.join(RAD, d)) for f in fs)
     print("  apartamente-iasi/              hub + 3 categorii + disponibilitate")
     print(f"  apartamente-iasi/<cod>/            {n_unit} pagini de unitate")
-    print(f"  tipologii/                    1 + {len(grupe)} pagini")
+    print(f"  apartamente-iasi/<cat>/tip-<cod>/   {len(grupe)} compartimentari")
     print(f"\n  total {n_unit + len(grupe) + 2} pagini, {dim/1024/1024:.1f} MB")
 
 

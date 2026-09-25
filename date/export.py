@@ -18,7 +18,7 @@ DOMENIU = "https://emerald-city.ro"
 # directoarele care intra in export
 DIRECTOARE = [
     "assets", "brand",
-    "apartamente-iasi", "tipologii",
+    "apartamente-iasi",
     "investitie-apartamente-iasi", "compara", "contact",
     "apartamente-iasi-pacurari", "stadiu-lucrari",
     "despre-emerald-city", "despre-dezvoltator",

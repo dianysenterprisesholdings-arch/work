@@ -164,7 +164,7 @@
     grid.innerHTML = Object.values(tipuri)
       .sort((a, b) => a.cod.localeCompare(b.cod))
       .map(t => `
-        <a class="ec-type ec-rv" href="tipologii/${t.cod.toLowerCase()}/">
+        <a class="ec-type ec-rv" href="apartamente-iasi/${t.slug}/tip-${t.cod.toLowerCase()}/">
           <div class="ec-type__plan">${planSVG(t.camere, t.cod, t.su.reduce((a,b)=>a+b,0)/t.su.length, true)}</div>
           <div class="ec-type__code">${t.cod}</div>
           <div class="ec-type__rows">
