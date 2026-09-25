@@ -349,6 +349,8 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 }})();
 </script>
 <script src="{r}assets/js/unelte.js"></script>
+<script src="{r}assets/js/galerie.js"></script>
+<script src="{r}assets/js/bara.js"></script>
 </body>
 </html>
 """
@@ -488,8 +490,12 @@ def formular(u=None, r="../../"):
                f'blocul {bloc(u["corp"])}, {etaj_txt(u["etaj"]).lower()}</div>'
                f'<input type="hidden" name="unit_id" value="{e(u["unit_id"])}">')
     return f"""<div class="ec-form">
-  <h2 class="ec-title" style="font-size:1.2rem">Cere detalii</h2>
-  <p class="ec-body" style="margin-bottom:1.25rem">Un consultant revine cu un răspuns în aceeași zi lucrătoare.</p>
+  <h2 class="ec-form__t">Aveți întrebări?<br>Trimiteți-ne un mesaj</h2>
+  <p class="ec-form__i">
+    Un consultant analizează solicitarea și revine cu un răspuns în aceeași zi
+    lucrătoare. Pentru o vizionare, menționați în mesaj intervalul orar care
+    vă convine, iar programarea se confirmă telefonic.
+  </p>
   <form method="post" action="#" novalidate>
     {ctx}
     <div class="ec-form__grid">
@@ -529,16 +535,23 @@ def showroom(r, nr="", sub=None):
       <p class="ec-shead__p">{e(sub)}</p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
-      <div class="ec-panel">
-        <div class="ec-acces">
+      <div class="ec-panel ec-panel--harta">
+        <div class="ec-showmap">
+          <iframe src="https://www.google.com/maps?q=Strada+Dealul+Zorilor+9,+Ia%C8%99i&amp;z=16&amp;output=embed"
+                  title="Harta biroului de vânzări — Str. Dealul Zorilor 9, Iași"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a class="ec-showmap__go" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Dealul+Zorilor+9+Ia%C8%99i"
+             target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i> Indicații rutiere</a>
+        </div>
+        <div class="ec-acces ec-acces--2">
           <div><span class="ec-acces__i"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
             <div><b>Adresă</b><span>{e(SHOWROOM["adresa"])}</span></div></div>
           <div><span class="ec-acces__i"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
             <div><b>Telefon</b><span><a href="tel:{SHOWROOM["tel_link"]}">{e(SHOWROOM["tel"])}</a></span></div></div>
-          <div><span class="ec-acces__i"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
-            <div><b>E-mail</b><span><a href="mailto:{SHOWROOM["mail"]}">{e(SHOWROOM["mail"])}</a></span></div></div>
           <div><span class="ec-acces__i"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
             <div><b>Program</b><span>{e(SHOWROOM["program"])}</span></div></div>
+          <div><span class="ec-acces__i"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+            <div><b>E-mail</b><span><a href="mailto:{SHOWROOM["mail"]}">{e(SHOWROOM["mail"])}</a></span></div></div>
         </div>
         <div class="ec-cta__btns" style="margin-top:2rem">
           <a class="ec-btn" href="tel:{SHOWROOM["tel_link"]}"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contact telefonic</a>
@@ -549,6 +562,64 @@ def showroom(r, nr="", sub=None):
     </div>
   </section>"""
 
+
+# ------------------------------------------------- alerta si captare de lead
+def alerta(titlu, text, context="", pict="bell"):
+    """Banda de inscriere la notificari de disponibilitate."""
+    ctx = (f'<input type="hidden" name="context" value="{e(context)}">' if context else "")
+    return f"""<section class="ec-alerta ec-rv">
+    <div class="ec-alerta__b">
+      <span class="ec-alerta__ic"><i class="fa-solid fa-{pict}" aria-hidden="true"></i></span>
+      <div>
+        <h2>{e(titlu)}</h2>
+        <p>{e(text)}</p>
+      </div>
+    </div>
+    <form class="ec-alerta__f" method="post" action="#" novalidate>
+      {ctx}
+      <label class="ec-sr" for="al-{abs(hash(titlu)) % 9999}">Adresă de e-mail</label>
+      <input id="al-{abs(hash(titlu)) % 9999}" name="email" type="email"
+             placeholder="adresa@exemplu.ro" autocomplete="email">
+      <button class="ec-btn ec-btn--brass" type="submit">
+        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Anunță-mă</button>
+      <span class="ec-alerta__n">Machetă de lucru — formularul nu trimite date.</span>
+    </form>
+  </section>"""
+
+
+def cta_preturi(r, imagine_fundal="dining-01"):
+    """Banda de captare: lista completa de preturi, pe e-mail."""
+    return f"""<section class="ec-ctab ec-rv">
+    {imagine(imagine_fundal, "", r, "100vw")}
+    <div class="ec-ctab__veil"></div>
+    <div class="ec-wrap ec-ctab__in">
+      <div class="ec-ctab__t">
+        <p class="ec-eyebrow" style="color:var(--ec-brass)">Lista de prețuri</p>
+        <h2>Toate prețurile, <em>într-un singur document</em></h2>
+        <p>
+          Lista completă de disponibilitate, cu suprafețe, etaje, orientări și prețuri,
+          actualizată la zi. Se transmite pe e-mail în aceeași zi lucrătoare.
+        </p>
+        <ul class="ec-ctab__l">
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Toate apartamentele disponibile</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Prețuri cu TVA inclus</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Condiții de plată și etape</li>
+        </ul>
+      </div>
+      <form class="ec-ctab__f" method="post" action="#" novalidate>
+        <h3>Primește lista</h3>
+        <div><label for="cp-nume">Nume</label>
+          <input id="cp-nume" name="nume" type="text" autocomplete="name"></div>
+        <div><label for="cp-mail">E-mail</label>
+          <input id="cp-mail" name="email" type="email" autocomplete="email"></div>
+        <div><label for="cp-tel">Telefon</label>
+          <input id="cp-tel" name="telefon" type="tel" autocomplete="tel"></div>
+        <button class="ec-btn ec-btn--brass" type="submit">
+          <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> Trimite lista</button>
+        <p class="ec-form__note">Machetă de lucru — formularul nu trimite date.</p>
+      </form>
+    </div>
+  </section>"""
 
 # ------------------------------------------------------------- imagini
 _LQ = os.path.join(RAD, "assets", "data", "lqip.json")
@@ -1432,6 +1503,8 @@ def pagina_hub(unitati, grupe):
   {showroom(r, "10")}
 </div>
 
+{cta_preturi(r, "living-01")}
+
 <script>
 (() => {{
   const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
@@ -1833,6 +1906,13 @@ def pagina_categorie(nr, unitati, grupe):
       <a class="ec-btn ec-btn--out" href="{r}finisaje/">{ic("list-check")} Dotări incluse</a>
       <a class="ec-btn ec-btn--out" href="{r}investitie-apartamente-iasi/">{ic("chart-line")} Calculator de randament</a>
     </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    {alerta(f"Anunță-mă când apar {c['titlu'].lower()}",
+            f"Primești un e-mail când intră în vânzare unități noi de {camere_txt(nr)} "
+            "sau când se modifică prețurile. Fără alte mesaje.",
+            c['slug'])}
   </section>
 
   {showroom(r, "08")}
@@ -2546,6 +2626,12 @@ def pagina_stadiu():
         <p>Fotografierea lucrărilor este permisă, fără restricții.</p></div>
     </div>
     
+  </section>
+
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    {alerta("Primește raportul lunar de șantier",
+            "Un e-mail pe lună, cu stadiul fiecărei etape și fotografii datate din teren. "
+            "Se poate opri oricând.", "santier", "helmet-safety")}
   </section>
 
   {showroom(r, "04")}
@@ -3675,7 +3761,9 @@ def pagina_finisaje():
   </section>
 
   {showroom(r, "05")}
-</div>"""
+</div>
+
+{cta_preturi(r, "bucatarie-01")}"""
 
     return pagina("Finisaje incluse — ce înseamnă predare la cheie | Emerald City Iași",
                   f"Cele {len(FINISAJE)} poziții de finisaj incluse în prețul apartamentelor "

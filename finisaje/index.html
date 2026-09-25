@@ -223,16 +223,23 @@
       <p class="ec-shead__p">Vizionarea apartamentului-model se face cu programare. O întâlnire durează aproximativ 40 de minute și include prezentarea planurilor și a disponibilității.</p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
-      <div class="ec-panel">
-        <div class="ec-acces">
+      <div class="ec-panel ec-panel--harta">
+        <div class="ec-showmap">
+          <iframe src="https://www.google.com/maps?q=Strada+Dealul+Zorilor+9,+Ia%C8%99i&amp;z=16&amp;output=embed"
+                  title="Harta biroului de vânzări — Str. Dealul Zorilor 9, Iași"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a class="ec-showmap__go" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Dealul+Zorilor+9+Ia%C8%99i"
+             target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i> Indicații rutiere</a>
+        </div>
+        <div class="ec-acces ec-acces--2">
           <div><span class="ec-acces__i"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
             <div><b>Adresă</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
           <div><span class="ec-acces__i"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
             <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
-          <div><span class="ec-acces__i"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
-            <div><b>E-mail</b><span><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></span></div></div>
           <div><span class="ec-acces__i"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
             <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
+          <div><span class="ec-acces__i"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+            <div><b>E-mail</b><span><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></span></div></div>
         </div>
         <div class="ec-cta__btns" style="margin-top:2rem">
           <a class="ec-btn" href="tel:+40757707080"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contact telefonic</a>
@@ -240,8 +247,12 @@
         </div>
       </div>
       <div class="ec-form">
-  <h2 class="ec-title" style="font-size:1.2rem">Cere detalii</h2>
-  <p class="ec-body" style="margin-bottom:1.25rem">Un consultant revine cu un răspuns în aceeași zi lucrătoare.</p>
+  <h2 class="ec-form__t">Aveți întrebări?<br>Trimiteți-ne un mesaj</h2>
+  <p class="ec-form__i">
+    Un consultant analizează solicitarea și revine cu un răspuns în aceeași zi
+    lucrătoare. Pentru o vizionare, menționați în mesaj intervalul orar care
+    vă convine, iar programarea se confirmă telefonic.
+  </p>
   <form method="post" action="#" novalidate>
     
     <div class="ec-form__grid">
@@ -257,6 +268,44 @@
     </div>
   </section>
 </div>
+
+<section class="ec-ctab ec-rv">
+    <picture>
+  <source type="image/webp" srcset="../assets/img/bucatarie-01-800.webp 800w, ../assets/img/bucatarie-01.webp 1600w" sizes="100vw">
+  <img src="../assets/img/bucatarie-01.jpg"
+       srcset="../assets/img/bucatarie-01-800.jpg 800w, ../assets/img/bucatarie-01.jpg 1600w" sizes="100vw"
+       alt="" width="1600" height="900" loading="lazy" decoding="async" style="background:#DCE7DE url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwB9wGEybGwDgn6Z5qS4lKxKkchV3ZQPcZGf0qC6J8xOe1MkUOUdslozuU56GsrmlizJpEcbYMgYnkkkkmioomPlLyelFFwsf//Z) center/cover"
+       onload="this.style.background='none'">
+</picture>
+    <div class="ec-ctab__veil"></div>
+    <div class="ec-wrap ec-ctab__in">
+      <div class="ec-ctab__t">
+        <p class="ec-eyebrow" style="color:var(--ec-brass)">Lista de prețuri</p>
+        <h2>Toate prețurile, <em>într-un singur document</em></h2>
+        <p>
+          Lista completă de disponibilitate, cu suprafețe, etaje, orientări și prețuri,
+          actualizată la zi. Se transmite pe e-mail în aceeași zi lucrătoare.
+        </p>
+        <ul class="ec-ctab__l">
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Toate apartamentele disponibile</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Prețuri cu TVA inclus</li>
+          <li><i class="fa-solid fa-check" aria-hidden="true"></i> Condiții de plată și etape</li>
+        </ul>
+      </div>
+      <form class="ec-ctab__f" method="post" action="#" novalidate>
+        <h3>Primește lista</h3>
+        <div><label for="cp-nume">Nume</label>
+          <input id="cp-nume" name="nume" type="text" autocomplete="name"></div>
+        <div><label for="cp-mail">E-mail</label>
+          <input id="cp-mail" name="email" type="email" autocomplete="email"></div>
+        <div><label for="cp-tel">Telefon</label>
+          <input id="cp-tel" name="telefon" type="tel" autocomplete="tel"></div>
+        <button class="ec-btn ec-btn--brass" type="submit">
+          <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> Trimite lista</button>
+        <p class="ec-form__note">Machetă de lucru — formularul nu trimite date.</p>
+      </form>
+    </div>
+  </section>
 </main>
 
 <footer class="ec-foot">
@@ -416,5 +465,7 @@
 })();
 </script>
 <script src="../assets/js/unelte.js"></script>
+<script src="../assets/js/galerie.js"></script>
+<script src="../assets/js/bara.js"></script>
 </body>
 </html>

@@ -2173,3 +2173,201 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
    ultimul rand, deci se sare peste ea: una sub alta pana la trei coloane. */
 @media (min-width: 40rem) { .ec-pgal--3 { grid-template-columns: minmax(0,1fr); } }
 @media (min-width: 70rem) { .ec-pgal--3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+/* ==========================================================================
+   Showroom — harta lipită de marginile panoului, deasupra adresei
+   ========================================================================== */
+.ec-panel--harta { padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+.ec-panel--harta > *:not(.ec-showmap) { padding-inline: clamp(1.5rem, 3vw, 2.25rem); }
+.ec-panel--harta > .ec-acces { padding-top: clamp(1.5rem, 3vw, 2.25rem); }
+.ec-panel--harta > *:last-child { padding-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+.ec-showmap { position: relative; line-height: 0; background: var(--ec-mint); }
+.ec-showmap iframe {
+  width: 100%; height: clamp(13rem, 26vw, 17rem); border: 0; display: block;
+  filter: grayscale(.28) contrast(1.02);
+}
+.ec-showmap__go {
+  position: absolute; right: .9rem; bottom: .9rem; line-height: 1;
+  background: var(--ec-emerald); color: #fff; border-radius: 999px;
+  padding: .6rem 1rem; font-size: var(--ec-micro); letter-spacing: .1em;
+  text-transform: uppercase; font-weight: 600;
+  box-shadow: 0 6px 18px -8px rgba(16,28,24,.6);
+  transition: background var(--ec-fast), transform var(--ec-fast);
+}
+.ec-showmap__go i { color: var(--ec-brass); margin-right: .45rem; }
+.ec-showmap__go:hover { background: var(--ec-emerald-700); transform: translateY(-1px); }
+
+/* ==========================================================================
+   Vizualizare pe ecran complet
+   ========================================================================== */
+.ec-zoom { cursor: zoom-in; }
+.ec-lb {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(12, 22, 19, .93); backdrop-filter: blur(6px);
+  display: grid; place-items: center; padding: clamp(1rem, 4vw, 3rem);
+  opacity: 0; visibility: hidden; transition: opacity .28s var(--ec-ease), visibility .28s;
+}
+.ec-lb.is-on { opacity: 1; visibility: visible; }
+.ec-lb__f { margin: 0; display: grid; gap: 1rem; justify-items: center; max-width: 100%; }
+.ec-lb__f img {
+  max-width: min(100%, 78rem); max-height: 78vh; width: auto; height: auto;
+  border-radius: var(--ec-r); display: block;
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.8);
+}
+.ec-lb__f figcaption {
+  color: rgba(255,255,255,.78); font-size: var(--ec-micro);
+  letter-spacing: .14em; text-transform: uppercase; text-align: center;
+}
+.ec-lb__x, .ec-lb__n {
+  position: absolute; z-index: 1; border: 0; cursor: pointer;
+  background: rgba(255,255,255,.1); color: #fff; border-radius: 999px;
+  display: grid; place-items: center;
+  transition: background var(--ec-fast), transform var(--ec-fast);
+}
+.ec-lb__x:hover, .ec-lb__n:hover { background: var(--ec-brass); }
+.ec-lb__x { top: clamp(.75rem,2vw,1.5rem); right: clamp(.75rem,2vw,1.5rem); width: 2.75rem; height: 2.75rem; font-size: 1.05rem; }
+.ec-lb__n { top: 50%; transform: translateY(-50%); width: 3rem; height: 3rem; font-size: 1rem; }
+.ec-lb__n:hover { transform: translateY(-50%) scale(1.05); }
+.ec-lb__n--prev { left: clamp(.5rem,2vw,1.75rem); }
+.ec-lb__n--next { right: clamp(.5rem,2vw,1.75rem); }
+@media (max-width: 40rem) { .ec-lb__n { width: 2.5rem; height: 2.5rem; } }
+@media (prefers-reduced-motion: reduce) { .ec-lb { transition: none; } }
+
+/* ==========================================================================
+   Alertă de disponibilitate
+   ========================================================================== */
+.ec-alerta {
+  background: var(--ec-emerald); color: #fff; border-radius: var(--ec-r);
+  padding: clamp(1.5rem, 3.5vw, 2.5rem); display: grid; gap: 1.75rem;
+  align-items: center;
+}
+@media (min-width: 58rem) { .ec-alerta { grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); } }
+.ec-alerta__b { display: flex; gap: 1.25rem; align-items: flex-start; }
+.ec-alerta__ic {
+  width: 3rem; height: 3rem; border-radius: 50%; flex: none;
+  background: rgba(255,255,255,.12); color: var(--ec-brass);
+  display: grid; place-items: center; font-size: 1.1rem;
+}
+.ec-alerta h2 { font-family: var(--ec-disp); font-size: clamp(1.25rem, 2.4vw, 1.6rem); font-weight: 600; letter-spacing: -.015em; }
+.ec-alerta p { margin-top: .5rem; font-size: .9375rem; color: rgba(255,255,255,.74); line-height: 1.7; max-width: 46ch; }
+.ec-alerta__f { display: grid; gap: .7rem; grid-template-columns: minmax(0,1fr) auto; align-items: start; }
+.ec-alerta__f input {
+  width: 100%; padding: .85rem 1rem; border-radius: var(--ec-r);
+  border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08);
+  color: #fff; font: inherit; font-size: .9375rem;
+}
+.ec-alerta__f input::placeholder { color: rgba(255,255,255,.45); }
+.ec-alerta__f input:focus { outline: 2px solid var(--ec-brass); outline-offset: 1px; }
+.ec-alerta__f button { white-space: nowrap; }
+.ec-alerta__n { grid-column: 1 / -1; font-size: var(--ec-micro); color: rgba(255,255,255,.45); }
+@media (max-width: 34rem) { .ec-alerta__f { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   Bandă de captare — lista de prețuri
+   ========================================================================== */
+.ec-ctab { position: relative; overflow: hidden; background: var(--ec-emerald); isolation: isolate; }
+.ec-ctab picture { display: contents; }
+.ec-ctab > picture img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.ec-ctab__veil {
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(16,28,24,.94) 0%, rgba(16,28,24,.82) 55%, rgba(16,28,24,.7) 100%);
+}
+.ec-ctab__in {
+  position: relative; color: #fff; display: grid; gap: clamp(2rem, 4vw, 3.5rem);
+  padding-block: clamp(3rem, 6vw, 5rem); align-items: center;
+}
+@media (min-width: 58rem) { .ec-ctab__in { grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr); } }
+.ec-ctab__t h2 { font-family: var(--ec-disp); font-size: clamp(1.6rem, 3.4vw, 2.5rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.1; margin-top: 1.1rem; }
+.ec-ctab__t h2 em { font-style: normal; color: var(--ec-brass); }
+.ec-ctab__t > p { margin-top: 1.1rem; font-size: var(--ec-lead); color: rgba(255,255,255,.8); line-height: 1.75; max-width: 46ch; }
+.ec-ctab__l { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; gap: .7rem; }
+.ec-ctab__l li { display: flex; gap: .75rem; align-items: center; font-size: .9375rem; color: rgba(255,255,255,.88); }
+.ec-ctab__l i { color: var(--ec-brass); font-size: .75rem; }
+.ec-ctab__f {
+  background: var(--ec-white); color: var(--ec-ink);
+  border-radius: var(--ec-r); padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: grid; gap: .9rem; box-shadow: 0 24px 60px -30px rgba(0,0,0,.6);
+}
+.ec-ctab__f h3 { font-family: var(--ec-disp); font-size: 1.25rem; font-weight: 600; }
+.ec-ctab__f label { display: block; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); margin-bottom: .4rem; }
+.ec-ctab__f input {
+  width: 100%; padding: .8rem .95rem; border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); font: inherit; font-size: .9375rem; background: var(--ec-white);
+}
+.ec-ctab__f input:focus { outline: 2px solid var(--ec-emerald); outline-offset: 1px; border-color: transparent; }
+.ec-ctab__f button { justify-self: start; margin-top: .3rem; }
+
+/* ==========================================================================
+   Bară de acțiune lipită — apare la derulare
+   ========================================================================== */
+.ec-abar {
+  position: fixed; z-index: 90; left: 0; right: 0; bottom: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  background: var(--ec-emerald); border-top: 1px solid var(--ec-line-light);
+  transform: translateY(105%); transition: transform .35s var(--ec-ease);
+  box-shadow: 0 -12px 34px -18px rgba(12,22,19,.7);
+}
+.ec-abar.is-on { transform: none; }
+.ec-abar__a {
+  display: flex; align-items: center; justify-content: center; gap: .75rem;
+  padding: .9rem .75rem; color: #fff; text-align: left;
+  border-left: 1px solid rgba(255,255,255,.12);
+  transition: background var(--ec-fast);
+}
+.ec-abar__a:first-child { border-left: 0; }
+.ec-abar__a:hover { background: rgba(255,255,255,.08); }
+.ec-abar__a i { font-size: 1rem; color: var(--ec-brass); flex: none; }
+.ec-abar__a b { display: block; font-size: .875rem; font-weight: 600; line-height: 1.2; }
+.ec-abar__a em {
+  display: block; margin-top: .15rem; font-style: normal; font-size: var(--ec-micro);
+  letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.5);
+}
+.ec-abar__a--wa i { color: #25D366; }
+.ec-abar__a--pr { background: var(--ec-brass); }
+.ec-abar__a--pr i { color: #fff; }
+.ec-abar__a--pr em { color: rgba(255,255,255,.72); }
+.ec-abar__a--pr:hover { background: #a9843f; }
+
+/* pe ecrane late bara se strange in dreapta, ca sa nu taie pagina in doua */
+@media (min-width: 62rem) {
+  .ec-abar {
+    left: auto; right: clamp(1rem, 2.5vw, 2rem); bottom: clamp(1rem, 2.5vw, 2rem);
+    grid-template-columns: repeat(3, auto); border: 1px solid rgba(255,255,255,.14);
+    border-radius: var(--ec-r); overflow: hidden;
+    transform: translateY(calc(100% + 3rem));
+  }
+  .ec-abar__a { padding: .85rem 1.1rem; }
+}
+/* bara preia si actiunea de WhatsApp, deci bulina plutitoare se retrage */
+body.are-abar .ec-wa { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* pe ecrane inguste randurile nu incap unul langa altul: ramane pictograma
+   si o eticheta scurta, una sub alta */
+@media (max-width: 46rem) {
+  .ec-abar__a { flex-direction: column; gap: .35rem; padding: .7rem .4rem; text-align: center; }
+  .ec-abar__a em { display: none; }
+  .ec-abar__a b { font-size: .75rem; letter-spacing: .02em; }
+  .ec-abar__a i { font-size: 1.05rem; }
+}
+@media (prefers-reduced-motion: reduce) { .ec-abar { transition: none; } }
+
+/* datele de contact din showroom, pe două coloane: adresă și program în
+   stânga, telefon și e-mail în dreapta */
+@media (min-width: 34rem) {
+  .ec-acces--2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.4rem 1.75rem; }
+  .ec-acces--2 > div:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .ec-acces--2 > div:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .ec-acces--2 > div:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .ec-acces--2 > div:nth-child(4) { grid-column: 2; grid-row: 2; }
+}
+
+/* antetul formularului, pe mai multe rânduri, ca panoul din stânga și
+   formularul din dreapta să pornească de la aceeași înălțime */
+.ec-form__t {
+  font-family: var(--ec-disp); font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 600; letter-spacing: -.015em; line-height: 1.2;
+}
+.ec-form__i {
+  margin: .9rem 0 1.5rem; font-size: .9375rem; color: var(--ec-ink-60);
+  line-height: 1.75; max-width: 42ch;
+}
