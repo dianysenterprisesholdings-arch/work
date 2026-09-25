@@ -254,7 +254,14 @@ def ruleaza():
         out = tradu_pagina(h, rel)
         dest = os.path.join(IESIRE, *[SLUGURI.get(p, p) for p in rel.split("/") if p])
         os.makedirs(dest, exist_ok=True)
-        io.open(os.path.join(dest, "index.html"), "w", encoding="utf-8", newline="\n").write(out)
+        for incercare in range(6):
+            try:
+                io.open(os.path.join(dest, "index.html"), "w", encoding="utf-8", newline="\n").write(out)
+                break
+            except OSError:
+                if incercare == 5:
+                    raise
+                import time; time.sleep(.6)
         n += 1
     with io.open(NECUNOSCUTE, "w", encoding="utf-8") as f:
         for k, pg in sorted(necunoscute.items(), key=lambda x: x[1]):

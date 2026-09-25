@@ -79,3 +79,21 @@
   }, { passive: true });
   verifica();
 })();
+
+/* ---- eticheta "Online" pe WhatsApp, in programul echipei (08:00-17:00, ora Romaniei, luni-sambata) */
+(() => {
+  const et = document.querySelector('[data-online]');
+  if (!et) return;
+  const EN = document.documentElement.lang === 'en';
+  et.lastChild.textContent = EN ? 'Online' : 'Online';
+  const verifica = () => {
+    let h = 0, zi = 1;
+    try {
+      const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Bucharest', hour: 'numeric', hour12: false, weekday: 'short' }).formatToParts(new Date());
+      h = +p.find(x => x.type === 'hour').value % 24;
+      zi = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.find(x => x.type === 'weekday').value);
+    } catch (e) { const d = new Date(); h = d.getHours(); zi = d.getDay(); }
+    et.hidden = !(zi >= 1 && zi <= 6 && h >= 8 && h < 17);
+  };
+  verifica(); setInterval(verifica, 60000);
+})();

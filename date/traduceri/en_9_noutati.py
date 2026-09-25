@@ -267,4 +267,5 @@ T = {
 "Păcurari, în cifre: distanțe reale": "Păcurari in numbers: real distances",
 "Păcurari, în cifre: distanțe reale | Emerald City": "Păcurari in numbers: real distances | Emerald City",
 "Condițiile de utilizare a site-ului emerald-city.ro: informații publicate, solicitări prin formulare, proprietate intelectuală și limitarea răspunderii.": "Terms of use of emerald-city.ro: published information, requests through forms, intellectual property and limitation of liability.",
+"Online": "Online",
 }

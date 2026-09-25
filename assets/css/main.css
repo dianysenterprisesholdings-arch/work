@@ -2986,3 +2986,19 @@ svg .pa { fill: var(--ec-brass); }
 .ec-type__price em { font-style: normal; font-size: var(--ec-micro); letter-spacing: .14em; text-transform: uppercase; color: var(--ec-ink-40); font-weight: 600; }
 .ec-type__price b { font-family: var(--ec-disp); font-size: 1.55rem; font-weight: 600; color: var(--ec-emerald); line-height: 1.05; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .ec-type__price i { font-style: normal; font-size: var(--ec-micro); color: var(--ec-ink-40); letter-spacing: .06em; }
+
+/* --- WhatsApp: eticheta Online, cu punct pulsatil, in programul echipei ------- */
+.ec-wa { gap: .6rem; }
+.ec-wa__on {
+  display: inline-flex !important; align-items: center; gap: .4rem; margin-left: .15rem; padding: .22rem .6rem .22rem .5rem;
+  border-radius: 999px; background: rgba(255,255,255,.28); font-size: .625rem; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 700; color: #0B3D22; line-height: 1;
+}
+.ec-wa__on[hidden] { display: none !important; }
+.ec-wa__on i { position: relative; width: .5rem; height: .5rem; border-radius: 50%; background: #fff; flex: none; }
+.ec-wa__on i::after {
+  content: ""; position: absolute; inset: -.3rem; border-radius: 50%; border: 2px solid #fff; opacity: 0;
+  animation: ec-puls 1.8s ease-out infinite;
+}
+@keyframes ec-puls { 0% { transform: scale(.4); opacity: .9; } 70% { transform: scale(1.2); opacity: 0; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ec-wa__on i::after { animation: none; } }
