@@ -504,6 +504,51 @@ def formular(u=None, r="../../"):
 </div>"""
 
 
+# ---------------------------------------------------- showroom si program
+# Un singur bloc de invitatie, folosit identic pe toate paginile.
+SHOWROOM = {
+    "adresa": "Str. Dealul Zorilor 9, zona Păcurari, Iași",
+    "tel": "0757 70 70 80",
+    "tel_link": "+40757707080",
+    "mail": "vanzari@emerald-city.ro",
+    "program": "Luni–vineri 9–18 · Sâmbătă 10–14",
+}
+
+
+def showroom(r, nr="", sub=None):
+    """Sectiunea de final: showroom, date de contact si formular."""
+    cap = (f'<span class="ec-shead__n">{nr} — Showroom</span>' if nr
+           else '<p class="ec-eyebrow">Showroom</p>')
+    sub = sub or ("Vino să vezi apartamentul-model și planurile pe masă. O vizită durează "
+                  "aproximativ 40 de minute și lămurește mai mult decât orice pagină de site.")
+    return f"""<section class="ec-section" id="showroom">
+    <div class="ec-shead">
+      <div>{cap}
+        <h2>Te așteptăm <em>în showroom</em></h2></div>
+      <p class="ec-shead__p">{e(sub)}</p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      <div class="ec-panel">
+        <div class="ec-acces">
+          <div><span class="ec-acces__i"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></span>
+            <div><b>Adresă</b><span>{e(SHOWROOM["adresa"])}</span></div></div>
+          <div><span class="ec-acces__i"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+            <div><b>Telefon</b><span><a href="tel:{SHOWROOM["tel_link"]}">{e(SHOWROOM["tel"])}</a></span></div></div>
+          <div><span class="ec-acces__i"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+            <div><b>E-mail</b><span><a href="mailto:{SHOWROOM["mail"]}">{e(SHOWROOM["mail"])}</a></span></div></div>
+          <div><span class="ec-acces__i"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
+            <div><b>Program</b><span>{e(SHOWROOM["program"])}</span></div></div>
+        </div>
+        <div class="ec-cta__btns" style="margin-top:2rem">
+          <a class="ec-btn" href="tel:{SHOWROOM["tel_link"]}"><i class="fa-solid fa-phone" aria-hidden="true"></i> Sună acum</a>
+          <a class="ec-btn ec-btn--out" href="https://wa.me/40757707080"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Scrie pe WhatsApp</a>
+        </div>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>"""
+
+
 # ------------------------------------------------------------- imagini
 _LQ = os.path.join(RAD, "assets", "data", "lqip.json")
 LQIP = json.load(open(_LQ, encoding="utf-8")) if os.path.exists(_LQ) else {}
@@ -1395,97 +1440,289 @@ def pagina_contact():
 
 
 
-# ========================================================= zona Pacurari ==
-POI = [
-    ("Centrul Iașului", "7 km", "~15 min cu mașina"),
-    ("Copou", "5 km", "~12 min"),
-    ("Universitatea „Alexandru Ioan Cuza”", "6 km", "~14 min"),
-    ("Palas Mall", "8 km", "~18 min"),
-    ("Spitalul Sf. Spiridon", "7 km", "~16 min"),
-    ("Aeroportul Iași", "11 km", "~22 min"),
-    ("Grădina Botanică", "4 km", "~10 min"),
-    ("Ieșire spre Botoșani (DN28)", "2 km", "~4 min"),
+# ================================================================== zona ==
+# Distantele vin din assets/data/distante.json, calculate pe traseu rutier.
+# Pagina nu mai tine o lista proprie, ca sa nu se contrazica cu harta.
+_DIST = os.path.join(RAD, "assets", "data", "distante.json")
+DISTANTE = json.load(open(_DIST, encoding="utf-8")) if os.path.exists(_DIST) else {"puncte": []}
+
+# Pictograma fiecarui reper, dupa nume.
+PICT_POI = {
+    "Kaufland Păcurari": "cart-shopping",
+    "Mall Moldova": "bag-shopping",
+    "Palas Mall": "bag-shopping",
+    "Parcul Copou": "tree",
+    "Universitatea „Alexandru Ioan Cuza”": "graduation-cap",
+    "Centrul orașului": "city",
+    "Aeroportul Iași": "plane-departure",
+}
+
+# Reper indicat de client, fara coordonate confirmate, deci nu apare pe harta.
+PE_JOS = ("Paradis International College", "400 m", "5 min pe jos", "school")
+
+CARTIER = [
+    ("cart-shopping", "Cumpărături zilnice",
+     "Kaufland Păcurari la 1,1 km, plus magazinele de proximitate de pe artera Păcurari."),
+    ("school", "Școli și grădinițe",
+     "Paradis International College la 400 m, la 5 minute de mers pe jos."),
+    ("graduation-cap", "Centrul universitar",
+     "Universitatea „Alexandru Ioan Cuza” la 3,9 km, în Copou."),
+    ("tree", "Spații verzi",
+     "Parcul Copou la 4,4 km, plus cele 15.501,80 m² amenajate în interiorul ansamblului."),
+    ("bus", "Transport public",
+     "Linii constante pe artera Păcurari, spre centru și spre Copou."),
+    ("road", "Ieșire din oraș",
+     "DN28 spre Botoșani, pentru drumurile în afara Iașului."),
+    ("hospital", "Servicii medicale",
+     "Spitalul „Sf. Spiridon” și rețeaua privată din zona centrală."),
+    ("bag-shopping", "Mall-uri",
+     "Mall Moldova la 3,6 km și Palas la 6,1 km."),
+]
+
+PROFILURI = [
+    ("people-roof", "Familii tinere",
+     "Spațiu verde, locuri de joacă și parcare proprie, fără să ieși din oraș. "
+     "Apartamentele de la parter au curte, între 13 și 51 m²."),
+    ("chart-line", "Investitori",
+     "Cererea de chirii e susținută de apropierea de centrul universitar. "
+     "Garsonierele pornesc de la 53.500 €, cu calculator de randament pe site."),
+    ("briefcase", "Cei care lucrează în nord-vest",
+     "Acces direct la artera Păcurari și la DN28, fără traversarea centrului."),
+]
+
+FAQ_ZONA = [
+    ("Unde se află mai exact Emerald City?",
+     "În Iași, zona Păcurari, cu acces din Strada Ion Nistor. Ansamblul este la limita de "
+     "nord-vest a orașului, în spatele ansamblului Contemporan Homes de pe Strada "
+     "Dealul Zorilor."),
+    ("Cât face până în centrul Iașului?",
+     "Aproximativ 4,8 km, adică în jur de 8 minute cu mașina fără trafic."),
+    ("Cât face până la universitate?",
+     "3,9 km până la Universitatea „Alexandru Ioan Cuza”, aproximativ 7 minute cu mașina."),
+    ("Există școli în apropiere?",
+     "Paradis International College se află la aproximativ 400 de metri, la 5 minute de "
+     "mers pe jos."),
+    ("Cum stă zona cu cumpărăturile?",
+     "Kaufland Păcurari este la 1,1 km, adică 3 minute cu mașina. Mall Moldova la 3,6 km "
+     "și Palas la 6,1 km."),
+    ("Cum se ajunge cu transportul public?",
+     "Artera Păcurari are linii constante spre centru și spre Copou. Stația cea mai "
+     "apropiată se află pe drumul de acces în ansamblu."),
+    ("Cât face până la aeroport?",
+     "11,3 km, aproximativ 18 minute cu mașina."),
+    ("De ce zona Păcurari și nu altă zonă din Iași?",
+     "Este una dintre puținele zone din Iași care mai are teren pentru ansambluri cu "
+     "spațiu între clădiri, la distanță mică de Copou și de centrul universitar."),
 ]
 
 
 def pagina_zona():
     r = "../"
-    randuri = "".join(f"<tr><td>{a}</td><td class='num'>{b}</td><td>{c}</td></tr>"
-                      for a, b, c in POI)
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Zona Păcurari</nav>
+    pct = DISTANTE.get("puncte", [])
+    gasit = {p["nume"]: p for p in pct}
 
-  <header class="ec-phead">
+    def km(nume, implicit="—"):
+        p = gasit.get(nume)
+        return f'{str(p["km"]).replace(".", ",")} km' if p else implicit
+
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b>{e(val)}</b><em>{e(et)}</em></span></div>'
+        for val, et, pic in [
+            (PE_JOS[1], "Paradis International College", "school"),
+            (km("Kaufland Păcurari"), "Kaufland Păcurari", "cart-shopping"),
+            (km("Universitatea „Alexandru Ioan Cuza”"), "Universitatea „A.I. Cuza”", "graduation-cap"),
+            (km("Centrul orașului"), "Centrul Iașului", "city"),
+        ])
+
+    randuri = "".join(
+        f'<tr><td>{ic(PICT_POI.get(p["nume"], "location-dot"))} {e(p["nume"])}</td>'
+        f'<td class="num">{str(p["km"]).replace(".", ",")} km</td>'
+        f'<td class="num">{p["min"]} min</td>'
+        f'<td>Cu mașina</td></tr>'
+        for p in sorted(pct, key=lambda x: x["km"]))
+    randuri = (f'<tr><td>{ic(PE_JOS[3])} {e(PE_JOS[0])}</td>'
+               f'<td class="num">{e(PE_JOS[1])}</td>'
+               f'<td class="num">5 min</td><td>Pe jos</td></tr>') + randuri
+
+    cartier = "".join(
+        f'<div class="ec-fisa__i ec-rv"><span class="ec-fisa__ic">{ic(pic)}</span>'
+        f'<span><b>{e(t)}</b><span class="ec-fisa__d">{e(d)}</span></span></div>'
+        for pic, t, d in CARTIER)
+
+    profiluri = "".join(
+        f'<div class="ec-why__i ec-rv">{ic(pic)}<h3>{e(t)}</h3><p>{e(d)}</p></div>'
+        for pic, t, d in PROFILURI)
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_ZONA)
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "Place", "name": "Emerald City",
+             "address": {"@type": "PostalAddress",
+                         "streetAddress": "Str. Ion Nistor",
+                         "addressLocality": "Iași", "addressRegion": "Iași",
+                         "addressCountry": "RO"},
+             "geo": {"@type": "GeoCoordinates",
+                     "latitude": DISTANTE.get("lat"), "longitude": DISTANTE.get("lon")}},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_ZONA]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("dining-01", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Zona Păcurari</nav>
     <p class="ec-eyebrow">Amplasament</p>
-    <h1 style="margin-top:1rem">Apartamente în Iași, zona Păcurari</h1>
-    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">
-      Păcurari este una dintre cele mai căutate zone rezidențiale din Iași: aproape de Copou
-      și de centrul universitar, dar suficient de la margine cât să mai existe teren pentru
-      ansambluri cu spațiu între clădiri.
+    <h1>Păcurari, la 5 minute de Copou</h1>
+    <p class="ec-phero__sub">
+      Una dintre puținele zone din Iași care mai are teren pentru ansambluri cu spațiu
+      între clădiri, la distanță mică de centrul universitar. Emerald City este la limita
+      de nord-vest a orașului, cu acces din Strada Ion Nistor.
     </p>
-  </header>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#harta">{ic("map-location-dot")} Vezi harta</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
+    </div>
+  </div>
+</section>
 
-  <section class="ec-section" style="padding-block:0 3rem">
-    <div class="ec-split">
-      <div class="ec-panel">
-        <h2 class="ec-title" style="font-size:1.1rem;margin-bottom:1.25rem">Distanțe și timpi</h2>
-        <div class="ec-table" style="background:transparent">
-          <table>
-            <caption class="ec-sr">Distanțe de la Emerald City</caption>
-            <thead><tr><th>Destinație</th><th>Distanță</th><th>Timp estimat</th></tr></thead>
-            <tbody>{randuri}</tbody>
-          </table>
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="pozitie">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Poziția</span>
+        <h2>Aproape de oraș, <em>fără să fii în el</em></h2></div>
+      <p class="ec-shead__p">
+        Zona s-a dezvoltat în jurul arterei Păcurari, una dintre principalele ieșiri
+        spre nord-vest.
+      </p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      <div class="ec-prose">
+        <p>
+          Păcurari este una dintre cele mai căutate zone rezidențiale din Iași, pentru un
+          motiv simplu: e la câteva minute de Copou și de centrul universitar, dar suficient
+          spre margine cât să mai existe teren pe care se poate construi cu spațiu între
+          clădiri, nu bloc lângă bloc.
+        </p>
+        <p>
+          Emerald City se află la limita de nord-vest a orașului, în spatele ansamblului
+          Contemporan Homes de pe Strada Dealul Zorilor. Accesul se face din Strada
+          Ion Nistor. Centrul Iașului este la {km("Centrul orașului")}, Copoul la
+          {km("Parcul Copou")}, iar ieșirea spre Botoșani, pe DN28, la câteva minute.
+        </p>
+        <p>
+          Ansamblul are 925 de apartamente în 18 blocuri cu regim 2D+P+3E, pe un teren de
+          cinci hectare din care 30,85% rămâne spațiu verde amenajat. Este unul dintre cele
+          mai mari proiecte rezidențiale din zonă.
+        </p>
+      </div>
+      <figure style="margin:0">
+        {imagine("living-01", "Apartament în ansamblul Emerald City, zona Păcurari", r,
+                 "(min-width: 62rem) 46vw, 100vw")}
+      </figure>
+    </div>
+  </section>
+
+  <section class="ec-section" id="distante" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Distanțe</span>
+        <h2>Cât face <em>până unde contează</em></h2></div>
+      <p class="ec-shead__p">
+        Distanțe și timpi măsurați pe traseu rutier real, fără trafic, de la amplasament.
+      </p>
+    </div>
+    <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
+      <table>
+        <caption class="ec-sr">Distanțe de la Emerald City</caption>
+        <thead><tr><th scope="col">Destinație</th><th scope="col">Distanță</th>
+          <th scope="col">Timp</th><th scope="col">Mod</th></tr></thead>
+        <tbody>{randuri}</tbody>
+      </table>
+    </div>
+    <p class="ec-fisa__note">
+      {ic("circle-info")} Calculate pe traseu rutier (OpenStreetMap), fără trafic.
+      Distanța până la Paradis International College este cea indicată de dezvoltator.
+    </p>
+  </section>
+
+  <section class="ec-section" id="harta" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Harta</span>
+        <h2>Vezi traseul <em>până la fiecare reper</em></h2></div>
+      <p class="ec-shead__p">
+        Apasă pe un reper și harta desenează traseul real. Poți filtra pe categorii și
+        comuta pe imagine din satelit.
+      </p>
+    </div>
+    <div class="ec-harta ec-rv" id="ecHarta" data-sursa="{r}assets/data/distante.json"
+         style="margin-top:2.5rem">
+      <div class="ec-harta__panza" data-panza></div>
+      <div class="ec-harta__ctrl" data-controale></div>
+      <div class="ec-harta__side">
+        <div class="ec-harta__head">
+          <b>Puncte de interes</b>
+          <span>Apasă pe un reper ca să vezi traseul pe hartă.</span>
         </div>
-        <p class="ec-calc__note">Distanțe orientative, măsurate pe traseu rutier. De confirmat.</p>
-      </div>
-      <div class="ec-media"><p>Hartă interactivă<br>puncte de interes<br>— de implementat —</p></div>
-    </div>
-  </section>
-
-  <section class="ec-section" style="padding-block:0 4rem">
-    <div class="ec-prose">
-      <h2>Ce înseamnă să locuiești în Păcurari</h2>
-      <p>
-        Zona s-a dezvoltat în jurul axei Păcurari, una dintre principalele artere de ieșire
-        din Iași spre nord-vest. Are transport public constant spre centru, magazine de
-        proximitate și acces rapid la Copou, unde se află cea mai mare parte a centrului
-        universitar ieșean.
-      </p>
-      <h3>Pentru cine este potrivită</h3>
-      <p>
-        Pentru familii tinere care vor spațiu verde fără să iasă din oraș, pentru cei care
-        lucrează în zona de nord-vest și pentru investitori: cererea de chirii este susținută
-        de apropierea de universități.
-      </p>
-      <h3>Cum ajungi</h3>
-      <p>
-        Accesul în Emerald City se face din Strada Ion Nistor. Din centrul Iașului sunt
-        aproximativ 7 km pe ruta Păcurari, iar ieșirea spre Botoșani, pe DN28, este la
-        aproximativ 2 km.
-      </p>
-      <h3>Ce se construiește în zonă</h3>
-      <p>
-        Emerald City este unul dintre cele mai mari ansambluri din zonă, cu 925 de apartamente
-        în 18 blocuri de tip parter plus trei etaje, pe un teren de cinci hectare din care
-        aproape o treime rămâne spațiu verde amenajat.
-      </p>
-    </div>
-  </section>
-
-  <section class="ec-section" style="padding-block:0 4rem">
-    <div class="ec-strip">
-      <div><h2>Vezi apartamentele disponibile</h2>
-        <p>925 de apartamente cu 1, 2 și 3 camere, cu filtre după buget, etaj și suprafață.</p></div>
-      <div class="ec-strip__cta">
-        <a class="ec-btn ec-btn--white" href="{r}apartamente-iasi/">Apartamente</a>
+        <div class="ec-harta__lista" data-lista></div>
+        <div class="ec-harta__foot">
+          <button class="ec-btn ec-btn--out" type="button" data-reset>Înapoi la ansamblu</button>
+        </div>
       </div>
     </div>
   </section>
-</div>"""
-    return pagina("Apartamente în Iași, zona Păcurari — ghid de zonă | Emerald City",
-                  "Ghid al zonei Păcurari din Iași: distanțe, transport, cui i se potrivește "
-                  "și ce se construiește. Emerald City, 925 de apartamente noi.",
-                  continut, r, None, "apartamente-iasi-pacurari/")
+
+  <section class="ec-section" id="cartier" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — În jur</span>
+        <h2>Ce ai <em>la îndemână</em></h2></div>
+      <p class="ec-shead__p">
+        Ce rezolvi fără să iei mașina și ce e la câteva minute de condus.
+      </p>
+    </div>
+    <div class="ec-fisa" style="margin-top:2.5rem">{cartier}</div>
+  </section>
+
+  <section class="ec-section" id="cui" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">05 — Pentru cine</span>
+        <h2>Cui i se potrivește <em>zona</em></h2></div>
+      <p class="ec-shead__p">Trei profiluri pentru care Păcurari are cel mai mult sens.</p>
+    </div>
+    <div class="ec-why" style="margin-top:2.5rem">{profiluri}</div>
+  </section>
+
+  <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">06 — Întrebări</span>
+        <h2>Despre zonă <em>și acces</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_ZONA)} întrebări despre poziție, distanțe și transport.
+      </p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  {showroom(r, "07")}
+</div>
+
+<script src="{r}assets/js/harta.js"></script>"""
+
+    return pagina("Apartamente în Iași, zona Păcurari — amplasament și distanțe | Emerald City",
+                  "Unde se află Emerald City în Iași, zona Păcurari: distanțe reale până la "
+                  "Copou, centru, universitate și școli, hartă interactivă cu traseu și ghid "
+                  "de zonă.",
+                  continut, r, schema, "apartamente-iasi-pacurari/")
 
 
 # ================================================================ stadiu ==
@@ -1689,7 +1926,7 @@ def pagina_stadiu():
   <section class="ec-section" id="vizite">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Vizite pe șantier</span>
-        <h2>Vino să vezi <em>cu ochii tăi</em></h2></div>
+        <h2>Vezi lucrările <em>pe viu</em></h2></div>
       <p class="ec-shead__p">
         Organizăm vizite însoțite, cu programare. Echipamentul de protecție îl punem noi
         la dispoziție.
@@ -1709,33 +1946,14 @@ def pagina_stadiu():
         <h3>Poți fotografia</h3>
         <p>Nu avem nimic de ascuns. Fotografiază liber ce te interesează.</p></div>
     </div>
-    <div class="ec-split" style="margin-top:var(--ec-gap)">
-      <div class="ec-panel">
-        <p class="ec-eyebrow">Programare</p>
-        <h2 class="ec-title" style="margin:1rem 0">Rezervă o vizită</h2>
-        <p class="ec-body" style="max-width:44ch">
-          Spune-ne când îți e la îndemână și confirmăm în aceeași zi lucrătoare.
-        </p>
-        <div class="ec-acces" style="margin-top:2rem">
-          <div><span class="ec-acces__i">{ic("location-dot")}</span>
-            <div><b>Birou de vânzări</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
-          <div><span class="ec-acces__i">{ic("phone")}</span>
-            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("clock")}</span>
-            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
-        </div>
-        <div class="ec-cta__btns" style="margin-top:2rem">
-          <a class="ec-btn" href="tel:+40757707080">{ic("phone")} Sună acum</a>
-          <a class="ec-btn ec-btn--out" href="{r}proiect/">{ic("compass-drafting")} Vezi proiectul</a>
-        </div>
-      </div>
-      {formular(None, r)}
-    </div>
+    
   </section>
+
+  {showroom(r, "04")}
 
   <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">04 — Întrebări</span>
+      <div><span class="ec-shead__n">05 — Întrebări</span>
         <h2>Despre execuție <em>și termene</em></h2></div>
       <p class="ec-shead__p">
         {len(FAQ_STADIU)} întrebări despre cum urmărești progresul și ce garantează contractul.
@@ -2254,27 +2472,7 @@ def pagina_proiect(unitati):
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
 
-  <section class="ec-section" style="padding-block:0 var(--ec-section)">
-    <div class="ec-split">
-      <div class="ec-panel">
-        <p class="ec-eyebrow">Vizionare</p>
-        <h2 class="ec-title" style="margin:1rem 0">Vino să vezi terenul</h2>
-        <p class="ec-body" style="max-width:44ch">
-          Amplasamentul, apartamentul-model și planurile de ansamblu se înțeleg
-          mult mai bine pe loc decât pe ecran.
-        </p>
-        <div class="ec-acces" style="margin-top:2rem">
-          <div><span class="ec-acces__i">{ic("location-dot")}</span>
-            <div><b>Birou de vânzări</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
-          <div><span class="ec-acces__i">{ic("phone")}</span>
-            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("clock")}</span>
-            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
-        </div>
-      </div>
-      {formular(None, r)}
-    </div>
-  </section>
+  {showroom(r, "10")}
 </div>
 
 <script>
@@ -2959,35 +3157,7 @@ def pagina_despre():
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
 
-  <section class="ec-section" id="birou" style="padding-block:0 var(--ec-section)">
-    <div class="ec-shead">
-      <div><span class="ec-shead__n">12 — Birou de vânzări</span>
-        <h2>Vino să vezi <em>pe teren</em></h2></div>
-      <p class="ec-shead__p">
-        O vizionare durează aproximativ 40 de minute și lămurește mai mult decât orice
-        pagină de site.
-      </p>
-    </div>
-    <div class="ec-split" style="margin-top:2.5rem">
-      <div class="ec-panel">
-        <div class="ec-acces">
-          <div><span class="ec-acces__i">{ic("location-dot")}</span>
-            <div><b>Adresă</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
-          <div><span class="ec-acces__i">{ic("phone")}</span>
-            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("envelope")}</span>
-            <div><b>E-mail</b><span><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("clock")}</span>
-            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
-        </div>
-        <div class="ec-cta__btns" style="margin-top:2rem">
-          <a class="ec-btn" href="tel:+40757707080">{ic("phone")} Sună acum</a>
-          <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
-        </div>
-      </div>
-      {formular(None, r)}
-    </div>
-  </section>
+  {showroom(r, "12")}
 </div>
 
 <script>
