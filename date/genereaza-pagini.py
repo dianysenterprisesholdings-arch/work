@@ -2676,8 +2676,12 @@ def pagina_categorie(nr, unitati, grupe):
     </div>
     <div class="ec-pgal ec-pgal--3" style="margin-top:2.5rem">{galerie}</div>
   </section>
+</div>
 
-  <section class="ec-section" id="selectie" style="padding-block:0 var(--ec-section)">
+{tur_virtual(r)}
+
+<div class="ec-wrap">
+  <section class="ec-section" id="selectie" style="padding-block:var(--ec-section) 0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Selecție rapidă</span>
         <h2>Selecție <em>după etaj și dotări</em></h2></div>
