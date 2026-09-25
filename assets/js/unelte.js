@@ -63,6 +63,12 @@
       oNet.textContent = pct(anNet / pret * 100);
       oAni.textContent = (pret / anNet).toFixed(1).replace('.', ',') + ' ani';
     };
+    // valori venite din pagina unei unitati sau dintr-un scenariu (?pret=&su=)
+    try {
+      const q = new URLSearchParams(location.search);
+      if (q.get('pret')) pr.value = Math.min(Math.max(+q.get('pret'), +pr.min), +pr.max);
+      if (q.get('su')) ch.value = Math.min(Math.max(Math.round(+q.get('su') * 6.2 / 10) * 10, +ch.min), +ch.max);
+    } catch (e) {}
     [pr, ch, gl].forEach(x => x.addEventListener('input', calc));
     calc();
   }

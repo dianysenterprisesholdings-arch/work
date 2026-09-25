@@ -2700,3 +2700,83 @@ svg .pa { fill: var(--ec-brass); }
 .ec-lst__carduri { margin-bottom: 0; }
 .ec-lst__carduri .ec-unit { border: 1px solid var(--ec-line); border-radius: var(--ec-r); }
 .ec-lst__carduri .ec-unit.is-sold { opacity: .6; }
+
+
+/* --- filtre v2: grupuri segmentate, pe un rand ------------------------- */
+.ec-filters__row { display: grid; gap: 1.5rem clamp(1.25rem, 3vw, 2rem); padding: 0 clamp(1.25rem, 3vw, 1.75rem) 1.6rem; }
+.ec-filters__h + .ec-filters__row { padding-top: clamp(1.25rem, 3vw, 1.75rem); }
+.ec-filters__row + .ec-filters__row { border-top: 1px solid var(--ec-line); padding-top: 1.5rem; }
+@media (min-width: 46rem) { .ec-filters__row--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ec-fld label {
+  display: flex; align-items: center; gap: .5rem; font-size: var(--ec-micro); font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ec-ink-60); margin-bottom: .7rem;
+}
+.ec-fld label i { color: var(--ec-brass); font-size: .8rem; width: 1rem; text-align: center; }
+.ec-chips--seg {
+  display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0;
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden; background: var(--ec-white);
+}
+.ec-chips--seg .ec-chip {
+  border: 0; border-radius: 0; padding: .7rem .4rem; text-align: center; white-space: nowrap;
+  font-weight: 500; color: var(--ec-ink-60); position: relative;
+}
+.ec-chips--seg .ec-chip + .ec-chip { border-left: 1px solid var(--ec-line); }
+.ec-chips--seg .ec-chip:hover { background: var(--ec-mint); color: var(--ec-emerald); }
+.ec-chips--seg .ec-chip.is-on { background: var(--ec-emerald); color: #fff; border-color: var(--ec-emerald); }
+.ec-chips--seg .ec-chip.is-on + .ec-chip { border-left-color: var(--ec-emerald); }
+.ec-chips--bloc { display: grid; grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr)); gap: .4rem; }
+.ec-chips--bloc .ec-chip {
+  padding: .6rem 0; text-align: center; border-radius: var(--ec-r); font-weight: 500;
+  font-variant-numeric: tabular-nums; color: var(--ec-ink-60);
+}
+.ec-range--v2 { gap: 1rem; border: 1px solid var(--ec-line); border-radius: var(--ec-r); padding: .55rem .9rem; background: var(--ec-white); min-height: 2.9rem; }
+.ec-range--v2 input { accent-color: var(--ec-emerald); }
+.ec-range--v2 output {
+  font-family: var(--ec-disp); font-weight: 600; font-size: .95rem; color: var(--ec-emerald);
+  min-width: 6.5ch; text-align: right;
+}
+@media (max-width: 30rem) {
+  .ec-chips--seg { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); }
+  .ec-chips--seg .ec-chip + .ec-chip { border-left: 0; }
+  .ec-chips--seg .ec-chip:nth-child(even) { border-left: 1px solid var(--ec-line); }
+  .ec-chips--seg .ec-chip:nth-child(n+3) { border-top: 1px solid var(--ec-line); }
+}
+
+
+/* ==========================================================================
+   Investiție — calculator + metodă, scenarii, notă de subsol
+   ========================================================================== */
+.ec-inv2 { display: grid; gap: var(--ec-gap); align-items: start; }
+@media (min-width: 60rem) { .ec-inv2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ec-inv2 .ec-calc { border: 1px solid var(--ec-line); border-radius: var(--ec-r); height: 100%; }
+.ec-inv2 .ec-dot, .ec-inv2 .ec-prose { height: 100%; }
+.ec-inv2 .ec-prose { border: 1px solid var(--ec-line); border-radius: var(--ec-r); }
+.ec-scen3 { display: grid; gap: var(--ec-gap); }
+@media (min-width: 56rem) { .ec-scen3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ec-scen {
+  background: var(--ec-white); border: 1px solid var(--ec-line); border-radius: var(--ec-r);
+  padding: clamp(1.4rem, 2.5vw, 1.9rem); display: flex; flex-direction: column; gap: 1.1rem;
+  transition: transform var(--ec-fast), box-shadow var(--ec-fast);
+}
+.ec-scen:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px rgba(20,32,28,.35); }
+.ec-scen__h { display: flex; gap: .9rem; align-items: center; }
+.ec-scen__ic {
+  width: 2.75rem; height: 2.75rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--ec-emerald); color: var(--ec-brass); font-size: 1rem; flex: none;
+}
+.ec-scen__h b { display: block; font-family: var(--ec-disp); font-size: 1.15rem; font-weight: 600; }
+.ec-scen__h em { display: block; font-style: normal; font-size: var(--ec-small); color: var(--ec-ink-60); }
+.ec-scen__big { padding: 1rem 0; border-block: 1px solid var(--ec-line); }
+.ec-scen__big b { display: block; font-family: var(--ec-disp); font-size: 2.1rem; font-weight: 600; color: var(--ec-emerald); line-height: 1; font-variant-numeric: tabular-nums; }
+.ec-scen__big span { display: block; margin-top: .35rem; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-scen__l { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; font-size: var(--ec-small); }
+.ec-scen__l li { display: flex; justify-content: space-between; gap: 1rem; }
+.ec-scen__l span { color: var(--ec-ink-60); }
+.ec-scen__l b { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.ec-scen__go {
+  margin-top: auto; display: inline-flex; gap: .5rem; align-items: center; font-size: var(--ec-micro);
+  letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--ec-emerald);
+}
+.ec-scen__go i { color: var(--ec-brass); }
+.ec-inv__foot { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between; margin-top: 1.5rem; }
+.ec-inv__foot p { max-width: 60ch; }

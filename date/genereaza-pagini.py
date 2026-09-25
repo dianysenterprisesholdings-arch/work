@@ -854,7 +854,7 @@ def calc_rata(pret):
 def calc_randament(pret, chirie):
     return f"""<div class="ec-calc" data-calc-randament>
   <h3>Calculator de randament</h3>
-  <p class="ec-calc__sub">Estimează randamentul unei achiziții pentru închiriere.</p>
+  <p class="ec-calc__sub">Estimare orientativă pentru o achiziție destinată închirierii.</p>
   <div class="ec-calc__f">
     <div>
       <label>Preț de achiziție <span class="val" data-opret></span></label>
@@ -1587,9 +1587,15 @@ def pagina_listare(unitati):
             (f"{su_min:.0f}–{su_max:.0f} m²", "Suprafață utilă", "ruler-combined", ""),
         ])
 
-    def grup(eticheta, id_, continut):
-        return (f'<div class="ec-field"><label id="{id_}">{eticheta}</label>'
-                f'<div class="ec-chips" role="group" aria-labelledby="{id_}">{continut}</div></div>')
+    def grup(eticheta, id_, continut, mod="seg", pict="", span=""):
+        ic_html = f'<i class="fa-solid fa-{pict}" aria-hidden="true"></i>' if pict else ""
+        return (f'<div class="ec-fld{(" ec-fld--" + span) if span else ""}"><label id="{id_}">{ic_html}{eticheta}</label>'
+                f'<div class="ec-chips ec-chips--{mod}" role="group" aria-labelledby="{id_}">{continut}</div></div>')
+
+    def glisor(eticheta, id_, out_id, pict, atribute, val):
+        return (f'<div class="ec-fld"><label for="{id_}"><i class="fa-solid fa-{pict}" aria-hidden="true"></i>{eticheta}</label>'
+                f'<div class="ec-range ec-range--v2"><input type="range" id="{id_}" {atribute}>'
+                f'<output for="{id_}" id="{out_id}">{val}</output></div></div>')
 
     continut = f"""<section class="ec-phero">
   {imagine("living-02", "", r, "100vw", eager=True)}
@@ -1632,22 +1638,24 @@ def pagina_listare(unitati):
         <span class="ec-filters__act" id="fActive" aria-live="polite"></span>
         <button class="ec-filters__reset" id="fReset" type="button">{ic("rotate-left")} Resetare</button>
       </div>
-      <div class="ec-filters__grid">
-        {grup("Camere", "l1", ''.join(chip('camere', n, camere_txt(n)) for n in (1, 2, 3)))}
-        {grup("Etaj", "l2", ''.join(chip('etaj', n, etaj_txt(n)) for n in (0, 1, 2, 3)))}
-        {grup("Etapa", "l3", ''.join(chip('etapa', et, 'Etapa ' + et) for et in ('I', 'II', 'III')))}
-        {grup("Stare", "l4", ''.join(chip('status', st, STATUS_ET[st]) for st in ('disponibil', 'rezervat', 'vandut')))}
-        {grup("Compartimentare", "l7", ''.join(chip('tip', t, 'Tip ' + t) for t in tipuri))}
-        {grup("Dotări", "l5", chip('extra', 'balcon', 'Balcon') + chip('extra', 'curte', 'Curte proprie')
-                             + chip('extra', 'boxa', 'Boxă') + chip('extra', 'parcare', 'Parcare subterană'))}
-        <div class="ec-field"><label for="fPret">Preț maxim</label>
-          <div class="ec-range"><input type="range" id="fPret" min="50000" max="130000" step="1000" value="130000">
-            <output for="fPret" id="oPret">130.000 €</output></div></div>
-        <div class="ec-field"><label for="fSu">Suprafață minimă</label>
-          <div class="ec-range"><input type="range" id="fSu" min="36" max="81" step="1" value="36">
-            <output for="fSu" id="oSu">36 m²</output></div></div>
-        {grup("Orientare", "l8", ''.join(chip('orientare', o, o) for o in orientari))}
-        {grup("Bloc", "l6", ''.join(chip('corp', c, bloc(c)) for c in blocuri))}
+      <div class="ec-filters__row ec-filters__row--3">
+        {grup("Camere", "l1", ''.join(chip('camere', n, camere_txt(n)) for n in (1, 2, 3)), pict="door-open")}
+        {grup("Etaj", "l2", ''.join(chip('etaj', n, etaj_txt(n)) for n in (0, 1, 2, 3)), pict="stairs")}
+        {grup("Etapa de construcție", "l3", ''.join(chip('etapa', et, 'Etapa ' + et) for et in ('I', 'II', 'III')), pict="helmet-safety")}
+      </div>
+      <div class="ec-filters__row ec-filters__row--3">
+        {grup("Stare", "l4", ''.join(chip('status', st, STATUS_ET[st]) for st in ('disponibil', 'rezervat', 'vandut')), pict="circle-check")}
+        {grup("Compartimentare", "l7", ''.join(chip('tip', t, 'Tip ' + t) for t in tipuri), pict="vector-square")}
+        {grup("Orientare", "l8", ''.join(chip('orientare', o, o) for o in orientari), pict="compass")}
+      </div>
+      <div class="ec-filters__row ec-filters__row--3">
+        {glisor("Preț maxim", "fPret", "oPret", "tag", 'min="50000" max="130000" step="1000" value="130000"', "130.000 €")}
+        {glisor("Suprafață utilă minimă", "fSu", "oSu", "ruler-combined", 'min="36" max="81" step="1" value="36"', "36 m²")}
+        {grup("Dotări", "l5", chip('extra', 'balcon', 'Balcon') + chip('extra', 'curte', 'Curte')
+                             + chip('extra', 'boxa', 'Boxă') + chip('extra', 'parcare', 'Parcare'), pict="star")}
+      </div>
+      <div class="ec-filters__row">
+        {grup("Bloc", "l6", ''.join(chip('corp', c, bloc(c)) for c in blocuri), mod="bloc", pict="building")}
       </div>
     </div>
   </section>
@@ -2647,112 +2655,329 @@ def chirie_estimata(su):
     return int(round(su * 6.2 / 10) * 10)
 
 
+FAQ_INV = [
+    ("Ce randament brut au apartamentele din Emerald City?",
+     "La prețurile de listare și la chiriile observate în zona Păcurari, randamentul brut estimat "
+     "se situează între aproximativ 4,5% și 5,5% pe an, cel mai ridicat fiind la garsoniere. "
+     "Cifrele sunt estimări, nu valori garantate."),
+    ("Cum este estimată chiria lunară?",
+     "Chiria este calculată la aproximativ 6,2 €/m² util pe lună, o medie observată pentru "
+     "locuințe noi, finisate la cheie, în zona Păcurari. Valoarea reală depinde de mobilare, "
+     "etaj, orientare și de momentul închirierii."),
+    ("Care este diferența dintre randamentul brut și cel net?",
+     "Randamentul brut împarte chiria anuală la prețul de achiziție. Cel net scade perioadele "
+     "neînchiriate, impozitul pe venit, cheltuielile de administrare și reparațiile. Calculatorul "
+     "aplică un cost de aproximativ 8% și un grad de neocupare configurabil."),
+    ("Ce costuri nu apar în calculator?",
+     "Taxele notariale, intabularea, TVA-ul aferent, mobilarea și echiparea inițială, precum și "
+     "eventualul comision al unei firme de administrare. Pentru o garsonieră, mobilarea completă "
+     "pornește în general de la câteva mii de euro."),
+    ("Apartamentele se predau finisate, gata de închiriat?",
+     "Da. Predarea se face la cheie: parchet, gresie, faianță, obiecte sanitare, centrală proprie, "
+     "încălzire în pardoseală, uși interioare și tâmplărie cu geam tripan. Rămân de adăugat "
+     "mobilierul și electrocasnicele."),
+    ("Pot fi achiziționate mai multe unități în același bloc?",
+     "Da. Pentru achiziții multiple, echipa de vânzări poate pregăti o selecție de unități pe "
+     "același palier sau în același bloc, cu o propunere comercială dedicată, în showroom."),
+    ("Ce cerere de închiriere există în zona Păcurari?",
+     "Iașul este al doilea centru universitar din țară, cu peste 60.000 de studenți, la care se "
+     "adaugă angajații din IT și servicii. Păcurari se află la 4,8 km de centru și la circa 5 km "
+     "de Copou, pe un culoar de transport public direct."),
+    ("Informațiile de pe această pagină reprezintă consultanță de investiții?",
+     "Nu. Cifrele sunt estimări bazate pe prețuri de listare și pe chirii observate în zonă și au "
+     "rol informativ. Decizia de achiziție aparține cumpărătorului, care poate consulta un "
+     "specialist financiar sau fiscal independent."),
+]
+
+
 def pagina_investitie(unitati):
     r = "../"
     disp = [u for u in unitati if u["status"] == "disponibil"]
     gars = [u for u in disp if u["nr_camere"] == 1]
     ref = min(gars, key=lambda u: u["pret_eur"]) if gars else min(disp, key=lambda u: u["pret_eur"])
     ch_ref = chirie_estimata(ref["su_utila"])
+    rand = lambda u: chirie_estimata(u["su_utila"]) * 12 / u["pret_eur"] * 100
+    r_max = max(rand(u) for u in disp)
+    r_min = min(rand(u) for u in disp)
+    ch_min = min(chirie_estimata(u["su_utila"]) for u in disp)
 
     # cele mai bune randamente estimate
-    scor = sorted(disp, key=lambda u: -(chirie_estimata(u["su_utila"]) * 12 / u["pret_eur"]))[:12]
+    scor = sorted(disp, key=lambda u: -rand(u))[:12]
     randuri = ""
     for u in scor:
         ch = chirie_estimata(u["su_utila"])
-        y = ch * 12 / u["pret_eur"] * 100
         randuri += f"""<tr>
-          <td><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
-          <td>{camere_txt(u['nr_camere'])}</td>
+          <td><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/"><b>{e(u['unit_id'])}</b></a></td>
+          <td>{camere_txt(u['nr_camere'])} · tip {e(u['tip_apartament'])}</td>
+          <td>{etaj_txt(u['etaj'])}, bloc {bloc(u['corp'])}</td>
           <td class="num">{mp(u['su_utila'])}</td>
-          <td class="num">{euro(u['pret_eur'])}</td>
+          <td class="num"><b>{euro(u['pret_eur'])}</b></td>
           <td class="num">{euro(ch)}</td>
-          <td class="num"><b>{y:.2f}</b>%</td>
+          <td class="num"><b style="color:var(--ec-emerald)">{f"{rand(u):.2f}".replace(".", ",")}%</b></td>
         </tr>"""
 
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Investiție</nav>
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b>{e(val)}</b><em>{e(et)}</em></span></div>'
+        for val, et, pic in [
+            (str(len(disp)), "Apartamente disponibile", "key"),
+            (f"până la {r_max:.1f}%".replace(".", ","), "Randament brut estimat", "percent"),
+            (f"de la {euro(ch_min)}", "Chirie lunară estimată", "house-chimney"),
+            (euro(min(u["pret_eur"] for u in disp)), "Preț de pornire", "tag"),
+        ])
 
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Investiție</p>
-    <h1 style="margin-top:1rem">Investiție în apartamente noi în Iași</h1>
-    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">
-      Emerald City are {len(gars)} de garsoniere disponibile — formatul cel mai cerut pe piața de
-      închirieri din Iași, unde cererea vine constant dinspre studenți și tineri angajați.
-      Calculează mai jos ce randament ar aduce o achiziție.
+    # trei scenarii, cate unul pe numar de camere
+    scen = ""
+    profil = {1: ("Garsonieră", "Student sau tânăr angajat", "user-graduate"),
+              2: ("2 camere", "Cuplu tânăr sau doi colegi", "user-group"),
+              3: ("3 camere", "Familie sau relocare corporate", "people-roof")}
+    for n in (1, 2, 3):
+        lot = [u for u in disp if u["nr_camere"] == n]
+        if not lot:
+            continue
+        u = min(lot, key=lambda x: x["pret_eur"])
+        ch = chirie_estimata(u["su_utila"])
+        y = rand(u)
+        net = ch * 12 * .92 * .92 / u["pret_eur"] * 100
+        titlu, cine, pic = profil[n]
+        scen += f"""<article class="ec-scen ec-rv">
+      <div class="ec-scen__h"><span class="ec-scen__ic">{ic(pic)}</span>
+        <span><b>{titlu}</b><em>{cine}</em></span></div>
+      <div class="ec-scen__big"><b>{y:.1f}%</b><span>randament brut estimat</span></div>
+      <ul class="ec-scen__l">
+        <li><span>Unitate de referință</span><b>{e(u['unit_id'])} · {mp(u['su_utila'])}</b></li>
+        <li><span>Preț de achiziție</span><b>{euro(u['pret_eur'])}</b></li>
+        <li><span>Chirie lunară estimată</span><b>{euro(ch)}</b></li>
+        <li><span>Randament net orientativ</span><b>{net:.1f}%</b></li>
+        <li><span>Amortizare orientativă</span><b>{u['pret_eur'] / (ch * 12 * .92 * .92):.0f} ani</b></li>
+        <li><span>Disponibile în această categorie</span><b>{len(lot)}</b></li>
+      </ul>
+      <a class="ec-scen__go" href="{r}investitie-apartamente-iasi/?pret={u['pret_eur']}&amp;su={u['su_utila']}#calculator">
+        {ic("calculator")} Simulare cu aceste valori</a>
+    </article>""".replace(f"{y:.1f}%", f"{y:.1f}%".replace(".", ",")).replace(f"{net:.1f}%", f"{net:.1f}%".replace(".", ","))
+
+    argumente = "".join(
+        f'<div class="ec-why__i ec-rv">{ic(pic)}<h3>{e(t)}</h3><p>{e(d)}</p></div>'
+        for pic, t, d in [
+            ("graduation-cap", "Cerere constantă de chirii",
+             "Al doilea centru universitar din țară și un pol IT în creștere. Cererea pentru "
+             "garsoniere și apartamente cu 2 camere nu depinde de un singur angajator."),
+            ("route", "4,8 km de centru, 5 km de Copou",
+             "Transport public direct spre universități și spre centrul orașului. Zona Păcurari "
+             "este printre primele căutate de chiriașii care lucrează sau studiază în nord-vestul Iașului."),
+            ("building-circle-check", "Clădire nouă, costuri de exploatare mici",
+             "Anvelopă termică conform normelor actuale, centrală proprie și contorizare "
+             "individuală: cheltuieli lunare previzibile și reparații rare în primii ani."),
+            ("handshake", "Direct de la dezvoltator",
+             "Fără comision de intermediere la achiziție și cu preț afișat pentru fiecare unitate. "
+             "Economia se regăsește direct în randament."),
+        ])
+
+    ipoteze = panou_dotari("Metoda de calcul", "calculator", [
+        ("house-chimney", "Chirie estimată la circa 6,2 €/m² util pe lună"),
+        ("calendar-days", "Grad de neocupare configurabil, implicit 8% pe an"),
+        ("percent", "Cheltuieli de administrare, impozit și reparații: circa 8%"),
+        ("scale-balanced", "Randament brut = chirie anuală / preț de achiziție"),
+        ("hourglass-half", "Amortizare = preț de achiziție / venit net anual"),
+        ("circle-info", "Taxe notariale, mobilare și TVA nu sunt incluse"),
+    ], "6 ipoteze")
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_INV)
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "WebPage", "name": "Investiție în apartamente noi în Iași",
+             "url": "https://emerald-city.ro/investitie-apartamente-iasi/"},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_INV]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("living-01", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Investiție</nav>
+    <p class="ec-eyebrow">Investiție și randament</p>
+    <h1>Investiție în apartamente noi, în Iași</h1>
+    <p class="ec-phero__sub">
+      {len(gars)} de garsoniere și {len(disp) - len(gars)} de apartamente cu 2 și 3 camere disponibile,
+      la prețuri afișate. Calculator de randament, selecția celor mai bune unități și
+      costurile care trebuie luate în calcul înainte de achiziție.
     </p>
-  </header>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#calculator">{ic("calculator")} Calculator de randament</a>
+      <a class="ec-btn ec-btn--outlight" href="#selectie">{ic("chart-line")} Cele mai bune randamente</a>
+    </div>
+  </div>
+</section>
 
-  <section class="ec-section" style="padding-block:0 3rem">
-    {calc_randament(ref['pret_eur'], ch_ref)}
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="calculator" style="padding-block:var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Calculator</span>
+        <h2>Randamentul <em>unei achiziții</em></h2></div>
+      <p class="ec-shead__p">
+        Prețul, chiria și gradul de neocupare se ajustează liber. Rezultatele se recalculează
+        instant și sunt orientative.
+      </p>
+    </div>
+    <div class="ec-inv2" style="margin-top:2.5rem">
+      {calc_randament(ref['pret_eur'], ch_ref)}
+      {ipoteze}
+    </div>
   </section>
 
-  <section class="ec-section" style="padding-block:0 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Cele mai bune randamente estimate</h2>
-    <div class="ec-table">
+  <section class="ec-section" id="scenarii" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Scenarii</span>
+        <h2>Trei profiluri <em>de închiriere</em></h2></div>
+      <p class="ec-shead__p">
+        Pentru fiecare număr de camere, cea mai accesibilă unitate disponibilă și cifrele
+        ei orientative.
+      </p>
+    </div>
+    <div class="ec-scen3" style="margin-top:2.5rem">{scen}</div>
+  </section>
+
+  <section class="ec-section" id="selectie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Selecție</span>
+        <h2>Top 12 <em>randamente estimate</em></h2></div>
+      <p class="ec-shead__p">
+        Ordonate după randamentul brut. Fiecare cod deschide pagina unității, cu plan,
+        galerie și simulare de rată.
+      </p>
+    </div>
+    <div class="ec-table" style="margin-top:2.5rem">
       <table>
         <caption class="ec-sr">Apartamente ordonate după randamentul brut estimat</caption>
-        <thead><tr><th>Cod</th><th>Tip</th><th>Suprafață</th><th>Preț</th>
-          <th>Chirie estimată</th><th>Randament brut</th></tr></thead>
+        <thead><tr><th>Cod</th><th>Compartimentare</th><th>Poziție</th><th>Suprafață</th>
+          <th>Preț</th><th>Chirie estimată</th><th>Randament brut</th></tr></thead>
         <tbody>{randuri}</tbody>
       </table>
     </div>
-    <p class="ec-calc__note">
-      Chiriile sunt estimări de piață pentru zona Păcurari, calculate la aproximativ 6,2 €/m² util.
-      Nu sunt valori garantate și nu constituie consultanță de investiții.
-    </p>
-  </section>
-
-  <section class="ec-section" style="padding-block:0 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">De ce Iași și de ce zona Păcurari</h2>
-    <div class="ec-why">
-      <div class="ec-why__i"><h3>Cerere constantă de chirii</h3>
-        <p>Iașul are unul dintre cele mai mari centre universitare din țară. Cererea de garsoniere
-           și apartamente de două camere nu depinde de un singur angajator.</p></div>
-      <div class="ec-why__i"><h3>Aproape de Copou</h3>
-        <p>Circa 5 km până în Copou și 6 km până la Universitatea „Alexandru Ioan Cuza”,
-           zona cu cea mai mare concentrare de studenți.</p></div>
-      <div class="ec-why__i"><h3>Locuință nouă, costuri mici</h3>
-        <p>Clădire nouă înseamnă cheltuieli de întreținere mai mici și mai puține reparații
-           neprevăzute decât într-un bloc vechi.</p></div>
-      <div class="ec-why__i"><h3>Direct de la dezvoltator</h3>
-        <p>Fără comision de intermediere la achiziție — un cost pe care îl recuperezi
-           din primele luni de chirie.</p></div>
+    <div class="ec-inv__foot">
+      <p class="ec-calc__note" style="margin:0">
+        Chirii estimate la aproximativ 6,2 €/m² util pentru zona Păcurari. Valorile nu sunt
+        garantate și nu constituie consultanță de investiții.
+      </p>
+      <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/?status=disponibil&amp;camere=1">
+        {ic("table-list")} Toate garsonierele disponibile</a>
     </div>
   </section>
+</div>
 
-  <section class="ec-section" style="padding-block:0 4rem">
-    <div class="ec-split">
-      {formular(None, r)}
-      <div class="ec-prose">
-        <h2>Ce trebuie știut înainte</h2>
-        <h3>Randament brut sau net</h3>
-        <p>
-          Randamentul brut împarte chiria anuală la prețul de achiziție. Cel net scade
-          perioadele neînchiriate, impozitul, cheltuielile de administrare și reparațiile.
-          Diferența dintre cele două este de obicei de un punct procentual sau mai mult.
-        </p>
-        <h3>Costuri care nu apar în calculator</h3>
-        <p>
-          Taxele notariale, intabularea, mobilarea inițială și eventualul comision de
-          administrare nu sunt incluse. Pentru o garsonieră, mobilarea completă pornește
-          în general de la câteva mii de euro.
-        </p>
-        <h3>Nu este consultanță financiară</h3>
-        <p>
-          Cifrele de pe această pagină sunt estimări bazate pe prețuri de listare și pe chirii
-          observate în zonă. Decizia de investiție rămâne a ta; pentru o evaluare completă
-          discută cu un consultant financiar.
-        </p>
+<section class="ec-band" id="argumente">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">04 — Argumente</span>
+          <h2>De ce Iași <em>și de ce Păcurari</em></h2></div>
+        <p class="ec-shead__p">Patru factori care susțin cererea de închiriere pe termen lung.</p>
+      </div>
+      <div class="ec-why" style="margin-top:2.5rem">{argumente}</div>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="pasi" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">05 — Parcurs</span>
+        <h2>De la selecție <em>la primul chiriaș</em></h2></div>
+      <p class="ec-shead__p">Trei etape, cu documente clare și termene cunoscute de la început.</p>
+    </div>
+    <div class="ec-steps" style="margin-top:2.5rem">
+      <div class="ec-step ec-rv">
+        <div class="ec-step__n">01</div>
+        <h3>Selecție și rezervare</h3>
+        <p>Alegerea unității din lista de disponibilitate, vizionarea apartamentului-model
+           și rezervarea, cu blocarea prețului afișat.</p>
+      </div>
+      <div class="ec-step ec-rv" data-d="1">
+        <div class="ec-step__n">02</div>
+        <h3>Antecontract și plată</h3>
+        <p>Avans la antecontract, apoi tranșe legate de stadiul lucrărilor. Plata se poate face
+           din fonduri proprii sau prin credit ipotecar.</p>
+      </div>
+      <div class="ec-step ec-rv" data-d="2">
+        <div class="ec-step__n">03</div>
+        <h3>Predare la cheie și închiriere</h3>
+        <p>Recepția apartamentului finisat, intabularea și, la cerere, recomandarea unui
+           partener de administrare pentru închiriere.</p>
       </div>
     </div>
   </section>
-</div>"""
+
+  <section class="ec-section" id="informare" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">06 — Informare</span>
+        <h2>Ce trebuie <em>luat în calcul</em></h2></div>
+      <p class="ec-shead__p">Elementele care diferențiază o estimare de rezultatul real.</p>
+    </div>
+    <div class="ec-inv2" style="margin-top:2.5rem">
+      <div class="ec-prose">
+        <h2>Randament brut și randament net</h2>
+        <p>
+          Randamentul brut împarte chiria anuală la prețul de achiziție. Cel net scade
+          perioadele neînchiriate, impozitul pe venit, cheltuielile de administrare și
+          reparațiile. Diferența dintre cele două este, de regulă, de cel puțin un punct procentual.
+        </p>
+        <h3>Costuri care nu apar în calculator</h3>
+        <p>
+          Taxele notariale, intabularea, TVA-ul aferent, mobilarea și echiparea inițială și
+          eventualul comision de administrare nu sunt incluse. Pentru o garsonieră, mobilarea
+          completă pornește în general de la câteva mii de euro.
+        </p>
+        <h3>Caracterul informativ al cifrelor</h3>
+        <p>
+          Valorile de pe această pagină sunt estimări bazate pe prețuri de listare și pe chirii
+          observate în zonă. Nu reprezintă consultanță financiară sau fiscală; decizia de achiziție
+          aparține cumpărătorului, care poate consulta un specialist independent.
+        </p>
+      </div>
+      {panou_dotari("Avantajele unei locuințe noi", "building-circle-check", [
+          ("shield-halved", "Garanție de structură și de finisaje, conform legii"),
+          ("fire-burner", "Centrală proprie și contorizare individuală"),
+          ("temperature-arrow-down", "Consum redus: anvelopă termică și geam tripan"),
+          ("couch", "Predare la cheie: chiriașul se poate muta după mobilare"),
+          ("square-parking", "Parcare subterană și boxă, la cerere"),
+          ("file-signature", "Documentație completă: autorizații și intabulare"),
+      ], "6 elemente")}
+    </div>
+  </section>
+
+  <section class="ec-section" id="intrebari" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">07 — Întrebări</span>
+        <h2>Despre <em>investiție și randament</em></h2></div>
+      <p class="ec-shead__p">{len(FAQ_INV)} întrebări despre chirii, costuri, cerere și metodă de calcul.</p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    {cta_dublu(r, "investitie")}
+  </section>
+
+  {showroom(r, "08")}
+</div>
+"""
 
     return pagina(
         "Investiție în apartamente noi în Iași — randament | Emerald City",
         "Calculator de randament pentru apartamente noi în Iași, zona Păcurari. "
         f"{len(gars)} de garsoniere disponibile, cu estimări de chirie și amortizare.",
-        continut, r, None, "investitie-apartamente-iasi/")
+        continut, r, schema, "investitie-apartamente-iasi/", "living-01")
 
 
 # ======================================================= comparator ==
