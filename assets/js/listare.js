@@ -89,7 +89,75 @@
       <a class="ec-unit__link" href="../${u[F.id].toLowerCase()}/" aria-label="${EN ? 'Apartment' : 'Apartamentul'} ${u[F.id]}"></a>
       <div class="ec-unit__top">
         <span class="ec-unit__id">${u[F.id]}</span>
-        `);
+        <span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span>
+      </div>
+      <div class="ec-unit__t">${cam} · ${mp(u[F.su])}</div>
+      <div class="ec-unit__meta">
+        <span>${EN ? 'Building' : 'Blocul'} ${bloc(u[F.corp])}</span><span>${etajTxt(u[F.etaj])}</span>
+        <span>Tip ${u[F.tip]}</span><span>${u[F.orientare]}</span>
+      </div>
+      <div class="ec-unit__foot">
+        <span class="ec-unit__price">${euro(u[F.pret])}</span>
+        <span class="ec-unit__ppm">${EN ? '€' + Math.round(ppm(u)) + '/m²' : Math.round(ppm(u)) + ' €/m²'}</span>
+      </div>
+    </article>`;
+  }
+
+  function scrieActive() {
+    const el = $('#fActive');
+    if (!el) return;
+    const n = ['camere','etaj','etapa','status','corp','extra','orientare','tip']
+      .reduce((a, g) => a + stare[g].size, 0)
+      + (stare.pretMax !== 130000 || stare.pretMin !== 0 ? 1 : 0)
+      + (stare.suMin !== 36 ? 1 : 0);
+    el.textContent = EN ? (n ? (n === 1 ? '1 active filter' : n + ' active filters') : 'No active filter')
+                        : (n ? (n === 1 ? '1 criteriu activ' : n + ' criterii active') : 'Niciun criteriu activ');
+    el.classList.toggle('is-on', n > 0);
+  }
+
+  function deseneaza() {
+    scrieActive();
+    const semn = stare.dir === 'asc' ? 1 : -1;
+    const val = stare.sort === 'ppm' ? ppm : (u => u[F[CHEI[stare.sort]]]);
+    const gasite = U.filter(trece).sort((a, b) => {
+      const x = val(a), y = val(b);
+      return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y))) * semn;
+    });
+
+    $('#fCount').textContent = gasite.length === 1
+      ? (EN ? '1 apartment matches the criteria' : '1 apartament corespunde criteriilor')
+      : gasite.length
+        ? (EN ? `${gasite.length} apartments match the criteria` : `${gasite.length} apartamente corespund criteriilor`)
+        : (EN ? 'No apartment matches the criteria.' : 'Niciun apartament nu corespunde criteriilor.');
+
+    const gol = $('#fEmpty');
+    if (gol) {
+      if (gasite.length) gol.innerHTML = '';
+      else {
+        // arat ce s-ar intampla daca relaxez fiecare filtru pe rand
+        const sug = [];
+        const fara = cheie => {
+          const copie = { ...stare, [cheie]: cheie === 'pretMax' ? 130000
+                        : cheie === 'suMin' ? 36 : new Set() };
+          const salvat = stare[cheie];
+          stare[cheie] = copie[cheie];
+          const n = U.filter(trece).length;
+          stare[cheie] = salvat;
+          return n;
+        };
+        const etichete = EN ? { camere: 'number of rooms', etaj: 'floor', etapa: 'phase', status: 'status', corp: 'building', extra: 'features',
+                                orientare: 'orientation', tip: 'layout', pretMax: 'budget', suMin: 'minimum area' }
+                          : { camere: 'numărul de camere', etaj: 'etajul', etapa: 'etapa',
+                           status: 'starea', corp: 'blocul', extra: 'dotările',
+                           orientare: 'orientarea', tip: 'compartimentarea',
+                           pretMax: 'bugetul', suMin: 'suprafața minimă' };
+        for (const k of Object.keys(etichete)) {
+          const activ = stare[k] instanceof Set ? stare[k].size
+                      : (k === 'pretMax' ? (stare.pretMax !== 130000 || stare.pretMin !== 0)
+                                         : stare.suMin !== 36);
+          if (!activ) continue;
+          const n = fara(k);
+          if (n > 0) sug.push(`<button class="ec-btn ec-btn--out" data-relax="${k}">${EN ? 'Drop' : 'Renunță la'} ${etichete[k]} · ${n} ${EN ? 'results' : 'rezultate'}</button>`);
         }
         gol.innerHTML = `<div class="ec-empty">
           <p>${EN ? 'No apartment matches all the criteria.' : 'Niciun apartament nu corespunde tuturor criteriilor.'}</p>
