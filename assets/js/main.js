@@ -172,11 +172,11 @@
           <div class="ec-type__plan">${planSVG(t.camere, t.cod, t.su.reduce((a,b)=>a+b,0)/t.su.length, true)}</div>
           <div class="ec-type__code">${t.cod}</div>
           <div class="ec-type__rows">
-            <div><span>Camere</span><b>${t.camere}</b></div>
-            <div><span>Suprafață</span><b>${mp(Math.min(...t.su))} – ${mp(Math.max(...t.su))}</b></div>
-            <div><span>Disponibile</span><b>${t.disp} din ${t.n}</b></div>
+            <div><span>${EN ? 'Rooms' : 'Camere'}</span><b>${t.camere}</b></div>
+            <div><span>${EN ? 'Area' : 'Suprafață'}</span><b>${mp(Math.min(...t.su))} – ${mp(Math.max(...t.su))}</b></div>
+            <div><span>${EN ? 'Available' : 'Disponibile'}</span><b>${t.disp} ${EN ? 'of' : 'din'} ${t.n}</b></div>
           </div>
-          <span class="ec-unit__price">${t.pret.length ? 'de la ' + euro(Math.min(...t.pret)) : '—'}</span>
+          <span class="ec-type__price">${t.pret.length ? `<em>${EN ? 'From' : 'De la'}</em><b>${euro(Math.min(...t.pret))}</b><i>${EN ? 'VAT included' : 'TVA inclus'}</i>` : '<b>—</b>'}</span>
         </a>`).join('');
 
     observa();
@@ -194,7 +194,9 @@
     '3B': [['Living și bucătărie', .36], ['Dormitor', .24], ['Birou', .18], ['Baie', .13], ['Hol', .09]]
   };
 
-  const SCURT = {"Living si bucatarie": "Living", "Living și bucătărie": "Living", "Living": "Living", "Dormitor 1": "Dorm. 1", "Dormitor 2": "Dorm. 2", "Dormitor": "Dormitor", "Bucatarie": "Bucătărie", "Bucătărie": "Bucătărie", "Baie": "Baie", "Baie 2": "Baie 2", "Hol": "Hol", "Debara": "Debara", "Birou": "Birou"};
+  const SCURT = EN
+    ? {"Living si bucatarie": "Living", "Living și bucătărie": "Living", "Living": "Living", "Dormitor 1": "Bed. 1", "Dormitor 2": "Bed. 2", "Dormitor": "Bedroom", "Bucatarie": "Kitchen", "Bucătărie": "Kitchen", "Baie": "Bath", "Baie 2": "Bath 2", "Hol": "Hall", "Debara": "Storage", "Birou": "Study"}
+    : {"Living si bucatarie": "Living", "Living și bucătărie": "Living", "Living": "Living", "Dormitor 1": "Dorm. 1", "Dormitor 2": "Dorm. 2", "Dormitor": "Dormitor", "Bucatarie": "Bucătărie", "Bucătărie": "Bucătărie", "Baie": "Baie", "Baie 2": "Baie 2", "Hol": "Hol", "Debara": "Debara", "Birou": "Birou"};
 
   function planSVG(nrCamere, tip, su, compact) {
     const cam = CAMERE_TIP[tip] || CAMERE_TIP['2A'];
@@ -215,7 +217,7 @@
       const cx = x + w / 2, cy = yy + h / 2;
       const et = compact ? (SCURT[n] || n) : n;
       if (compact) {
-        if (h >= 22) out += `<text class="pn" x="${cx.toFixed(1)}" y="${(cy + 2.5).toFixed(1)}">${et}</text>`;
+        if (h >= 22) out += `<text class="pn" text-anchor="middle" x="${cx.toFixed(1)}" y="${(cy + 2.5).toFixed(1)}">${et}</text>`;
       } else {
         const mic = h < 34;
         out += `<text class="pn" x="${cx.toFixed(1)}" y="${(cy - (mic ? 1 : 4)).toFixed(1)}">${et}</text>`;
@@ -234,9 +236,9 @@
 
     const lat = Math.sqrt(total) * 1.35;
     out += `<line class="pc" x1="0" y1="${H + 9}" x2="${W}" y2="${H + 9}"/>`;
-    out += `<text class="pd" x="${W / 2}" y="${H + 20}">${nr(lat)} m</text>`;
+    out += `<text class="pd" text-anchor="middle" x="${W / 2}" y="${H + 20}">${nr(lat)} m</text>`;
     out += `<line class="pc" x1="${W + 9}" y1="0" x2="${W + 9}" y2="${H}"/>`;
-    out += `<text class="pd" x="${W + 20}" y="${H / 2}" transform="rotate(90 ${W + 20} ${H / 2})">${nr(total / lat)} m</text>`;
+    out += `<text class="pd" text-anchor="middle" x="${W + 20}" y="${H / 2}" transform="rotate(90 ${W + 20} ${H / 2})">${nr(total / lat)} m</text>`;
     return `<svg viewBox="-4 -4 ${W + 34} ${H + 32}" role="img" aria-label="${EN ? 'Layout diagram' : 'Schemă de compartimentare'} ${tip || ''}">${out}</svg>`;
   }
 
@@ -274,19 +276,19 @@
           <a class="ec-unit" href="${CAT}/${u[F.id].toLowerCase()}/">
             <div class="ec-unit__top">
               <span class="ec-unit__id">${u[F.id]}</span>
-              <span class="ec-tag ec-tag--disponibil">Disponibil</span>
+              <span class="ec-tag ec-tag--disponibil">${EN ? 'Available' : 'Disponibil'}</span>
             </div>
             <div class="ec-unit__t">${camere(u[F.camere])} · ${mp(u[F.su])}</div>
             <div class="ec-unit__meta">
               <span>${EN ? 'Building' : 'Blocul'} ${bloc(u[F.corp])}</span>
               <span>${u[F.etaj] === 0 ? (EN ? 'Ground floor' : 'Parter') : (EN ? 'Floor ' : 'Etaj ') + u[F.etaj]}</span>
-              <span>${u[F.orientare]}</span>
-              ${u[F.balcon] > 0 ? `<span>Balcon ${mp(u[F.balcon])}</span>` : ''}
-              ${u[F.curte]  > 0 ? `<span>Curte ${mp(u[F.curte])}</span>`   : ''}
+              <span>${EN ? String(u[F.orientare]).replace(/V/g, 'W') : u[F.orientare]}</span>
+              ${u[F.balcon] > 0 ? `<span>${EN ? 'Balcony' : 'Balcon'} ${mp(u[F.balcon])}</span>` : ''}
+              ${u[F.curte]  > 0 ? `<span>${EN ? 'Garden' : 'Curte'} ${mp(u[F.curte])}</span>`   : ''}
             </div>
             <div class="ec-unit__foot">
               <span class="ec-unit__price">${euro(u[F.pret])}</span>
-              <span class="ec-unit__ppm">${Math.round(u[F.pret] / u[F.su])} €/m²</span>
+              <span class="ec-unit__ppm">${EN ? '€' + Math.round(u[F.pret] / u[F.su]) + '/m²' : Math.round(u[F.pret] / u[F.su]) + ' €/m²'}</span>
             </div>
           </a>`).join('');
     };

@@ -2976,3 +2976,13 @@ svg .pa { fill: var(--ec-brass); }
 .ec-showmap iframe { position: relative; z-index: 1; }
 .ec-showmap__go { z-index: 2; }
 .ec-manifest__stats--foto div { background: transparent; }
+
+/* --- cardurile de tipologie din prima pagina: text centrat, pret evidentiat --- */
+.ec-type__plan .pn, .ec-type__plan .pd { text-anchor: middle; }
+.ec-type__price {
+  margin-top: .35rem; padding-top: .9rem; border-top: 2px solid var(--ec-brass);
+  display: flex; flex-direction: column; gap: .2rem;
+}
+.ec-type__price em { font-style: normal; font-size: var(--ec-micro); letter-spacing: .14em; text-transform: uppercase; color: var(--ec-ink-40); font-weight: 600; }
+.ec-type__price b { font-family: var(--ec-disp); font-size: 1.55rem; font-weight: 600; color: var(--ec-emerald); line-height: 1.05; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.ec-type__price i { font-style: normal; font-size: var(--ec-micro); color: var(--ec-ink-40); letter-spacing: .06em; }
