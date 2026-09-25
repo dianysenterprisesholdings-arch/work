@@ -1514,7 +1514,14 @@ FAQ_CAT = {
       "verifică la data achiziției, împreună cu banca."),
      ("Ce compartimentare au?",
       "Tipul 1A: zonă de zi deschisă, cu bucătăria integrată în living, grup sanitar și "
-      "spațiu de depozitare.")],
+      "spațiu de depozitare."),
+     ("Există garsoniere cu curte proprie?",
+      "Da, cele de la parter. Curtea este în folosință exclusivă, cu pardoseală exterioară "
+      "executată și priză proprie."),
+     ("Ce chirie se poate obține?",
+      "Estimarea depinde de etaj, expunere și de momentul închirierii. Pagina de investiție "
+      "include un calculator care pornește de la prețul fiecărei unități și de la chiriile "
+      "practicate în zonă.")],
  2: [("Ce diferență este între tipurile 2A și 2B?",
       "2B are dormitorul mai generos și spațiu suplimentar de depozitare, la aceeași "
       "configurație a zonei de zi. Suprafețele diferă cu câțiva metri pătrați."),
@@ -1524,7 +1531,14 @@ FAQ_CAT = {
       "Cele de la parter. Curțile au între 13 și 51 m² și sunt în folosință exclusivă."),
      ("Este potrivit pentru o familie cu un copil?",
       "Da. Dormitorul separat și zona de zi deschisă acoperă nevoile unei familii tinere, "
-      "iar ansamblul are loc de joacă și spații verzi amenajate.")],
+      "iar ansamblul are loc de joacă și spații verzi amenajate."),
+     ("Ce expunere este de preferat?",
+      "Expunerea sudică și sud-estică aduce cea mai multă lumină naturală pe parcursul zilei. "
+      "Panoul de selecție de mai sus arată câte apartamente sunt disponibile pe fiecare "
+      "orientare."),
+     ("Are loc de parcare inclus?",
+      "Locul de parcare se contractează separat, subteran sau la suprafață. Ansamblul are "
+      "940 de locuri, dintre care 258 subterane.")],
  3: [("Ce suprafață are un apartament de 3 camere?",
       "Între 69 și 81 m² suprafață utilă, în funcție de compartimentare. Toate au balcon."),
      ("Ce diferență este între tipurile 3A și 3B?",
@@ -1534,7 +1548,13 @@ FAQ_CAT = {
       "Da, ambele compartimentări de trei camere includ două grupuri sanitare complet "
       "finisate și echipate."),
      ("Există apartamente de 3 camere cu curte?",
-      "Da, cele de la parter. Curțile au între 13 și 51 m², în folosință exclusivă.")],
+      "Da, cele de la parter. Curțile au între 13 și 51 m², în folosință exclusivă."),
+     ("Câte locuri de parcare pot contracta?",
+      "Numărul de locuri care pot fi contractate pentru un apartament se stabilește la "
+      "biroul de vânzări, în funcție de disponibilitatea din blocul respectiv."),
+     ("Ce suprafață are balconul?",
+      "Balcoanele apartamentelor de trei camere sunt cele mai generoase din ansamblu. "
+      "Suprafața exactă este afișată în pagina fiecărei unități.")],
 }
 
 
@@ -1716,7 +1736,7 @@ def pagina_categorie(nr, unitati, grupe):
   <section class="ec-section" id="compartimentari">
     <div class="ec-shead">
       <div><span class="ec-shead__n">01 — Compartimentări</span>
-        <h2>{"Planul" if len(tipuri) == 1 else f"Cele {len(tipuri)} planuri"} <em>disponibil{"" if len(tipuri) == 1 else "e"}</em></h2></div>
+        <h2>{len(tipuri)} tip{"" if len(tipuri) == 1 else "uri"} de apartament <em>disponibil{"" if len(tipuri) == 1 else "e"}</em></h2></div>
       <p class="ec-shead__p">
         Suprafețele, disponibilitatea și prețul de pornire pentru fiecare compartimentare.
       </p>
@@ -1738,15 +1758,15 @@ def pagina_categorie(nr, unitati, grupe):
   <section class="ec-section" id="selectie" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Selecție rapidă</span>
-        <h2>Filtrare <em>după etaj sau orientare</em></h2></div>
+        <h2>Selecție <em>după etaj și expunere</em></h2></div>
       <p class="ec-shead__p">
         Fiecare rând deschide lista filtrată. Numărul reprezintă apartamentele
         disponibile la data actualizării.
       </p>
     </div>
     <div class="ec-dotari" style="margin-top:2.5rem">
-      {panou_filtru("După etaj", "building", "Disponibile pe nivel", et_lista)}
-      {panou_filtru("După orientare", "compass", "Expunerea ferestrelor", or_lista)}
+      {panou_filtru("După etaj", "building", "Nivelul apartamentului", et_lista)}
+      {panou_filtru("După expunere", "sun", "Orientare solară", or_lista)}
     </div>
   </section>
 
@@ -1800,7 +1820,7 @@ def pagina_categorie(nr, unitati, grupe):
       <div><span class="ec-shead__n">07 — Întrebări</span>
         <h2>Despre <em>{e(c['titlu'].lower())}</em></h2></div>
       <p class="ec-shead__p">
-        {len(FAQ_CAT[nr])} întrebări despre suprafețe, compartimentări și condiții.
+        {len(FAQ_CAT[nr])} întrebări despre suprafețe, compartimentări, expunere și condiții.
       </p>
     </div>
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
