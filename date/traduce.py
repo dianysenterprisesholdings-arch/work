@@ -230,6 +230,7 @@ def tradu_pagina(h, dir_ro):
     # radacina pentru scripturi: /en/
     h = re.sub(r'data-radacina="[^"]*"', 'data-radacina="/en/"', h, count=1)
 
+    h = h.replace('!3m2!1sro!2sro', '!3m2!1sen!2sro').replace('!5m2!1sro!2sro', '!5m2!1sen!2sro')
     # 5. comutatorul de limba: EN devine activ
     h = re.sub(r'(<a href="[^"]*" hreflang="ro" lang="ro") class="is-on" aria-current="true"', r"\1", h, count=1)
     h = re.sub(r'(<a href="[^"]*" hreflang="en" lang="en")', r'\1 class="is-on" aria-current="true"', h, count=1)
@@ -256,7 +257,10 @@ def ruleaza():
         os.makedirs(dest, exist_ok=True)
         for incercare in range(6):
             try:
-                io.open(os.path.join(dest, "index.html"), "w", encoding="utf-8", newline="\n").write(out)
+                tmp = os.path.join(dest, "index.tmp")
+                io.open(tmp, "w", encoding="utf-8", newline="
+").write(out)
+                os.replace(tmp, os.path.join(dest, "index.html"))
                 break
             except OSError:
                 if incercare == 5:

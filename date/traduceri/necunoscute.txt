@@ -1,3 +1,0 @@
-home	Apartamentul-model — tur virtual {n}°
-home	Tur virtual {n}°
-home	Pornește turul {n}°
