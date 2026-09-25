@@ -2574,3 +2574,12 @@ svg .pa, svg .pd { font-size: 7px; }
 svg .pa { fill: var(--ec-brass); }
 .ec-planbox .pn { font-size: 7.5px; }
 .ec-planbox .pa, .ec-planbox .pd { font-size: 6px; }
+
+/* schita de rezerva: numerele camerelor si legenda de sub desen */
+.ec-planbox { place-items: stretch; }
+.ec-planbox svg { max-width: 34rem; justify-self: center; }
+.ec-planbox .pb { fill: var(--ec-brass); }
+.ec-planbox .pbt { font-size: 5.5px; font-weight: 600; fill: #fff; text-anchor: middle; }
+.ec-planbox .pn { text-anchor: middle; }
+.ec-planbox .pa { text-anchor: middle; }
+.ec-planbox .ec-plan__legend { width: 100%; }

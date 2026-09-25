@@ -435,8 +435,8 @@ def plan_svg(nr_camere, tip=None, su=None, compact=False):
     """
     cam = CAMERE_TIP.get(tip or "", None)
     if not cam:
-        cam = ([("Living si bucatarie", .66), ("Baie", .17), ("Hol", .17)] if nr_camere == 1
-               else [("Living si bucatarie", .45), ("Dormitor", .3), ("Baie", .13), ("Hol", .12)]
+        cam = ([("Living și bucătărie", .66), ("Baie", .17), ("Hol", .17)] if nr_camere == 1
+               else [("Living și bucătărie", .45), ("Dormitor", .3), ("Baie", .13), ("Hol", .12)]
                if nr_camere == 2
                else [("Living", .34), ("Dormitor 1", .22), ("Dormitor 2", .18),
                      ("Baie", .13), ("Hol", .13)])
@@ -460,26 +460,42 @@ def plan_svg(nr_camere, tip=None, su=None, compact=False):
         y += h
 
     piese = [f'<rect x="0" y="0" width="{W}" height="{H}" fill="var(--ec-emerald)"/>']
-    for nume, pond, x, yy, w, h in incaperi:
+    # latimea aproximativa a unui text, in unitatile desenului, la corpul
+    # folosit in schita mare (7,5px) — ca sa nu scriem nume peste pereti
+    lat_text = lambda t, corp=7.5: len(t) * 0.58 * corp
+    for nr_cam, (nume, pond, x, yy, w, h) in enumerate(incaperi, 1):
         piese.append(f'<rect x="{x + GROS:.1f}" y="{yy + GROS:.1f}" '
                      f'width="{max(w - GROS * 2, 1):.1f}" height="{max(h - GROS * 2, 1):.1f}" '
                      f'fill="#fff"/>')
         cx, cy = x + w / 2, yy + h / 2
         arie = total * pond
-        # in cardurile mici nu incape si numele, si aria: pastrez numele, scurtat
-        et = SCURT.get(nume, nume) if compact else nume
         if compact:
+            # in cardurile mici pastrez numele, scurtat, doar unde incape
+            et = SCURT.get(nume, nume)
             if h >= 22:
                 piese.append(f'<text class="pn" x="{cx:.1f}" y="{cy + 2.5:.1f}">{et}</text>')
-        else:
-            mic = h < 34
-            piese.append(
-                f'<text class="pn" x="{cx:.1f}" y="{cy - (4 if not mic else 1):.1f}">{et}</text>')
-            if not mic:
-                # virgula zecimala se pune doar in numar, nu si in coordonate
-                aria_txt = f"{arie:.1f}".replace(".", ",")
-                piese.append(f'<text class="pa" x="{cx:.1f}" y="{cy + 8:.1f}">'
-                             f'{aria_txt} m²</text>')
+            continue
+
+        # schita mare: fiecare camera are un numar (reluat in legenda), iar
+        # numele si aria apar in camera numai daca incap fara sa atinga peretii
+        if h >= 11 and w >= 14:
+            bx, by = x + GROS + 6.5, yy + GROS + 6.5
+            piese.append(f'<circle class="pb" cx="{bx:.1f}" cy="{by:.1f}" r="4.6"/>')
+            piese.append(f'<text class="pbt" x="{bx:.1f}" y="{by + 2.1:.1f}">{nr_cam}</text>')
+        util = w - GROS * 2 - 6
+        aria_txt = f"{arie:.1f}".replace(".", ",")   # virgula doar in numar
+        if h >= 34 and lat_text(nume) <= util:
+            piese.append(f'<text class="pn" x="{cx:.1f}" y="{cy - 3:.1f}">{nume}</text>')
+            piese.append(f'<text class="pa" x="{cx:.1f}" y="{cy + 8:.1f}">{aria_txt} m²</text>')
+        elif h >= 44 and " " in nume:
+            # pe doua randuri, rupt la spatiul din mijloc
+            cuv = nume.split(" ")
+            k = max(range(1, len(cuv)), key=lambda i: -abs(len(" ".join(cuv[:i])) - len(" ".join(cuv[i:]))))
+            r1, r2 = " ".join(cuv[:k]), " ".join(cuv[k:])
+            if max(lat_text(r1), lat_text(r2)) <= util:
+                piese.append(f'<text class="pn" x="{cx:.1f}" y="{cy - 7:.1f}">{r1}</text>')
+                piese.append(f'<text class="pn" x="{cx:.1f}" y="{cy + 2:.1f}">{r2}</text>')
+                piese.append(f'<text class="pa" x="{cx:.1f}" y="{cy + 13:.1f}">{aria_txt} m²</text>')
 
     # ferestre pe peretele exterior si usi pe peretii interiori:
     # o schema fara ele arata ca o diagrama, nu ca un plan
@@ -525,8 +541,15 @@ def plan_interactiv(tip, nr_camere, r, su=None):
     d = PLANURI.get(tip)
     if not d:
         # schita se deseneaza cu compartimentarea si suprafata reale, nu generice
+        cam = CAMERE_TIP.get(tip or "", [])
+        total = su or 60.0
+        legenda = "".join(
+            f'<li><i>{i}</i><span>{nume}</span>'
+            f'<b>{mp(round(total * pond, 2))}</b></li>'
+            for i, (nume, pond) in enumerate(cam, 1))
         return (f'<div class="ec-planbox">{plan_svg(nr_camere, tip, su)}'
-                f'<p class="ec-plan__note">Schiță orientativă, la scară, cu suprafețele '
+                + (f'<ul class="ec-plan__legend">{legenda}</ul>' if legenda else "")
+                + f'<p class="ec-plan__note">Schiță orientativă, la scară, cu suprafețele '
                 f'calculate pentru această compartimentare. Planul cotat se predă la '
                 f'semnarea antecontractului.</p></div>')
 
