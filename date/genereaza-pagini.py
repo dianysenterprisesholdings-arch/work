@@ -135,7 +135,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
     </a>
     <nav class="ec-nav__menu">
       <span class="ec-nav__has">
-        <a href="{r}despre-dezvoltator/">Despre noi</a>
+        <a href="{r}despre-emerald-city/">Despre noi</a>
         <div class="ec-mega">
           <div class="ec-mega__col">
             <span class="ec-mega__h">Proiectul</span>
@@ -145,6 +145,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           </div>
           <div class="ec-mega__col">
             <span class="ec-mega__h">Compania</span>
+            <a class="ec-mega__i" href="{r}despre-emerald-city/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></svg></span><span class="ec-mega__tx"><b>Despre noi</b><em>Finisaje, garanții, documente și proces</em></span></a>
             <a class="ec-mega__i" href="{r}despre-dezvoltator/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg></span><span class="ec-mega__tx"><b>Dezvoltator</b><em>Tala Sapphire S.R.L., avize și echipă</em></span></a>
             <a class="ec-mega__i" href="{r}aparitii-presa/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14a2 2 0 002-2V8h1v9a3 3 0 01-3 3H4z"/><path d="M7 9h7M7 12h7M7 15h4"/></svg></span><span class="ec-mega__tx"><b>Apariții în presă</b><em>Materiale și date pentru jurnaliști</em></span></a>
             <a class="ec-mega__i" href="{r}#finisaje"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="ec-mega__tx"><b>Finisaje</b><em>Ce include predarea la cheie</em></span></a>
@@ -320,8 +321,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       el.addEventListener('click', e => {{ e.preventDefault(); arata(i, true); }});
     }});
   }});
-
-
+}})();
 
 // bara lipita pe mobil: pretul si actiunile raman la indemana
 (() => {{
@@ -1778,6 +1778,556 @@ def pagina_legala(slug):
 
 
 # ==================================================================== rulare
+# ========================================================== despre noi ==
+# Pictograme folosite doar de pagina "Despre noi".
+IC = {
+ "pardoseala": '<path d="M4 18h16M6 14c0-3 3-3 3-6M12 14c0-3 3-3 3-6M18 14c0-2 1-2 1-4"/>',
+ "termo":      '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/>',
+ "centrala":   '<rect x="4" y="3" width="16" height="13" rx="2"/><path d="M8 19v2M16 19v2M9 8c0 2 3 2 3 4M15 8c0 2-1.5 2-1.5 4"/>',
+ "tamplarie":  '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M12 3v18M3 12h18"/>',
+ "baie":       '<path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4z"/><path d="M7 12V6a2 2 0 014 0M9 6h2"/><path d="M6 21l-1 1M18 21l1 1"/>',
+ "electric":   '<path d="M13 2L5 14h5l-1 8 8-12h-5l1-8z"/>',
+ "parchet":    '<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 10h18M3 15h18M9 5v5M15 10v5M9 15v4"/>',
+ "usi":        '<rect x="5" y="3" width="14" height="18" rx="1"/><circle cx="15.5" cy="12" r="1"/>',
+ "pereti":     '<path d="M4 20V8l8-4 8 4v12"/><path d="M4 12h16M4 16h16M12 8v12"/>',
+ "interfon":   '<rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="9" r="2.2"/><path d="M9.5 15h5M9.5 17.5h5"/>',
+ "bifa":       '<path d="M5 12.5l4 4 10-10"/>',
+ "scut":       '<path d="M12 3l8 3v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6z"/><path d="M9 12.5l2 2 4-4"/>',
+ "cheie":      '<circle cx="8" cy="14" r="4"/><path d="M11 11l8-8 2 2-2 2 2 2-2 2-2-2-3 3"/>',
+ "lupa":       '<circle cx="11" cy="11" r="7"/><path d="M16.2 16.2L21 21"/>',
+ "semnat":     '<path d="M4 20h16M6 16l10-10 3 3-10 10H6z"/>',
+ "macara":     '<path d="M4 20V4h9M4 8h13l3 4M13 4v4M9 12v8M12 20v-5h5v5"/>',
+ "pin":        '<path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/>',
+ "tel":        '<path d="M4.5 4h3l1.5 4-2 1.5a12 12 0 006 6L14.5 13l4 1.5v3a2 2 0 01-2.2 2A16 16 0 012.5 6.2 2 2 0 014.5 4z"/>',
+ "mail":       '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>',
+ "ceas":       '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ "cadou":      '<rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13M12 8S9 3 6.5 4.5 9 8 12 8s5.5-2 3-3.5S12 8 12 8z"/>',
+}
+
+
+def ic(k, s=22, w="1.5"):
+    return (f'<svg width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+            f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+            f'{IC[k]}</svg>')
+
+
+# Nivelul tehnic agreat pentru ansamblu. Marcile exacte se confirma in anexa
+# tehnica a contractului, deci pagina nu numeste furnizori.
+FINISAJE = [
+ ("pardoseala", "Încălzire în pardoseală", "În toate camerele, distribuitor individual",
+  "Căldura urcă uniform de la sol, fără calorifere pe pereți. Câștigi peretele întreg pentru "
+  "mobilier și reduci consumul, pentru că instalația lucrează la temperatură joasă."),
+ ("centrala", "Centrală în condensație", "Randament ridicat, reglaj pe cameră",
+  "Recuperează căldura din gazele de ardere, așa că scoate mai multă energie din același metru "
+  "cub de gaz. Diferența la factură ajunge până la 35% față de o centrală clasică."),
+ ("termo", "Termosistem de fațadă", "Izolație continuă, fără punți termice",
+  "Fațada este izolată pe tot conturul, inclusiv la planșee și buiandrugi. Iarna ține căldura "
+  "în casă, vara ține arșița afară, iar zgomotul din exterior scade simțitor."),
+ ("tamplarie", "Tâmplărie PVC cu 7 camere", "Geam tripan, sticlă Low-E",
+  "Profilul cu șapte camere și geamul cu trei foi izolează termic și fonic la nivelul cerut "
+  "clădirilor noi. Stratul Low-E reflectă căldura înapoi în încăpere."),
+ ("parchet", "Parchet laminat de 10 mm", "Clasă de trafic intens",
+  "Grosime de 10 mm, potrivită pentru locuit zilnic cu copii sau animale. Se montează pe strat "
+  "fonoabsorbant, deci pașii nu se aud la vecinul de dedesubt."),
+ ("baie", "Grupuri sanitare complet finisate", "Gresie, faianță, obiecte sanitare, baterii",
+  "Primești baia gata de folosit: placări montate, vas de toaletă, lavoar, baterii și racorduri. "
+  "Nu mai ai de cumpărat și de montat nimic după predare."),
+ ("electric", "Instalație electrică completă", "Aparataj montat, tablou cu siguranțe",
+  "Prizele și întrerupătoarele sunt montate, tabloul este echipat și etichetat, iar circuitele "
+  "sunt dimensionate separat pentru bucătărie, baie și camere."),
+ ("pereti", "Pereți finisați", "Glet fin și vopsea lavabilă",
+  "Pereții și tavanele sunt gletuite și vopsite. Poți muta mobila direct, iar dacă vrei altă "
+  "culoare, aplici peste, fără să reiei pregătirea."),
+ ("usi", "Uși interioare montate", "Finisaj mat, feronerie inclusă",
+  "Toate ușile interioare sunt montate, cu tocuri, pervazuri și feronerie. Ușa de intrare este "
+  "metalică, cu izolație și închidere în mai multe puncte."),
+ ("interfon", "Videointerfon", "Post interior în fiecare apartament",
+  "Vezi cine sună la scară înainte să deschizi. Accesul în bloc și în parcarea subterană se face "
+  "controlat, cu cartelă sau cod."),
+]
+
+GARANTII = [
+ ("Structura de rezistență", "Toată durata de existență a clădirii",
+  "Legea 10/1995 privind calitatea în construcții"),
+ ("Vicii ascunse ale construcției", "10 ani de la recepția finală",
+  "Legea 10/1995 și Codul civil"),
+ ("Vicii aparente", "1 an de la predare", "Codul civil"),
+ ("Instalații și echipamente", "Conform garanției fiecărui producător",
+  "Certificatele predate la recepție"),
+ ("Finisaje și dotări", "Conform anexei tehnice a contractului",
+  "Contractul de vânzare"),
+]
+
+DOCUMENTE = [
+ ("Autorizația de construire",
+  "Emisă de autoritatea locală, împreună cu certificatul de urbanism care a stat la baza proiectului."),
+ ("Cartea tehnică a construcției",
+  "Dosarul complet al clădirii: proiectul, avizele, procesele-verbale și instrucțiunile de exploatare."),
+ ("Procesul-verbal de recepție",
+  "Documentul care consemnează predarea clădirii, semnat de comisia de recepție."),
+ ("Documentația cadastrală",
+  "Măsurătorile și planurile apartamentului, depuse pentru înscrierea în cartea funciară."),
+ ("Extrasul de carte funciară",
+  "Dovada intabulării pe numele tău, cu suprafețele și cotele indivize."),
+ ("Certificatul de performanță energetică",
+  "Clasa energetică a apartamentului și consumul estimat, calculate de un auditor autorizat."),
+]
+
+DRUM = [
+ ("01", "Vizionare",
+  "Vezi amplasamentul și apartamentul-model, primești lista de disponibilitate cu prețuri "
+  "și suprafețe reale.", "Aceeași zi"),
+ ("02", "Rezervare",
+  "Alegi apartamentul și îl blochezi pe numele tău. Prețul se îngheață pe perioada rezervării.",
+  "1–3 zile"),
+ ("03", "Antecontract",
+  "Semnezi antecontractul la notar, cu avansul de 15%. Suprafețele, prețul și termenul de "
+  "predare sunt fixate în contract.", "La notar"),
+ ("04", "Construcție",
+  "Urmărești progresul în jurnalul de șantier, actualizat lunar cu fotografii datate din teren.",
+  "Conform etapei"),
+ ("05", "Recepție și chei",
+  "Verifici apartamentul împreună cu noi, semnezi contractul final, se face intabularea "
+  "și primești cheile.", "La finalizare"),
+]
+
+VS = [
+ ("Costul lunar cu încălzirea",
+  "Redus — termosistem continuu, centrală în condensație, încălzire în pardoseală",
+  "Ridicat — izolație parțială, distribuție veche"),
+ ("Starea instalațiilor", "Noi, cu garanție și carte tehnică",
+  "Vechi de 30–50 de ani, adesea de înlocuit"),
+ ("Finisajele", "Incluse în preț, montate și garantate",
+  "De refăcut integral, cost separat"),
+ ("Parcarea", "Loc propriu, subteran sau la suprafață",
+  "Nealocată, ocupată în ordinea sosirii"),
+ ("Structura", "Proiectată la normele antiseismice actuale",
+  "Conform normelor din anul construcției"),
+ ("Spațiul verde", "15.501,80 m² amenajați, 30,85% din teren",
+  "Variabil, de regulă neamenajat"),
+ ("Actele", "Intabulare directă de la dezvoltator, fără istoric",
+  "Verificări de istoric, posibile litigii sau moșteniri"),
+ ("Comisionul", "Zero — vânzare directă de la dezvoltator",
+  "De regulă 2–3% pentru agenție"),
+]
+
+REFERINTE = [
+ ("Lapis Residence", "Iași",
+  "Ansamblu rezidențial din Iași, cu apartamente predate la cheie, spații verzi amenajate "
+  "și parcări private. Același standard de finisaje și aceeași predare completă pe care "
+  "le găsești la Emerald City.",
+  [("Oraș", "Iași"), ("Predare", "La cheie")]),
+ ("Onyx Residence", "Iași",
+  "Proiect rezidențial construit după aceleași principii: regim de înălțime redus, densitate "
+  "mică și dotări comune gândite pentru întreaga comunitate, nu adăugate la final.",
+  [("Oraș", "Iași"), ("Predare", "La cheie")]),
+]
+
+FAQ_DESPRE = [
+ ("Cine dezvoltă Emerald City?",
+  "Tala Sapphire S.R.L. Vânzarea se face direct de la dezvoltator, fără comision de intermediere."),
+ ("Ce experiență are dezvoltatorul?",
+  "Echipa a lucrat anterior la ansamblurile Lapis Residence și Onyx Residence, ambele în Iași. "
+  "Emerald City reia același standard de finisaje și aceeași predare completă, la o scară mai mare."),
+ ("Ce garanție am pentru structura clădirii?",
+  "Structura de rezistență este garantată pe toată durata de existență a clădirii, conform "
+  "Legii 10/1995 privind calitatea în construcții."),
+ ("Cât timp răspunde dezvoltatorul pentru vicii ascunse?",
+  "10 ani de la recepția finală, conform Legii 10/1995 și Codului civil. Viciile aparente se "
+  "semnalează în primul an de la predare."),
+ ("Ce documente primesc la predare?",
+  "Procesul-verbal de recepție, cartea tehnică a construcției, documentația cadastrală, extrasul "
+  "de carte funciară cu intabularea pe numele tău și certificatul de performanță energetică."),
+ ("Apartamentele se predau finisate?",
+  "Da, complet finisate. Parchet, gresie și faianță montate, grupuri sanitare echipate, pereți "
+  "gletuiți și vopsiți, uși montate, instalație electrică cu aparataj, încălzire în pardoseală. "
+  "Te muți cu mobila, nu cu meșterii."),
+ ("Ce înseamnă centrală în condensație?",
+  "Recuperează căldura din gazele de ardere în loc să o evacueze pe horn. La același confort, "
+  "consumă până la 35% mai puțin gaz decât o centrală clasică."),
+ ("Ce avantaj are încălzirea în pardoseală?",
+  "Căldura se distribuie uniform de la sol în sus, fără calorifere pe pereți, și funcționează la "
+  "temperatură joasă, deci consumă mai puțin. Câștigi și spațiu liber pe pereți."),
+ ("De ce să cumpăr direct de la dezvoltator?",
+  "Nu plătești comision de intermediere, discuți prețul și termenele cu cel care construiește, "
+  "primești lista completă de disponibilitate și poți urmări stadiul lucrărilor."),
+ ("Ce avans se cere la antecontract?",
+  "15% din preț la semnarea antecontractului la notar, iar diferența la predare. Etapele de plată "
+  "se stabilesc în contract."),
+ ("Pot cumpăra cu credit ipotecar?",
+  "Da. Apartamentele se pot achiziționa cu credit ipotecar standard, iar cele care se încadrează "
+  "în plafonul programului pot fi cumpărate și prin Noua Casă. Echipa de vânzări îți spune ce "
+  "variantă se potrivește bugetului tău."),
+ ("Prețurile includ TVA?", "Da, prețurile afișate includ TVA."),
+ ("Ce dotări are cartierul?",
+  "Piste de biciclete, zone de fitness, locuri de joacă, parcări private, preechipare pentru "
+  "stații de încărcare auto, lifturi, panouri fotovoltaice, spații verzi și parc, colectare "
+  "îngropată a deșeurilor."),
+ ("Cât spațiu verde are ansamblul?",
+  "15.501,80 m² de spațiu verde amenajat, adică 30,85% din suprafața terenului de 50.235 m². "
+  "Procentul de ocupare a terenului este 30%, iar coeficientul de utilizare 1,80."),
+ ("Când se finalizează ansamblul?",
+  "Construcția este împărțită în trei etape: 322 de apartamente în Etapa I, 423 în Etapa II și "
+  "180 în Etapa III. Termenul fiecărei etape se confirmă în contract."),
+ ("Unde este biroul de vânzări?",
+  "Str. Dealul Zorilor 9, zona Păcurari, Iași. Program: luni–vineri 9–18 și sâmbătă 10–14. "
+  "Telefon 0757 70 70 80."),
+]
+
+
+def pagina_despre():
+    r = "../"
+
+    fisa = "".join(
+        f'<div class="ec-fisa__i ec-rv"><span class="ec-fisa__ic">{ic(k)}</span>'
+        f'<span><b>{e(nume)}</b><span class="ec-fisa__s">{e(spec)}</span>'
+        f'<span class="ec-fisa__d">{e(desc)}</span></span></div>'
+        for k, nume, spec, desc in FINISAJE)
+
+    garantii = "".join(f"<tr><td>{e(a)}</td><td>{e(b)}</td><td>{e(c)}</td></tr>"
+                       for a, b, c in GARANTII)
+
+    docs = "".join(
+        f'<div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("bifa", 14, "2.4")}</span>'
+        f'<span><b>{e(t)}</b><em>{e(d)}</em></span></div>'
+        for t, d in DOCUMENTE)
+
+    drum = "".join(
+        f'<div class="ec-drum__i ec-rv"><span class="ec-drum__n">{n}</span>'
+        f'<h3>{e(t)}</h3><p>{e(d)}</p>'
+        f'<span class="ec-drum__t">{e(cand)}</span></div>'
+        for n, t, d, cand in DRUM)
+
+    vs = "".join(f'<tr><td>{e(a)}</td><td class="yes">{e(b)}</td>'
+                 f'<td class="no">{e(c)}</td></tr>' for a, b, c in VS)
+
+    refs = "".join(
+        f'<article class="ec-ref ec-rv"><span class="ec-ref__k">{e(oras)}</span>'
+        f'<h3>{e(nume)}</h3><p>{e(desc)}</p><dl>'
+        + "".join(f"<div><dt>{e(dt)}</dt><dd>{e(dd)}</dd></div>" for dt, dd in perechi)
+        + "</dl></article>"
+        for nume, oras, desc, perechi in REFERINTE)
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_DESPRE)
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "AboutPage", "name": "Despre Emerald City",
+             "url": "https://emerald-city.ro/despre-emerald-city/"},
+            {"@type": "Organization",
+             "name": "Tala Sapphire S.R.L.",
+             "url": "https://emerald-city.ro/",
+             "telephone": "+40757707080",
+             "email": "vanzari@emerald-city.ro",
+             "address": {"@type": "PostalAddress",
+                         "streetAddress": "Str. Dealul Zorilor 9",
+                         "addressLocality": "Iași",
+                         "addressRegion": "Iași",
+                         "addressCountry": "RO"}},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_DESPRE]},
+        ]}
+
+    continut = f"""<div class="ec-wrap">
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Despre noi</nav>
+  <header class="ec-phead">
+    <p class="ec-eyebrow">Despre noi</p>
+    <h1 style="margin-top:1rem">Un cartier construit ca să rămână</h1>
+    <p class="ec-body" style="max-width:64ch;font-size:var(--ec-lead)">
+      Emerald City sunt 925 de apartamente pe cinci hectare în Iași, zona Păcurari, ridicate
+      în blocuri de patru niveluri, cu aproape o treime din teren lăsată spațiu verde.
+      Se predau complet finisate, direct de la dezvoltator.
+    </p>
+  </header>
+
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    <dl class="ec-specs">
+      <div class="ec-spec"><dt>Apartamente</dt><dd>925</dd></div>
+      <div class="ec-spec"><dt>Blocuri</dt><dd>18 · regim 2D+P+3E</dd></div>
+      <div class="ec-spec"><dt>Suprafață teren</dt><dd>50.235 m²</dd></div>
+      <div class="ec-spec"><dt>Spațiu verde</dt><dd>30,85%</dd></div>
+      <div class="ec-spec"><dt>Locuri de parcare</dt><dd>940</dd></div>
+      <div class="ec-spec"><dt>Înălțime maximă</dt><dd>18,00 m</dd></div>
+      <div class="ec-spec"><dt>Etape de construcție</dt><dd>3</dd></div>
+      <div class="ec-spec"><dt>Vânzare</dt><dd>Direct dezvoltator</dd></div>
+    </dl>
+  </section>
+
+  <section class="ec-section" id="viziune" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Viziunea</span>
+        <h2>Densitate mică, <em>spațiu de trăit</em></h2></div>
+      <p class="ec-shead__p">
+        Un cartier nu se măsoară în apartamente vândute, ci în cât de bine se trăiește
+        în el după zece ani.
+      </p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      <div class="ec-prose">
+        <p>
+          Am pornit de la o decizie pe care puțini o mai iau: construim pe orizontală,
+          nu pe verticală. Cele 18 blocuri au parter și trei etaje, cu înălțimea maximă
+          de 18 metri. Rezultatul se simte zilnic — lumină care ajunge și la parter,
+          scări cu puțini vecini, lifturi care nu se aglomerează dimineața și o distanță
+          între blocuri care lasă privirea să respire.
+        </p>
+        <p>
+          Din cele 50.235 m² de teren, 15.501,80 m² rămân spațiu verde amenajat, adică
+          30,85%. Nu este iarbă rămasă între parcări: sunt alei, parc, locuri de joacă
+          și piste de biciclete, gândite de la început în planul de ansamblu. Parcarea
+          se rezolvă cu 940 de locuri, dintre care 258 subterane, astfel încât mașinile
+          să nu ocupe spațiul în care se plimbă copiii.
+        </p>
+        <p>
+          Apartamentele se predau complet finisate, cu încălzire în pardoseală și tâmplărie
+          performantă. Cele de la parter au curte proprie. Toate au balcon. Iar prețul îl
+          afli direct de la noi, fără comision de intermediere și fără negocieri purtate
+          prin altcineva.
+        </p>
+      </div>
+      <figure style="margin:0">
+        {imagine("living-01", "Interior de apartament finisat la Emerald City", r,
+                 "(min-width: 62rem) 46vw, 100vw")}
+      </figure>
+    </div>
+  </section>
+
+  <section class="ec-section" id="finisaje" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Finisaje</span>
+        <h2>Ce înseamnă <em>predare la cheie</em></h2></div>
+      <p class="ec-shead__p">
+        10 poziții incluse în preț, fiecare cu specificația tehnică alături și cu ce
+        schimbă în viața de zi cu zi.
+      </p>
+    </div>
+    <div class="ec-fisa" style="margin-top:2.5rem">{fisa}</div>
+    <p class="ec-fisa__note">
+      Specificațiile tehnice și mărcile exacte se confirmă în anexa tehnică a contractului
+      de vânzare.
+    </p>
+  </section>
+
+  <section class="ec-section" id="garantii" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Garanții</span>
+        <h2>Ce garantăm și <em>pe ce temei</em></h2></div>
+      <p class="ec-shead__p">
+        Garanțiile nu sunt argument de vânzare, sunt obligație legală. Le scriem deschis,
+        cu termenele și actele normative care le stabilesc.
+      </p>
+    </div>
+    <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
+      <table>
+        <thead><tr><th scope="col">Ce este garantat</th><th scope="col">Cât timp</th>
+          <th scope="col">Temei</th></tr></thead>
+        <tbody>{garantii}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ec-section" id="documente" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — Documente</span>
+        <h2>Ce primești <em>odată cu cheile</em></h2></div>
+      <p class="ec-shead__p">
+        La prima locuință nu ai de unde să știi ce documente trebuie să ceri.
+        Iată exact ce îți predăm.
+      </p>
+    </div>
+    <div class="ec-docs" style="margin-top:2.5rem">{docs}</div>
+  </section>
+
+  <section class="ec-section" id="proces" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">05 — Proces</span>
+        <h2>De la vizionare <em>la chei</em></h2></div>
+      <p class="ec-shead__p">
+        5 pași, fiecare cu ce se întâmplă și cine semnează. Fără etape ascunse și fără
+        costuri care apar pe drum.
+      </p>
+    </div>
+    <div class="ec-drum" style="margin-top:2.5rem">{drum}</div>
+  </section>
+
+  <section class="ec-section" id="comparatie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">06 — Comparație</span>
+        <h2>Apartament nou <em>sau bloc vechi</em></h2></div>
+      <p class="ec-shead__p">
+        Diferența de preț pe metru pătrat se recuperează în costurile lunare și în ce
+        nu mai ai de refăcut.
+      </p>
+    </div>
+    <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
+      <table>
+        <thead><tr><th scope="col">Criteriu</th><th scope="col">Emerald City</th>
+          <th scope="col">Apartament vechi</th></tr></thead>
+        <tbody>{vs}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">07 — Direct dezvoltator</span>
+        <h2>Ce câștigi când <em>cumperi de la noi</em></h2></div>
+      <p class="ec-shead__p">4 diferențe concrete, nu promisiuni.</p>
+    </div>
+    <div class="ec-why" style="margin-top:2.5rem">
+      <div class="ec-why__i ec-rv">{ic("scut", 26)}
+        <h3>Zero comision</h3>
+        <p>Nu plătești 2–3% unei agenții. Prețul de pe site este prețul de la notar.</p></div>
+      <div class="ec-why__i ec-rv">{ic("lupa", 26)}
+        <h3>Lista completă</h3>
+        <p>Vezi toate cele 925 de apartamente, cu preț, suprafață, etaj și orientare.</p></div>
+      <div class="ec-why__i ec-rv">{ic("semnat", 26)}
+        <h3>Contract direct</h3>
+        <p>Discuți termenele și etapele de plată cu cel care construiește, nu cu un intermediar.</p></div>
+      <div class="ec-why__i ec-rv">{ic("macara", 26)}
+        <h3>Progres verificabil</h3>
+        <p>Publicăm lunar stadiul lucrărilor, cu fotografii datate din teren.</p></div>
+    </div>
+  </section>
+
+  <section class="ec-section" id="proiecte" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">08 — Experiență</span>
+        <h2>Proiecte <em>livrate anterior</em></h2></div>
+      <p class="ec-shead__p">
+        Emerald City nu este primul ansamblu al echipei. Standardul de finisaje și predarea
+        completă vin din proiectele de dinainte.
+      </p>
+    </div>
+    <div class="ec-refs" style="margin-top:2.5rem">{refs}</div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    <div class="ec-spot">
+      <div class="ec-spot__b">
+        <p class="ec-eyebrow" style="color:var(--ec-brass)">09 — Verifică</p>
+        <h2>Ce să ceri oricărui dezvoltator</h2>
+        <p>
+          Întrebările de mai jos fac diferența între un proiect solid și o promisiune.
+          Le punem noi, ca să le poți pune și altora.
+        </p>
+        <ul class="ec-spot__list">
+          <li>Autorizația de construire, cu numărul și data emiterii</li>
+          <li>Certificatul de urbanism și indicatorii aprobați: POT și CUT</li>
+          <li>Situația juridică a terenului și extrasul de carte funciară</li>
+          <li>Anexa tehnică de finisaje, poziție cu poziție</li>
+          <li>Termenul de predare scris în antecontract, nu spus verbal</li>
+          <li>Proiecte livrate anterior, pe care le poți vizita</li>
+          <li>Cine execută structura și cine verifică proiectul</li>
+        </ul>
+        <div class="ec-spot__cta">
+          <a class="ec-btn ec-btn--white" href="{r}proiect/">Vezi datele proiectului</a>
+          <a class="ec-btn ec-btn--outlight" href="{r}stadiu-lucrari/">Jurnal de șantier</a>
+        </div>
+      </div>
+      <figure>
+        {imagine("hol-01", "Hol de acces într-un bloc Emerald City", r,
+                 "(min-width: 60rem) 48vw, 100vw")}
+      </figure>
+    </div>
+  </section>
+
+  <section class="ec-section" id="dotari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">10 — Dotări</span>
+        <h2>În apartament <em>și în cartier</em></h2></div>
+      <p class="ec-shead__p">
+        Ce găsești în locuință și ce folosești în comun, ca parte din ansamblu.
+      </p>
+    </div>
+    <div class="ec-lists" style="margin-top:2.5rem">
+      <div class="ec-list">
+        <h3>În apartament</h3>
+        <ul>
+          <li>Încălzire în pardoseală în toate camerele</li>
+          <li>Centrală proprie în condensație</li>
+          <li>Tâmplărie PVC cu 7 camere și geam tripan</li>
+          <li>Parchet laminat de 10 mm, trafic intens</li>
+          <li>Grup sanitar complet finisat și echipat</li>
+          <li>Instalație electrică cu aparataj montat</li>
+          <li>Uși interioare montate, ușă metalică la intrare</li>
+          <li>Videointerfon</li>
+          <li>Balcon la fiecare apartament</li>
+          <li>Curte proprie la parter, între 13 și 51 m²</li>
+        </ul>
+      </div>
+      <div class="ec-list">
+        <h3>În cartier</h3>
+        <ul>
+          <li>Piste de biciclete</li>
+          <li>Zone de fitness</li>
+          <li>Locuri de joacă</li>
+          <li>Parc și spații verzi amenajate pe 15.501,80 m²</li>
+          <li>940 de locuri de parcare, dintre care 258 subterane</li>
+          <li>Preechipare pentru stații de încărcare auto</li>
+          <li>Panouri fotovoltaice</li>
+          <li>Lifturi în fiecare bloc</li>
+          <li>Colectare îngropată a deșeurilor</li>
+          <li>Spații comerciale la parter</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">11 — Întrebări</span>
+        <h2>Despre dezvoltator, <em>calitate și garanții</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_DESPRE)} întrebări la care răspundem cel mai des, cu cifre și termene concrete.
+      </p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  <section class="ec-section" id="birou" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">12 — Birou de vânzări</span>
+        <h2>Vino să vezi <em>pe teren</em></h2></div>
+      <p class="ec-shead__p">
+        O vizionare durează aproximativ 40 de minute și lămurește mai mult decât orice
+        pagină de site.
+      </p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      <div class="ec-panel">
+        <div class="ec-acces">
+          <div><span class="ec-acces__i">{ic("pin", 16, "1.9")}</span>
+            <div><b>Adresă</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
+          <div><span class="ec-acces__i">{ic("tel", 16, "1.9")}</span>
+            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
+          <div><span class="ec-acces__i">{ic("mail", 16, "1.9")}</span>
+            <div><b>E-mail</b><span><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></span></div></div>
+          <div><span class="ec-acces__i">{ic("ceas", 16, "1.9")}</span>
+            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
+        </div>
+        <div class="ec-cta__btns" style="margin-top:2rem">
+          <a class="ec-btn" href="tel:+40757707080">Sună acum</a>
+          <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">Vezi disponibilitatea</a>
+        </div>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>
+</div>"""
+
+    return pagina("Despre noi — dezvoltator, finisaje și garanții | Emerald City Iași",
+                  "Cine construiește Emerald City, ce include predarea la cheie, ce garanții și "
+                  "ce documente primești. 925 de apartamente în Iași, zona Păcurari, direct de "
+                  "la dezvoltator.",
+                  continut, r, schema, "despre-emerald-city/")
+
+
 def main():
     NUM = {"etaj": int, "nr_camere": int, "su_utila": float, "su_balcon": float,
            "su_curte": float, "pret_eur": int, "pret_mp_eur": float, "cota_teren": float}
@@ -1787,7 +2337,7 @@ def main():
 
     for d in ("apartamente-iasi", "tipologii", "investitie-apartamente-iasi", "compara", "contact",
               "apartamente-iasi-pacurari", "stadiu-lucrari", "despre-dezvoltator",
-              "proiect", "aparitii-presa", *LEGALE):
+              "proiect", "aparitii-presa", "despre-emerald-city", *LEGALE):
         p = os.path.join(RAD, d)
         if os.path.isdir(p):
             shutil.rmtree(p)
@@ -1834,6 +2384,7 @@ def main():
                            ("contact", pagina_contact()),
                            ("apartamente-iasi-pacurari", pagina_zona()),
                            ("stadiu-lucrari", pagina_stadiu()),
+                           ("despre-emerald-city", pagina_despre()),
                            ("despre-dezvoltator", pagina_dezvoltator()),
                            ("proiect", pagina_proiect()),
                            ("aparitii-presa", pagina_presa())):

@@ -1455,3 +1455,120 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
    cad pe aceeasi pozitie in fiecare coloana */
 .ec-statbox__v { min-width: 8.5rem; }
 @media (max-width: 46rem) { .ec-statbox__v { min-width: 0; } }
+
+
+/* ==========================================================================
+   Pagina "Despre noi" — componente proprii
+   ========================================================================== */
+
+/* ---- fisa tehnica de finisaje ------------------------------------------- */
+.ec-fisa {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden;
+}
+@media (min-width: 52rem) { .ec-fisa { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.ec-fisa__i {
+  background: var(--ec-white); padding: 1.6rem 1.5rem;
+  display: grid; grid-template-columns: auto minmax(0,1fr); gap: 1.15rem;
+  align-items: start; transition: background var(--ec-fast);
+}
+.ec-fisa__i:hover { background: var(--ec-sand); }
+.ec-fisa__ic {
+  width: 2.875rem; height: 2.875rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald);
+  display: grid; place-items: center; line-height: 0;
+}
+.ec-fisa__ic > svg { display: block; }
+.ec-fisa__i:hover .ec-fisa__ic { background: var(--ec-emerald); color: #fff; }
+.ec-fisa b { display: block; font-size: .9375rem; font-weight: 600; line-height: 1.3; }
+.ec-fisa__s {
+  display: block; margin-top: .35rem; font-size: .8125rem;
+  font-weight: 500; color: var(--ec-brass);
+}
+.ec-fisa__d {
+  display: block; margin-top: .55rem; font-size: .8125rem;
+  color: var(--ec-ink-60); line-height: 1.6;
+}
+.ec-fisa__note { margin-top: 1rem; font-size: .8125rem; color: var(--ec-ink-40); }
+
+/* ---- documentele primite ------------------------------------------------ */
+.ec-docs {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden;
+}
+@media (min-width: 40rem) { .ec-docs { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 68rem) { .ec-docs { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-docs__i {
+  background: var(--ec-white); padding: 1.5rem;
+  display: grid; grid-template-columns: auto minmax(0,1fr); gap: .9rem; align-items: start;
+}
+.ec-docs__c {
+  width: 1.625rem; height: 1.625rem; border-radius: 50%;
+  background: var(--ec-emerald); color: #fff;
+  display: grid; place-items: center; line-height: 0; margin-top: .1rem;
+}
+.ec-docs__c > svg { display: block; }
+.ec-docs b { display: block; font-size: .9375rem; font-weight: 600; line-height: 1.35; }
+.ec-docs em {
+  display: block; margin-top: .4rem; font-style: normal;
+  font-size: .8125rem; color: var(--ec-ink-60); line-height: 1.6;
+}
+
+/* ---- drumul catre chei -------------------------------------------------- */
+.ec-drum {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden;
+}
+@media (min-width: 40rem) { .ec-drum { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 66rem) { .ec-drum { grid-template-columns: repeat(5, minmax(0,1fr)); } }
+.ec-drum__i { background: var(--ec-white); padding: 1.85rem 1.4rem; }
+.ec-drum__n {
+  font-family: var(--ec-disp); font-size: .75rem; font-weight: 600;
+  letter-spacing: .14em; color: var(--ec-brass);
+}
+.ec-drum__i h3 { font-size: 1rem; font-weight: 600; margin: .75rem 0 .5rem; }
+.ec-drum__i p { font-size: .8125rem; color: var(--ec-ink-60); line-height: 1.6; }
+.ec-drum__t {
+  display: block; margin-top: 1rem; padding-top: .85rem;
+  border-top: 1px solid var(--ec-line);
+  font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ec-ink-40);
+}
+
+/* ---- proiecte anterioare ------------------------------------------------ */
+.ec-refs { display: grid; gap: var(--ec-gap); }
+@media (min-width: 52rem) { .ec-refs { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.ec-ref {
+  background: var(--ec-white); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex; flex-direction: column; gap: .85rem;
+  transition: border-color var(--ec-fast);
+}
+.ec-ref:hover { border-color: var(--ec-brass); }
+.ec-ref__k {
+  font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ec-ink-40);
+}
+.ec-ref h3 {
+  font-family: var(--ec-disp); font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  font-weight: 600; letter-spacing: -.015em;
+}
+.ec-ref p { font-size: .875rem; color: var(--ec-ink-60); line-height: 1.7; }
+.ec-ref dl { display: flex; flex-wrap: wrap; gap: .9rem 2rem; margin: .3rem 0 0; }
+.ec-ref dl > div { display: grid; }
+.ec-ref dt {
+  font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ec-ink-40);
+}
+.ec-ref dd { margin: .3rem 0 0; font-size: .9375rem; font-weight: 600; }
+
+/* ---- tabel comparativ, text pe mai multe rânduri ----------------------- */
+.ec-table--vs table { white-space: normal; }
+.ec-table--vs td:first-child, .ec-table--vs th:first-child { font-weight: 600; width: 34%; }
+.ec-table--vs td { font-size: .875rem; vertical-align: top; }
+.ec-table--vs .yes { color: var(--ec-emerald); font-weight: 600; }
+.ec-table--vs .no { color: var(--ec-ink-40); }
+
+/* eticheta de jos a fiecarui pas cade pe aceeasi linie in toate cardurile */
+.ec-drum__i { display: flex; flex-direction: column; }
+.ec-drum__t { margin-top: auto; }
