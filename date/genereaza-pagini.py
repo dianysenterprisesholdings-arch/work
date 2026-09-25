@@ -112,6 +112,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="{r}assets/css/main.css">
 {ld}
 </head>
@@ -1779,69 +1780,42 @@ def pagina_legala(slug):
 
 # ==================================================================== rulare
 # ========================================================== despre noi ==
-# Pictograme folosite doar de pagina "Despre noi".
-IC = {
- "pardoseala": '<path d="M4 18h16M6 14c0-3 3-3 3-6M12 14c0-3 3-3 3-6M18 14c0-2 1-2 1-4"/>',
- "termo":      '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/>',
- "centrala":   '<rect x="4" y="3" width="16" height="13" rx="2"/><path d="M8 19v2M16 19v2M9 8c0 2 3 2 3 4M15 8c0 2-1.5 2-1.5 4"/>',
- "tamplarie":  '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M12 3v18M3 12h18"/>',
- "baie":       '<path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4z"/><path d="M7 12V6a2 2 0 014 0M9 6h2"/><path d="M6 21l-1 1M18 21l1 1"/>',
- "electric":   '<path d="M13 2L5 14h5l-1 8 8-12h-5l1-8z"/>',
- "parchet":    '<rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 10h18M3 15h18M9 5v5M15 10v5M9 15v4"/>',
- "usi":        '<rect x="5" y="3" width="14" height="18" rx="1"/><circle cx="15.5" cy="12" r="1"/>',
- "pereti":     '<path d="M4 20V8l8-4 8 4v12"/><path d="M4 12h16M4 16h16M12 8v12"/>',
- "interfon":   '<rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="12" cy="9" r="2.2"/><path d="M9.5 15h5M9.5 17.5h5"/>',
- "bifa":       '<path d="M5 12.5l4 4 10-10"/>',
- "scut":       '<path d="M12 3l8 3v6c0 5-3.4 8-8 9-4.6-1-8-4-8-9V6z"/><path d="M9 12.5l2 2 4-4"/>',
- "cheie":      '<circle cx="8" cy="14" r="4"/><path d="M11 11l8-8 2 2-2 2 2 2-2 2-2-2-3 3"/>',
- "lupa":       '<circle cx="11" cy="11" r="7"/><path d="M16.2 16.2L21 21"/>',
- "semnat":     '<path d="M4 20h16M6 16l10-10 3 3-10 10H6z"/>',
- "macara":     '<path d="M4 20V4h9M4 8h13l3 4M13 4v4M9 12v8M12 20v-5h5v5"/>',
- "pin":        '<path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/>',
- "tel":        '<path d="M4.5 4h3l1.5 4-2 1.5a12 12 0 006 6L14.5 13l4 1.5v3a2 2 0 01-2.2 2A16 16 0 012.5 6.2 2 2 0 014.5 4z"/>',
- "mail":       '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/>',
- "ceas":       '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
- "cadou":      '<rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13M12 8S9 3 6.5 4.5 9 8 12 8s5.5-2 3-3.5S12 8 12 8z"/>',
-}
-
-
-def ic(k, s=22, w="1.5"):
-    return (f'<svg width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-            f'stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-            f'{IC[k]}</svg>')
+# Pictogramele vin din Font Awesome 6, incarcat in invelisul paginii.
+def ic(nume, extra=""):
+    return f'<i class="fa-solid fa-{nume}{extra}" aria-hidden="true"></i>'
 
 
 # Nivelul tehnic agreat pentru ansamblu. Marcile exacte se confirma in anexa
 # tehnica a contractului, deci pagina nu numeste furnizori.
 FINISAJE = [
- ("pardoseala", "Încălzire în pardoseală", "În toate camerele, distribuitor individual",
+ ("fire-flame-simple", "Încălzire în pardoseală", "În toate camerele, distribuitor individual",
   "Căldura urcă uniform de la sol, fără calorifere pe pereți. Câștigi peretele întreg pentru "
   "mobilier și reduci consumul, pentru că instalația lucrează la temperatură joasă."),
- ("centrala", "Centrală în condensație", "Randament ridicat, reglaj pe cameră",
+ ("gauge-high", "Centrală în condensație", "Randament ridicat, reglaj pe cameră",
   "Recuperează căldura din gazele de ardere, așa că scoate mai multă energie din același metru "
   "cub de gaz. Diferența la factură ajunge până la 35% față de o centrală clasică."),
- ("termo", "Termosistem de fațadă", "Izolație continuă, fără punți termice",
+ ("layer-group", "Termosistem de fațadă", "Izolație continuă, fără punți termice",
   "Fațada este izolată pe tot conturul, inclusiv la planșee și buiandrugi. Iarna ține căldura "
   "în casă, vara ține arșița afară, iar zgomotul din exterior scade simțitor."),
- ("tamplarie", "Tâmplărie PVC cu 7 camere", "Geam tripan, sticlă Low-E",
+ ("border-all", "Tâmplărie PVC cu 7 camere", "Geam tripan, sticlă Low-E",
   "Profilul cu șapte camere și geamul cu trei foi izolează termic și fonic la nivelul cerut "
   "clădirilor noi. Stratul Low-E reflectă căldura înapoi în încăpere."),
- ("parchet", "Parchet laminat de 10 mm", "Clasă de trafic intens",
+ ("grip-lines", "Parchet laminat de 10 mm", "Clasă de trafic intens",
   "Grosime de 10 mm, potrivită pentru locuit zilnic cu copii sau animale. Se montează pe strat "
   "fonoabsorbant, deci pașii nu se aud la vecinul de dedesubt."),
- ("baie", "Grupuri sanitare complet finisate", "Gresie, faianță, obiecte sanitare, baterii",
+ ("bath", "Grupuri sanitare complet finisate", "Gresie, faianță, obiecte sanitare, baterii",
   "Primești baia gata de folosit: placări montate, vas de toaletă, lavoar, baterii și racorduri. "
   "Nu mai ai de cumpărat și de montat nimic după predare."),
- ("electric", "Instalație electrică completă", "Aparataj montat, tablou cu siguranțe",
+ ("bolt", "Instalație electrică completă", "Aparataj montat, tablou cu siguranțe",
   "Prizele și întrerupătoarele sunt montate, tabloul este echipat și etichetat, iar circuitele "
   "sunt dimensionate separat pentru bucătărie, baie și camere."),
- ("pereti", "Pereți finisați", "Glet fin și vopsea lavabilă",
+ ("paint-roller", "Pereți finisați", "Glet fin și vopsea lavabilă",
   "Pereții și tavanele sunt gletuite și vopsite. Poți muta mobila direct, iar dacă vrei altă "
   "culoare, aplici peste, fără să reiei pregătirea."),
- ("usi", "Uși interioare montate", "Finisaj mat, feronerie inclusă",
+ ("door-closed", "Uși interioare montate", "Finisaj mat, feronerie inclusă",
   "Toate ușile interioare sunt montate, cu tocuri, pervazuri și feronerie. Ușa de intrare este "
   "metalică, cu izolație și închidere în mai multe puncte."),
- ("interfon", "Videointerfon", "Post interior în fiecare apartament",
+ ("video", "Videointerfon", "Post interior în fiecare apartament",
   "Vezi cine sună la scară înainte să deschizi. Accesul în bloc și în parcarea subterană se face "
   "controlat, cu cartelă sau cod."),
 ]
@@ -1874,19 +1848,19 @@ DOCUMENTE = [
 ]
 
 DRUM = [
- ("01", "Vizionare",
+ ("eye", "01", "Vizionare",
   "Vezi amplasamentul și apartamentul-model, primești lista de disponibilitate cu prețuri "
   "și suprafețe reale.", "Aceeași zi"),
- ("02", "Rezervare",
+ ("bookmark", "02", "Rezervare",
   "Alegi apartamentul și îl blochezi pe numele tău. Prețul se îngheață pe perioada rezervării.",
   "1–3 zile"),
- ("03", "Antecontract",
+ ("file-signature", "03", "Antecontract",
   "Semnezi antecontractul la notar, cu avansul de 15%. Suprafețele, prețul și termenul de "
   "predare sunt fixate în contract.", "La notar"),
- ("04", "Construcție",
+ ("helmet-safety", "04", "Construcție",
   "Urmărești progresul în jurnalul de șantier, actualizat lunar cu fotografii datate din teren.",
   "Conform etapei"),
- ("05", "Recepție și chei",
+ ("key", "05", "Recepție și chei",
   "Verifici apartamentul împreună cu noi, semnezi contractul final, se face intabularea "
   "și primești cheile.", "La finalizare"),
 ]
@@ -1921,6 +1895,29 @@ REFERINTE = [
   "Proiect rezidențial construit după aceleași principii: regim de înălțime redus, densitate "
   "mică și dotări comune gândite pentru întreaga comunitate, nu adăugate la final.",
   [("Oraș", "Iași"), ("Predare", "La cheie")]),
+]
+
+# Cifrele mari din capul paginii: valoare, sufix, eticheta, pictograma.
+FIGURI = [
+ ("925", "", "Apartamente", "building"),
+ ("18", "", "Blocuri P+3E", "city"),
+ ("30,85", "%", "Spațiu verde", "tree"),
+ ("940", "", "Locuri de parcare", "square-parking"),
+]
+
+# Ancorele din bara lipita
+# numarul din bara trebuie sa fie acelasi cu cel din capul sectiunii
+ANCORE = [
+ ("01", "viziune",    "Viziune"),
+ ("02", "finisaje",   "Finisaje"),
+ ("03", "garantii",   "Garanții"),
+ ("04", "documente",  "Documente"),
+ ("05", "proces",     "Proces"),
+ ("06", "comparatie", "Comparație"),
+ ("08", "proiecte",   "Experiență"),
+ ("10", "dotari",     "Dotări"),
+ ("11", "intrebari",  "Întrebări"),
+ ("12", "birou",      "Birou"),
 ]
 
 FAQ_DESPRE = [
@@ -1978,6 +1975,14 @@ FAQ_DESPRE = [
 def pagina_despre():
     r = "../"
 
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b data-num="{e(val)}">{e(val)}{e(suf)}</b><em>{e(et)}</em></span></div>'
+        for val, suf, et, pic in FIGURI)
+
+    ancore = "".join(f'<a href="#{a}"><b>{n}</b>{e(t)}</a>'
+                     for n, a, t in ANCORE)
+
     fisa = "".join(
         f'<div class="ec-fisa__i ec-rv"><span class="ec-fisa__ic">{ic(k)}</span>'
         f'<span><b>{e(nume)}</b><span class="ec-fisa__s">{e(spec)}</span>'
@@ -1988,21 +1993,23 @@ def pagina_despre():
                        for a, b, c in GARANTII)
 
     docs = "".join(
-        f'<div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("bifa", 14, "2.4")}</span>'
+        f'<div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>'
         f'<span><b>{e(t)}</b><em>{e(d)}</em></span></div>'
         for t, d in DOCUMENTE)
 
     drum = "".join(
-        f'<div class="ec-drum__i ec-rv"><span class="ec-drum__n">{n}</span>'
+        f'<div class="ec-drum__i ec-rv"><span class="ec-drum__ic">{ic(pic)}</span>'
+        f'<span class="ec-drum__n">{n}</span>'
         f'<h3>{e(t)}</h3><p>{e(d)}</p>'
         f'<span class="ec-drum__t">{e(cand)}</span></div>'
-        for n, t, d, cand in DRUM)
+        for pic, n, t, d, cand in DRUM)
 
     vs = "".join(f'<tr><td>{e(a)}</td><td class="yes">{e(b)}</td>'
                  f'<td class="no">{e(c)}</td></tr>' for a, b, c in VS)
 
     refs = "".join(
-        f'<article class="ec-ref ec-rv"><span class="ec-ref__k">{e(oras)}</span>'
+        f'<article class="ec-ref ec-rv"><span class="ec-ref__ic">{ic("building-circle-check")}</span>'
+        f'<span class="ec-ref__k">{e(oras)}</span>'
         f'<h3>{e(nume)}</h3><p>{e(desc)}</p><dl>'
         + "".join(f"<div><dt>{e(dt)}</dt><dd>{e(dd)}</dd></div>" for dt, dd in perechi)
         + "</dl></article>"
@@ -2033,32 +2040,35 @@ def pagina_despre():
                             for q, a in FAQ_DESPRE]},
         ]}
 
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Despre noi</nav>
-  <header class="ec-phead">
+    continut = f"""<section class="ec-phero">
+  {imagine("dining-01", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Despre noi</nav>
     <p class="ec-eyebrow">Despre noi</p>
-    <h1 style="margin-top:1rem">Un cartier construit ca să rămână</h1>
-    <p class="ec-body" style="max-width:64ch;font-size:var(--ec-lead)">
-      Emerald City sunt 925 de apartamente pe cinci hectare în Iași, zona Păcurari, ridicate
-      în blocuri de patru niveluri, cu aproape o treime din teren lăsată spațiu verde.
-      Se predau complet finisate, direct de la dezvoltator.
+    <h1>Un cartier construit ca să rămână</h1>
+    <p class="ec-phero__sub">
+      925 de apartamente pe cinci hectare în Iași, zona Păcurari, ridicate în blocuri de
+      patru niveluri, cu aproape o treime din teren lăsată spațiu verde. Se predau complet
+      finisate, direct de la dezvoltator.
     </p>
-  </header>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#finisaje">{ic("list-check")} Ce include predarea</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
+    </div>
+  </div>
+</section>
 
-  <section class="ec-section" style="padding-block:0 var(--ec-section)">
-    <dl class="ec-specs">
-      <div class="ec-spec"><dt>Apartamente</dt><dd>925</dd></div>
-      <div class="ec-spec"><dt>Blocuri</dt><dd>18 · regim 2D+P+3E</dd></div>
-      <div class="ec-spec"><dt>Suprafață teren</dt><dd>50.235 m²</dd></div>
-      <div class="ec-spec"><dt>Spațiu verde</dt><dd>30,85%</dd></div>
-      <div class="ec-spec"><dt>Locuri de parcare</dt><dd>940</dd></div>
-      <div class="ec-spec"><dt>Înălțime maximă</dt><dd>18,00 m</dd></div>
-      <div class="ec-spec"><dt>Etape de construcție</dt><dd>3</dd></div>
-      <div class="ec-spec"><dt>Vânzare</dt><dd>Direct dezvoltator</dd></div>
-    </dl>
-  </section>
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
 
-  <section class="ec-section" id="viziune" style="padding-block:0 var(--ec-section)">
+<div class="ec-subnav">
+  <div class="ec-wrap"><nav class="ec-subnav__in">{ancore}</nav></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="viziune">
     <div class="ec-shead">
       <div><span class="ec-shead__n">01 — Viziunea</span>
         <h2>Densitate mică, <em>spațiu de trăit</em></h2></div>
@@ -2108,8 +2118,8 @@ def pagina_despre():
     </div>
     <div class="ec-fisa" style="margin-top:2.5rem">{fisa}</div>
     <p class="ec-fisa__note">
-      Specificațiile tehnice și mărcile exacte se confirmă în anexa tehnică a contractului
-      de vânzare.
+      {ic("circle-info")} Specificațiile tehnice și mărcile exacte se confirmă în anexa
+      tehnică a contractului de vânzare.
     </p>
   </section>
 
@@ -2124,8 +2134,9 @@ def pagina_despre():
     </div>
     <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
       <table>
-        <thead><tr><th scope="col">Ce este garantat</th><th scope="col">Cât timp</th>
-          <th scope="col">Temei</th></tr></thead>
+        <thead><tr><th scope="col">{ic("shield-halved")} Ce este garantat</th>
+          <th scope="col">{ic("hourglass-half")} Cât timp</th>
+          <th scope="col">{ic("scale-balanced")} Temei</th></tr></thead>
         <tbody>{garantii}</tbody>
       </table>
     </div>
@@ -2142,20 +2153,26 @@ def pagina_despre():
     </div>
     <div class="ec-docs" style="margin-top:2.5rem">{docs}</div>
   </section>
+</div>
 
-  <section class="ec-section" id="proces" style="padding-block:0 var(--ec-section)">
-    <div class="ec-shead">
-      <div><span class="ec-shead__n">05 — Proces</span>
-        <h2>De la vizionare <em>la chei</em></h2></div>
-      <p class="ec-shead__p">
-        5 pași, fiecare cu ce se întâmplă și cine semnează. Fără etape ascunse și fără
-        costuri care apar pe drum.
-      </p>
+<section class="ec-band" id="proces">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">05 — Proces</span>
+          <h2>De la vizionare <em>la chei</em></h2></div>
+        <p class="ec-shead__p">
+          5 pași, fiecare cu ce se întâmplă și cine semnează. Fără etape ascunse și fără
+          costuri care apar pe drum.
+        </p>
+      </div>
+      <div class="ec-drum" style="margin-top:2.5rem">{drum}</div>
     </div>
-    <div class="ec-drum" style="margin-top:2.5rem">{drum}</div>
-  </section>
+  </div>
+</section>
 
-  <section class="ec-section" id="comparatie" style="padding-block:0 var(--ec-section)">
+<div class="ec-wrap">
+  <section class="ec-section" id="comparatie">
     <div class="ec-shead">
       <div><span class="ec-shead__n">06 — Comparație</span>
         <h2>Apartament nou <em>sau bloc vechi</em></h2></div>
@@ -2166,8 +2183,9 @@ def pagina_despre():
     </div>
     <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
       <table>
-        <thead><tr><th scope="col">Criteriu</th><th scope="col">Emerald City</th>
-          <th scope="col">Apartament vechi</th></tr></thead>
+        <thead><tr><th scope="col">Criteriu</th>
+          <th scope="col">{ic("circle-check")} Emerald City</th>
+          <th scope="col">{ic("circle-minus")} Apartament vechi</th></tr></thead>
         <tbody>{vs}</tbody>
       </table>
     </div>
@@ -2180,16 +2198,16 @@ def pagina_despre():
       <p class="ec-shead__p">4 diferențe concrete, nu promisiuni.</p>
     </div>
     <div class="ec-why" style="margin-top:2.5rem">
-      <div class="ec-why__i ec-rv">{ic("scut", 26)}
+      <div class="ec-why__i ec-rv">{ic("percent")}
         <h3>Zero comision</h3>
         <p>Nu plătești 2–3% unei agenții. Prețul de pe site este prețul de la notar.</p></div>
-      <div class="ec-why__i ec-rv">{ic("lupa", 26)}
+      <div class="ec-why__i ec-rv">{ic("list-check")}
         <h3>Lista completă</h3>
         <p>Vezi toate cele 925 de apartamente, cu preț, suprafață, etaj și orientare.</p></div>
-      <div class="ec-why__i ec-rv">{ic("semnat", 26)}
+      <div class="ec-why__i ec-rv">{ic("file-signature")}
         <h3>Contract direct</h3>
         <p>Discuți termenele și etapele de plată cu cel care construiește, nu cu un intermediar.</p></div>
-      <div class="ec-why__i ec-rv">{ic("macara", 26)}
+      <div class="ec-why__i ec-rv">{ic("helmet-safety")}
         <h3>Progres verificabil</h3>
         <p>Publicăm lunar stadiul lucrărilor, cu fotografii datate din teren.</p></div>
     </div>
@@ -2226,8 +2244,8 @@ def pagina_despre():
           <li>Cine execută structura și cine verifică proiectul</li>
         </ul>
         <div class="ec-spot__cta">
-          <a class="ec-btn ec-btn--white" href="{r}proiect/">Vezi datele proiectului</a>
-          <a class="ec-btn ec-btn--outlight" href="{r}stadiu-lucrari/">Jurnal de șantier</a>
+          <a class="ec-btn ec-btn--white" href="{r}proiect/">{ic("compass-drafting")} Vezi datele proiectului</a>
+          <a class="ec-btn ec-btn--outlight" href="{r}stadiu-lucrari/">{ic("helmet-safety")} Jurnal de șantier</a>
         </div>
       </div>
       <figure>
@@ -2247,7 +2265,7 @@ def pagina_despre():
     </div>
     <div class="ec-lists" style="margin-top:2.5rem">
       <div class="ec-list">
-        <h3>În apartament</h3>
+        <h3>{ic("house-chimney")} În apartament</h3>
         <ul>
           <li>Încălzire în pardoseală în toate camerele</li>
           <li>Centrală proprie în condensație</li>
@@ -2262,7 +2280,7 @@ def pagina_despre():
         </ul>
       </div>
       <div class="ec-list">
-        <h3>În cartier</h3>
+        <h3>{ic("tree-city")} În cartier</h3>
         <ul>
           <li>Piste de biciclete</li>
           <li>Zone de fitness</li>
@@ -2302,24 +2320,69 @@ def pagina_despre():
     <div class="ec-split" style="margin-top:2.5rem">
       <div class="ec-panel">
         <div class="ec-acces">
-          <div><span class="ec-acces__i">{ic("pin", 16, "1.9")}</span>
+          <div><span class="ec-acces__i">{ic("location-dot")}</span>
             <div><b>Adresă</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
-          <div><span class="ec-acces__i">{ic("tel", 16, "1.9")}</span>
+          <div><span class="ec-acces__i">{ic("phone")}</span>
             <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("mail", 16, "1.9")}</span>
+          <div><span class="ec-acces__i">{ic("envelope")}</span>
             <div><b>E-mail</b><span><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("ceas", 16, "1.9")}</span>
+          <div><span class="ec-acces__i">{ic("clock")}</span>
             <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
         </div>
         <div class="ec-cta__btns" style="margin-top:2rem">
-          <a class="ec-btn" href="tel:+40757707080">Sună acum</a>
-          <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">Vezi disponibilitatea</a>
+          <a class="ec-btn" href="tel:+40757707080">{ic("phone")} Sună acum</a>
+          <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
         </div>
       </div>
       {formular(None, r)}
     </div>
   </section>
-</div>"""
+</div>
+
+<script>
+/* cifrele mari urca pana la valoarea reala, o singura data */
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (!nr.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const urca = el => {{
+    const brut = el.dataset.num;
+    const tinta = parseFloat(brut.replace(/\\./g, '').replace(',', '.'));
+    const zec = (brut.split(',')[1] || '').length;
+    const sufix = el.textContent.replace(brut, '');
+    const t0 = performance.now(), dur = 1100;
+    const pas = t => {{
+      const p = Math.min((t - t0) / dur, 1);
+      const v = tinta * (1 - Math.pow(1 - p, 3));
+      el.textContent = v.toLocaleString('ro-RO', {{
+        minimumFractionDigits: zec, maximumFractionDigits: zec }}) + sufix;
+      if (p < 1) requestAnimationFrame(pas);
+    }};
+    requestAnimationFrame(pas);
+  }};
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (x.isIntersecting) {{ urca(x.target); o.unobserve(x.target); }}
+  }}), {{ threshold: .4 }});
+  nr.forEach(x => o.observe(x));
+}})();
+
+/* bara de sectiuni: evidentiaza sectiunea aflata in dreptul ecranului */
+(() => {{
+  const bara = document.querySelector('.ec-subnav');
+  if (!bara) return;
+  const leg = [...bara.querySelectorAll('a')];
+  const sect = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!sect.length) return;
+  const o = new IntersectionObserver(es => {{
+    es.forEach(x => {{
+      if (!x.isIntersecting) return;
+      leg.forEach(a => a.classList.toggle('is-on',
+        a.getAttribute('href') === '#' + x.target.id));
+    }});
+  }}, {{ rootMargin: '-20% 0px -70% 0px' }});
+  sect.forEach(s => o.observe(s));
+}})();
+</script>"""
 
     return pagina("Despre noi — dezvoltator, finisaje și garanții | Emerald City Iași",
                   "Cine construiește Emerald City, ce include predarea la cheie, ce garanții și "
