@@ -2021,46 +2021,56 @@ PORTOFOLIU_RO = [
  ("Emerald City", "Iași · în dezvoltare",
   "925 de apartamente în 18 blocuri cu regim 2D+P+3E, pe cinci hectare din care 30,85% "
   "rămâne spațiu verde amenajat. Predare la cheie, vânzare directă de la dezvoltator.",
-  [("Apartamente", "925"), ("Blocuri", "18"), ("Etape", "3")]),
+  [("Apartamente", "925"), ("Blocuri", "18"), ("Etape", "3")],
+  ("{r}proiect/", "Vezi proiectul")),
  ("Lapis Residence", "Iași · din 2023",
   "Ansamblu cu piste de biciclete în tot cartierul, panouri fotovoltaice și finisaje "
   "premium. Proiectul a început la finalul lui 2023 și este în curs de dezvoltare.",
-  [("Oraș", "Iași"), ("Început", "2023"), ("Stadiu", "În dezvoltare")]),
+  [("Oraș", "Iași"), ("Început", "2023"), ("Stadiu", "În dezvoltare")],
+  ("https://www.lapis-residence.ro/", "lapis-residence.ro")),
  ("Onyx Residence", "Iași · din 2024",
   "Prelungirea ansamblului Lapis: 360 de apartamente în 8 blocuri similare ca structură "
   "și dotări, cu spații comerciale la parter. Împreună, cele două ajung la 740 de locuințe.",
-  [("Apartamente", "360"), ("Blocuri", "8"), ("Început", "2024")]),
+  [("Apartamente", "360"), ("Blocuri", "8"), ("Început", "2024")],
+  ("https://www.onyx-residence.ro/", "onyx-residence.ro")),
  ("Magnolia Residence", "Sibiu",
   "Faza I, finalizată: 1.132 de apartamente în vile P+2E+M și imobile P+4E și P+7E+R, "
   "plus o clădire comercială. Faza a II-a cuprinde 12 imobile, până la P+3E+ER.",
-  [("Apartamente", "1.132"), ("Faza I", "Finalizată"), ("Faza a II-a", "În lucru")]),
+  [("Apartamente", "1.132"), ("Faza I", "Finalizată"), ("Faza a II-a", "În lucru")],
+  ("https://greenstone-group.ro/proiecte/", "greenstone-group.ro")),
 ]
 
 PORTOFOLIU_INT = [
  ("Apartamente de lux", "Marea Britanie · 2022–2024",
   "Complex cu 100 de apartamente pe cinci etaje — studio, o cameră și două camere, unele "
   "cu birou sau spațiu suplimentar de depozitare.",
-  [("Apartamente", "100"), ("Valoare estimată", "25,5 mil. £")]),
+  [("Apartamente", "100"), ("Valoare estimată", "25,5 mil. £")],
+  ("https://greenstone-group.ro/proiecte/", "greenstone-group.ro")),
  ("Apartamente moderne", "Marea Britanie · 2020–2022",
   "Complex cu 94 de apartamente de înaltă calitate, cu specificații superioare în toate "
   "unitățile.",
-  [("Apartamente", "94"), ("Valoare estimată", "29 mil. £")]),
+  [("Apartamente", "94"), ("Valoare estimată", "29 mil. £")],
+  ("https://greenstone-group.ro/proiecte/", "greenstone-group.ro")),
  ("Proiect de referință", "Israel · finalizat",
   "12 clădiri cu regim P+8 și 40.000 m² construiți, la care se adaugă 750 m² de spații "
   "comerciale pentru serviciile din incintă.",
-  [("Construit", "40.000 m²"), ("Preț mediu", "5.500 €/m²")]),
+  [("Construit", "40.000 m²"), ("Preț mediu", "5.500 €/m²")],
+  ("https://greenstone-group.ro/proiecte/", "greenstone-group.ro")),
  ("Ansamblu rezidențial", "Israel · finalizat în 2016",
   "7 clădiri cu 245 de apartamente de lux și 35.000 m² construiți, într-unul dintre cele "
   "mai importante orașe din Israel.",
-  [("Apartamente", "245"), ("Construit", "35.000 m²")]),
+  [("Apartamente", "245"), ("Construit", "35.000 m²")],
+  ("https://greenstone-group.ro/proiecte/", "greenstone-group.ro")),
  ("Apartamente de lux", "Israel · faza I în 2023",
   "9 clădiri cu 240 de apartamente și 31.500 m² construiți, plus 3.000 m² de spații "
   "comerciale în incintă.",
-  [("Apartamente", "240"), ("Comercial", "3.000 m²")]),
+  [("Apartamente", "240"), ("Comercial", "3.000 m²")],
+  ("https://greenstone-group.ro/proiecte/", "greenstone-group.ro")),
  ("Turn de birouri", "Israel · în construcție",
   "Turn de birouri cu aproximativ 40.000 m² de spații comerciale, cu fațadă proiectată "
   "în detaliu și planificare adaptată mediului construit.",
-  [("Spații", "≈40.000 m²"), ("Stadiu", "În construcție")]),
+  [("Spații", "≈40.000 m²"), ("Stadiu", "În construcție")],
+  ("https://greenstone-group.ro/proiecte/", "greenstone-group.ro")),
 ]
 
 PRINCIPII = [
@@ -2128,15 +2138,22 @@ def pagina_dezvoltator():
             ("2016", "Primul proiect livrat", "clock-rotate-left", False),
         ])
 
+    def card(nume, loc, desc, perechi, legatura):
+        adresa, eticheta = legatura
+        adresa = adresa.replace("{r}", r)
+        extern = adresa.startswith("http")
+        atr = ' target="_blank" rel="noopener"' if extern else ""
+        pict = "arrow-up-right-from-square" if extern else "arrow-right"
+        return (f'<article class="ec-ref ec-rv">'
+                f'<span class="ec-ref__ic">{ic("building-circle-check")}</span>'
+                f'<span class="ec-ref__k">{e(loc)}</span>'
+                f'<h3>{e(nume)}</h3><p>{e(desc)}</p><dl>'
+                + "".join(f"<div><dt>{e(dt)}</dt><dd>{e(dd)}</dd></div>" for dt, dd in perechi)
+                + f'</dl><a class="ec-ref__l" href="{e(adresa)}"{atr}>'
+                f'{ic(pict)} {e(eticheta)}</a></article>')
+
     def carduri(lista):
-        return "".join(
-            f'<article class="ec-ref ec-rv">'
-            f'<span class="ec-ref__ic">{ic("building-circle-check")}</span>'
-            f'<span class="ec-ref__k">{e(loc)}</span>'
-            f'<h3>{e(nume)}</h3><p>{e(desc)}</p><dl>'
-            + "".join(f"<div><dt>{e(dt)}</dt><dd>{e(dd)}</dd></div>" for dt, dd in perechi)
-            + "</dl></article>"
-            for nume, loc, desc, perechi in lista)
+        return "".join(card(*x) for x in lista)
 
     principii = "".join(
         f'<div class="ec-why__i ec-rv">{ic(pic)}<h3>{e(t)}</h3><p>{e(d)}</p></div>'
@@ -2862,58 +2879,208 @@ def pagina_proiect(unitati):
                   continut, r, schema, "proiect/")
 
 
-# ================================================================ presa ==
+# ================================================================= presa ==
+# ATENTIE: intrarile de mai jos sunt MACHETE, scrise ca sa se vada cum arata
+# sectiunea. Nu sunt articole reale. Se inlocuiesc cu aparitiile adevarate
+# inainte de lansare, iar odata cu ele se scoate si `macheta: True`.
+ARTICOLE = [
+ {"pub": "Ziarul de Iași", "url": "https://www.ziaruldeiasi.ro",
+  "data": "2026-09-12", "afisat": "12 septembrie 2026", "macheta": True,
+  "titlu": "Emerald City: 925 de apartamente pe cinci hectare în zona Păcurari",
+  "rezumat": "Cel mai mare ansamblu rezidențial din nord-vestul Iașului intră în etapa a "
+             "doua de construcție. Proiectul mizează pe densitate mică — 18 blocuri cu "
+             "regim 2D+P+3E — și pe 30,85% spațiu verde amenajat."},
+ {"pub": "BZI", "url": "https://www.bzi.ro",
+  "data": "2026-08-28", "afisat": "28 august 2026", "macheta": True,
+  "titlu": "Cum arată un cartier în care spațiul verde depășește suprafața construită",
+  "rezumat": "La Emerald City, cele 15.501,80 m² de spațiu verde amenajat sunt mai mult "
+             "decât amprenta la sol a celor 18 blocuri. Parcarea se rezolvă cu 940 de "
+             "locuri, dintre care 258 subterane."},
+ {"pub": "APIX", "url": "https://www.apix.ro",
+  "data": "2026-07-15", "afisat": "15 iulie 2026", "macheta": True,
+  "titlu": "Piața rezidențială din Iași: cererea se mută spre ansamblurile cu dotări",
+  "rezumat": "Cumpărătorii ieșeni aleg tot mai des proiectele care includ finisaje, "
+             "parcare și spații comune. Emerald City, din zona Păcurari, predă "
+             "apartamentele complet finisate, cu încălzire în pardoseală."},
+ {"pub": "7Iași", "url": "https://7iasi.ro",
+  "data": "2026-06-04", "afisat": "4 iunie 2026", "macheta": True,
+  "titlu": "Investiție în Păcurari: 18 blocuri și 940 de locuri de parcare",
+  "rezumat": "Ansamblul dezvoltat de Tala Sapphire, companie din Green Stone Group, se "
+             "construiește în trei etape, pe un teren de 50.235 m² la limita de "
+             "nord-vest a Iașului."},
+]
+
+DATE_PRESA = [
+ ("Denumire", "Emerald City"),
+ ("Dezvoltator", "Tala Sapphire S.R.L."),
+ ("Grup", "Green Stone Group"),
+ ("Amplasament", "Str. Ion Nistor, Iași"),
+ ("Apartamente", "925, în 18 blocuri"),
+ ("Regim de înălțime", "2D+P+3E · Hmax 18,00 m"),
+ ("Suprafață teren", "50.235 m²"),
+ ("Spațiu verde", "15.501,80 m² · 30,85%"),
+ ("Parcare", "940 locuri · 258 subterane"),
+ ("Etape", "3 · 322 / 423 / 180 apartamente"),
+ ("Proiectant", "S.C. C.A.D. S.R.L., Iași"),
+ ("Contact presă", "presa@emerald-city.ro"),
+]
+
+MATERIALE = [
+ ("image", "Randări de interior",
+  "Imagini de rezoluție mare din apartamentele-model, pentru print și online."),
+ ("compass-drafting", "Planuri și secțiuni",
+  "Planurile celor 5 compartimentări și secțiunea verticală prin bloc."),
+ ("file-lines", "Fișa de proiect",
+  "Un document cu toate cifrele verificate: suprafețe, indicatori, etape, termene."),
+ ("copyright", "Elemente de identitate",
+  "Logo în variantele pe fond deschis și închis, plus paleta de culori."),
+]
+
+
 def pagina_presa():
     r = "../"
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Apariții în presă</nav>
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Presă</p>
-    <h1 style="margin-top:1rem">Apariții în presă</h1>
-    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
-      Materiale despre Emerald City apărute în publicații locale și naționale, plus datele
-      de care are nevoie un jurnalist ca să scrie corect despre proiect.
-    </p>
-  </header>
 
-  <section class="ec-section" style="padding-block:0 3rem">
-    <div class="ec-empty" style="text-align:left">
-      <p><b>Secțiune în pregătire.</b></p>
-      <p style="margin-top:.5rem">
-        Aici vor apărea articolele despre proiect, pe măsură ce sunt publicate.
-        Fiecare intrare va avea publicația, data și link către articolul original.
+    articole = "".join(
+        '<article class="ec-art ec-rv">'
+        f'<div class="ec-art__top"><span class="ec-art__pub">{e(a["pub"])}</span>'
+        + ('<span class="ec-art__badge">Machetă</span>' if a.get("macheta") else "")
+        + '</div>'
+        f'<h3><a href="{e(a["url"])}" target="_blank" rel="noopener nofollow">{e(a["titlu"])}</a></h3>'
+        f'<p>{e(a["rezumat"])}</p>'
+        f'<div class="ec-art__foot"><time datetime="{e(a["data"])}">{e(a["afisat"])}</time>'
+        f'<a class="ec-art__go" href="{e(a["url"])}" target="_blank" rel="noopener nofollow">'
+        f'Citește pe {e(a["pub"])}{ic("arrow-up-right-from-square")}</a></div>'
+        '</article>'
+        for a in ARTICOLE)
+
+    date_presa = "".join(f'<div class="ec-spec"><dt>{e(k)}</dt><dd>{e(v)}</dd></div>'
+                         for k, v in DATE_PRESA)
+
+    materiale = "".join(
+        f'<div class="ec-fisa__i ec-rv"><span class="ec-fisa__ic">{ic(pic)}</span>'
+        f'<span><b>{e(t)}</b><span class="ec-fisa__d">{e(d)}</span></span></div>'
+        for pic, t, d in MATERIALE)
+
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b data-num="{e(val)}">{e(val)}{e(suf)}</b><em>{e(et)}</em></span></div>'
+        for val, suf, et, pic in [
+            ("925", "", "Apartamente", "building"),
+            ("18", "", "Blocuri 2D+P+3E", "city"),
+            ("50.235", " m²", "Suprafață teren", "ruler-combined"),
+            ("30,85", "%", "Spațiu verde", "tree"),
+        ])
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "CollectionPage", "name": "Apariții în presă — Emerald City",
+             "url": "https://emerald-city.ro/aparitii-presa/"},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("hero-living", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Apariții în presă</nav>
+    <p class="ec-eyebrow">Presă</p>
+    <h1>Ce s-a scris despre Emerald City</h1>
+    <p class="ec-phero__sub">
+      Articole apărute în publicații locale și naționale, cu link către sursa originală.
+      Mai jos găsești și datele verificate ale proiectului, pentru jurnaliști.
+    </p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#articole">{ic("newspaper")} Vezi aparițiile</a>
+      <a class="ec-btn ec-btn--outlight" href="mailto:presa@emerald-city.ro">{ic("envelope")} Contact presă</a>
+    </div>
+  </div>
+</section>
+
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="articole">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Apariții</span>
+        <h2>Articole <em>despre proiect</em></h2></div>
+      <p class="ec-shead__p">
+        Fiecare intrare are publicația, data și link către articolul original.
       </p>
     </div>
+    <div class="ec-macheta">
+      {ic("triangle-exclamation")}
+      <span><b>Machetă de lucru</b>
+      <span>Cele {len(ARTICOLE)} intrări de mai jos sunt exemple, scrise ca să se vadă cum
+      arată secțiunea. Nu sunt articole publicate. Se înlocuiesc cu aparițiile reale,
+      împreună cu linkurile către ele, înainte de lansarea site-ului.</span></span>
+    </div>
+    <div class="ec-arts" style="margin-top:var(--ec-gap)">{articole}</div>
   </section>
 
-  <section class="ec-section" style="padding-block:0 4rem">
-    <div class="ec-split">
-      <div class="ec-panel">
-        <h2 class="ec-title" style="font-size:1.1rem;margin-bottom:1.25rem">Date pentru presă</h2>
-        <div class="ec-dist">
-          <div><span>Denumire</span><b>Emerald City</b></div>
-          <div><span>Dezvoltator</span><b>Tala Sapphire S.R.L.</b></div>
-          <div><span>Amplasament</span><b>Str. Ion Nistor, Iași</b></div>
-          <div><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="16" rx="1"/><rect x="12" y="9" width="8" height="11" rx="1"/><path d="M6.5 8h3M6.5 12h3M6.5 16h3M15 13h2M15 17h2"/></svg> Apartamente</span><b>925, în 18 blocuri</b></div>
-          <div><span>Suprafață teren</span><b>50.235 m²</b></div>
-          <div><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18c0-7.5 5-12 14-12 0 8.5-5 12-14 12z"/><path d="M5 18c2.5-3.5 5.5-5.5 9.5-7"/></svg> Spațiu verde</span><b>15.501 m² · 30,85%</b></div>
-          <div><span>Regim</span><b>Parter + 3 etaje</b></div>
-          <div style="border:0"><span>Etape</span><b>3 · 322 / 423 / 180 apartamente</b></div>
-        </div>
-        <p class="ec-calc__note">
-          Pentru solicitări de presă, interviuri sau imagini de înaltă rezoluție,
-          scrie la <a href="mailto:presa@emerald-city.ro">presa@emerald-city.ro</a>.
-        </p>
-      </div>
-      {formular(None, r)}
+  <section class="ec-section" id="date" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Date pentru presă</span>
+        <h2>Cifrele <em>verificate</em></h2></div>
+      <p class="ec-shead__p">
+        Datele din documentația de autorizare, ca să nu fie nevoie să le ceri.
+        Pot fi preluate ca atare.
+      </p>
+    </div>
+    <dl class="ec-specs" style="margin-top:2.5rem">{date_presa}</dl>
+  </section>
+
+  <section class="ec-section" id="materiale" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Materiale</span>
+        <h2>Ce punem <em>la dispoziție</em></h2></div>
+      <p class="ec-shead__p">
+        Materiale de rezoluție mare, trimise la cerere în aceeași zi lucrătoare.
+      </p>
+    </div>
+    <div class="ec-fisa" style="margin-top:2.5rem">{materiale}</div>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn" href="mailto:presa@emerald-city.ro">{ic("envelope")} Cere materialele</a>
+      <a class="ec-btn ec-btn--out" href="{r}proiect/">{ic("compass-drafting")} Vezi datele proiectului</a>
     </div>
   </section>
-</div>"""
-    return pagina("Apariții în presă — Emerald City Iași",
-                  "Materiale de presă despre Emerald City, ansamblu rezidențial în Iași, "
-                  "zona Păcurari. Date de proiect și contact pentru jurnaliști.",
-                  continut, r, None, "aparitii-presa/")
 
+  {showroom(r, "04")}
+</div>
+
+<script>
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (!nr.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const urca = el => {{
+    const brut = el.dataset.num;
+    const tinta = parseFloat(brut.replace(/\\./g, '').replace(',', '.'));
+    const zec = (brut.split(',')[1] || '').length;
+    const sufix = el.textContent.replace(brut, '');
+    const t0 = performance.now(), dur = 1100;
+    const pas = t => {{
+      const p = Math.min((t - t0) / dur, 1);
+      const v = tinta * (1 - Math.pow(1 - p, 3));
+      el.textContent = v.toLocaleString('ro-RO', {{
+        minimumFractionDigits: zec, maximumFractionDigits: zec }}) + sufix;
+      if (p < 1) requestAnimationFrame(pas);
+    }};
+    requestAnimationFrame(pas);
+  }};
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (x.isIntersecting) {{ urca(x.target); o.unobserve(x.target); }}
+  }}), {{ threshold: .4 }});
+  nr.forEach(x => o.observe(x));
+}})();
+</script>"""
+
+    return pagina("Apariții în presă — Emerald City Iași",
+                  "Articole despre ansamblul Emerald City din Iași, zona Păcurari, apărute "
+                  "în publicații locale și naționale. Date de proiect și materiale pentru "
+                  "jurnaliști.",
+                  continut, r, schema, "aparitii-presa/")
 
 
 # ========================================================= pagini legale ==
