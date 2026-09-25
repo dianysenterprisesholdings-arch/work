@@ -96,11 +96,69 @@ def etaj_txt(n):
     return "Parter" if n == 0 else f"Etaj {n}"
 
 
+
+# Eticheta fiecarui segment de adresa, pentru firimiturile din date
+# structurate. Ce nu e aici se deduce din slug.
+ETICHETE_CALE = {
+    "apartamente-iasi": "Apartamente noi în Iași",
+    "disponibilitate": "Disponibilitate și prețuri",
+    "apartamente-1-camera": "Apartamente 1 cameră",
+    "apartamente-2-camere": "Apartamente 2 camere",
+    "apartamente-3-camere": "Apartamente 3 camere",
+    "apartamente-iasi-pacurari": "Zona Păcurari",
+    "investitie-apartamente-iasi": "Investiție și randament",
+    "despre-emerald-city": "Despre noi",
+    "despre-dezvoltator": "Dezvoltator",
+    "stadiu-lucrari": "Stadiul lucrărilor",
+    "aparitii-presa": "Apariții în presă",
+    "finisaje": "Finisaje",
+    "proiect": "Proiect",
+    "contact": "Contact",
+    "compara": "Comparator",
+}
+
+
+def firimituri(canonic):
+    """BreadcrumbList din adresa canonica, ca sa apara in rezultatele cautarii."""
+    parti = [x for x in canonic.strip("/").split("/") if x]
+    elemente = [{"@type": "ListItem", "position": 1, "name": "Acasă",
+                 "item": "https://emerald-city.ro/"}]
+    cale = ""
+    for i, seg in enumerate(parti, 2):
+        cale += seg + "/"
+        if seg.startswith("tip-"):
+            nume = "Tip " + seg[4:].upper()
+        elif seg[:1] == "c" and "-" in seg and seg[1:2].isdigit():
+            nume = seg.upper()
+        else:
+            nume = ETICHETE_CALE.get(seg, seg.replace("-", " ").capitalize())
+        elemente.append({"@type": "ListItem", "position": i, "name": nume,
+                         "item": f"https://emerald-city.ro/{cale}"})
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": elemente}
+
 # ------------------------------------------------------------------ sablon
-def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
+def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
+           imagine_og="hero-living"):
     """Invelisul comun: topbar, navigatie, continut, subsol, WhatsApp."""
     r = radacina
     ld = f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>' if schema else ""
+    ld += ('<script type="application/ld+json">'
+           + json.dumps(firimituri(canonic), ensure_ascii=False) + "</script>")
+    adresa = f"https://emerald-city.ro/{canonic}"
+    og = f"""<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emerald City">
+<meta property="og:locale" content="ro_RO">
+<meta property="og:title" content="{e(titlu)}">
+<meta property="og:description" content="{e(descriere)}">
+<meta property="og:url" content="{adresa}">
+<meta property="og:image" content="https://emerald-city.ro/assets/img/{imagine_og}.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(titlu)}">
+<meta name="twitter:description" content="{e(descriere)}">
+<meta name="twitter:image" content="https://emerald-city.ro/assets/img/{imagine_og}.jpg">"""
     return f"""<!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -109,6 +167,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 <title>{e(titlu)}</title>
 <meta name="description" content="{e(descriere)}">
 <link rel="canonical" href="https://emerald-city.ro/{canonic}">
+{og}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1114,11 +1173,16 @@ def pagina_unitate(u, similare):
   </span>
 </div>"""
 
-    return pagina(f"{titlu_h} | Emerald City Iași",
-                  f"Apartament {camere_txt(u['nr_camere'])} de {mp(u['su_utila'])} în Iași, "
-                  f"zona Păcurari, blocul {bloc(u['corp'])}, {etaj_txt(u['etaj']).lower()}. "
-                  f"{euro(u['pret_eur'])}, predare la cheie, direct de la dezvoltator.",
-                  continut, r, schema, f"apartamente-iasi/{uid.lower()}/")
+    # codul unitatii intra in titlu si in descriere: fara el, apartamentele
+    # cu aceleasi caracteristici ar avea metadate identice
+    return pagina(f"{uid} — apartament {camere_txt(u['nr_camere'])} {mp(u['su_utila'])}, "
+                  f"blocul {bloc(u['corp'])} | Emerald City",
+                  f"Apartamentul {uid}: {camere_txt(u['nr_camere'])}, {mp(u['su_utila'])}, "
+                  f"blocul {bloc(u['corp'])}, {etaj_txt(u['etaj']).lower()}, orientare "
+                  f"{ORIENTARE.get(u['orientare'], u['orientare'])}. {euro(u['pret_eur'])}, "
+                  "predare la cheie, în Iași, zona Păcurari.",
+                  continut, r, schema, f"apartamente-iasi/{uid.lower()}/",
+                  imagini[0])
 
 
 # ========================================================== pagina tipologie
@@ -1455,10 +1519,9 @@ def pagina_tip(cod, unitati_tip, grupe):
 }})();
 </script>"""
 
-    return pagina(f"Apartament {camere_txt(nr)} tip {cod} în Iași, zona Păcurari | Emerald City",
-                  f"{DESC_TIP.get(cod, '')} Între {su_min:.0f} și {su_max:.0f} m² suprafață utilă, "
-                  f"{len(disp)} unități disponibile, de la {euro(pmin) if pmin else '—'}. "
-                  "Predare la cheie, direct de la dezvoltator.",
+    return pagina(f"Apartament {camere_txt(nr)} tip {cod}, Iași Păcurari | Emerald City",
+                  f"{DESC_TIP.get(cod, '')} {su_min:.0f}–{su_max:.0f} m², {len(disp)} unități "
+                  f"disponibile, de la {euro(pmin) if pmin else '—'}. Iași, zona Păcurari.",
                   continut, r, schema, slug_tip(cod))
 
 
@@ -2023,10 +2086,10 @@ def pagina_hub(unitati, grupe):
 }})();
 </script>"""
 
-    return pagina("Apartamente noi în Iași, zona Păcurari — prețuri și disponibilitate | Emerald City",
-                  f"{len(disp)} apartamente noi disponibile în Iași, zona Păcurari: 1, 2 și 3 camere, "
-                  f"între {su_min:.0f} și {su_max:.0f} m², de la {euro(p_min)}. Predare la cheie, "
-                  "vânzare directă de la dezvoltator.",
+    return pagina("Apartamente noi în Iași, zona Păcurari | Emerald City",
+                  f"{len(disp)} apartamente noi în Iași, zona Păcurari: 1, 2 și 3 camere, "
+                  f"{su_min:.0f}–{su_max:.0f} m², de la {euro(p_min)}. Predare la cheie, direct "
+                  "de la dezvoltator.",
                   continut, r, schema, "apartamente-iasi/")
 
 
@@ -2431,7 +2494,7 @@ def pagina_categorie(nr, unitati, grupe):
 }})();
 </script>"""
 
-    return pagina(f"{c['titlu']} în Iași, zona Păcurari — {len(disp)} disponibile | Emerald City",
+    return pagina(f"{c['titlu']} în Iași — {len(disp)} libere | Emerald City",
                   f"{len(disp)} {c['titlu'].lower()} disponibile în Iași, zona Păcurari, "
                   f"între {su_min:.0f} și {su_max:.0f} m², de la {euro(pmin) if pmin else '—'}. "
                   "Predare la cheie, vânzare directă de la dezvoltator.",
@@ -2546,7 +2609,7 @@ def pagina_investitie(unitati):
 </div>"""
 
     return pagina(
-        "Investiție în apartamente noi în Iași — randament și calculator | Emerald City",
+        "Investiție în apartamente noi în Iași — randament | Emerald City",
         "Calculator de randament pentru apartamente noi în Iași, zona Păcurari. "
         f"{len(gars)} de garsoniere disponibile, cu estimări de chirie și amortizare.",
         continut, r, None, "investitie-apartamente-iasi/")
@@ -2892,7 +2955,7 @@ def pagina_zona():
 
 <script src="{r}assets/js/harta.js"></script>"""
 
-    return pagina("Apartamente în Iași, zona Păcurari — amplasament și distanțe | Emerald City",
+    return pagina("Apartamente Iași, zona Păcurari — amplasament | Emerald City",
                   "Unde se află Emerald City în Iași, zona Păcurari: distanțe reale până la "
                   "Copou, centru, universitate și școli, hartă interactivă cu traseu și ghid "
                   "de zonă.",
@@ -3184,9 +3247,8 @@ def pagina_stadiu():
 </script>"""
 
     return pagina("Stadiul lucrărilor — jurnal de șantier | Emerald City Iași",
-                  "Stadiul real al construcției Emerald City, Iași zona Păcurari: progresul "
-                  "fiecărei etape faza cu faza, jurnal lunar cu fotografii datate și vizite "
-                  "pe șantier cu programare.",
+                  "Stadiul construcției Emerald City, Iași zona Păcurari: progresul fiecărei "
+                  "etape, jurnal lunar cu fotografii datate și vizite pe șantier.",
                   continut, r, schema, "stadiu-lucrari/")
 
 
@@ -3570,10 +3632,9 @@ def pagina_dezvoltator():
 }})();
 </script>"""
 
-    return pagina("Dezvoltator — Tala Sapphire și Green Stone Group | Emerald City Iași",
-                  "Cine construiește Emerald City: Tala Sapphire S.R.L., companie din Green "
-                  "Stone Group, cu proiecte în Marea Britanie, Israel și România. Portofoliu, "
-                  "principii și datele proiectului.",
+    return pagina("Dezvoltator — Green Stone Group | Emerald City Iași",
+                  "Tala Sapphire S.R.L., companie din Green Stone Group, cu proiecte în Marea "
+                  "Britanie, Israel și România. Portofoliu și datele proiectului.",
                   continut, r, schema, "despre-dezvoltator/")
 
 
@@ -4024,9 +4085,8 @@ def pagina_proiect(unitati):
 </script>"""
 
     return pagina(f"Proiectul Emerald City — {total} de apartamente în 18 blocuri | Iași",
-                  "Cum este gândit ansamblul Emerald City din Iași: 18 blocuri cu regim 2D+P+3E, "
-                  f"{total} de apartamente, 5 hectare, bilanțul terenului, indicatori "
-                  "urbanistici și etape de construcție.",
+                  f"Ansamblul Emerald City din Iași: 18 blocuri cu regim 2D+P+3E, {total} de "
+                  "apartamente, 5 hectare, indicatori urbanistici și etape.",
                   continut, r, schema, "proiect/")
 
 
@@ -4259,10 +4319,9 @@ def pagina_finisaje():
 
 {cta_preturi(r, "bucatarie-01")}"""
 
-    return pagina("Finisaje incluse — ce înseamnă predare la cheie | Emerald City Iași",
-                  f"Cele {len(FINISAJE)} poziții de finisaj incluse în prețul apartamentelor "
-                  "Emerald City din Iași: încălzire în pardoseală, tâmplărie cu 7 camere, "
-                  "parchet de 10 mm, grupuri sanitare complet echipate. Ce este inclus și ce nu.",
+    return pagina("Finisaje incluse în preț — predare la cheie | Emerald City",
+                  f"Cele {len(FINISAJE)} poziții de finisaj incluse în preț: încălzire în pardoseală, "
+                  "tâmplărie cu 7 camere, parchet de 10 mm, grupuri sanitare echipate.",
                   continut, r, schema, "finisaje/")
 
 
@@ -5058,10 +5117,9 @@ def pagina_despre():
 }})();
 </script>"""
 
-    return pagina("Despre noi — dezvoltator, finisaje și garanții | Emerald City Iași",
-                  "Cine construiește Emerald City, ce include predarea la cheie, ce garanții și "
-                  "ce documente se predau. 925 de apartamente în Iași, zona Păcurari, direct de "
-                  "la dezvoltator.",
+    return pagina("Despre Emerald City — finisaje și garanții | Iași",
+                  "Ce include predarea la cheie, ce garanții și ce documente se predau. "
+                  "925 de apartamente în Iași, zona Păcurari, direct de la dezvoltator.",
                   continut, r, schema, "despre-emerald-city/")
 
 
