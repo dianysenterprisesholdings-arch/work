@@ -5334,7 +5334,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "incalzire-in-pardoseala-vs-calorifere", "cat": "Finisaje și tehnic", "pict": "fire-flame-simple",
   "data": "2026-09-05", "afisat": "5 septembrie 2026", "minute": 5, "img": "dormitor-01",
-  "seo_titlu": 'Încălzire în pardoseală vs. calorifere: confort și factură', "seo_desc": 'Cum funcționează încălzirea în pardoseală cu centrală în condensație, ce economie aduce (până la 35%) și ce trebuie știut la mobilare.',
+  "seo_titlu": 'Încălzire în pardoseală sau calorifere?', "seo_desc": 'Cum funcționează încălzirea în pardoseală cu centrală în condensație, ce economie aduce (până la 35%) și ce trebuie știut la mobilare.',
   "titlu": "Încălzire în pardoseală sau calorifere: ce se schimbă la confort și la factură",
   "rezumat": "Toate cele 925 de apartamente au încălzire în pardoseală, cu centrală proprie în condensație. "
              "Explicăm cum funcționează sistemul, ce economie aduce și ce trebuie știut la mobilare.",
@@ -5359,7 +5359,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "pacurari-ghidul-cartierului", "cat": "Zona", "pict": "map-location-dot",
   "data": "2026-08-28", "afisat": "28 august 2026", "minute": 5, "img": "dining-01",
-  "seo_titlu": 'Păcurari, în cifre: distanțe reale până la ce contează', "seo_desc": 'Distanțe măsurate de la Emerald City: școală la 300 m, Universitate la 5 km, centru la 4,8 km, aeroport la 12 km. Cui i se potrivește zona.',
+  "seo_titlu": 'Păcurari, în cifre: distanțe reale', "seo_desc": 'Distanțe măsurate de la Emerald City: școală la 300 m, Universitate la 5 km, centru la 4,8 km, aeroport la 12 km. Cui i se potrivește zona.',
   "titlu": "Păcurari, în cifre: distanțe reale până la școală, universitate și centru",
   "rezumat": "Am măsurat pe traseu rutier drumurile care contează zilnic — Copou, Universitate, Kaufland, "
              "Paradis International College. Ce înseamnă poziția ansamblului pentru o familie, un student sau un investitor.",
@@ -5409,7 +5409,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "etapa-2-intra-in-vanzare", "cat": "Proiect", "pict": "building-circle-check",
   "data": "2026-08-10", "afisat": "10 august 2026", "minute": 4, "img": "hero-living",
-  "seo_titlu": 'Etapa II în vânzare: 423 de apartamente în 8 blocuri', "seo_desc": 'Blocurile 7–14 din Emerald City Iași, în jurul parcului central: compartimentări 1A–3B, prețuri de pornire neschimbate, rezervare la showroom.',
+  "seo_titlu": 'Etapa II în vânzare: 423 de apartamente noi', "seo_desc": 'Blocurile 7–14 din Emerald City Iași, în jurul parcului central: compartimentări 1A–3B, prețuri de pornire neschimbate, rezervare la showroom.',
   "titlu": "Etapa II intră în vânzare: 423 de apartamente în 8 blocuri, în jurul parcului central",
   "rezumat": "Cea mai mare etapă a ansamblului, cu blocurile 7–14 și acces direct la parcul dendrologic. "
              "Ce compartimentări sunt disponibile, la ce prețuri și cum se rezervă.",
@@ -5606,8 +5606,8 @@ def pagina_articol(a):
 # ========================================================= pagini legale ==
 LEGALE = {
     "termeni-si-conditii": ("Termeni și condiții",
-        "Condițiile de utilizare a site-ului emerald-city.ro, regimul informațiilor publicate, "
-        "regulile aplicabile solicitărilor transmise prin formulare și limitarea răspunderii."),
+        "Condițiile de utilizare a site-ului emerald-city.ro: informații publicate, solicitări prin formulare, "
+        "proprietate intelectuală și limitarea răspunderii."),
     "politica-de-confidentialitate": ("Politica de confidențialitate",
         "Cum colectează, folosește, păstrează și protejează Tala Sapphire S.R.L. datele cu caracter "
         "personal transmise prin acest site, prin telefon sau în showroom."),
