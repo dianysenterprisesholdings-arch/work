@@ -149,7 +149,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
             <a class="ec-mega__i" href="{r}despre-emerald-city/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></svg></span><span class="ec-mega__tx"><b>Despre noi</b><em>Finisaje, garanții, documente și proces</em></span></a>
             <a class="ec-mega__i" href="{r}despre-dezvoltator/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/></svg></span><span class="ec-mega__tx"><b>Dezvoltator</b><em>Tala Sapphire S.R.L., avize și echipă</em></span></a>
             <a class="ec-mega__i" href="{r}aparitii-presa/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14a2 2 0 002-2V8h1v9a3 3 0 01-3 3H4z"/><path d="M7 9h7M7 12h7M7 15h4"/></svg></span><span class="ec-mega__tx"><b>Apariții în presă</b><em>Materiale și date pentru jurnaliști</em></span></a>
-            <a class="ec-mega__i" href="{r}finisaje/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="ec-mega__tx"><b>Finisaje</b><em>Ce include predarea la cheie</em></span></a>
+            <a class="ec-mega__i" href="{r}finisaje/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="ec-mega__tx"><b>Finisaje</b><em>Dotări incluse la cheie</em></span></a>
           </div>
           <a class="ec-mega__card" href="{r}stadiu-lucrari/">
             <img src="{r}assets/img/hol-01-800.jpg" alt="" width="800" height="450" loading="lazy">
@@ -184,7 +184,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       <a href="{r}investitie-apartamente-iasi/">Investiție</a>
       <a href="{r}contact/">Contact</a>
     </nav>
-    <a class="ec-btn" href="{r}contact/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programează vizionare</a>
+    <a class="ec-btn" href="{r}contact/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programare vizionare</a>
   </div>
 </header>
 
@@ -208,7 +208,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           <span><i class="fa-solid fa-phone" aria-hidden="true"></i> Sună direct</span><b>{TEL_AFIS}</b>
         </a>
         <a class="ec-foot__r" href="{WA}">
-          <span><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Scrie pe WhatsApp</span><b>Răspundem azi</b>
+          <span><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Contact WhatsApp</span><b>Răspundem azi</b>
         </a>
         <a class="ec-foot__r" href="mailto:vanzari@emerald-city.ro">
           <span><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</span><b>vanzari@emerald-city.ro</b>
@@ -229,7 +229,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
           <li><a href="{r}apartamente-iasi/apartamente-2-camere/">Apartamente 2 camere</a></li>
           <li><a href="{r}apartamente-iasi/apartamente-3-camere/">Apartamente 3 camere</a></li>
           <li><a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate și prețuri</a></li>
-          <li><a href="{r}compara/">Compară apartamente</a></li>
+          <li><a href="{r}compara/">Comparator de apartamente</a></li>
         </ul>
       </div>
       <div>
@@ -519,12 +519,13 @@ def showroom(r, nr="", sub=None):
     """Sectiunea de final: showroom, date de contact si formular."""
     cap = (f'<span class="ec-shead__n">{nr} — Showroom</span>' if nr
            else '<p class="ec-eyebrow">Showroom</p>')
-    sub = sub or ("Programează o vizionare a apartamentului-model. O întâlnire durează "
-                  "aproximativ 40 de minute și include prezentarea planurilor și a disponibilității.")
+    sub = sub or ("Vizionarea apartamentului-model se face cu programare. O întâlnire "
+                  "durează aproximativ 40 de minute și include prezentarea planurilor "
+                  "și a disponibilității.")
     return f"""<section class="ec-section" id="showroom">
     <div class="ec-shead">
       <div>{cap}
-        <h2>Te așteptăm <em>în showroom</em></h2></div>
+        <h2>Vă așteptăm <em>în showroom</em></h2></div>
       <p class="ec-shead__p">{e(sub)}</p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
@@ -540,8 +541,8 @@ def showroom(r, nr="", sub=None):
             <div><b>Program</b><span>{e(SHOWROOM["program"])}</span></div></div>
         </div>
         <div class="ec-cta__btns" style="margin-top:2rem">
-          <a class="ec-btn" href="tel:{SHOWROOM["tel_link"]}"><i class="fa-solid fa-phone" aria-hidden="true"></i> Sună acum</a>
-          <a class="ec-btn ec-btn--out" href="https://wa.me/40757707080"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Scrie pe WhatsApp</a>
+          <a class="ec-btn" href="tel:{SHOWROOM["tel_link"]}"><i class="fa-solid fa-phone" aria-hidden="true"></i> Contact telefonic</a>
+          <a class="ec-btn ec-btn--out" href="https://wa.me/40757707080"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Contact WhatsApp</a>
         </div>
       </div>
       {formular(None, r)}
@@ -763,7 +764,7 @@ def pagina_unitate(u, similare):
   <div class="ec-split" style="margin-bottom:var(--ec-gap)">
     {calc_rata(u['pret_eur'])}
     <div class="ec-calc" style="display:flex;flex-direction:column;justify-content:center">
-      <h3>Îl cumperi ca investiție?</h3>
+      <h3>Achiziție în scop investițional</h3>
       <p class="ec-calc__sub">Vezi ce randament ar aduce închiriat, cu chiriile actuale din zona Păcurari.</p>
       <p><a class="ec-btn ec-btn--brass" href="{r}investitie-apartamente-iasi/?pret={u['pret_eur']}&amp;su={u['su_utila']}">
         Calculator de randament
@@ -1014,7 +1015,7 @@ def _icon(d):
 
 ARGUMENTE = [
     ("Finisaje premium incluse",
-     "Nu cumperi la gri. Apartamentul se predă finisat, cu materiale alese de un birou de design.",
+     "Apartamentul nu se predă la gri, ci finisat, cu materiale alese de un birou de design.",
      '<path d="M12 3l2.5 6H21l-5 4 2 7-6-4-6 4 2-7-5-4h6.5z"/>'),
     ("Parcare la subsol",
      "258 de locuri subterane din 940 în total. Mașina nu stă între blocuri, iar spațiul dintre clădiri rămâne verde.",
@@ -1073,7 +1074,7 @@ FAQ_HUB = [
  ("Există comision de intermediere?",
   "Nu. Vânzarea se face direct de la dezvoltator, fără comision de agenție."),
  ("Pot rezerva un apartament?",
-  "Da. Apartamentul se blochează pe numele tău, iar prețul se îngheață pe perioada "
+  "Da. Apartamentul se blochează pe numele cumpărătorului, iar prețul se menține pe perioada "
   "rezervării. Termenul se stabilește la biroul de vânzări."),
  ("Ce apartamente se predau primele?",
   "Cele din Etapa I, blocurile 1–6. Termenul fiecărei etape se înscrie în antecontract."),
@@ -1228,8 +1229,8 @@ def pagina_hub(unitati, grupe):
       directă de la dezvoltator.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="{lista}">{ic("table-list")} Vezi toate apartamentele</a>
-      <a class="ec-btn ec-btn--outlight" href="#buget">{ic("tag")} Caută după buget</a>
+      <a class="ec-btn ec-btn--white" href="{lista}">{ic("table-list")} Lista apartamentelor</a>
+      <a class="ec-btn ec-btn--outlight" href="#buget">{ic("tag")} Selecție după buget</a>
     </div>
   </div>
 </section>
@@ -1242,7 +1243,7 @@ def pagina_hub(unitati, grupe):
   <section class="ec-section" id="camere">
     <div class="ec-shead">
       <div><span class="ec-shead__n">01 — După camere</span>
-        <h2>Alege <em>numărul de camere</em></h2></div>
+        <h2>Apartamente <em>după numărul de camere</em></h2></div>
       <p class="ec-shead__p">
         Trei categorii, cu disponibilitatea și prețul de pornire actualizate din tabelul
         de vânzări.
@@ -1254,10 +1255,10 @@ def pagina_hub(unitati, grupe):
   <section class="ec-section" id="buget" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">02 — După buget</span>
-        <h2>Pornește de la <em>suma pe care o ai</em></h2></div>
+        <h2>Apartamente <em>după buget</em></h2></div>
       <p class="ec-shead__p">
-        Patru praguri de preț, cu numărul real de apartamente din fiecare. Fiecare prag
-        deschide lista deja filtrată.
+        Patru praguri de preț, cu numărul de apartamente din fiecare. Fiecare prag
+        deschide lista filtrată corespunzător.
       </p>
     </div>
     <div class="ec-bugete" style="margin-top:2.5rem">{bugete}</div>
@@ -1280,7 +1281,7 @@ def pagina_hub(unitati, grupe):
       <div><span class="ec-shead__n">04 — Etape</span>
         <h2>Ce se vinde <em>în fiecare etapă</em></h2></div>
       <p class="ec-shead__p">
-        Ansamblul se construiește în trei etape. Fiecare intră în vânzare la momentul ei.
+        Ansamblul se construiește în trei etape, fiecare intrând în vânzare la momentul corespunzător.
       </p>
     </div>
     <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
@@ -1303,7 +1304,7 @@ def pagina_hub(unitati, grupe):
           <h2>{len(curti)} apartamente <em>cu curte la parter</em></h2></div>
         <p class="ec-shead__p">
           Între {curte_min:.0f} și {curte_max:.0f} m² de curte, în folosință exclusivă.
-          Rar întâlnite într-un ansamblu de această mărime.
+          Configurație rar întâlnită într-un ansamblu de această dimensiune.
         </p>
       </div>
       <div class="ec-figs" style="margin-top:2.5rem">
@@ -1317,7 +1318,7 @@ def pagina_hub(unitati, grupe):
           <span><b>{euro(curte_pret) if curte_pret else '—'}</b><em>Preț de pornire</em></span></div>
       </div>
       <div class="ec-center" style="margin-top:2rem">
-        <a class="ec-btn ec-btn--white" href="{lista}?extra=curte&amp;status=disponibil">{ic("table-list")} Vezi apartamentele cu curte</a>
+        <a class="ec-btn ec-btn--white" href="{lista}?extra=curte&amp;status=disponibil">{ic("table-list")} Apartamentele cu curte</a>
       </div>
     </div>
   </div>
@@ -1329,14 +1330,14 @@ def pagina_hub(unitati, grupe):
       <div><span class="ec-shead__n">06 — Cel mai bun raport</span>
         <h2>Cele mai bune <em>prețuri pe metru pătrat</em></h2></div>
       <p class="ec-shead__p">
-        Șase apartamente disponibile, alese automat după cel mai mic preț pe metru pătrat
-        din tot ansamblul.
+        Șase apartamente disponibile, selectate automat după cel mai mic preț pe metru pătrat
+        din ansamblu.
       </p>
     </div>
     <div class="ec-cards" style="margin-top:2.5rem">{recomandate}</div>
     <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn" href="{lista}">{ic("table-list")} Vezi toate cele {len(disp)} disponibile</a>
-      <a class="ec-btn ec-btn--out" href="{r}compara/">{ic("code-compare")} Compară apartamente</a>
+      <a class="ec-btn" href="{lista}">{ic("table-list")} Toate cele {len(disp)} apartamente disponibile</a>
+      <a class="ec-btn ec-btn--out" href="{r}compara/">{ic("code-compare")} Comparator de apartamente</a>
     </div>
   </section>
 
@@ -1352,9 +1353,9 @@ def pagina_hub(unitati, grupe):
   <section class="ec-section" id="dotari" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">08 — Dotări</span>
-        <h2>În apartament <em>și în ansamblu</em></h2></div>
+        <h2>Dotări <em>și facilități</em></h2></div>
       <p class="ec-shead__p">
-        Ce este inclus în fiecare locuință și ce se folosește în comun.
+        Dotările incluse în fiecare locuință și facilitățile de folosință comună.
       </p>
     </div>
     <div class="ec-lists" style="margin-top:2.5rem">
@@ -1366,7 +1367,7 @@ def pagina_hub(unitati, grupe):
       </ul></div>
     </div>
     <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn ec-btn--out" href="{r}finisaje/">{ic("list-check")} Vezi tot ce e inclus în preț</a>
+      <a class="ec-btn ec-btn--out" href="{r}finisaje/">{ic("list-check")} Lista completă a dotărilor în preț</a>
     </div>
   </section>
 
@@ -1630,20 +1631,20 @@ def pagina_investitie(unitati):
 def pagina_comparator():
     r = "../"
     continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Compară apartamente</nav>
+  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Comparator de apartamente</nav>
   <header class="ec-phead">
     <p class="ec-eyebrow">Comparator</p>
-    <h1 style="margin-top:1rem">Compară apartamentele salvate</h1>
+    <h1 style="margin-top:1rem">Comparator de apartamentele salvate</h1>
     <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
       Adaugă apartamente cu butonul „Salvează” de pe paginile de unitate, apoi trimite linkul
       acestei pagini cui vrei. Lista se păstrează și în adresă, deci funcționează și pe alt dispozitiv.
     </p>
   </header>
   <div id="cmpOut"></div>
-  <p style="margin:2rem 0 4rem"><a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">Caută alte apartamente</a></p>
+  <p style="margin:2rem 0 4rem"><a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">Alte apartamente</a></p>
 </div>
 <script src="{r}assets/js/compara.js"></script>"""
-    return pagina("Compară apartamente — Emerald City Iași",
+    return pagina("Comparator de apartamente — Emerald City Iași",
                   "Compară până la șase apartamente din Emerald City, Iași zona Păcurari.",
                   continut, r, None, "compara/")
 
@@ -1733,7 +1734,7 @@ PROFILURI = [
      "Apartamentele de la parter au curte, între 13 și 51 m²."),
     ("chart-line", "Investitori",
      "Cererea de chirii e susținută de apropierea de centrul universitar. "
-     "Garsonierele pornesc de la 53.500 €, cu calculator de randament pe site."),
+     "Garsonierele pornesc de la 53.500 €, cu estimare de randament disponibilă pe site."),
     ("briefcase", "Cei care lucrează în nord-vest",
      "Acces direct la artera Păcurari și la DN28, fără traversarea centrului."),
     ("key", "La prima locuință",
@@ -1838,8 +1839,8 @@ def pagina_zona():
       limita de nord-vest a orașului, cu acces din Strada Ion Nistor.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#harta">{ic("map-location-dot")} Vezi harta</a>
-      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
+      <a class="ec-btn ec-btn--white" href="#harta">{ic("map-location-dot")} Harta interactivă</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Disponibilitate și prețuri</a>
     </div>
   </div>
 </section>
@@ -1908,7 +1909,7 @@ def pagina_zona():
   <section class="ec-section" id="harta" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Harta</span>
-        <h2>Vezi traseul <em>până la fiecare reper</em></h2></div>
+        <h2>Trasee <em>către fiecare reper</em></h2></div>
       <p class="ec-shead__p">
         Selectarea unui reper afișează traseul rutier. Reperele pot fi filtrate pe categorii, iar fundalul poate fi comutat pe imagine din satelit.
       </p>
@@ -1924,7 +1925,7 @@ def pagina_zona():
         </div>
         <div class="ec-harta__lista" data-lista></div>
         <div class="ec-harta__foot">
-          <button class="ec-btn ec-btn--out" type="button" data-reset>Înapoi la ansamblu</button>
+          <button class="ec-btn ec-btn--out" type="button" data-reset>Revenire la ansamblu</button>
         </div>
       </div>
     </div>
@@ -2020,25 +2021,25 @@ JURNAL = [
 
 FAQ_STADIU = [
     ("Cât de des se actualizează pagina?",
-     "Lunar. Publicăm stadiul fiecărei etape, faza cu faza, împreună cu fotografii datate "
+     "Lunar. Se publică stadiul fiecărei etape, faza cu faza, împreună cu fotografii datate "
      f"din teren. Ultima actualizare: {ACTUALIZAT}."),
     ("Ce înseamnă procentele afișate?",
      "Fiecare etapă este împărțită în 7 faze de execuție, de la terasamente la amenajări "
      "exterioare. Procentul general al unei etape este media ponderată a fazelor, cu "
      "ponderile uzuale pentru clădiri de locuințe colective."),
-    ("Pot vizita șantierul?",
-     "Da, cu programare și însoțit de un reprezentant, în echipament de protecție pe care "
-     "îl punem la dispoziție. Accesul neînsoțit nu este permis, din motive de securitate."),
+    ("Se poate vizita șantierul?",
+     "Da, cu programare și însoțit de un reprezentant, în echipament de protecție pus la "
+     "dispoziție. Accesul neînsoțit nu este permis, din motive de securitate."),
     ("Termenele de predare sunt garantate?",
      "Termenul fiecărei etape se înscrie în antecontractul semnat la notar. Datele afișate "
      "aici sunt cele estimate la data ultimei actualizări; termenul contractual este cel "
      "care obligă."),
     ("Ce se întâmplă dacă lucrările întârzie?",
-     "Antecontractul prevede termenul de predare și consecințele depășirii lui. Orice "
-     "modificare de calendar o comunicăm din timp, nu la final."),
-    ("Pot urmări progresul fără să intru pe site?",
-     "Da. Lasă-ne adresa de e-mail și primești raportul lunar, cu fotografii, imediat ce "
-     "îl publicăm."),
+     "Antecontractul prevede termenul de predare și consecințele depășirii acestuia. Orice "
+     "modificare de calendar se comunică din timp."),
+    ("Raportul lunar poate fi primit pe e-mail?",
+     "Da. La solicitare, raportul lunar cu fotografii se transmite pe e-mail imediat după "
+     "publicare."),
 ]
 
 
@@ -2124,8 +2125,8 @@ def pagina_stadiu():
       astfel încât progresul să poată fi verificat independent.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#etape">{ic("chart-simple")} Vezi stadiul pe etape</a>
-      <a class="ec-btn ec-btn--outlight" href="#vizite">{ic("helmet-safety")} Programează o vizită</a>
+      <a class="ec-btn ec-btn--white" href="#etape">{ic("chart-simple")} Stadiul pe etape</a>
+      <a class="ec-btn ec-btn--outlight" href="#vizite">{ic("helmet-safety")} Programare vizită</a>
     </div>
   </div>
 </section>
@@ -2182,7 +2183,7 @@ def pagina_stadiu():
     <div class="ec-why" style="margin-top:2.5rem">
       <div class="ec-why__i ec-rv">{ic("calendar-check")}
         <h3>Cu programare</h3>
-        <p>Data și ora se stabilesc telefonic sau prin e-mail. Vizitele se fac în zilele lucrătoare.</p></div>
+        <p>Data și ora se stabilesc telefonic sau prin e-mail. Vizitele se desfășoară în zilele lucrătoare.</p></div>
       <div class="ec-why__i ec-rv">{ic("user-shield")}
         <h3>Însoțit</h3>
         <p>Un reprezentant însoțește vizita pe traseul autorizat și prezintă lucrările în execuție.</p></div>
@@ -2203,7 +2204,7 @@ def pagina_stadiu():
       <div><span class="ec-shead__n">05 — Întrebări</span>
         <h2>Despre execuție <em>și termene</em></h2></div>
       <p class="ec-shead__p">
-        {len(FAQ_STADIU)} întrebări despre cum urmărești progresul și ce garantează contractul.
+        {len(FAQ_STADIU)} întrebări despre urmărirea progresului și garanțiile contractuale.
       </p>
     </div>
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
@@ -2436,7 +2437,7 @@ def pagina_dezvoltator():
       este al treilea ansamblu al grupului în Iași.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#portofoliu">{ic("building")} Vezi portofoliul</a>
+      <a class="ec-btn ec-btn--white" href="#portofoliu">{ic("building")} Portofoliu</a>
       <a class="ec-btn ec-btn--outlight" href="{r}despre-emerald-city/#garantii">{ic("shield-halved")} Garanții</a>
     </div>
   </div>
@@ -2551,14 +2552,14 @@ def pagina_dezvoltator():
   <section class="ec-section" id="emerald">
     <div class="ec-shead">
       <div><span class="ec-shead__n">06 — Emerald City</span>
-        <h2>Ce înseamnă <em>pentru cumpărător</em></h2></div>
+        <h2>Elemente <em>verificabile independent</em></h2></div>
       <p class="ec-shead__p">
         Elementele care pot fi verificate independent, înainte de semnare.
       </p>
     </div>
     <div class="ec-docs" style="margin-top:2.5rem">
       <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
-        <span><b>Proiecte pe care le poți vizita</b>
+        <span><b>Proiecte care pot fi vizitate</b>
         <em>Lapis și Onyx Residence se află în Iași și pot fi vizitate.</em></span></div>
       <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
         <span><b>Documentație completă</b>
@@ -2863,7 +2864,7 @@ def pagina_proiect(unitati):
       iluminarea naturală, nivelul de zgomot și distanțele dintre fațade.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#regim">{ic("layer-group")} Vezi regimul de înălțime</a>
+      <a class="ec-btn ec-btn--white" href="#regim">{ic("layer-group")} Regimul de înălțime</a>
       <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi-pacurari/">{ic("location-dot")} Amplasament</a>
     </div>
   </div>
@@ -2912,7 +2913,7 @@ def pagina_proiect(unitati):
   <section class="ec-section" id="regim" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">02 — Regim de înălțime</span>
-        <h2>Ce se află <em>la fiecare cotă</em></h2></div>
+        <h2>Distribuția <em>pe niveluri</em></h2></div>
       <p class="ec-shead__p">
         2D+P+3E, cu aticul la 18,00 m. Același regim la toate cele 18 blocuri,
         fără excepții și fără etaje retrase.
@@ -2977,8 +2978,8 @@ def pagina_proiect(unitati):
     </div>
     <div class="ec-distr" style="margin-top:2.5rem">{distr}</div>
     <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi toate cele {total} de apartamente</a>
-      <a class="ec-btn ec-btn--out" href="{r}tipologii/">{ic("compass-drafting")} Vezi compartimentările</a>
+      <a class="ec-btn" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Toate cele {total} de apartamente</a>
+      <a class="ec-btn ec-btn--out" href="{r}tipologii/">{ic("compass-drafting")} Compartimentări</a>
     </div>
   </section>
 
@@ -3048,27 +3049,7 @@ def pagina_proiect(unitati):
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
 
-  <section class="ec-section" style="padding-block:0 var(--ec-section)">
-    <div class="ec-split">
-      <div class="ec-panel">
-        <p class="ec-eyebrow">Vizionare</p>
-        <h2 class="ec-title" style="margin:1rem 0">Vino să vezi terenul</h2>
-        <p class="ec-body" style="max-width:44ch">
-          Amplasamentul, apartamentul-model și planurile de ansamblu se înțeleg
-          mult mai bine pe loc decât pe ecran.
-        </p>
-        <div class="ec-acces" style="margin-top:2rem">
-          <div><span class="ec-acces__i">{ic("location-dot")}</span>
-            <div><b>Birou de vânzări</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
-          <div><span class="ec-acces__i">{ic("phone")}</span>
-            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("clock")}</span>
-            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
-        </div>
-      </div>
-      {formular(None, r)}
-    </div>
-  </section>
+  {showroom(r, "10")}
 </div>
 
 <script>
@@ -3260,14 +3241,14 @@ def pagina_finisaje():
   <div class="ec-wrap ec-phero__in">
     <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Finisaje</nav>
     <p class="ec-eyebrow">Finisaje</p>
-    <h1>Ce include predarea la cheie</h1>
+    <h1>Dotări incluse la cheie</h1>
     <p class="ec-phero__sub">
       {len(FINISAJE)} poziții de finisaj incluse în preț, montate și garantate. Apartamentul
       se predă complet finisat, gata de mobilat.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#fisa">{ic("list-check")} Vezi tot ce e inclus</a>
-      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi prețurile</a>
+      <a class="ec-btn ec-btn--white" href="#fisa">{ic("list-check")} Lista completă a dotărilor</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Prețuri și disponibilitate</a>
     </div>
   </div>
 </section>
@@ -3296,7 +3277,7 @@ def pagina_finisaje():
   <section class="ec-section" id="camere" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">02 — Cameră cu cameră</span>
-        <h2>Gata de mutare, <em>în fiecare încăpere</em></h2></div>
+        <h2>Dotări <em>pe fiecare încăpere</em></h2></div>
       <p class="ec-shead__p">
         Aceleași dotări, defalcate pe încăperi.
       </p>
@@ -3310,10 +3291,9 @@ def pagina_finisaje():
   <section class="ec-section" id="comparatie">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Comparație</span>
-        <h2>Cât economisești <em>față de un apartament la gri</em></h2></div>
+        <h2>Diferența <em>față de un apartament la gri</em></h2></div>
       <p class="ec-shead__p">
-        Ce ar însemna aceleași finisaje executate separat, la un apartament
-        semifinisat sau la gri.
+        Aceleași finisaje, executate separat, la un apartament semifinisat sau la gri.
       </p>
     </div>
     <div class="ec-table ec-table--vs ec-table--4" style="margin-top:2.5rem">
@@ -3338,8 +3318,8 @@ def pagina_finisaje():
     </div>
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
     <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn ec-btn--out" href="{r}despre-emerald-city/#garantii">{ic("shield-halved")} Vezi garanțiile</a>
-      <a class="ec-btn ec-btn--out" href="{r}tipologii/">{ic("compass-drafting")} Vezi compartimentările</a>
+      <a class="ec-btn ec-btn--out" href="{r}despre-emerald-city/#garantii">{ic("shield-halved")} Garanții</a>
+      <a class="ec-btn ec-btn--out" href="{r}tipologii/">{ic("compass-drafting")} Compartimentări</a>
     </div>
   </section>
 
@@ -3461,10 +3441,10 @@ def pagina_presa():
     <h1>Ce s-a scris despre Emerald City</h1>
     <p class="ec-phero__sub">
       Articole apărute în publicații locale și naționale, cu link către sursa originală.
-      Mai jos găsești și datele verificate ale proiectului, pentru jurnaliști.
+      Mai jos sunt datele verificate ale proiectului, puse la dispoziția jurnaliștilor.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#articole">{ic("newspaper")} Vezi aparițiile</a>
+      <a class="ec-btn ec-btn--white" href="#articole">{ic("newspaper")} Aparițiile în presă</a>
       <a class="ec-btn ec-btn--outlight" href="mailto:presa@emerald-city.ro">{ic("envelope")} Contact presă</a>
     </div>
   </div>
@@ -3480,7 +3460,7 @@ def pagina_presa():
       <div><span class="ec-shead__n">01 — Apariții</span>
         <h2>Articole <em>despre proiect</em></h2></div>
       <p class="ec-shead__p">
-        Fiecare intrare are publicația, data și link către articolul original.
+        Fiecare intrare conține publicația, data și link către articolul original.
       </p>
     </div>
     <div class="ec-arts" style="margin-top:2.5rem">{articole}</div>
@@ -3502,13 +3482,13 @@ def pagina_presa():
       <div><span class="ec-shead__n">03 — Materiale</span>
         <h2>Ce punem <em>la dispoziție</em></h2></div>
       <p class="ec-shead__p">
-        Materiale de rezoluție mare, trimise la cerere în aceeași zi lucrătoare.
+        Materiale de rezoluție mare, transmise la cerere în aceeași zi lucrătoare.
       </p>
     </div>
     <div class="ec-fisa" style="margin-top:2.5rem">{materiale}</div>
     <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn" href="mailto:presa@emerald-city.ro">{ic("envelope")} Cere materialele</a>
-      <a class="ec-btn ec-btn--out" href="{r}proiect/">{ic("compass-drafting")} Vezi datele proiectului</a>
+      <a class="ec-btn" href="mailto:presa@emerald-city.ro">{ic("envelope")} Solicitare materiale</a>
+      <a class="ec-btn ec-btn--out" href="{r}proiect/">{ic("compass-drafting")} Datele proiectului</a>
     </div>
   </section>
 
@@ -3558,10 +3538,10 @@ LEGALE = {
         "Cum sunt colectate, folosite și păstrate datele cu caracter personal transmise "
         "prin acest site."),
     "politica-de-cookies": ("Politica de cookies",
-        "Ce module cookie folosește site-ul, în ce scop și cum îți poți retrage acordul."),
+        "Ce module cookie folosește site-ul, în ce scop și cum poate fi retras acordul."),
     "informare-gdpr": ("Informare GDPR",
-        "Drepturile pe care le ai asupra datelor tale personale conform Regulamentului "
-        "(UE) 2016/679 și cum le poți exercita."),
+        "Drepturile persoanei vizate asupra datelor cu caracter personal conform Regulamentului "
+        "(UE) 2016/679 și modul în care pot fi exercitate."),
 }
 
 
@@ -3581,14 +3561,14 @@ def pagina_legala(slug):
     <p>
       Textul acestui document se redactează împreună cu consilierul juridic al
       dezvoltatorului și va fi publicat înainte de lansarea site-ului. Până atunci,
-      pentru orice întrebare privind datele tale sau condițiile de utilizare, ne poți
+      pentru orice întrebare privind datele personale sau condițiile de utilizare, ne
       scrie la <a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a>.
     </p>
     <h3>Operator de date</h3>
     <p>Tala Sapphire S.R.L., Str. Ion Nistor, Iași.</p>
     <h3>Soluționarea reclamațiilor</h3>
     <p>
-      Pentru soluționarea alternativă a litigiilor poți folosi platforma
+      Pentru soluționarea alternativă a litigiilor sunt disponibile platforma
       <a href="https://anpc.ro/ce-este-sal/" rel="nofollow noopener" target="_blank">ANPC SAL</a>
       sau platforma europeană
       <a href="https://ec.europa.eu/consumers/odr" rel="nofollow noopener" target="_blank">SOL</a>.
@@ -3664,27 +3644,27 @@ DOCUMENTE = [
  ("Documentația cadastrală",
   "Măsurătorile și planurile apartamentului, depuse pentru înscrierea în cartea funciară."),
  ("Extrasul de carte funciară",
-  "Dovada intabulării pe numele tău, cu suprafețele și cotele indivize."),
+  "Dovada intabulării pe numele cumpărătorului, cu suprafețele și cotele indivize."),
  ("Certificatul de performanță energetică",
   "Clasa energetică a apartamentului și consumul estimat, calculate de un auditor autorizat."),
 ]
 
 DRUM = [
  ("eye", "01", "Vizionare",
-  "Vezi amplasamentul și apartamentul-model, primești lista de disponibilitate cu prețuri "
-  "și suprafețe reale.", "Aceeași zi"),
+  "Prezentarea amplasamentului și a apartamentului-model, împreună cu lista de "
+  "disponibilitate, cu prețuri și suprafețe.", "Aceeași zi"),
  ("bookmark", "02", "Rezervare",
-  "Alegi apartamentul și îl blochezi pe numele tău. Prețul se îngheață pe perioada rezervării.",
+  "Apartamentul ales se blochează pe numele cumpărătorului, iar prețul se menține pe perioada rezervării.",
   "1–3 zile"),
  ("file-signature", "03", "Antecontract",
-  "Semnezi antecontractul la notar, cu avansul de 15%. Suprafețele, prețul și termenul de "
-  "predare sunt fixate în contract.", "La notar"),
+  "Antecontractul se semnează la notar, cu un avans de 15%. Suprafețele, prețul și "
+  "termenul de predare se fixează în contract.", "La notar"),
  ("helmet-safety", "04", "Construcție",
-  "Urmărești progresul în jurnalul de șantier, actualizat lunar cu fotografii datate din teren.",
+  "Progresul poate fi urmărit în jurnalul de șantier, actualizat lunar cu fotografii datate din teren.",
   "Conform etapei"),
  ("key", "05", "Recepție și chei",
-  "Verifici apartamentul împreună cu noi, semnezi contractul final, se face intabularea "
-  "și primești cheile.", "La finalizare"),
+  "Apartamentul se verifică împreună cu un reprezentant, se semnează contractul final, "
+  "se efectuează intabularea și se predau cheile.", "La finalizare"),
 ]
 
 VS = [
@@ -3758,27 +3738,28 @@ FAQ_DESPRE = [
   "semnalează în primul an de la predare."),
  ("Ce documente primesc la predare?",
   "Procesul-verbal de recepție, cartea tehnică a construcției, documentația cadastrală, extrasul "
-  "de carte funciară cu intabularea pe numele tău și certificatul de performanță energetică."),
+  "de carte funciară cu intabularea pe numele cumpărătorului și certificatul de performanță energetică."),
  ("Apartamentele se predau finisate?",
   "Da, complet finisate. Parchet, gresie și faianță montate, grupuri sanitare echipate, pereți "
   "gletuiți și vopsiți, uși montate, instalație electrică cu aparataj, încălzire în pardoseală. "
-  "Apartamentul este gata de mobilat la recepție."),
+  "Apartamentul este gata de mobilat la data recepției."),
  ("Ce înseamnă centrală în condensație?",
   "Recuperează căldura din gazele de ardere în loc să o evacueze pe horn. La același confort, "
   "consumă până la 35% mai puțin gaz decât o centrală clasică."),
  ("Ce avantaj are încălzirea în pardoseală?",
   "Căldura se distribuie uniform de la sol în sus, fără calorifere pe pereți, și funcționează la "
-  "temperatură joasă, deci consumă mai puțin. Câștigi și spațiu liber pe pereți."),
+  "temperatură joasă, deci consumă mai puțin. În plus, pereții rămân liberi pentru mobilier."),
  ("De ce să cumpăr direct de la dezvoltator?",
-  "Nu plătești comision de intermediere, discuți prețul și termenele cu cel care construiește, "
-  "primești lista completă de disponibilitate și poți urmări stadiul lucrărilor."),
+  "Nu se percepe comision de intermediere, prețul și termenele se stabilesc direct cu "
+  "dezvoltatorul, lista de disponibilitate este publică, iar stadiul lucrărilor poate fi "
+  "urmărit lunar."),
  ("Ce avans se cere la antecontract?",
   "15% din preț la semnarea antecontractului la notar, iar diferența la predare. Etapele de plată "
   "se stabilesc în contract."),
  ("Pot cumpăra cu credit ipotecar?",
   "Da. Apartamentele se pot achiziționa cu credit ipotecar standard, iar cele care se încadrează "
-  "în plafonul programului pot fi cumpărate și prin Noua Casă. Echipa de vânzări îți spune ce "
-  "variantă se potrivește bugetului tău."),
+  "în plafonul programului pot fi cumpărate și prin Noua Casă. Echipa de vânzări prezintă "
+  "varianta potrivită fiecărui buget."),
  ("Prețurile includ TVA?", "Da, prețurile afișate includ TVA."),
  ("Ce dotări are cartierul?",
   "Piste de biciclete, zone de fitness, locuri de joacă, parcări private, preechipare pentru "
@@ -3875,8 +3856,8 @@ def pagina_despre():
       finisate, direct de la dezvoltator.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#finisaje">{ic("list-check")} Ce include predarea</a>
-      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
+      <a class="ec-btn ec-btn--white" href="#finisaje">{ic("list-check")} Dotări incluse</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Disponibilitate și prețuri</a>
     </div>
   </div>
 </section>
@@ -3936,7 +3917,7 @@ def pagina_despre():
     </div>
     <div class="ec-fac" style="margin-top:2.5rem">{fisa}</div>
     <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn" href="{r}finisaje/">{ic("list-check")} Vezi fișa tehnică completă</a>
+      <a class="ec-btn" href="{r}finisaje/">{ic("list-check")} Fișa tehnică completă</a>
     </div>
   </section>
 
@@ -3961,7 +3942,7 @@ def pagina_despre():
   <section class="ec-section" id="documente" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">04 — Documente</span>
-        <h2>Ce primești <em>odată cu cheile</em></h2></div>
+        <h2>Documente predate <em>odată cu cheile</em></h2></div>
       <p class="ec-shead__p">
         Documentele predate odată cu apartamentul, la recepție și la intabulare.
       </p>
@@ -4007,19 +3988,19 @@ def pagina_despre():
   <section class="ec-section" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">07 — Direct dezvoltator</span>
-        <h2>Ce câștigi când <em>cumperi de la noi</em></h2></div>
+        <h2>Avantajele <em>achiziției directe</em></h2></div>
       <p class="ec-shead__p">Patru diferențe verificabile.</p>
     </div>
     <div class="ec-why" style="margin-top:2.5rem">
       <div class="ec-why__i ec-rv">{ic("percent")}
         <h3>Zero comision</h3>
-        <p>Nu plătești 2–3% unei agenții. Prețul de pe site este prețul de la notar.</p></div>
+        <p>Fără comision de agenție de 2–3%. Prețul afișat este prețul din actul notarial.</p></div>
       <div class="ec-why__i ec-rv">{ic("list-check")}
         <h3>Lista completă</h3>
-        <p>Vezi toate cele 925 de apartamente, cu preț, suprafață, etaj și orientare.</p></div>
+        <p>Toate cele 925 de apartamente sunt afișate, cu preț, suprafață, etaj și orientare.</p></div>
       <div class="ec-why__i ec-rv">{ic("file-signature")}
         <h3>Contract direct</h3>
-        <p>Discuți termenele și etapele de plată cu cel care construiește, nu cu un intermediar.</p></div>
+        <p>Termenele și etapele de plată se stabilesc direct cu dezvoltatorul, fără intermediar.</p></div>
       <div class="ec-why__i ec-rv">{ic("helmet-safety")}
         <h3>Progres verificabil</h3>
         <p>Publicăm lunar stadiul lucrărilor, cu fotografii datate din teren.</p></div>
@@ -4037,7 +4018,7 @@ def pagina_despre():
     </div>
     <div class="ec-refs" style="margin-top:2.5rem">{refs}</div>
     <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn ec-btn--out" href="{r}despre-dezvoltator/">{ic("building")} Vezi tot portofoliul grupului</a>
+      <a class="ec-btn ec-btn--out" href="{r}despre-dezvoltator/">{ic("building")} Portofoliul complet al grupului</a>
     </div>
   </section>
 
@@ -4045,7 +4026,7 @@ def pagina_despre():
     <div class="ec-spot">
       <div class="ec-spot__b">
         <p class="ec-eyebrow" style="color:var(--ec-brass)">09 — Verifică</p>
-        <h2>Ce să ceri oricărui dezvoltator</h2>
+        <h2>Criterii de verificare a unui dezvoltator</h2>
         <p>
           Criteriile de mai jos permit verificarea oricărui proiect rezidențial înainte de semnarea unui antecontract.
         </p>
@@ -4055,11 +4036,11 @@ def pagina_despre():
           <li>Situația juridică a terenului și extrasul de carte funciară</li>
           <li>Anexa tehnică de finisaje, poziție cu poziție</li>
           <li>Termenul de predare scris în antecontract, nu spus verbal</li>
-          <li>Proiecte livrate anterior, pe care le poți vizita</li>
+          <li>Proiecte livrate anterior, care pot fi vizitate</li>
           <li>Cine execută structura și cine verifică proiectul</li>
         </ul>
         <div class="ec-spot__cta">
-          <a class="ec-btn ec-btn--white" href="{r}proiect/">{ic("compass-drafting")} Vezi datele proiectului</a>
+          <a class="ec-btn ec-btn--white" href="{r}proiect/">{ic("compass-drafting")} Datele proiectului</a>
           <a class="ec-btn ec-btn--outlight" href="{r}stadiu-lucrari/">{ic("helmet-safety")} Jurnal de șantier</a>
         </div>
       </div>
@@ -4073,9 +4054,9 @@ def pagina_despre():
   <section class="ec-section" id="dotari" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">10 — Dotări</span>
-        <h2>În apartament <em>și în cartier</em></h2></div>
+        <h2>Dotări <em>și facilități</em></h2></div>
       <p class="ec-shead__p">
-        Ce găsești în locuință și ce folosești în comun, ca parte din ansamblu.
+        Dotările locuinței și facilitățile de folosință comună.
       </p>
     </div>
     <div class="ec-lists" style="margin-top:2.5rem">
@@ -4123,35 +4104,7 @@ def pagina_despre():
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
 
-  <section class="ec-section" id="birou" style="padding-block:0 var(--ec-section)">
-    <div class="ec-shead">
-      <div><span class="ec-shead__n">12 — Birou de vânzări</span>
-        <h2>Vino să vezi <em>pe teren</em></h2></div>
-      <p class="ec-shead__p">
-        O vizionare durează aproximativ 40 de minute și lămurește mai mult decât orice
-        pagină de site.
-      </p>
-    </div>
-    <div class="ec-split" style="margin-top:2.5rem">
-      <div class="ec-panel">
-        <div class="ec-acces">
-          <div><span class="ec-acces__i">{ic("location-dot")}</span>
-            <div><b>Adresă</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
-          <div><span class="ec-acces__i">{ic("phone")}</span>
-            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("envelope")}</span>
-            <div><b>E-mail</b><span><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></span></div></div>
-          <div><span class="ec-acces__i">{ic("clock")}</span>
-            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
-        </div>
-        <div class="ec-cta__btns" style="margin-top:2rem">
-          <a class="ec-btn" href="tel:+40757707080">{ic("phone")} Sună acum</a>
-          <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
-        </div>
-      </div>
-      {formular(None, r)}
-    </div>
-  </section>
+  {showroom(r, "12")}
 </div>
 
 <script>
@@ -4201,7 +4154,7 @@ def pagina_despre():
 
     return pagina("Despre noi — dezvoltator, finisaje și garanții | Emerald City Iași",
                   "Cine construiește Emerald City, ce include predarea la cheie, ce garanții și "
-                  "ce documente primești. 925 de apartamente în Iași, zona Păcurari, direct de "
+                  "ce documente se predau. 925 de apartamente în Iași, zona Păcurari, direct de "
                   "la dezvoltator.",
                   continut, r, schema, "despre-emerald-city/")
 
