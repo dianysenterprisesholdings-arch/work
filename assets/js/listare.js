@@ -22,9 +22,9 @@
 
   const stare = {
     camere: new Set(), etaj: new Set(), etapa: new Set(),
-    status: new Set(), corp: new Set(), extra: new Set(), orientare: new Set(),
+    status: new Set(), corp: new Set(), extra: new Set(), orientare: new Set(), tip: new Set(),
     pretMin: 0, pretMax: 130000, suMin: 36, text: '',
-    sort: 'pret', dir: 'asc', limita: PAS
+    sort: 'pret', dir: 'asc', limita: PAS, vedere: 'tabel'
   };
 
   let U = [], F = {};
@@ -37,6 +37,7 @@
     if (stare.status.size && !stare.status.has(u[F.status]))         return false;
     if (stare.corp.size   && !stare.corp.has(bloc(u[F.corp])))       return false;
     if (stare.orientare.size && !stare.orientare.has(u[F.orientare])) return false;
+    if (stare.tip.size && !stare.tip.has(u[F.tip])) return false;
     if (u[F.pret] > stare.pretMax) return false;
     if (u[F.pret] < stare.pretMin) return false;
     if (u[F.su]   < stare.suMin)   return false;
@@ -62,6 +63,7 @@
 
   const CHEI = { id: 'id', corp: 'corp', etaj: 'etaj', tip: 'tip',
                  camere: 'camere', su: 'su', orientare: 'orientare', pret: 'pret' };
+  const ppm = u => u[F.pret] / u[F.su];
 
   function rand(u) {
     const vandut = u[F.status] !== 'disponibil';
@@ -70,19 +72,50 @@
       <td data-et="Bloc">${bloc(u[F.corp])}</td>
       <td data-et="Etaj">${etajTxt(u[F.etaj])}</td>
       <td data-et="Tip">${u[F.tip]}</td>
-      <td class="num" data-et="Camere">${u[F.camere]}</td>
       <td class="num" data-et="Suprafață">${mp(u[F.su])}</td>
       <td data-et="Orientare">${u[F.orientare]}</td>
-      <td class="num" data-et="Preț">${euro(u[F.pret])}</td>
+      <td class="num" data-et="Preț"><b>${euro(u[F.pret])}</b></td>
+      <td class="num" data-et="Preț/m²">${Math.round(ppm(u))} €/m²</td>
       <td class="st" data-et="Stare"><span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span></td>
     </tr>`;
   }
 
+  function card(u) {
+    const cam = u[F.camere] === 1 ? '1 cameră' : u[F.camere] + ' camere';
+    return `<a class="ec-unit ${u[F.status] !== 'disponibil' ? 'is-sold' : ''}" href="../${u[F.id].toLowerCase()}/">
+      <div class="ec-unit__top">
+        <span class="ec-unit__id">${u[F.id]}</span>
+        <span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span>
+      </div>
+      <div class="ec-unit__t">${cam} · ${mp(u[F.su])}</div>
+      <div class="ec-unit__meta">
+        <span>Blocul ${bloc(u[F.corp])}</span><span>${etajTxt(u[F.etaj])}</span>
+        <span>Tip ${u[F.tip]}</span><span>${u[F.orientare]}</span>
+      </div>
+      <div class="ec-unit__foot">
+        <span class="ec-unit__price">${euro(u[F.pret])}</span>
+        <span class="ec-unit__ppm">${Math.round(ppm(u))} €/m²</span>
+      </div>
+    </a>`;
+  }
+
+  function scrieActive() {
+    const el = $('#fActive');
+    if (!el) return;
+    const n = ['camere','etaj','etapa','status','corp','extra','orientare','tip']
+      .reduce((a, g) => a + stare[g].size, 0)
+      + (stare.pretMax !== 130000 || stare.pretMin !== 0 ? 1 : 0)
+      + (stare.suMin !== 36 ? 1 : 0);
+    el.textContent = n ? (n === 1 ? '1 criteriu activ' : n + ' criterii active') : 'Niciun criteriu activ';
+    el.classList.toggle('is-on', n > 0);
+  }
+
   function deseneaza() {
-    const k = F[CHEI[stare.sort]];
+    scrieActive();
     const semn = stare.dir === 'asc' ? 1 : -1;
+    const val = stare.sort === 'ppm' ? ppm : (u => u[F[CHEI[stare.sort]]]);
     const gasite = U.filter(trece).sort((a, b) => {
-      const x = a[k], y = b[k];
+      const x = val(a), y = val(b);
       return (typeof x === 'number' ? x - y : String(x).localeCompare(String(y))) * semn;
     });
 
@@ -109,7 +142,7 @@
         };
         const etichete = { camere: 'numărul de camere', etaj: 'etajul', etapa: 'etapa',
                            status: 'starea', corp: 'blocul', extra: 'dotările',
-                           orientare: 'orientarea',
+                           orientare: 'orientarea', tip: 'compartimentarea',
                            pretMax: 'bugetul', suMin: 'suprafața minimă' };
         for (const k of Object.keys(etichete)) {
           const activ = stare[k] instanceof Set ? stare[k].size
@@ -128,11 +161,19 @@
     }
 
     const vizibile = gasite.slice(0, stare.limita);
-    $('#fBody').innerHTML = vizibile.map(rand).join('');
+    const carduri = $('#fCards');
+    if (stare.vedere === 'carduri' && carduri) {
+      carduri.innerHTML = vizibile.map(card).join('');
+      $('#fBody').innerHTML = '';
+    } else {
+      $('#fBody').innerHTML = vizibile.map(rand).join('');
+      if (carduri) carduri.innerHTML = '';
+    }
 
     const more = $('#fMore');
     more.style.display = gasite.length > vizibile.length ? '' : 'none';
-    more.textContent = `Încarcă încă ${Math.min(PAS, gasite.length - vizibile.length)}`;
+    const rest = Math.min(PAS, gasite.length - vizibile.length);
+    more.textContent = `Încă ${rest} ${rest === 1 ? 'apartament' : 'apartamente'}`;
 
     scrieURL();
   }
@@ -140,7 +181,7 @@
   /* ------------------------------------------------- starea in adresa */
   function scrieURL() {
     const p = new URLSearchParams();
-    ['camere','etaj','etapa','status','corp','extra','orientare'].forEach(g => {
+    ['camere','etaj','etapa','status','corp','extra','orientare','tip'].forEach(g => {
       if (stare[g].size) p.set(g, [...stare[g]].join(','));
     });
     if (stare.pretMin !== 0) p.set('pret-min', stare.pretMin);
@@ -152,13 +193,10 @@
 
   function citesteURL() {
     const p = new URLSearchParams(location.search);
-    ['camere','etaj','etapa','status','corp','extra','orientare'].forEach(g => {
+    ['camere','etaj','etapa','status','corp','extra','orientare','tip'].forEach(g => {
       const v = p.get(g);
       if (v) v.split(',').forEach(x => stare[g].add(x));
     });
-    // link-uri scurte din subsol si din paginile de tipologie
-    const tip = p.get('tip');
-    if (tip) { stare.tipFiltru = tip; }
     if (p.get('pret-min')) stare.pretMin = +p.get('pret-min');
     if (p.get('pret-max')) stare.pretMax = +p.get('pret-max');
     if (p.get('su-min'))   stare.suMin   = +p.get('su-min');
@@ -196,7 +234,7 @@
     });
 
     $('#fReset').addEventListener('click', () => {
-      ['camere','etaj','etapa','status','corp','extra','orientare'].forEach(g => stare[g].clear());
+      ['camere','etaj','etapa','status','corp','extra','orientare','tip'].forEach(g => stare[g].clear());
       stare.pretMin = 0; stare.pretMax = 130000; stare.suMin = 36; stare.limita = PAS;
       $$('.ec-chip').forEach(b => b.classList.remove('is-on'));
       $('#fPret').value = 130000; $('#oPret').textContent = euro(130000);
@@ -236,6 +274,35 @@
       deseneaza();
     });
 
+    const sel = $('#fSort');
+    if (sel) {
+      sel.addEventListener('change', () => {
+        const [s, d] = sel.value.split(':');
+        stare.sort = s; stare.dir = d;
+        $$('#fTable thead th').forEach(x => x.removeAttribute('data-dir'));
+        const th = $(`#fTable thead th[data-s="${s}"]`);
+        if (th) th.dataset.dir = d;
+        deseneaza();
+      });
+    }
+    $$('.ec-lst__view button').forEach(b => {
+      b.addEventListener('click', () => {
+        stare.vedere = b.dataset.view;
+        $$('.ec-lst__view button').forEach(x => {
+          const on = x === b;
+          x.classList.toggle('is-on', on);
+          x.setAttribute('aria-pressed', String(on));
+        });
+        $$('[data-view-pane]').forEach(pn => { pn.hidden = pn.dataset.viewPane !== stare.vedere; });
+        try { localStorage.setItem('ec-vedere', stare.vedere); } catch (e) {}
+        deseneaza();
+      });
+    });
+    try {
+      const v = localStorage.getItem('ec-vedere');
+      if (v === 'carduri') $('.ec-lst__view button[data-view="carduri"]')?.click();
+    } catch (e) {}
+
     $$('#fTable thead th[data-s]').forEach(th => {
       th.addEventListener('click', () => {
         const s = th.dataset.s;
@@ -243,6 +310,7 @@
         else { stare.sort = s; stare.dir = 'asc'; }
         $$('#fTable thead th').forEach(x => x.removeAttribute('data-dir'));
         th.dataset.dir = stare.dir;
+        if (sel) sel.value = `${stare.sort}:${stare.dir}`;
         deseneaza();
       });
     });
@@ -254,9 +322,6 @@
     .then(d => {
       d.campuri.forEach((n, i) => F[n] = i);
       U = d.unitati;
-      // filtrul pe tipologie vine din adresa, nu are buton propriu
-      const p = new URLSearchParams(location.search).get('tip');
-      if (p) U = U.filter(u => u[F.tip] === p);
       citesteURL();
       leaga();
       deseneaza();

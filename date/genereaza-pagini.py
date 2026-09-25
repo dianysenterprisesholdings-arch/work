@@ -53,7 +53,7 @@ GALERIE_TIP = {
 }
 
 STATUS_ET = {"disponibil": "Disponibil", "rezervat": "Rezervat",
-             "vandut": "Vandut", "in_curand": "In curand"}
+             "vandut": "Vândut", "in_curand": "În curând"}
 STATUS_SCHEMA = {"disponibil": "InStock", "rezervat": "LimitedAvailability",
                  "vandut": "SoldOut", "in_curand": "PreOrder"}
 CATEGORII = {
@@ -1570,92 +1570,172 @@ def pagina_tip(cod, unitati_tip, grupe):
 def pagina_listare(unitati):
     r = "../../"
     blocuri = sorted({u["corp"] for u in unitati}, key=lambda c: int(c[1:]))
-    chip = lambda grp, v, et: f'<button class="ec-chip" data-f="{grp}" data-v="{v}">{et}</button>'
+    tipuri = sorted({u["tip_apartament"] for u in unitati})
+    orientari = ["N", "NE", "E", "SE", "S", "SV", "V", "NV"]
+    disp = [u for u in unitati if u["status"] == "disponibil"]
+    su_min, su_max = min(u["su_utila"] for u in unitati), max(u["su_utila"] for u in unitati)
+    p_min = min(u["pret_eur"] for u in disp)
+    chip = lambda grp, v, et: f'<button class="ec-chip" data-f="{grp}" data-v="{v}" type="button">{et}</button>'
 
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span><a href="{r}apartamente-iasi/">Apartamente</a><span>/</span>Disponibilitate</nav>
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b{attr}>{e(val)}</b><em>{e(et)}</em></span></div>'
+        for val, et, pic, attr in [
+            (str(len(unitati)), "Apartamente în ansamblu", "building", f' data-num="{len(unitati)}"'),
+            (str(len(disp)), "Disponibile acum", "key", f' data-num="{len(disp)}"'),
+            (euro(p_min), "Preț de pornire", "tag", ""),
+            (f"{su_min:.0f}–{su_max:.0f} m²", "Suprafață utilă", "ruler-combined", ""),
+        ])
 
-  <header class="ec-phead">
+    def grup(eticheta, id_, continut):
+        return (f'<div class="ec-field"><label id="{id_}">{eticheta}</label>'
+                f'<div class="ec-chips" role="group" aria-labelledby="{id_}">{continut}</div></div>')
+
+    continut = f"""<section class="ec-phero">
+  {imagine("living-02", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>
+      <a href="{r}apartamente-iasi/">Apartamente</a><span>/</span>Disponibilitate</nav>
     <p class="ec-eyebrow">Disponibilitate și prețuri</p>
-    <h1 style="margin-top:1rem">Toate apartamentele disponibile</h1>
-    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
-      {len(unitati)} de apartamente cu 1, 2 și 3 camere. Filtrează după ce contează pentru tine —
-      rezultatele se actualizează instant, fără reîncărcarea paginii.
+    <h1>Toate apartamentele, cu prețuri afișate</h1>
+    <p class="ec-phero__sub">
+      {len(unitati)} de apartamente cu 1, 2 și 3 camere, actualizate din tabelul de vânzări.
+      Filtrele se aplică instant, fără reîncărcarea paginii, iar fiecare unitate are
+      pagina ei, cu plan și preț.
     </p>
-  </header>
-
-  <div class="ec-filters">
-    <div class="ec-field"><label id="l1">Camere</label>
-      <div class="ec-chips" role="group" aria-labelledby="l1">
-        {''.join(chip('camere', n, camere_txt(n)) for n in (1,2,3))}</div></div>
-
-    <div class="ec-field"><label id="l2">Etaj</label>
-      <div class="ec-chips" role="group" aria-labelledby="l2">
-        {''.join(chip('etaj', n, etaj_txt(n)) for n in (0,1,2,3))}</div></div>
-
-    <div class="ec-field"><label id="l3">Etapa</label>
-      <div class="ec-chips" role="group" aria-labelledby="l3">
-        {''.join(chip('etapa', et, 'Etapa ' + et) for et in ('I','II','III'))}</div></div>
-
-    <div class="ec-field"><label id="l4">Stare</label>
-      <div class="ec-chips" role="group" aria-labelledby="l4">
-        {''.join(chip('status', s, STATUS_ET[s]) for s in ('disponibil','rezervat','vandut'))}</div></div>
-
-    <div class="ec-field"><label for="fPret">Preț maxim</label>
-      <div class="ec-range"><input type="range" id="fPret" min="50000" max="130000" step="1000" value="130000">
-        <output for="fPret" id="oPret">130.000 €</output></div></div>
-
-    <div class="ec-field"><label for="fSu">Suprafață minimă</label>
-      <div class="ec-range"><input type="range" id="fSu" min="36" max="81" step="1" value="36">
-        <output for="fSu" id="oSu">36 m²</output></div></div>
-
-    <div class="ec-field"><label id="l5">Extra</label>
-      <div class="ec-chips" role="group" aria-labelledby="l5">
-        {chip('extra','balcon','Cu balcon')}{chip('extra','curte','Cu curte')}
-        {chip('extra','boxa','Cu boxă')}{chip('extra','parcare','Parcare subterană')}</div></div>
-
-    <div class="ec-field"><label id="l6">Bloc</label>
-      <div class="ec-chips" role="group" aria-labelledby="l6">
-        {''.join(chip('corp', c, bloc(c)) for c in blocuri)}</div></div>
-
-    <div class="ec-filters__foot">
-      <span class="ec-toolbar__n" id="fCount">—</span>
-      <button class="ec-btn ec-btn--out" id="fReset" type="button">Resetează filtrele</button>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#lista">{ic("sliders")} Filtrare și listă</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/#buget">{ic("tag")} Selecție după buget</a>
     </div>
   </div>
+</section>
 
-  <div class="ec-toolbar">
-    <div class="ec-search" style="flex:1;min-width:16rem">
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l4 4"/></svg>
-      <input type="search" id="fSearch" placeholder="Caută: „2 camere etaj 3 bloc 12” sau un cod de unitate"
-             aria-label="Caută apartamente">
-    </div>
-    <span class="ec-toolbar__n">Apasă pe capul de tabel pentru sortare.</span>
-  </div>
-
-  <div class="ec-table">
-    <table id="fTable">
-      <caption class="ec-sr">Lista apartamentelor disponibile</caption>
-      <thead><tr>
-        <th data-s="id">Cod</th><th data-s="corp">Bloc</th><th data-s="etaj">Etaj</th>
-        <th data-s="tip">Tip</th><th data-s="camere">Camere</th><th data-s="su">Suprafață</th>
-        <th data-s="orientare">Orientare</th><th data-s="pret" data-dir="asc">Preț</th><th>Stare</th>
-      </tr></thead>
-      <tbody id="fBody"></tbody>
-    </table>
-  </div>
-  <div id="fEmpty"></div>
-  <div class="ec-more"><button class="ec-btn ec-btn--out" id="fMore" type="button">Încarcă încă 50</button></div>
-
-  <section class="ec-section" style="padding-block:3rem 4rem">{formular(None, r)}</section>
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
 </div>
 
+<div class="ec-wrap" id="lista">
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Filtre</span>
+        <h2>Selecție <em>după criterii</em></h2></div>
+      <p class="ec-shead__p">
+        Camere, etaj, etapă, compartimentare, buget, dotări, orientare și bloc.
+        Criteriile active se pot elimina individual.
+      </p>
+    </div>
+
+    <div class="ec-filters ec-filters--v2" style="margin-top:2.5rem">
+      <div class="ec-filters__h">
+        <span class="ec-filters__t">{ic("sliders")} Filtre</span>
+        <span class="ec-filters__act" id="fActive" aria-live="polite"></span>
+        <button class="ec-filters__reset" id="fReset" type="button">{ic("rotate-left")} Resetare</button>
+      </div>
+      <div class="ec-filters__grid">
+        {grup("Camere", "l1", ''.join(chip('camere', n, camere_txt(n)) for n in (1, 2, 3)))}
+        {grup("Etaj", "l2", ''.join(chip('etaj', n, etaj_txt(n)) for n in (0, 1, 2, 3)))}
+        {grup("Etapa", "l3", ''.join(chip('etapa', et, 'Etapa ' + et) for et in ('I', 'II', 'III')))}
+        {grup("Stare", "l4", ''.join(chip('status', st, STATUS_ET[st]) for st in ('disponibil', 'rezervat', 'vandut')))}
+        {grup("Compartimentare", "l7", ''.join(chip('tip', t, 'Tip ' + t) for t in tipuri))}
+        {grup("Dotări", "l5", chip('extra', 'balcon', 'Balcon') + chip('extra', 'curte', 'Curte proprie')
+                             + chip('extra', 'boxa', 'Boxă') + chip('extra', 'parcare', 'Parcare subterană'))}
+        <div class="ec-field"><label for="fPret">Preț maxim</label>
+          <div class="ec-range"><input type="range" id="fPret" min="50000" max="130000" step="1000" value="130000">
+            <output for="fPret" id="oPret">130.000 €</output></div></div>
+        <div class="ec-field"><label for="fSu">Suprafață minimă</label>
+          <div class="ec-range"><input type="range" id="fSu" min="36" max="81" step="1" value="36">
+            <output for="fSu" id="oSu">36 m²</output></div></div>
+        {grup("Orientare", "l8", ''.join(chip('orientare', o, o) for o in orientari))}
+        {grup("Bloc", "l6", ''.join(chip('corp', c, bloc(c)) for c in blocuri))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Rezultate</span>
+        <h2>Lista <em>apartamentelor</em></h2></div>
+      <p class="ec-shead__p">
+        Fiecare rând deschide pagina unității, cu planul, galeria și simularea de rată.
+      </p>
+    </div>
+
+    <div class="ec-lst" style="margin-top:2.5rem">
+      <div class="ec-lst__bar">
+        <span class="ec-lst__n" id="fCount">—</span>
+        <div class="ec-search">
+          {ic("magnifying-glass")}
+          <input type="search" id="fSearch" placeholder="Cod, bloc, etaj sau „2 camere etaj 3”"
+                 aria-label="Căutare în listă">
+        </div>
+        <label class="ec-lst__sort">
+          <span>Sortare</span>
+          <select id="fSort">
+            <option value="pret:asc">Preț crescător</option>
+            <option value="pret:desc">Preț descrescător</option>
+            <option value="ppm:asc">Preț/m² crescător</option>
+            <option value="su:desc">Suprafață descrescătoare</option>
+            <option value="su:asc">Suprafață crescătoare</option>
+            <option value="etaj:asc">Etaj crescător</option>
+            <option value="corp:asc">Bloc</option>
+          </select>
+        </label>
+        <div class="ec-lst__view" role="group" aria-label="Mod de afișare">
+          <button type="button" class="is-on" data-view="tabel" aria-pressed="true">{ic("table-list")} Tabel</button>
+          <button type="button" data-view="carduri" aria-pressed="false">{ic("grip")} Carduri</button>
+        </div>
+      </div>
+
+      <div class="ec-table ec-lst__tabel" data-view-pane="tabel">
+        <table id="fTable">
+          <caption class="ec-sr">Lista apartamentelor</caption>
+          <thead><tr>
+            <th data-s="id">Cod</th><th data-s="corp">Bloc</th><th data-s="etaj">Etaj</th>
+            <th data-s="tip">Tip</th><th data-s="su">Suprafață</th>
+            <th data-s="orientare">Orientare</th><th data-s="pret" data-dir="asc">Preț</th>
+            <th data-s="ppm">Preț/m²</th><th>Stare</th>
+          </tr></thead>
+          <tbody id="fBody"></tbody>
+        </table>
+      </div>
+      <div class="ec-cards ec-lst__carduri" id="fCards" data-view-pane="carduri" hidden></div>
+      <div id="fEmpty"></div>
+      <div class="ec-more"><button class="ec-btn ec-btn--out" id="fMore" type="button">Încă 50 de apartamente</button></div>
+    </div>
+  </section>
+
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    {cta_dublu(r, "disponibilitate")}
+  </section>
+
+  {showroom(r, "03")}
+</div>
+
+<script>
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (!nr.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (!x.isIntersecting) return;
+    const el = x.target, tinta = parseFloat(el.dataset.num), t0 = performance.now();
+    const pas = t => {{
+      const pr = Math.min((t - t0) / 1100, 1);
+      el.textContent = Math.round(tinta * (1 - Math.pow(1 - pr, 3))).toLocaleString('ro-RO');
+      if (pr < 1) requestAnimationFrame(pas);
+    }};
+    requestAnimationFrame(pas);
+    o.unobserve(el);
+  }}), {{ threshold: .4 }});
+  nr.forEach(x => o.observe(x));
+}})();
+</script>
 <script src="{r}assets/js/listare.js"></script>"""
 
     return pagina(
-        "Disponibilitate și prețuri — apartamente Emerald City Iași",
-        f"Toate cele {len(unitati)} de apartamente din Emerald City, Iași zona Păcurari. "
-        "Filtrează după camere, etaj, suprafață și preț. Direct de la dezvoltator.",
+        "Disponibilitate și prețuri — apartamente Iași | Emerald City",
+        f"Toate cele {len(unitati)} de apartamente din Emerald City, Iași zona Păcurari, cu "
+        "prețuri afișate. Filtre după camere, etaj, buget, dotări și bloc.",
         continut, r, None, "apartamente-iasi/disponibilitate/")
 
 

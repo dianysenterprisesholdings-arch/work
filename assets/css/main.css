@@ -2636,3 +2636,67 @@ svg .pa { fill: var(--ec-brass); }
 }
 .ec-plan__halo.is-on { opacity: 1; }
 .ec-plan__spot { z-index: 2; }
+
+
+/* ==========================================================================
+   Disponibilitate — panou de filtre, bară de rezultate, carduri
+   ========================================================================== */
+.ec-filters--v2 { display: block; padding: 0; border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden; gap: 0; }
+.ec-filters__h {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  padding: 1.1rem clamp(1.25rem, 3vw, 1.75rem); background: var(--ec-sand);
+  border-bottom: 1px solid var(--ec-line);
+}
+.ec-filters__t { font-family: var(--ec-disp); font-size: 1.05rem; font-weight: 600; display: flex; gap: .6rem; align-items: center; }
+.ec-filters__t i { color: var(--ec-brass); }
+.ec-filters__act { font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-filters__act.is-on { color: var(--ec-emerald); font-weight: 600; }
+.ec-filters__reset {
+  margin-left: auto; background: transparent; border: 1px solid var(--ec-line); border-radius: 999px;
+  padding: .5rem .95rem; font: inherit; font-size: var(--ec-micro); letter-spacing: .1em;
+  text-transform: uppercase; font-weight: 600; color: var(--ec-ink-60); cursor: pointer;
+  transition: color var(--ec-fast), border-color var(--ec-fast);
+}
+.ec-filters__reset:hover { color: var(--ec-emerald); border-color: var(--ec-emerald); }
+.ec-filters__reset i { margin-right: .4rem; color: var(--ec-brass); }
+.ec-filters__grid { display: grid; gap: 1.5rem clamp(1.25rem, 3vw, 2rem); padding: clamp(1.25rem, 3vw, 1.75rem); }
+@media (min-width: 46rem) { .ec-filters__grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 70rem) { .ec-filters__grid { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.ec-filters__grid .ec-field:nth-last-child(2), .ec-filters__grid .ec-field:last-child { grid-column: 1 / -1; }
+@media (min-width: 70rem) {
+  .ec-filters__grid .ec-field:nth-last-child(2) { grid-column: span 2; }
+  .ec-filters__grid .ec-field:last-child { grid-column: span 2; }
+}
+.ec-chip { background: var(--ec-white); cursor: pointer; font: inherit; font-size: var(--ec-small); }
+
+.ec-lst__bar {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; flex-wrap: wrap; gap: .8rem 1.25rem; align-items: center;
+  padding: .9rem clamp(1rem, 2.5vw, 1.5rem); margin-bottom: var(--ec-gap);
+  background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r);
+}
+.ec-lst__n { font-family: var(--ec-disp); font-weight: 600; font-size: 1rem; white-space: nowrap; }
+.ec-lst__bar .ec-search { flex: 1 1 16rem; }
+.ec-lst__bar .ec-search i { position: absolute; left: .95rem; top: 50%; transform: translateY(-50%); color: var(--ec-ink-40); font-size: .8125rem; pointer-events: none; }
+.ec-lst__sort { display: flex; align-items: center; gap: .55rem; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-lst__sort select {
+  font: inherit; font-size: var(--ec-small); letter-spacing: 0; text-transform: none; color: var(--ec-ink);
+  padding: .55rem 2rem .55rem .8rem; border: 1px solid var(--ec-line); border-radius: var(--ec-r);
+  background: var(--ec-white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%231F3E36' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right .8rem center;
+  appearance: none; cursor: pointer;
+}
+.ec-lst__view { display: inline-flex; border: 1px solid var(--ec-line); border-radius: 999px; overflow: hidden; }
+.ec-lst__view button {
+  background: transparent; border: 0; cursor: pointer; font: inherit; font-size: var(--ec-micro);
+  letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--ec-ink-60);
+  padding: .55rem .95rem; display: inline-flex; gap: .45rem; align-items: center;
+  transition: background var(--ec-fast), color var(--ec-fast);
+}
+.ec-lst__view button + button { border-left: 1px solid var(--ec-line); }
+.ec-lst__view button.is-on { background: var(--ec-emerald); color: #fff; }
+.ec-lst__view button i { font-size: .75rem; }
+.ec-lst__tabel td b { font-weight: 600; }
+.ec-lst__carduri { margin-bottom: 0; }
+.ec-lst__carduri .ec-unit { border: 1px solid var(--ec-line); border-radius: var(--ec-r); }
+.ec-lst__carduri .ec-unit.is-sold { opacity: .6; }
