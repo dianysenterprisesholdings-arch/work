@@ -10,9 +10,13 @@
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  const euro   = n => new Intl.NumberFormat('ro-RO').format(n) + ' €';
+  const EN = document.documentElement.lang === 'en';
+  const A = document.body.dataset.assets || '';
+  const CAT = EN ? 'apartments-iasi' : 'apartamente-iasi';
+  const SLUG = EN ? { 'apartamente-1-camera': '1-room-apartments', 'apartamente-2-camere': '2-room-apartments', 'apartamente-3-camere': '3-room-apartments' } : {};
+  const euro   = n => EN ? '€' + new Intl.NumberFormat('en-GB').format(n) : new Intl.NumberFormat('ro-RO').format(n) + ' €';
   const mp     = n => new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
-  const camere = n => n === 1 ? '1 cameră' : n + ' camere';
+  const camere = n => EN ? (n === 1 ? '1 room' : n + ' rooms') : (n === 1 ? '1 cameră' : n + ' camere');
   // C1..C18 sunt coduri din proiect; comercial se numesc blocuri
   const bloc   = cod => cod.replace(/^C/, '');
 
@@ -96,8 +100,8 @@
     const STARI = [
       ['disponibil', 'Disponibile', 'var(--ec-available)'],
       ['rezervat',   'Rezervate',   'var(--ec-reserved)'],
-      ['vandut',     'Vândute',     'var(--ec-sold)'],
-      ['in_curand',  'În curând',   'rgba(255,255,255,.28)']
+      ['vandut',     EN ? 'Sold' : 'Vândute',     'var(--ec-sold)'],
+      ['in_curand',  EN ? 'Coming soon' : 'În curând',   'rgba(255,255,255,.28)']
     ];
 
     const sum = (lista, k) => lista.reduce((a, c) => a + c[k], 0);
@@ -125,19 +129,19 @@
       const rez = sum(s, 'rezervat'), vand = sum(s, 'vandut'), soon = sum(s, 'in_curand');
       const preturi = s.map(c => c.pret_min).filter(Boolean);
       const vandutPct = t ? Math.round((vand + rez) / t * 100) : 0;
-      const stare = soon === t ? 'În curând' : disp === 0 ? 'Epuizat'
-                  : vandutPct > 70 ? 'Ultimele unități' : 'În vânzare';
+      const stare = soon === t ? (EN ? 'Coming soon' : 'În curând') : disp === 0 ? (EN ? 'Sold out' : 'Epuizat')
+                  : vandutPct > 70 ? (EN ? 'Last units' : 'Ultimele unități') : (EN ? 'On sale' : 'În vânzare');
       const seg = (n, col) => n ? `<i style="width:${n / t * 100}%;background:${col}"></i>` : '';
 
-      return `<a class="ec-av__row" href="apartamente-iasi/disponibilitate/?etapa=${et.cod}">
-        <div class="ec-av__name"><b>${et.titlu}</b><span>${et.sub} · ${t} apartamente</span></div>
+      return `<a class="ec-av__row" href="${CAT}/${EN ? 'availability' : 'disponibilitate'}/?etapa=${et.cod}">
+        <div class="ec-av__name"><b>${et.titlu}</b><span>${et.sub} · ${t} ${EN ? 'apartments' : 'apartamente'}</span></div>
         <div class="ec-av__mini">
           ${seg(vand, 'var(--ec-sold)')}${seg(rez, 'var(--ec-reserved)')}
           ${seg(disp, 'var(--ec-available)')}${seg(soon, 'rgba(255,255,255,.28)')}
         </div>
         <div class="ec-av__num"><b>${disp || '—'}</b><span>Disponibile</span></div>
         <div class="ec-av__num">
-          ${preturi.length ? `<b>${euro(Math.min(...preturi))}</b><span>Preț de la</span>`
+          ${preturi.length ? `<b>${euro(Math.min(...preturi))}</b><span>${EN ? 'From' : 'Preț de la'}</span>`
                            : `<span class="ec-av__tag">${stare}</span>`}
         </div>
         <span class="ec-av__go"><svg width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor" stroke-width="1.4"/></svg></span>
@@ -164,7 +168,7 @@
     grid.innerHTML = Object.values(tipuri)
       .sort((a, b) => a.cod.localeCompare(b.cod))
       .map(t => `
-        <a class="ec-type ec-rv" href="apartamente-iasi/${t.slug}/tip-${t.cod.toLowerCase()}/">
+        <a class="ec-type ec-rv" href="${CAT}/${SLUG[t.slug] || t.slug}/${EN ? 'type' : 'tip'}-${t.cod.toLowerCase()}/">
           <div class="ec-type__plan">${planSVG(t.camere, t.cod, t.su.reduce((a,b)=>a+b,0)/t.su.length, true)}</div>
           <div class="ec-type__code">${t.cod}</div>
           <div class="ec-type__rows">
@@ -233,7 +237,7 @@
     out += `<text class="pd" x="${W / 2}" y="${H + 20}">${nr(lat)} m</text>`;
     out += `<line class="pc" x1="${W + 9}" y1="0" x2="${W + 9}" y2="${H}"/>`;
     out += `<text class="pd" x="${W + 20}" y="${H / 2}" transform="rotate(90 ${W + 20} ${H / 2})">${nr(total / lat)} m</text>`;
-    return `<svg viewBox="-4 -4 ${W + 34} ${H + 32}" role="img" aria-label="Schemă de compartimentare ${tip || ''}">${out}</svg>`;
+    return `<svg viewBox="-4 -4 ${W + 34} ${H + 32}" role="img" aria-label="${EN ? 'Layout diagram' : 'Schemă de compartimentare'} ${tip || ''}">${out}</svg>`;
   }
 
   /* ========================================================== SELECTOR == */
@@ -250,10 +254,10 @@
     const render = () => {
       const hits = units.filter(match);
       count.textContent = hits.length === 1
-        ? '1 apartament disponibil corespunde criteriilor'
+        ? (EN ? '1 available apartment matches the criteria' : '1 apartament disponibil corespunde criteriilor')
         : hits.length
-          ? `${hits.length} apartamente disponibile corespund criteriilor`
-          : 'Niciun apartament nu corespunde. Încearcă să lărgești criteriile.';
+          ? (EN ? `${hits.length} available apartments match the criteria` : `${hits.length} apartamente disponibile corespund criteriilor`)
+          : (EN ? 'No apartment matches. Try widening the criteria.' : 'Niciun apartament nu corespunde. Încearcă să lărgești criteriile.');
 
       // Sortarea pura pe pret returna sase garsoniere identice la parter.
       // Iau intai cel mai ieftin exemplar din fiecare tipologie+etaj.
@@ -267,7 +271,7 @@
       out.innerHTML = divers.concat(rest).slice(0, 6)
         .sort((a, b) => a[F.pret] - b[F.pret])
         .map(u => `
-          <a class="ec-unit" href="apartamente-iasi/${u[F.id].toLowerCase()}/">
+          <a class="ec-unit" href="${CAT}/${u[F.id].toLowerCase()}/">
             <div class="ec-unit__top">
               <span class="ec-unit__id">${u[F.id]}</span>
               <span class="ec-tag ec-tag--disponibil">Disponibil</span>
@@ -319,8 +323,8 @@
 
   /* ============================================================== INIT == */
   Promise.all([
-    fetch('assets/data/unitati.json').then(r => r.json()),
-    fetch('assets/data/corpuri.json').then(r => r.json())
+    fetch(A + 'assets/data/unitati.json').then(r => r.json()),
+    fetch(A + 'assets/data/corpuri.json').then(r => r.json())
   ]).then(([data, corpuri]) => {
     // datele vin ca tablouri, nu ca obiecte, ca payload-ul sa ramana mic
     const F = {};
@@ -333,7 +337,7 @@
   }).catch(err => {
     console.error('Nu s-au putut încărca datele:', err);
     const c = $('#fCount');
-    if (c) c.textContent = 'Datele nu au putut fi încărcate.';
+    if (c) c.textContent = EN ? 'The data could not be loaded.' : 'Datele nu au putut fi încărcate.';
   });
 
 })();

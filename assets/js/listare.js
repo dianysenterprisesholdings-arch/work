@@ -12,11 +12,14 @@
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  const euro   = n => new Intl.NumberFormat('ro-RO').format(n) + ' €';
+  const EN = document.documentElement.lang === 'en';
+  const A = document.body.dataset.assets || '../../';
+  const euro   = n => EN ? '€' + new Intl.NumberFormat('en-GB').format(n) : new Intl.NumberFormat('ro-RO').format(n) + ' €';
   const mp     = n => new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
   const bloc   = c => c.replace(/^C/, '');
   const etajTxt = n => n === 0 ? 'Parter' : 'Etaj ' + n;
-  const ST = { disponibil: 'Disponibil', rezervat: 'Rezervat', vandut: 'Vândut', in_curand: 'În curând' };
+  const ST = EN ? { disponibil: 'Available', rezervat: 'Reserved', vandut: 'Sold', in_curand: 'Coming soon' }
+               : { disponibil: 'Disponibil', rezervat: 'Rezervat', vandut: 'Vândut', in_curand: 'În curând' };
 
   const PAS = 50;                       // randuri adaugate la fiecare "incarca"
 
@@ -72,16 +75,16 @@
       <td data-et="Bloc">${bloc(u[F.corp])}</td>
       <td data-et="Etaj">${etajTxt(u[F.etaj])}</td>
       <td data-et="Tip">${u[F.tip]}</td>
-      <td class="num" data-et="Suprafață">${mp(u[F.su])}</td>
+      <td class="num" data-et="${EN ? 'Area' : 'Suprafață'}">${mp(u[F.su])}</td>
       <td data-et="Orientare">${u[F.orientare]}</td>
-      <td class="num" data-et="Preț"><b>${euro(u[F.pret])}</b></td>
-      <td class="num" data-et="Preț/m²">${Math.round(ppm(u))} €/m²</td>
+      <td class="num" data-et="${EN ? 'Price' : 'Preț'}"><b>${euro(u[F.pret])}</b></td>
+      <td class="num" data-et="${EN ? 'Price/m²' : 'Preț/m²'}">${EN ? '€' + Math.round(ppm(u)) + '/m²' : Math.round(ppm(u)) + ' €/m²'}</td>
       <td class="st" data-et="Stare"><span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span></td>
     </tr>`;
   }
 
   function card(u) {
-    const cam = u[F.camere] === 1 ? '1 cameră' : u[F.camere] + ' camere';
+    const cam = EN ? (u[F.camere] === 1 ? '1 room' : u[F.camere] + ' rooms') : (u[F.camere] === 1 ? '1 cameră' : u[F.camere] + ' camere');
     return `<a class="ec-unit ${u[F.status] !== 'disponibil' ? 'is-sold' : ''}" href="../${u[F.id].toLowerCase()}/">
       <div class="ec-unit__top">
         <span class="ec-unit__id">${u[F.id]}</span>
@@ -106,7 +109,8 @@
       .reduce((a, g) => a + stare[g].size, 0)
       + (stare.pretMax !== 130000 || stare.pretMin !== 0 ? 1 : 0)
       + (stare.suMin !== 36 ? 1 : 0);
-    el.textContent = n ? (n === 1 ? '1 criteriu activ' : n + ' criterii active') : 'Niciun criteriu activ';
+    el.textContent = EN ? (n ? (n === 1 ? '1 active filter' : n + ' active filters') : 'No active filter')
+                        : (n ? (n === 1 ? '1 criteriu activ' : n + ' criterii active') : 'Niciun criteriu activ');
     el.classList.toggle('is-on', n > 0);
   }
 
@@ -120,10 +124,10 @@
     });
 
     $('#fCount').textContent = gasite.length === 1
-      ? '1 apartament corespunde criteriilor'
+      ? (EN ? '1 apartment matches the criteria' : '1 apartament corespunde criteriilor')
       : gasite.length
-        ? `${gasite.length} apartamente corespund criteriilor`
-        : 'Niciun apartament nu corespunde criteriilor.';
+        ? (EN ? `${gasite.length} apartments match the criteria` : `${gasite.length} apartamente corespund criteriilor`)
+        : (EN ? 'No apartment matches the criteria.' : 'Niciun apartament nu corespunde criteriilor.');
 
     const gol = $('#fEmpty');
     if (gol) {
@@ -140,7 +144,9 @@
           stare[cheie] = salvat;
           return n;
         };
-        const etichete = { camere: 'numărul de camere', etaj: 'etajul', etapa: 'etapa',
+        const etichete = EN ? { camere: 'number of rooms', etaj: 'floor', etapa: 'phase', status: 'status', corp: 'building', extra: 'features',
+                                orientare: 'orientation', tip: 'layout', pretMax: 'budget', suMin: 'minimum area' }
+                          : { camere: 'numărul de camere', etaj: 'etajul', etapa: 'etapa',
                            status: 'starea', corp: 'blocul', extra: 'dotările',
                            orientare: 'orientarea', tip: 'compartimentarea',
                            pretMax: 'bugetul', suMin: 'suprafața minimă' };
@@ -150,12 +156,12 @@
                                          : stare.suMin !== 36);
           if (!activ) continue;
           const n = fara(k);
-          if (n > 0) sug.push(`<button class="ec-btn ec-btn--out" data-relax="${k}">Renunță la ${etichete[k]} · ${n} rezultate</button>`);
+          if (n > 0) sug.push(`<button class="ec-btn ec-btn--out" data-relax="${k}">${EN ? 'Drop' : 'Renunță la'} ${etichete[k]} · ${n} ${EN ? 'results' : 'rezultate'}</button>`);
         }
         gol.innerHTML = `<div class="ec-empty">
-          <p>Niciun apartament nu corespunde tuturor criteriilor.</p>
+          <p>${EN ? 'No apartment matches all the criteria.' : 'Niciun apartament nu corespunde tuturor criteriilor.'}</p>
           <p style="margin-top:.4rem">Relaxează unul dintre ele:</p>
-          <div class="ec-empty__s">${sug.join('') || '<button class="ec-btn ec-btn--brass" data-relax="tot">Resetează filtrele</button>'}</div>
+          <div class="ec-empty__s">${sug.join('') || `<button class="ec-btn ec-btn--brass" data-relax="tot">${EN ? 'Reset filters' : 'Resetează filtrele'}</button>`}</div>
         </div>`;
       }
     }
@@ -173,7 +179,7 @@
     const more = $('#fMore');
     more.style.display = gasite.length > vizibile.length ? '' : 'none';
     const rest = Math.min(PAS, gasite.length - vizibile.length);
-    more.textContent = `Încă ${rest} ${rest === 1 ? 'apartament' : 'apartamente'}`;
+    more.textContent = EN ? `${rest} more ${rest === 1 ? 'apartment' : 'apartments'}` : `Încă ${rest} ${rest === 1 ? 'apartament' : 'apartamente'}`;
 
     scrieURL();
   }
@@ -317,7 +323,7 @@
   }
 
   /* ---------------------------------------------------------------- init */
-  fetch('../../assets/data/unitati.json')
+  fetch(A + 'assets/data/unitati.json')
     .then(r => r.json())
     .then(d => {
       d.campuri.forEach((n, i) => F[n] = i);
@@ -328,7 +334,7 @@
     })
     .catch(err => {
       console.error('Nu s-au putut încărca datele:', err);
-      $('#fCount').textContent = 'Datele nu au putut fi încărcate.';
+      $('#fCount').textContent = EN ? 'The data could not be loaded.' : 'Datele nu au putut fi încărcate.';
     });
 
 })();

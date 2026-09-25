@@ -9,6 +9,9 @@ Genereaza in plus sitemap.xml si robots.txt.
 """
 
 import os, shutil, sys
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from limbi import cale_en, cale_ro
 from datetime import date
 
 RAD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +27,7 @@ DIRECTOARE = [
     "despre-emerald-city", "despre-dezvoltator",
     "proiect", "aparitii-presa", "finisaje",
     "termeni-si-conditii", "politica-de-confidentialitate",
-    "politica-de-cookies", "informare-gdpr",
+    "politica-de-cookies", "informare-gdpr", "en",
 ]
 FISIERE = ["index.html"]
 

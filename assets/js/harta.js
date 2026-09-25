@@ -10,6 +10,7 @@
 
 (() => {
   'use strict';
+  const EN = document.documentElement.lang === 'en';
 
   const gazda = document.getElementById('ecHarta');
   if (!gazda) return;
@@ -18,11 +19,11 @@
   const JS  = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
 
   const CATEGORII = {
-    cumparaturi: 'Cumpărături',
-    educatie:    'Educație',
-    verde:       'Spații verzi',
+    cumparaturi: EN ? 'Shopping' : 'Cumpărături',
+    educatie:    EN ? 'Education' : 'Educație',
+    verde:       EN ? 'Green spaces' : 'Spații verzi',
     transport:   'Transport',
-    oras:        'Oraș',
+    oras:        EN ? 'City' : 'Oraș',
   };
 
   // Izocrone aproximative: in oras se circula cu ~28 km/h in medie,
@@ -61,11 +62,11 @@
   async function porneste() {
     let date;
     try {
-      const r = await fetch(gazda.dataset.sursa || 'assets/data/distante.json');
+      const r = await fetch(gazda.dataset.sursa || (document.body.dataset.assets || '') + 'assets/data/distante.json');
       date = await r.json();
       await incarca();
     } catch {
-      gazda.innerHTML = '<p class="ec-harta__err">Harta nu a putut fi încărcată.</p>';
+      gazda.innerHTML = `<p class="ec-harta__err">${EN ? 'The map could not be loaded.' : 'Harta nu a putut fi încărcată.'}</p>`;
       return;
     }
 
@@ -93,16 +94,16 @@
       IZO.map(z => L.circle([date.lat, date.lon], {
         radius: z.raza, className: 'ec-izo',
         interactive: false, fillOpacity: .06, weight: 1,
-      }).bindTooltip(`${z.min} minute cu mașina`, { permanent: false, direction: 'top' }))
+      }).bindTooltip(EN ? `${z.min} minutes by car` : `${z.min} minute cu mașina`, { permanent: false, direction: 'top' }))
     );
 
     /* --- reperul principal si punctele ---------------------------------- */
     const acasa = L.marker([date.lat, date.lon], { icon: pinMarca(), zIndexOffset: 1000 })
-      .addTo(harta).bindPopup('<b>Emerald City</b><br>Apartamente Iași, zona Păcurari');
+      .addTo(harta).bindPopup(EN ? '<b>Emerald City</b><br>Apartments in Iași, Păcurari area' : '<b>Emerald City</b><br>Apartamente Iași, zona Păcurari');
 
     const marcaje = date.puncte.map((p, i) => {
       const m = L.marker([p.lat, p.lon], { icon: pinNumar(p.min) });
-      m.bindPopup(`<b>${p.nume}</b><br>${String(p.km).replace('.', ',')} km · ${p.min} min cu mașina`);
+      m.bindPopup(`<b>${p.nume}</b><br>${EN ? p.km : String(p.km).replace('.', ',')} km · ${p.min} min ${EN ? 'by car' : 'cu mașina'}`);
       m.on('click', () => selecteaza(i));
       m._cat = p.cat || 'oras';
       m.addTo(harta);

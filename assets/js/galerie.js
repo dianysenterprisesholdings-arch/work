@@ -31,11 +31,11 @@
     strat.setAttribute('aria-modal', 'true');
     strat.setAttribute('aria-label', 'Imagine pe ecran complet');
     strat.innerHTML =
-      '<button class="ec-lb__x" type="button" aria-label="Închide">' +
+      '<button class="ec-lb__x" type="button" aria-label="' + (document.documentElement.lang === 'en' ? 'Close' : 'Închide') + '">' +
         '<i class="fa-solid fa-xmark" aria-hidden="true"></i></button>' +
-      '<button class="ec-lb__n ec-lb__n--prev" type="button" aria-label="Imaginea anterioară">' +
+      '<button class="ec-lb__n ec-lb__n--prev" type="button" aria-label="' + (document.documentElement.lang === 'en' ? 'Previous image' : 'Imaginea anterioară') + '">' +
         '<i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>' +
-      '<button class="ec-lb__n ec-lb__n--next" type="button" aria-label="Imaginea următoare">' +
+      '<button class="ec-lb__n ec-lb__n--next" type="button" aria-label="' + (document.documentElement.lang === 'en' ? 'Next image' : 'Imaginea următoare') + '">' +
         '<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>' +
       '<figure class="ec-lb__f"><img alt=""><figcaption></figcaption></figure>';
     document.body.appendChild(strat);

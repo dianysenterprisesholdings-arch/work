@@ -20,21 +20,22 @@
   if (document.querySelector('[data-sticky]')) return;
 
   const radacina = document.body.dataset.radacina || '';
+  const EN = document.documentElement.lang === 'en';
 
   const bara = document.createElement('div');
   bara.className = 'ec-abar';
   bara.innerHTML =
     `<a class="ec-abar__a" href="tel:${TEL}">
        <i class="fa-solid fa-phone" aria-hidden="true"></i>
-       <span><b data-scurt="Sună">0757 70 70 80</b><em>Luni–vineri 9–18</em></span>
+       <span><b data-scurt="${EN ? 'Call' : 'Sună'}">0757 70 70 80</b><em>${EN ? 'Mon–Fri 9–18' : 'Luni–vineri 9–18'}</em></span>
      </a>
      <a class="ec-abar__a ec-abar__a--wa" href="${WA}" target="_blank" rel="noopener">
        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-       <span><b>WhatsApp</b><em>Răspundem azi</em></span>
+       <span><b>WhatsApp</b><em>${EN ? 'We reply today' : 'Răspundem azi'}</em></span>
      </a>
-     <a class="ec-abar__a ec-abar__a--pr" href="${radacina}programare-vizionare/">
+     <a class="ec-abar__a ec-abar__a--pr" href="${radacina}${EN ? 'book-a-viewing' : 'programare-vizionare'}/">
        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
-       <span><b data-scurt="Vizionare">Programare vizionare</b><em>40 de minute, la fața locului</em></span>
+       <span><b data-scurt="${EN ? 'Viewing' : 'Vizionare'}">${EN ? 'Book a viewing' : 'Programare vizionare'}</b><em>${EN ? '40 minutes, on site' : '40 de minute, la fața locului'}</em></span>
      </a>`;
   document.body.appendChild(bara);
 

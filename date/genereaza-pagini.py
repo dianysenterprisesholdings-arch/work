@@ -14,7 +14,9 @@ adevar ramane tabelul de unitati, paginile sunt derivate. Aici doar
 demonstram ca fluxul functioneaza pe volumul real de 925 de unitati.
 """
 
-import csv, html, json, os, shutil
+import csv, html, json, os, shutil, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from limbi import hreflang, comutator
 from collections import defaultdict
 
 RAD = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,6 +174,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
 <title>{e(titlu)}</title>
 <meta name="description" content="{e(descriere)}">
 <link rel="canonical" href="https://emerald-city.ro/{canonic}">
+{hreflang(canonic)}
 {og}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -196,6 +199,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
         <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
         <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
       </span>
+      {comutator(canonic)}
     </div>
   </div>
 </div>

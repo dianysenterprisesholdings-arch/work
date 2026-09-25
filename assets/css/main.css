@@ -2864,3 +2864,12 @@ svg .pa { fill: var(--ec-brass); }
 .ec-legal__t td:first-child { font-weight: 600; color: var(--ec-ink); }
 .ec-legal__foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--ec-line); font-size: var(--ec-small); color: var(--ec-ink-60); }
 .ec-legal__foot a { color: var(--ec-emerald); text-decoration: underline; }
+
+/* --- comutator de limba (topbar + meniu mobil) --------------------------- */
+.ec-lang { display: inline-flex; align-items: center; gap: .15rem; margin-left: .9rem; padding-left: 1.1rem; border-left: 1px solid rgba(255,255,255,.22); }
+.ec-lang a { display: inline-flex; align-items: center; gap: .4rem; padding: .25rem .5rem; border-radius: 4px; color: rgba(255,255,255,.7); font-weight: 600; letter-spacing: .08em; text-decoration: none; transition: color var(--ec-fast), background var(--ec-fast); }
+.ec-lang a svg { border-radius: 2px; box-shadow: 0 0 0 1px rgba(255,255,255,.25); opacity: 1; }
+.ec-lang a:hover { color: #fff; }
+.ec-lang a.is-on { color: #fff; background: rgba(255,255,255,.12); }
+.ec-lang--mob { margin: 1.25rem 0 0; padding: 1rem 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); width: 100%; justify-content: center; gap: .75rem; }
+.ec-lang--mob a { font-size: var(--ec-small); padding: .5rem .9rem; border: 1px solid rgba(255,255,255,.25); }

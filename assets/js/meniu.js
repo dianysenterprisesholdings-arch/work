@@ -17,7 +17,8 @@
   const buton = document.createElement('button');
   buton.className = 'ec-burger';
   buton.type = 'button';
-  buton.setAttribute('aria-label', 'Deschide meniul');
+  const EN = document.documentElement.lang === 'en';
+  buton.setAttribute('aria-label', EN ? 'Open menu' : 'Deschide meniul');
   buton.setAttribute('aria-expanded', 'false');
   buton.innerHTML = '<span></span><span></span><span></span>';
   antet.appendChild(buton);
@@ -53,7 +54,7 @@
              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
            </button>
            <div class="ec-mob__s" data-s="${i}">
-             <a class="ec-mob__l ec-mob__l--tot" href="${g.href}">Toate — ${g.titlu}</a>
+             <a class="ec-mob__l ec-mob__l--tot" href="${g.href}">${EN ? 'All' : 'Toate'} — ${g.titlu}</a>
              ${g.sub.map(x => `<a class="ec-mob__l" href="${x.href}">
                  <b>${x.titlu}</b>${x.desc ? `<em>${x.desc}</em>` : ''}</a>`).join('')}
            </div>
@@ -61,10 +62,11 @@
       : `<a class="ec-mob__t ec-mob__t--simplu" href="${g.href}">${g.titlu}</a>`).join('') +
     '</nav>' +
     `<div class="ec-mob__f">
-       <a class="ec-btn" href="${radacina}programare-vizionare/">
-         <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Programare vizionare</a>
+       <a class="ec-btn" href="${radacina}${EN ? 'book-a-viewing' : 'programare-vizionare'}/">
+         <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> ${EN ? 'Book a viewing' : 'Programare vizionare'}</a>
        <a class="ec-mob__tel" href="tel:+40757707080">
          <i class="fa-solid fa-phone" aria-hidden="true"></i> 0757 70 70 80</a>
+       ${(document.querySelector('.ec-lang') || { outerHTML: '' }).outerHTML.replace('class="ec-lang"', 'class="ec-lang ec-lang--mob"')}
      </div>`;
   document.body.appendChild(panou);
 
@@ -75,7 +77,7 @@
     panou.classList.toggle('is-on', v);
     buton.classList.toggle('is-on', v);
     buton.setAttribute('aria-expanded', String(v));
-    buton.setAttribute('aria-label', v ? 'Închide meniul' : 'Deschide meniul');
+    buton.setAttribute('aria-label', EN ? (v ? 'Close menu' : 'Open menu') : (v ? 'Închide meniul' : 'Deschide meniul'));
     panou.setAttribute('aria-hidden', String(!v));
     document.body.classList.toggle('are-meniu', v);
     document.documentElement.style.overflow = v ? 'hidden' : '';

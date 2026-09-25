@@ -9,7 +9,9 @@
 
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const euro = n => new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 0 }).format(n) + ' €';
+  const EN = document.documentElement.lang === 'en';
+  const euro = n => EN ? '€' + new Intl.NumberFormat('en-GB', { maximumFractionDigits: 0 }).format(n)
+                      : new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 0 }).format(n) + ' €';
   const pct  = n => n.toFixed(2).replace('.', ',') + '%';
 
   /* ====================================================== rata lunara ==
@@ -34,7 +36,7 @@
       const r = rata(credit, +db.value, +an.value);
       oAv.textContent = av.value + '% · ' + euro(avans);
       oDb.textContent = (+db.value).toFixed(1).replace('.', ',') + '%';
-      oAn.textContent = an.value + ' ani';
+      oAn.textContent = an.value + (EN ? ' years' : ' ani');
       oRata.textContent = euro(r);
       oCredit.textContent = euro(credit);
       oTot.textContent = euro(r * an.value * 12 + avans);
@@ -57,11 +59,11 @@
       const anBrut = chirie * 12;
       const anNet = anBrut * (1 - gol / 100) * 0.92;   // ~8% cheltuieli si administrare
       oPr.textContent = euro(pret);
-      oCh.textContent = euro(chirie) + '/lună';
+      oCh.textContent = euro(chirie) + (EN ? '/month' : '/lună');
       oGl.textContent = gol + '%';
       oBr.textContent = pct(anBrut / pret * 100);
       oNet.textContent = pct(anNet / pret * 100);
-      oAni.textContent = (pret / anNet).toFixed(1).replace('.', ',') + ' ani';
+      oAni.textContent = (EN ? (pret / anNet).toFixed(1) : (pret / anNet).toFixed(1).replace('.', ',')) + (EN ? ' years' : ' ani');
     };
     // valori venite din pagina unei unitati sau dintr-un scenariu (?pret=&su=)
     try {
@@ -95,8 +97,8 @@
     bara.className = 'ec-fav';
     bara.innerHTML = `<span class="ec-fav__n"></span>
       <span class="ec-fav__b">
-        <a class="ec-btn ec-btn--white" data-cmp>Compară</a>
-        <button class="ec-btn ec-btn--brass" data-share type="button">Trimite lista</button>
+        <a class="ec-btn ec-btn--white" data-cmp>${EN ? 'Compare' : 'Compară'}</a>
+        <button class="ec-btn ec-btn--brass" data-share type="button">${EN ? 'Share the list' : 'Trimite lista'}</button>
       </span>`;
     document.body.appendChild(bara);
 
@@ -104,14 +106,15 @@
 
     const sincronizeaza = () => {
       bara.classList.toggle('is-on', lista.length > 0);
-      nr.textContent = lista.length === 1 ? '1 apartament salvat' : `${lista.length} apartamente salvate`;
-      cmp.href = radacina + 'compara/?u=' + lista.join(',');
+      nr.textContent = EN ? (lista.length === 1 ? '1 saved apartment' : `${lista.length} saved apartments`)
+                          : (lista.length === 1 ? '1 apartament salvat' : `${lista.length} apartamente salvate`);
+      cmp.href = radacina + (EN ? 'compare' : 'compara') + '/?u=' + lista.join(',');
       $$('[data-save]').forEach(b => {
         const on = lista.includes(b.dataset.save);
         b.classList.toggle('is-on', on);
         b.setAttribute('aria-pressed', on);
         const t = $('[data-save-t]', b);
-        if (t) t.textContent = on ? 'Salvat' : 'Salvează';
+        if (t) t.textContent = EN ? (on ? 'Saved' : 'Save') : (on ? 'Salvat' : 'Salvează');
       });
     };
 
@@ -121,17 +124,17 @@
       ev.preventDefault();
       const id = b.dataset.save;
       if (lista.includes(id)) lista = lista.filter(x => x !== id);
-      else if (lista.length >= MAX) { alert(`Poți compara maximum ${MAX} apartamente.`); return; }
+      else if (lista.length >= MAX) { alert(EN ? `You can compare up to ${MAX} apartments.` : `Poți compara maximum ${MAX} apartamente.`); return; }
       else lista.push(id);
       scrie(lista);
       sincronizeaza();
     });
 
     share.addEventListener('click', async () => {
-      const url = location.origin + radacina.replace(/^\.\//, '/') + 'compara/?u=' + lista.join(',');
+      const url = location.origin + radacina.replace(/^\.\//, '/') + (EN ? 'compare' : 'compara') + '/?u=' + lista.join(',');
       try {
         if (navigator.share) await navigator.share({ title: 'Apartamente Emerald City', url });
-        else { await navigator.clipboard.writeText(url); share.textContent = 'Link copiat'; setTimeout(() => share.textContent = 'Trimite lista', 2000); }
+        else { await navigator.clipboard.writeText(url); share.textContent = EN ? 'Link copied' : 'Link copiat'; setTimeout(() => share.textContent = EN ? 'Share the list' : 'Trimite lista', 2000); }
       } catch {}
     });
 
