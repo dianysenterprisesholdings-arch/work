@@ -115,9 +115,6 @@
   <div class="ec-wrap"><div class="ec-figs"><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-city" aria-hidden="true"></i></span><span><b data-num="18">18</b><em>Blocuri 2D+P+3E</em></span></div><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-building" aria-hidden="true"></i></span><span><b data-num="925">925</b><em>Apartamente</em></span></div><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-ruler-combined" aria-hidden="true"></i></span><span><b data-num="5,02">5,02 ha</b><em>Suprafață teren</em></span></div><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></span><span><b data-num="3">3</b><em>Etape de construcție</em></span></div></div></div>
 </div>
 
-<div class="ec-subnav">
-  <div class="ec-wrap"><nav class="ec-subnav__in"><a href="#concept"><b>01</b>Concept</a><a href="#regim"><b>02</b>Regim</a><a href="#teren"><b>03</b>Teren</a><a href="#etape"><b>04</b>Etape</a><a href="#apartamente"><b>05</b>Apartamente</a><a href="#parcare"><b>06</b>Parcare</a><a href="#comercial"><b>07</b>Comercial</a><a href="#documentatie"><b>08</b>Documentație</a><a href="#intrebari"><b>09</b>Întrebări</a></nav></div>
-</div>
 
 <div class="ec-wrap">
   <section class="ec-section" id="concept">
@@ -392,23 +389,6 @@
     o.unobserve(x.target);
   }), { threshold: .3 });
   b.forEach(x => o.observe(x));
-})();
-
-/* bara de sectiuni: evidentiaza sectiunea aflata in dreptul ecranului */
-(() => {
-  const bara = document.querySelector('.ec-subnav');
-  if (!bara) return;
-  const leg = [...bara.querySelectorAll('a')];
-  const sect = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  if (!sect.length) return;
-  const o = new IntersectionObserver(es => {
-    es.forEach(x => {
-      if (!x.isIntersecting) return;
-      leg.forEach(a => a.classList.toggle('is-on',
-        a.getAttribute('href') === '#' + x.target.id));
-    });
-  }, { rootMargin: '-20% 0px -70% 0px' });
-  sect.forEach(s => o.observe(s));
 })();
 </script>
 </main>

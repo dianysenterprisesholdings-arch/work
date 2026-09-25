@@ -114,9 +114,6 @@
   <div class="ec-wrap"><div class="ec-figs"><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i></span><span><b data-num="13">13%</b><em>Stadiu general</em></span></div><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-helmet-safety" aria-hidden="true"></i></span><span><b>I</b><em>Etapa în execuție</em></span></div><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></span><span><b data-num="3">3</b><em>Etape de construcție</em></span></div><div class="ec-fig ec-rv"><span class="ec-fig__ic"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i></span><span><b>Septembrie</b><em>Ultima actualizare</em></span></div></div></div>
 </div>
 
-<div class="ec-subnav">
-  <div class="ec-wrap"><nav class="ec-subnav__in"><a href="#etape"><b>01</b>Stadiu pe etape</a><a href="#jurnal"><b>02</b>Jurnal</a><a href="#vizite"><b>03</b>Vizite pe șantier</a><a href="#intrebari"><b>04</b>Întrebări</a></nav></div>
-</div>
 
 <div class="ec-wrap">
   <section class="ec-section" id="etape">
@@ -264,21 +261,6 @@
       o.unobserve(x.target);
     }), { threshold: .2 });
     b.forEach(x => o.observe(x));
-  }
-
-  /* bara de sectiuni */
-  const bara = document.querySelector('.ec-subnav');
-  if (bara) {
-    const leg = [...bara.querySelectorAll('a')];
-    const sect = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-    if (sect.length) {
-      const o = new IntersectionObserver(es => es.forEach(x => {
-        if (!x.isIntersecting) return;
-        leg.forEach(a => a.classList.toggle('is-on',
-          a.getAttribute('href') === '#' + x.target.id));
-      }), { rootMargin: '-20% 0px -70% 0px' });
-      sect.forEach(s => o.observe(s));
-    }
   }
 })();
 </script>

@@ -1532,12 +1532,6 @@ JURNAL = [
      "provizorii de utilități au fost puse în funcțiune."),
 ]
 
-ANCORE_STADIU = [
-    ("01", "etape",     "Stadiu pe etape"),
-    ("02", "jurnal",    "Jurnal"),
-    ("03", "vizite",    "Vizite pe șantier"),
-    ("04", "intrebari", "Întrebări"),
-]
 
 FAQ_STADIU = [
     ("Cât de des se actualizează pagina?",
@@ -1587,8 +1581,6 @@ def pagina_stadiu():
             (str(len(ETAPE_STADIU)), "", "Etape de construcție", "layer-group", True),
             (ACTUALIZAT.split()[0], "", "Ultima actualizare", "calendar-check", False),
         ])
-
-    ancore = "".join(f'<a href="#{a}"><b>{n}</b>{e(t)}</a>' for n, a, t in ANCORE_STADIU)
 
     def card_etapa(x):
         p = procent(x["stadiu"])
@@ -1657,9 +1649,6 @@ def pagina_stadiu():
   <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
 </div>
 
-<div class="ec-subnav">
-  <div class="ec-wrap"><nav class="ec-subnav__in">{ancore}</nav></div>
-</div>
 
 <div class="ec-wrap">
   <section class="ec-section" id="etape">
@@ -1794,21 +1783,6 @@ def pagina_stadiu():
     }}), {{ threshold: .2 }});
     b.forEach(x => o.observe(x));
   }}
-
-  /* bara de sectiuni */
-  const bara = document.querySelector('.ec-subnav');
-  if (bara) {{
-    const leg = [...bara.querySelectorAll('a')];
-    const sect = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-    if (sect.length) {{
-      const o = new IntersectionObserver(es => es.forEach(x => {{
-        if (!x.isIntersecting) return;
-        leg.forEach(a => a.classList.toggle('is-on',
-          a.getAttribute('href') === '#' + x.target.id));
-      }}), {{ rootMargin: '-20% 0px -70% 0px' }});
-      sect.forEach(s => o.observe(s));
-    }}
-  }}
 }})();
 </script>"""
 
@@ -1930,17 +1904,6 @@ DOCUMENTE_PROIECT = [
  ("Regim de înălțime", "2D+P+3E"),
 ]
 
-ANCORE_PROIECT = [
- ("01", "concept",     "Concept"),
- ("02", "regim",       "Regim"),
- ("03", "teren",       "Teren"),
- ("04", "etape",       "Etape"),
- ("05", "apartamente", "Apartamente"),
- ("06", "parcare",     "Parcare"),
- ("07", "comercial",   "Comercial"),
- ("08", "documentatie","Documentație"),
- ("09", "intrebari",   "Întrebări"),
-]
 
 FAQ_PROIECT = [
  ("Ce regim de înălțime au blocurile?",
@@ -2028,8 +1991,6 @@ def pagina_proiect(unitati):
             ("3", "", "Etape de construcție", "layer-group"),
         ])
 
-    ancore = "".join(f'<a href="#{a}"><b>{n}</b>{e(t)}</a>' for n, a, t in ANCORE_PROIECT)
-
     niveluri = "".join(
         f'<div class="ec-niv__i{" ec-niv__i--sub" if sub else ""} ec-rv">'
         f'<span class="ec-niv__c">{ic(pic)}</span>'
@@ -2113,9 +2074,6 @@ def pagina_proiect(unitati):
   <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
 </div>
 
-<div class="ec-subnav">
-  <div class="ec-wrap"><nav class="ec-subnav__in">{ancore}</nav></div>
-</div>
 
 <div class="ec-wrap">
   <section class="ec-section" id="concept">
@@ -2356,23 +2314,6 @@ def pagina_proiect(unitati):
     o.unobserve(x.target);
   }}), {{ threshold: .3 }});
   b.forEach(x => o.observe(x));
-}})();
-
-/* bara de sectiuni: evidentiaza sectiunea aflata in dreptul ecranului */
-(() => {{
-  const bara = document.querySelector('.ec-subnav');
-  if (!bara) return;
-  const leg = [...bara.querySelectorAll('a')];
-  const sect = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  if (!sect.length) return;
-  const o = new IntersectionObserver(es => {{
-    es.forEach(x => {{
-      if (!x.isIntersecting) return;
-      leg.forEach(a => a.classList.toggle('is-on',
-        a.getAttribute('href') === '#' + x.target.id));
-    }});
-  }}, {{ rootMargin: '-20% 0px -70% 0px' }});
-  sect.forEach(s => o.observe(s));
 }})();
 </script>"""
 
