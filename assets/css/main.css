@@ -3002,3 +3002,6 @@ svg .pa { fill: var(--ec-brass); }
 }
 @keyframes ec-puls { 0% { transform: scale(.4); opacity: .9; } 70% { transform: scale(1.2); opacity: 0; } 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .ec-wa__on i::after { animation: none; } }
+
+/* --- harta Leaflet: context de stivuire propriu, ca sa treaca sub antetul lipit ---- */
+.ec-harta, .ec-harta__panza, .leaflet-container { position: relative; z-index: 0; isolation: isolate; }
