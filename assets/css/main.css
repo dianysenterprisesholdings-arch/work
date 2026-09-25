@@ -2086,3 +2086,90 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   transition: background var(--ec-fast), color var(--ec-fast);
 }
 .ec-dot__l li:hover .ec-dot__i { background: var(--ec-emerald); color: #fff; }
+
+/* ==========================================================================
+   Pagina de categorie — blocuri editoriale de compartimentare
+   ========================================================================== */
+.ec-tipuri { display: grid; gap: var(--ec-gap); }
+.ec-tipc {
+  background: var(--ec-white); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); overflow: hidden; display: grid;
+  transition: border-color var(--ec-fast);
+}
+@media (min-width: 62rem) {
+  .ec-tipc { grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); }
+  .ec-tipc.is-invers .ec-tipc__f { order: 2; }
+}
+.ec-tipc:hover { border-color: var(--ec-brass); }
+.ec-tipc__f { position: relative; margin: 0; overflow: hidden; }
+.ec-tipc__f picture { display: block; height: 100%; }
+.ec-tipc__f img {
+  width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3;
+  transition: transform .8s var(--ec-ease);
+}
+.ec-tipc:hover .ec-tipc__f img { transform: scale(1.04); }
+.ec-tipc__badge {
+  position: absolute; top: 1rem; left: 1rem;
+  background: rgba(255,255,255,.94); color: var(--ec-emerald);
+  border-radius: 999px; padding: .4rem .9rem;
+  font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+}
+.ec-tipc__b {
+  padding: clamp(1.5rem, 3.5vw, 2.5rem); display: flex; flex-direction: column; gap: .8rem;
+}
+.ec-tipc__k { font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-tipc__b h3 {
+  font-family: var(--ec-disp); font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600; letter-spacing: -.02em; line-height: 1.1;
+}
+.ec-tipc__b > p { font-size: .9375rem; color: var(--ec-ink-60); line-height: 1.7; max-width: 46ch; }
+.ec-tipc__row { display: grid; gap: 1.25rem; align-items: center; margin-top: .4rem; }
+@media (min-width: 30rem) { .ec-tipc__row { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); } }
+.ec-tipc__p {
+  margin: 0; background: var(--ec-sand); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); padding: .9rem;
+}
+.ec-tipc__p svg { width: 100%; height: auto; display: block; }
+.ec-tipc__b dl {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden; margin: 0;
+}
+.ec-tipc__b dl > div {
+  background: var(--ec-white); padding: .7rem .95rem;
+  display: flex; align-items: baseline; justify-content: space-between; gap: .8rem;
+}
+.ec-tipc__b dt { font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-tipc__b dd { margin: 0; font-size: .9375rem; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ec-tipc__cta { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: auto; padding-top: 1.1rem; }
+
+/* schema din card: textul SVG primeste o dimensiune potrivita cu viewBox-ul */
+.ec-tipc__p .pn { font-size: 9px; }
+.ec-tipc__p .pd, .ec-tipc__p .pc, .ec-tipc__p .pa { font-size: 7.5px; }
+.ec-tipc__p .pf { stroke: #fff; stroke-width: 3.4; }
+.ec-tipc__p .pu { stroke: #fff; stroke-width: 3.6; }
+
+/* rândurile panoului de filtrare devin legături, cu numărul la dreapta */
+.ec-dot__l--link li { display: block; padding: 0; }
+.ec-dot__l--link a {
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: .95rem;
+  align-items: center; padding: .9rem clamp(1.25rem, 3vw, 1.75rem);
+}
+.ec-dot__l--link b {
+  font-family: var(--ec-disp); font-size: 1.05rem; font-weight: 600;
+  color: var(--ec-emerald); font-variant-numeric: tabular-nums;
+}
+.ec-dot__l--link li:hover b { color: var(--ec-brass); }
+@media (prefers-reduced-motion: reduce) { .ec-tipc:hover .ec-tipc__f img { transform: none; } }
+
+/* Schema din cardul de compartimentare: textul SVG nu mosteneste o dimensiune
+   potrivita cu viewBox-ul, asa ca o fixam explicit, ca la celelalte scheme. */
+.ec-tipc__p .pf { stroke: #fff; stroke-width: 3.4; }
+.ec-tipc__p .pu { stroke: #fff; stroke-width: 3.6; }
+
+/* randul-legatura ocupa toata latimea, cu numarul aliniat la dreapta */
+.ec-dot__l--link li { display: block; padding: 0; }
+
+/* Galerie cu trei imagini. Treapta de doua coloane ar lasa una singura pe
+   ultimul rand, deci se sare peste ea: una sub alta pana la trei coloane. */
+@media (min-width: 40rem) { .ec-pgal--3 { grid-template-columns: minmax(0,1fr); } }
+@media (min-width: 70rem) { .ec-pgal--3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }

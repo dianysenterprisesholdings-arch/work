@@ -22,7 +22,7 @@
 
   const stare = {
     camere: new Set(), etaj: new Set(), etapa: new Set(),
-    status: new Set(), corp: new Set(), extra: new Set(),
+    status: new Set(), corp: new Set(), extra: new Set(), orientare: new Set(),
     pretMin: 0, pretMax: 130000, suMin: 36, text: '',
     sort: 'pret', dir: 'asc', limita: PAS
   };
@@ -36,6 +36,7 @@
     if (stare.etapa.size  && !stare.etapa.has(u[F.etapa]))           return false;
     if (stare.status.size && !stare.status.has(u[F.status]))         return false;
     if (stare.corp.size   && !stare.corp.has(bloc(u[F.corp])))       return false;
+    if (stare.orientare.size && !stare.orientare.has(u[F.orientare])) return false;
     if (u[F.pret] > stare.pretMax) return false;
     if (u[F.pret] < stare.pretMin) return false;
     if (u[F.su]   < stare.suMin)   return false;
@@ -108,6 +109,7 @@
         };
         const etichete = { camere: 'numărul de camere', etaj: 'etajul', etapa: 'etapa',
                            status: 'starea', corp: 'blocul', extra: 'dotările',
+                           orientare: 'orientarea',
                            pretMax: 'bugetul', suMin: 'suprafața minimă' };
         for (const k of Object.keys(etichete)) {
           const activ = stare[k] instanceof Set ? stare[k].size
@@ -138,7 +140,7 @@
   /* ------------------------------------------------- starea in adresa */
   function scrieURL() {
     const p = new URLSearchParams();
-    ['camere','etaj','etapa','status','corp','extra'].forEach(g => {
+    ['camere','etaj','etapa','status','corp','extra','orientare'].forEach(g => {
       if (stare[g].size) p.set(g, [...stare[g]].join(','));
     });
     if (stare.pretMin !== 0) p.set('pret-min', stare.pretMin);
@@ -150,7 +152,7 @@
 
   function citesteURL() {
     const p = new URLSearchParams(location.search);
-    ['camere','etaj','etapa','status','corp','extra'].forEach(g => {
+    ['camere','etaj','etapa','status','corp','extra','orientare'].forEach(g => {
       const v = p.get(g);
       if (v) v.split(',').forEach(x => stare[g].add(x));
     });
@@ -194,7 +196,7 @@
     });
 
     $('#fReset').addEventListener('click', () => {
-      ['camere','etaj','etapa','status','corp','extra'].forEach(g => stare[g].clear());
+      ['camere','etaj','etapa','status','corp','extra','orientare'].forEach(g => stare[g].clear());
       stare.pretMin = 0; stare.pretMax = 130000; stare.suMin = 36; stare.limita = PAS;
       $$('.ec-chip').forEach(b => b.classList.remove('is-on'));
       $('#fPret').value = 130000; $('#oPret').textContent = euro(130000);

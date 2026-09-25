@@ -38,11 +38,11 @@ CAMERE_TIP = {
            ("Baie", .11), ("Baie 2", .09)],
 }
 DESC_TIP = {
-    "1A": "Garsoniera compacta, cu zona de zi deschisa si bucatarie integrata.",
-    "2A": "Doua camere, cu living deschis spre bucatarie si dormitor separat.",
-    "2B": "Doua camere, cu dormitor mai generos si spatiu suplimentar de depozitare.",
-    "3A": "Trei camere, cu bucatarie inchisa, doua dormitoare si doua bai.",
-    "3B": "Trei camere, cu living deschis, dormitor si o a treia camera pentru birou.",
+    "1A": "Garsonieră compactă, cu zona de zi deschisă și bucătărie integrată.",
+    "2A": "Două camere, cu living deschis spre bucătărie și dormitor separat.",
+    "2B": "Două camere, cu dormitor mai generos și spațiu suplimentar de depozitare.",
+    "3A": "Trei camere, cu bucătărie închisă, două dormitoare și două grupuri sanitare.",
+    "3B": "Trei camere, cu living deschis, dormitor și o a treia cameră pentru birou.",
 }
 GALERIE_TIP = {
     "1A": ["living-02", "bucatarie-01", "baie-01"],
@@ -1462,6 +1462,82 @@ def pagina_hub(unitati, grupe):
 
 
 # ==================================================== pagina de categorie
+# Argumentele si intrebarile difera de la o categorie la alta: cine cumpara
+# o garsoniera nu are aceleasi criterii cu cine cauta trei camere.
+ARGUMENTE_CAT = {
+ 1: [("chart-line", "Cea mai cerută la închiriere",
+      "Garsonierele au cel mai scurt timp de ocupare pe piața de închirieri din Iași, "
+      "susținută de apropierea de centrul universitar."),
+     ("tag", "Prag de intrare redus",
+      "Cel mai mic preț de achiziție din ansamblu, cu aceleași finisaje și aceleași "
+      "dotări comune ca la celelalte compartimentări."),
+     ("maximize", "Zonă de zi deschisă",
+      "Bucătăria integrată în living folosește eficient suprafața și lasă senzația de "
+      "spațiu mai amplu decât o compartimentare închisă."),
+     ("key", "Prima locuință",
+      "Se încadrează în plafonul programului Noua Casă și poate fi achiziționată și "
+      "prin credit ipotecar standard.")],
+ 2: [("people-roof", "Formatul cel mai echilibrat",
+      "Living deschis spre bucătărie și dormitor separat — raportul cel mai bun între "
+      "suprafață utilă și preț din tot ansamblul."),
+     ("chart-line", "Cerere constantă",
+      "Compartimentarea cu cea mai stabilă cerere, atât la vânzare cât și la închiriere, "
+      "pe piața rezidențială din Iași."),
+     ("seedling", "Curte proprie la parter",
+      "Apartamentele de la parter au curte în folosință exclusivă, o configurație rar "
+      "întâlnită la această suprafață."),
+     ("layer-group", "Două compartimentări",
+      "Tipurile 2A și 2B diferă prin dimensiunea dormitorului și prin spațiul de "
+      "depozitare, la aceeași zonă de zi.")],
+ 3: [("people-roof", "Spațiu pentru o familie",
+      "Două dormitoare, două grupuri sanitare și zonă de zi generoasă — configurația "
+      "care acoperă nevoile unei familii pe termen lung."),
+     ("bath", "Două grupuri sanitare",
+      "Un al doilea grup sanitar elimină punctul de blocaj de dimineață, cel mai frecvent "
+      "reproș adus apartamentelor de trei camere mai vechi."),
+     ("briefcase", "Cameră pentru birou",
+      "Tipul 3B include o a treia cameră care poate fi folosită ca birou, fără să reducă "
+      "spațiul de locuit."),
+     ("ruler-combined", "Cele mai mari suprafețe",
+      "Cele mai generoase apartamente din ansamblu, cu balcoane pe măsură și curte la "
+      "parter.")],
+}
+
+FAQ_CAT = {
+ 1: [("Ce suprafață are o garsonieră?",
+      "Între 37 și 39 m² suprafață utilă, cu balcon. Cele de la parter au și curte proprie."),
+     ("Sunt potrivite pentru investiție?",
+      "Da. Garsonierele au cel mai scurt timp de ocupare pe piața de închirieri din Iași, "
+      "iar pagina de investiție include un calculator de randament și de amortizare."),
+     ("Se încadrează în programul Noua Casă?",
+      "Prețurile de pornire se situează sub plafonul programului. Încadrarea exactă se "
+      "verifică la data achiziției, împreună cu banca."),
+     ("Ce compartimentare au?",
+      "Tipul 1A: zonă de zi deschisă, cu bucătăria integrată în living, grup sanitar și "
+      "spațiu de depozitare.")],
+ 2: [("Ce diferență este între tipurile 2A și 2B?",
+      "2B are dormitorul mai generos și spațiu suplimentar de depozitare, la aceeași "
+      "configurație a zonei de zi. Suprafețele diferă cu câțiva metri pătrați."),
+     ("Ce suprafață are un apartament de 2 camere?",
+      "Între 51 și 61 m² suprafață utilă, în funcție de compartimentare. Toate au balcon."),
+     ("Care sunt cele cu curte proprie?",
+      "Cele de la parter. Curțile au între 13 și 51 m² și sunt în folosință exclusivă."),
+     ("Este potrivit pentru o familie cu un copil?",
+      "Da. Dormitorul separat și zona de zi deschisă acoperă nevoile unei familii tinere, "
+      "iar ansamblul are loc de joacă și spații verzi amenajate.")],
+ 3: [("Ce suprafață are un apartament de 3 camere?",
+      "Între 69 și 81 m² suprafață utilă, în funcție de compartimentare. Toate au balcon."),
+     ("Ce diferență este între tipurile 3A și 3B?",
+      "3A are bucătărie închisă și două dormitoare. 3B are living deschis, un dormitor și "
+      "o a treia cameră care poate fi folosită ca birou. Ambele au două grupuri sanitare."),
+     ("Au două grupuri sanitare?",
+      "Da, ambele compartimentări de trei camere includ două grupuri sanitare complet "
+      "finisate și echipate."),
+     ("Există apartamente de 3 camere cu curte?",
+      "Da, cele de la parter. Curțile au între 13 și 51 m², în folosință exclusivă.")],
+}
+
+
 def pagina_categorie(nr, unitati, grupe):
     r = "../../"
     c = CATEGORII[nr]
@@ -1469,95 +1545,298 @@ def pagina_categorie(nr, unitati, grupe):
     disp = [u for u in us if u["status"] == "disponibil"]
     su_min, su_max = min(u["su_utila"] for u in us), max(u["su_utila"] for u in us)
     pmin = min((u["pret_eur"] for u in disp), default=None)
+    ppm = [u["pret_eur"] / u["su_utila"] for u in disp]
     tipuri = sorted({u["tip_apartament"] for u in us})
+    lista = f"{r}apartamente-iasi/disponibilitate/?camere={nr}&amp;status=disponibil"
 
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b{attr}>{e(val)}</b><em>{e(et)}</em></span></div>'
+        for val, et, pic, attr in [
+            (str(len(disp)), "Disponibile acum", "key", f' data-num="{len(disp)}"'),
+            (f"{su_min:.0f}–{su_max:.0f} m²", "Suprafață utilă", "ruler-combined", ""),
+            (euro(pmin) if pmin else "—", "Preț de pornire", "tag", ""),
+            (f"{min(ppm):.0f} €/m²" if ppm else "—", "De la", "calculator", ""),
+        ])
+
+    # ---- compartimentarile categoriei -------------------------------------
     carduri = ""
-    for cod in tipuri:
+    NUME_CAMERA = {"living-01": "Living", "living-02": "Living", "dining-01": "Dining",
+                   "bucatarie-01": "Bucătărie", "dormitor-01": "Dormitor",
+                   "dormitor-02": "Dormitor", "baie-01": "Grup sanitar", "hol-01": "Hol",
+                   "hero-living": "Living"}
+    for k, cod in enumerate(tipuri):
         tu = grupe[cod]
         td = [u for u in tu if u["status"] == "disponibil"]
         tp = min((u["pret_eur"] for u in td), default=None)
-        carduri += f"""<a class="ec-type" href="{r}tipologii/{cod.lower()}/">
-          <div class="ec-type__plan">{plan_svg(nr, cod, sum(u['su_utila'] for u in tu) / len(tu), True)}</div>
-          <div class="ec-type__code">{cod}</div>
-          <div class="ec-type__rows">
-            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15l12-12 6 6-12 12z"/><path d="M7 11l2 2M10 8l2 2M13 5l2 2"/></svg> Suprafață</span><b>{mp(min(u['su_utila'] for u in tu))} – {mp(max(u['su_utila'] for u in tu))}</b></div>
-            <div><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9 2 2-2 2 2 2-3 3-2-2-2 2"/></svg> Disponibile</span><b>{len(td)} din {len(tu)}</b></div>
+        img = GALERIE_TIP.get(cod, ["living-01"])[0]
+        carduri += f"""<article class="ec-tipc ec-rv{' is-invers' if k % 2 else ''}">
+          <figure class="ec-tipc__f">
+            {imagine(img, f"Apartament tip {cod} la Emerald City", r, "(min-width: 62rem) 52vw, 100vw")}
+            <span class="ec-tipc__badge">{len(td)} disponibile</span>
+          </figure>
+          <div class="ec-tipc__b">
+            <span class="ec-tipc__k">Compartimentare</span>
+            <h3>Tip {cod}</h3>
+            <p>{e(DESC_TIP.get(cod, ''))}</p>
+            <div class="ec-tipc__row">
+              <figure class="ec-tipc__p">{plan_svg(nr, cod, sum(u['su_utila'] for u in tu) / len(tu), compact=True)}</figure>
+              <dl>
+                <div><dt>Suprafață utilă</dt><dd>{min(u['su_utila'] for u in tu):.0f}–{max(u['su_utila'] for u in tu):.0f} m²</dd></div>
+                <div><dt>Disponibile</dt><dd>{len(td)} din {len(tu)}</dd></div>
+                <div><dt>Preț de pornire</dt><dd>{euro(tp) if tp else '—'}</dd></div>
+              </dl>
+            </div>
+            <div class="ec-tipc__cta">
+              <a class="ec-btn" href="{r}tipologii/{cod.lower()}/">{ic("compass-drafting")} Planul complet</a>
+              <a class="ec-btn ec-btn--out" href="{lista}&amp;tip={cod}">{ic("table-list")} Unitățile de tip {cod}</a>
+            </div>
           </div>
-          <span class="ec-unit__price">{'de la ' + euro(tp) if tp else '—'}</span>
-        </a>"""
+        </article>"""
 
+    # ---- galeria categoriei -----------------------------------------------
+    imagini, vazute = [], set()
+    for cod in tipuri:
+        for x in GALERIE_TIP.get(cod, []):
+            if x not in vazute:
+                vazute.add(x); imagini.append(x)
+    imagini = imagini[:3] if len(imagini) >= 3 else imagini
+    galerie = "".join(
+        f'<figure class="ec-pgal__i ec-rv">'
+        f'{imagine(x, NUME_CAMERA.get(x, "Interior") + f" — apartament de {camere_txt(nr)}", r, "(min-width: 70rem) 33vw, 100vw")}'
+        f'<figcaption class="ec-pgal__c"><b>{e(NUME_CAMERA.get(x, "Interior"))}</b>'
+        f'<span>{e(c["titlu"])}</span></figcaption></figure>'
+        for x in imagini)
+
+    # ---- selectie rapida: etaj si orientare -------------------------------
+    et_lista = []
+    for etj in sorted({u["etaj"] for u in us}):
+        n = [u for u in disp if u["etaj"] == etj]
+        if n:
+            et_lista.append((etaj_txt(etj), len(n),
+                             f"{lista}&amp;etaj={etj}",
+                             "house-chimney" if etj == 0 else "building"))
+    or_lista = []
+    for o in sorted({u["orientare"] for u in disp}, key=lambda x: (len(x), x)):
+        n = [u for u in disp if u["orientare"] == o]
+        or_lista.append((ORIENTARE.get(o, o).capitalize(), len(n),
+                         f"{lista}&amp;orientare={o}", "compass"))
+
+    def panou_filtru(titlu, pictograma, eticheta, randuri):
+        li = "".join(
+            f'<li><a href="{x[2]}"><span class="ec-dot__i">{ic(x[3])}</span>'
+            f'<span>{e(x[0])}</span><b>{x[1]}</b></a></li>' for x in randuri)
+        return (f'<div class="ec-dot ec-rv">'
+                f'<div class="ec-dot__h"><span class="ec-dot__c">{ic(pictograma)}</span>'
+                f'<span class="ec-dot__tx"><b>{e(titlu)}</b><em>{e(eticheta)}</em></span></div>'
+                f'<ul class="ec-dot__l ec-dot__l--link">{li}</ul></div>')
+
+    # ---- tabelul complet ---------------------------------------------------
     randuri = "".join(f"""<tr class="{'is-sold' if u['status'] != 'disponibil' else ''}">
       <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
-      <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td><td data-et="Tip">{u['tip_apartament']}</td>
-      <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td><td data-et="Orientare">{u['orientare']}</td>
+      <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td>
+      <td data-et="Tip">{u['tip_apartament']}</td>
+      <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td>
+      <td data-et="Orientare">{u['orientare']}</td>
       <td class="num" data-et="Preț">{euro(u['pret_eur'])}</td>
+      <td class="num" data-et="Preț/m²">{round(u['pret_eur'] / u['su_utila'])} €/m²</td>
       <td class="st" data-et="Stare"><span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></td>
-    </tr>""" for u in sorted(disp, key=lambda x: x["pret_eur"])[:40])
+    </tr>""" for u in sorted(us, key=lambda x: (x["status"] != "disponibil", x["pret_eur"]))[:40])
 
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>
-    <a href="{r}apartamente-iasi/">Apartamente</a><span>/</span>{c['titlu']}</nav>
+    argumente = "".join(
+        f'<div class="ec-why__i ec-rv">{ic(pic)}<h3>{e(t)}</h3><p>{e(d)}</p></div>'
+        for pic, t, d in ARGUMENTE_CAT[nr])
 
-  <header class="ec-phead">
-    <p class="ec-eyebrow">{c['titlu']}</p>
-    <h1 style="margin-top:1rem">{c['h1']}</h1>
-    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">{c['lead']}</p>
-    <div class="ec-hstats">
-      <div class="ec-hstat"><b>{len(disp)}</b><span>Disponibile acum</span></div>
-      <div class="ec-hstat"><b>{mp(su_min)} – {mp(su_max)}</b><span>Suprafață utilă</span></div>
-      <div class="ec-hstat"><b>{len(tipuri)}</b><span>Compartimentări</span></div>
-      <div class="ec-hstat"><b>{euro(pmin) if pmin else '—'}</b><span>Preț de pornire</span></div>
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_CAT[nr])
+
+    curti = [u for u in disp if u["su_curte"] > 0]
+    spot_curte = ""
+    if curti:
+        cmin = min(u["su_curte"] for u in curti)
+        cmax = max(u["su_curte"] for u in curti)
+        cpret = min(u["pret_eur"] for u in curti)
+        spot_curte = f"""<section class="ec-section" id="curte" style="padding-block:0 var(--ec-section)">
+    <div class="ec-spot">
+      <div class="ec-spot__b">
+        <p class="ec-eyebrow" style="color:var(--ec-brass)">05 — Curte proprie</p>
+        <h2>{len(curti)} apartamente cu curte, la parter</h2>
+        <p>
+          Curte în folosință exclusivă, între {cmin:.0f} și {cmax:.0f} m², cu pardoseală
+          exterioară executată și priză proprie. Configurație rar întâlnită la această
+          suprafață.
+        </p>
+        <ul class="ec-spot__list">
+          <li>Acces direct din living, fără scări</li>
+          <li>Pardoseală exterioară antiderapantă, montată</li>
+          <li>Balustradă și priză exterioară incluse</li>
+          <li>Preț de pornire {euro(cpret)}</li>
+        </ul>
+        <div class="ec-spot__cta">
+          <a class="ec-btn ec-btn--white" href="{lista}&amp;extra=curte">{ic("table-list")} Cele {len(curti)} apartamente</a>
+        </div>
+      </div>
+      <figure>{imagine("dining-01", "Apartament cu curte proprie la parter", r, "(min-width: 60rem) 48vw, 100vw")}</figure>
     </div>
-  </header>
+  </section>"""
 
-  <section class="ec-section" style="padding-block:1rem 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Compartimentări disponibile</h2>
-    <div class="ec-types">{carduri}</div>
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "CollectionPage", "name": c["h1"],
+             "url": f"https://emerald-city.ro/apartamente-iasi/{c['slug']}/"},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_CAT[nr]]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine(c['img'], "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>
+      <a href="{r}apartamente-iasi/">Apartamente</a><span>/</span>{e(c['titlu'])}</nav>
+    <p class="ec-eyebrow">{e(c['titlu'])}</p>
+    <h1>{e(c['h1'])}</h1>
+    <p class="ec-phero__sub">{e(c['lead'])}</p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#unitati">{ic("table-list")} Cele {len(disp)} apartamente disponibile</a>
+      <a class="ec-btn ec-btn--outlight" href="#compartimentari">{ic("compass-drafting")} Compartimentări</a>
+    </div>
+  </div>
+</section>
+
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="compartimentari">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Compartimentări</span>
+        <h2>{"Planul" if len(tipuri) == 1 else f"Cele {len(tipuri)} planuri"} <em>disponibil{"" if len(tipuri) == 1 else "e"}</em></h2></div>
+      <p class="ec-shead__p">
+        Suprafețele, disponibilitatea și prețul de pornire pentru fiecare compartimentare.
+      </p>
+    </div>
+    <div class="ec-tipuri" style="margin-top:2.5rem">{carduri}</div>
   </section>
 
-  <section class="ec-section" style="padding-block:1rem 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Unități disponibile</h2>
-    <div class="ec-table">
+  <section class="ec-section" id="galerie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Galerie</span>
+        <h2>Cum arată <em>finisat</em></h2></div>
+      <p class="ec-shead__p">
+        Randări din apartamentele-model, cu finisajele incluse în preț.
+      </p>
+    </div>
+    <div class="ec-pgal ec-pgal--3" style="margin-top:2.5rem">{galerie}</div>
+  </section>
+
+  <section class="ec-section" id="selectie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Selecție rapidă</span>
+        <h2>Filtrare <em>după etaj sau orientare</em></h2></div>
+      <p class="ec-shead__p">
+        Fiecare rând deschide lista filtrată. Numărul reprezintă apartamentele
+        disponibile la data actualizării.
+      </p>
+    </div>
+    <div class="ec-dotari" style="margin-top:2.5rem">
+      {panou_filtru("După etaj", "building", "Disponibile pe nivel", et_lista)}
+      {panou_filtru("După orientare", "compass", "Expunerea ferestrelor", or_lista)}
+    </div>
+  </section>
+
+  <section class="ec-section" id="unitati" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — Unități</span>
+        <h2>Toate apartamentele <em>de {camere_txt(nr)}</em></h2></div>
+      <p class="ec-shead__p">
+        Primele 40 de unități, ordonate după preț. Lista completă, cu filtre,
+        este în secțiunea de disponibilitate.
+      </p>
+    </div>
+    <div class="ec-table" style="margin-top:2.5rem">
       <table>
-        <caption class="ec-sr">{c['titlu']} disponibile în Emerald City</caption>
-        <thead><tr><th>Cod</th><th>Bloc</th><th>Etaj</th><th>Tip</th><th>Suprafață</th>
-          <th>Orientare</th><th>Preț</th><th>Stare</th></tr></thead>
+        <caption class="ec-sr">Apartamente de {camere_txt(nr)}</caption>
+        <thead><tr><th scope="col">Cod</th><th scope="col">Bloc</th><th scope="col">Etaj</th>
+          <th scope="col">Tip</th><th scope="col">Suprafață</th><th scope="col">Orientare</th>
+          <th scope="col">Preț</th><th scope="col">Preț/m²</th><th scope="col">Stare</th></tr></thead>
         <tbody>{randuri}</tbody>
       </table>
     </div>
-    <p class="ec-more"><a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/?camere={nr}">Vezi toate cele {len(disp)} de unități disponibile</a></p>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn" href="{lista}">{ic("table-list")} Lista completă, cu filtre</a>
+      {f'<a class="ec-btn ec-btn--out" href="{lista}&amp;extra=curte">{ic("seedling")} Cele {len(curti)} cu curte proprie</a>' if curti else ''}
+    </div>
   </section>
+</div>
 
-  <section class="ec-section" style="padding-block:1rem 3rem">
-    <div class="ec-split">{formular(None, r)}
-      <figure style="margin:0;overflow:hidden">
-        {imagine(c['img'], c['titlu'] + " — amenajare orientativă", r, "(max-width: 62rem) 100vw, 50vw")}
-      </figure>
+<div class="ec-wrap">
+  {spot_curte}
+</div>
+
+<section class="ec-band" id="avantaje">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">06 — Avantaje</span>
+          <h2>De ce <em>{e(c['titlu'].lower())}</em></h2></div>
+        <p class="ec-shead__p">
+          Patru criterii pentru care această compartimentare este cea potrivită.
+        </p>
+      </div>
+      <div class="ec-why" style="margin-top:2.5rem">{argumente}</div>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="intrebari">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">07 — Întrebări</span>
+        <h2>Despre <em>{e(c['titlu'].lower())}</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_CAT[nr])} întrebări despre suprafețe, compartimentări și condiții.
+      </p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn ec-btn--out" href="{r}finisaje/">{ic("list-check")} Dotări incluse</a>
+      <a class="ec-btn ec-btn--out" href="{r}investitie-apartamente-iasi/">{ic("chart-line")} Calculator de randament</a>
     </div>
   </section>
 
-  <section class="ec-section" style="padding-block:1rem 4rem">
-    <div class="ec-prose">
-      <h2>{c['h1']}</h2>
-      <p>
-        În Emerald City există {len(us)} de {c['titlu'].lower()}, dintre care {len(disp)} sunt
-        disponibile în acest moment. Suprafețele utile pornesc de la {mp(su_min)} și ajung la
-        {mp(su_max)}, în {len(tipuri)} compartimentări: {', '.join(tipuri)}.
-      </p>
-      <p>
-        Toate se predau cu finisaje premium incluse în preț, au balcon, iar cele de la parter au
-        curte proprie. Boxa de la demisol și locul de parcare subteran se pot achiziționa separat.
-      </p>
-    </div>
-  </section>
-</div>"""
+  {showroom(r, "08")}
+</div>
 
-    return pagina(
-        c["h1"] + " - Emerald City",
-        c["titlu"] + " de vânzare în Iași, zona Păcurari: " + str(len(disp)) +
-        " unități disponibile. Direct de la dezvoltator, fără comision.",
-        continut, r, None, "apartamente-iasi/" + c["slug"] + "/")
+<script>
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (!nr.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (!x.isIntersecting) return;
+    const el = x.target, tinta = parseFloat(el.dataset.num), t0 = performance.now();
+    const pas = t => {{
+      const p = Math.min((t - t0) / 1100, 1);
+      el.textContent = Math.round(tinta * (1 - Math.pow(1 - p, 3))).toLocaleString('ro-RO');
+      if (p < 1) requestAnimationFrame(pas);
+    }};
+    requestAnimationFrame(pas);
+    o.unobserve(el);
+  }}), {{ threshold: .4 }});
+  nr.forEach(x => o.observe(x));
+}})();
+</script>"""
 
+    return pagina(f"{c['titlu']} în Iași, zona Păcurari — {len(disp)} disponibile | Emerald City",
+                  f"{len(disp)} {c['titlu'].lower()} disponibile în Iași, zona Păcurari, "
+                  f"între {su_min:.0f} și {su_max:.0f} m², de la {euro(pmin) if pmin else '—'}. "
+                  "Predare la cheie, vânzare directă de la dezvoltator.",
+                  continut, r, schema, f"apartamente-iasi/{c['slug']}/")
 
 
 # ======================================================= investitie ==
@@ -2248,7 +2527,7 @@ def pagina_stadiu():
 
   <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">05 — Întrebări</span>
+      <div><span class="ec-shead__n">07 — Întrebări</span>
         <h2>Despre execuție <em>și termene</em></h2></div>
       <p class="ec-shead__p">
         {len(FAQ_STADIU)} întrebări despre urmărirea progresului și garanțiile contractuale.
