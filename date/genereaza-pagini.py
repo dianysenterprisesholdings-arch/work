@@ -2163,7 +2163,7 @@ def pagina_dezvoltator():
         ]}
 
     continut = f"""<section class="ec-phero">
-  {imagine("hol-01", "", r, "100vw", eager=True)}
+  {imagine("gs-ansamblu", "", r, "100vw", eager=True)}
   <div class="ec-phero__veil"></div>
   <div class="ec-wrap ec-phero__in">
     <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Dezvoltator</nav>
@@ -2215,7 +2215,7 @@ def pagina_dezvoltator():
         </p>
       </div>
       <figure style="margin:0">
-        {imagine("dining-01", "Interior finisat într-un ansamblu Green Stone Group", r,
+        {imagine("gs-israel-01", "Ansamblu rezidențial Green Stone Group în Israel", r,
                  "(min-width: 62rem) 46vw, 100vw")}
       </figure>
     </div>
@@ -2230,9 +2230,38 @@ def pagina_dezvoltator():
     <div class="ec-why" style="margin-top:2.5rem">{principii}</div>
   </section>
 
+
+  <section class="ec-section" id="galerie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Galerie</span>
+        <h2>Din proiectele <em>grupului</em></h2></div>
+      <p class="ec-shead__p">
+        Imagini din ansamblurile Green Stone Group, publicate de grup.
+      </p>
+    </div>
+    <div class="ec-pgal" style="margin-top:2.5rem">
+      <figure class="ec-pgal__i ec-rv">
+        {imagine("gs-onyx", "Ansamblul Onyx Residence din Iași", r, "(min-width: 70rem) 25vw, 50vw")}
+        <figcaption class="ec-pgal__c"><b>Onyx Residence</b><span>Iași</span></figcaption>
+      </figure>
+      <figure class="ec-pgal__i ec-rv">
+        {imagine("gs-uk", "Complex de apartamente dezvoltat în Marea Britanie", r, "(min-width: 70rem) 25vw, 50vw")}
+        <figcaption class="ec-pgal__c"><b>Complex de apartamente</b><span>Marea Britanie</span></figcaption>
+      </figure>
+      <figure class="ec-pgal__i ec-rv">
+        {imagine("gs-israel-02", "Ansamblu rezidențial dezvoltat în Israel", r, "(min-width: 70rem) 25vw, 50vw")}
+        <figcaption class="ec-pgal__c"><b>Ansamblu rezidențial</b><span>Israel</span></figcaption>
+      </figure>
+      <figure class="ec-pgal__i ec-rv">
+        {imagine("gs-birouri", "Clădire de birouri dezvoltată de Green Stone Group", r, "(min-width: 70rem) 25vw, 50vw")}
+        <figcaption class="ec-pgal__c"><b>Spații de birouri</b><span>Portofoliu comercial</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section class="ec-section" id="portofoliu" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">03 — România</span>
+      <div><span class="ec-shead__n">04 — România</span>
         <h2>Proiectele <em>din țară</em></h2></div>
       <p class="ec-shead__p">
         {ro_txt} de locuințe în Iași și Sibiu, livrate sau în dezvoltare.
@@ -2246,7 +2275,7 @@ def pagina_dezvoltator():
   <div class="ec-wrap">
     <div class="ec-section">
       <div class="ec-shead">
-        <div><span class="ec-shead__n" style="color:var(--ec-brass)">04 — Internațional</span>
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">05 — Internațional</span>
           <h2>Proiectele <em>din Marea Britanie și Israel</em></h2></div>
         <p class="ec-shead__p">
           Șase ansambluri rezidențiale și de birouri, finalizate sau în construcție.
@@ -2260,7 +2289,7 @@ def pagina_dezvoltator():
 <div class="ec-wrap">
   <section class="ec-section" id="emerald">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">05 — Emerald City</span>
+      <div><span class="ec-shead__n">06 — Emerald City</span>
         <h2>Ce înseamnă <em>pentru cumpărător</em></h2></div>
       <p class="ec-shead__p">
         Un dezvoltator cu proiecte livrate este verificabil. Iată ce poți verifica singur.
@@ -2290,7 +2319,7 @@ def pagina_dezvoltator():
 
   <section class="ec-section" id="date" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">06 — Date</span>
+      <div><span class="ec-shead__n">07 — Date</span>
         <h2>Datele <em>proiectului</em></h2></div>
       <p class="ec-shead__p">
         Cine semnează, cine proiectează și în baza cărei documentații se construiește.
@@ -2310,7 +2339,7 @@ def pagina_dezvoltator():
 
   <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">07 — Întrebări</span>
+      <div><span class="ec-shead__n">08 — Întrebări</span>
         <h2>Despre grup <em>și portofoliu</em></h2></div>
       <p class="ec-shead__p">
         {len(FAQ_DEZV)} întrebări despre cine construiește și ce a livrat până acum.
@@ -2319,7 +2348,7 @@ def pagina_dezvoltator():
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
 
-  {showroom(r, "08")}
+  {showroom(r, "09")}
 </div>
 
 <script>

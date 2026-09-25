@@ -1887,3 +1887,35 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 /* cardurile albe asezate in banda inchisa isi recupereaza culoarea textului */
 .ec-band .ec-ref { color: var(--ec-ink); }
 .ec-band .ec-ref p { color: var(--ec-ink-60); }
+
+/* imaginea dintr-o coloana de ec-split ajunge la inaltimea blocului vecin */
+@media (min-width: 62rem) {
+  .ec-split > figure { height: 100%; }
+  .ec-split > figure picture { display: block; height: 100%; }
+  .ec-split > figure img { height: 100%; object-fit: cover; }
+}
+
+/* ---- galerie de proiecte ---------------------------------------------- */
+.ec-pgal {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden;
+}
+@media (min-width: 40rem) { .ec-pgal { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 70rem) { .ec-pgal { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.ec-pgal__i { position: relative; overflow: hidden; margin: 0; background: var(--ec-emerald); }
+.ec-pgal__i picture { display: block; }
+.ec-pgal__i img {
+  width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 3;
+  transition: transform .8s var(--ec-ease);
+}
+.ec-pgal__i:hover img { transform: scale(1.05); }
+.ec-pgal__c {
+  position: absolute; inset: auto 0 0 0; padding: 1.1rem 1.15rem; color: #fff;
+  background: linear-gradient(0deg, rgba(20,32,28,.92) 12%, rgba(20,32,28,0) 100%);
+}
+.ec-pgal__c b { display: block; font-size: .9375rem; font-weight: 600; }
+.ec-pgal__c span {
+  display: block; margin-top: .25rem; font-size: var(--ec-micro);
+  letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.72);
+}
+@media (prefers-reduced-motion: reduce) { .ec-pgal__i:hover img { transform: none; } }
