@@ -22,7 +22,7 @@ DIRECTOARE = [
     "investitie-apartamente-iasi", "compara", "contact",
     "apartamente-iasi-pacurari", "stadiu-lucrari",
     "despre-emerald-city", "despre-dezvoltator",
-    "proiect", "aparitii-presa",
+    "proiect", "aparitii-presa", "finisaje",
     "termeni-si-conditii", "politica-de-confidentialitate",
     "politica-de-cookies", "informare-gdpr",
 ]

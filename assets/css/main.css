@@ -1880,13 +1880,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 }
 .ec-jurnal__ph i { font-size: 1.5rem; color: var(--ec-brass); opacity: .45; }
 
-/* un panou alb asezat in banda inchisa isi recupereaza culoarea textului,
-   altfel mostenteste albul benzii si ramane alb pe alb */
-.ec-band .ec-panel { color: var(--ec-ink); }
 
-/* cardurile albe asezate in banda inchisa isi recupereaza culoarea textului */
-.ec-band .ec-ref { color: var(--ec-ink); }
-.ec-band .ec-ref p { color: var(--ec-ink-60); }
 
 /* imaginea dintr-o coloana de ec-split ajunge la inaltimea blocului vecin */
 @media (min-width: 62rem) {
@@ -1966,3 +1960,50 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-ref__l i { font-size: .6875rem; }
 .ec-ref__l:hover { color: var(--ec-emerald); }
 .ec-band .ec-ref__l { border-top-color: var(--ec-line); }
+
+/* ==========================================================================
+   Finisaje — carduri pe încăperi
+   ========================================================================== */
+.ec-cams { display: grid; gap: var(--ec-gap); }
+@media (min-width: 44rem) { .ec-cams { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 64rem) { .ec-cams { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-cam {
+  background: var(--ec-white); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color var(--ec-fast);
+}
+.ec-cam:hover { border-color: var(--ec-brass); }
+.ec-cam figure { margin: 0; overflow: hidden; }
+.ec-cam figure picture { display: block; }
+.ec-cam img {
+  width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover;
+  transition: transform .8s var(--ec-ease);
+}
+.ec-cam:hover img { transform: scale(1.045); }
+.ec-cam__b { padding: clamp(1.25rem, 2.5vw, 1.75rem); display: flex; flex-direction: column; gap: 1rem; }
+.ec-cam__b h3 { font-size: 1.1rem; font-weight: 600; }
+.ec-cam__b ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+.ec-cam__b li {
+  display: flex; gap: .65rem; align-items: flex-start;
+  font-size: .8125rem; color: var(--ec-ink-60); line-height: 1.55;
+}
+.ec-cam__b li::before {
+  content: "\f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+  font-size: .625rem; color: var(--ec-brass); flex: none; margin-top: .2rem;
+}
+@media (prefers-reduced-motion: reduce) { .ec-cam:hover img { transform: none; } }
+
+/* tabel comparativ pe patru coloane */
+.ec-table--4 td:first-child, .ec-table--4 th:first-child { width: 22%; }
+.ec-table--4 td:nth-child(3) { color: var(--ec-ink-60); }
+
+/* Orice componenta cu fundal alb asezata intr-o banda inchisa trebuie sa-si
+   recupereze culoarea textului. Fara asta mosteneste albul benzii si titlurile
+   raman alb pe alb — s-a intamplat deja de trei ori, deci regula e generala. */
+.ec-band .ec-panel, .ec-band .ec-ref, .ec-band .ec-why__i, .ec-band .ec-fisa__i,
+.ec-band .ec-docs__i, .ec-band .ec-art, .ec-band .ec-cam, .ec-band .ec-list,
+.ec-band .ec-spec, .ec-band .ec-table, .ec-band .ec-form, .ec-band .ec-niv__i,
+.ec-band .ec-etapa--alb, .ec-band .ec-fig, .ec-band .ec-faq {
+  color: var(--ec-ink);
+}
