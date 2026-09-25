@@ -114,6 +114,11 @@ ETICHETE_CALE = {
     "finisaje": "Finisaje",
     "proiect": "Proiect",
     "contact": "Contact",
+    "programare-vizionare": "Programare vizionare",
+    "termeni-si-conditii": "Termeni și condiții",
+    "politica-de-confidentialitate": "Politica de confidențialitate",
+    "politica-de-cookies": "Politica de cookies",
+    "informare-gdpr": "Informare GDPR",
     "compara": "Comparator",
 }
 
@@ -250,7 +255,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
       <a href="{r}investitie-apartamente-iasi/">Investiție</a>
       <a href="{r}contact/">Contact</a>
     </nav>
-    <a class="ec-btn" href="{r}contact/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programare vizionare</a>
+    <a class="ec-btn" href="{r}programare-vizionare/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programare vizionare</a>
   </div>
 </header>
 
@@ -699,7 +704,7 @@ def cta_dublu(r, context=""):
         în aceeași zi lucrătoare.
       </p>
       <div class="ec-duo__a">
-        <a class="ec-btn ec-btn--white" href="#showroom">
+        <a class="ec-btn ec-btn--white" href="{r}programare-vizionare/">
           <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Programare vizionare</a>
         <a class="ec-btn ec-btn--outlight" href="tel:{SHOWROOM["tel_link"]}">
           <i class="fa-solid fa-phone" aria-hidden="true"></i> {e(SHOWROOM["tel"])}</a>
@@ -3003,43 +3008,331 @@ def pagina_comparator():
 
 
 # ========================================================== contact ==
+FAQ_CONTACT = [
+    ("Care este programul biroului de vânzări?",
+     "Luni–vineri între 9:00 și 18:00 și sâmbătă între 10:00 și 14:00, la showroom-ul din "
+     "Str. Dealul Zorilor 9, zona Păcurari, Iași. În afara programului, solicitările primite "
+     "pe e-mail sau WhatsApp sunt preluate în prima zi lucrătoare."),
+    ("În cât timp se primește un răspuns?",
+     "Solicitările transmise prin formular sau e-mail primesc răspuns în aceeași zi lucrătoare, "
+     "dacă sunt trimise până la ora 16:00. Apelurile telefonice sunt preluate direct în program."),
+    ("Vizionarea se face doar cu programare?",
+     "Da. Apartamentul-model și șantierul se vizitează cu programare, pentru ca un consultant "
+     "să fie disponibil exclusiv pentru întâlnire. Programarea se face online, telefonic sau pe WhatsApp."),
+    ("Se pot solicita planuri și liste de prețuri pe e-mail?",
+     "Da. Lista completă de disponibilitate, planurile fiecărei compartimentări și condițiile de "
+     "plată se transmit pe e-mail sau pe WhatsApp, la cerere."),
+    ("Există parcare la showroom?",
+     "Da, locuri de parcare gratuite în fața biroului de vânzări, pe Str. Dealul Zorilor. "
+     "Zona este deservită și de transportul public, cu stație la circa 300 m."),
+    ("Cine răspunde la solicitări?",
+     "Echipa de vânzări a dezvoltatorului, Tala Sapphire S.R.L., parte a Green Stone Group. "
+     "Nu se lucrează prin intermediari și nu se percep comisioane de agenție."),
+]
+
+
+def canal(pict, titlu, valoare, href, sub, brand=False):
+    return (f'<a class="ec-canal ec-rv" href="{href}"{' target="_blank" rel="noopener"' if href.startswith("http") else ""}>'
+            f'<span class="ec-canal__ic">{ic(pict, brand=brand)}</span>'
+            f'<span class="ec-canal__t">{e(titlu)}</span><b>{e(valoare)}</b><em>{e(sub)}</em>'
+            f'<span class="ec-canal__go">{ic("arrow-right")}</span></a>')
+
+
 def pagina_contact():
     r = "../"
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Contact</nav>
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Contact</p>
-    <h1 style="margin-top:1rem">Vorbește cu echipa de vânzări</h1>
-    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
-      Răspundem în aceeași zi lucrătoare. Pentru o vizionare la fața locului, programează-te
-      telefonic sau pe WhatsApp.
-    </p>
-  </header>
+    canale = (
+        canal("phone", "Telefon", SHOWROOM["tel"], TEL_LINK, "Luni–vineri 9–18, sâmbătă 10–14")
+        + canal("whatsapp", "WhatsApp", SHOWROOM["tel"], WA, "Mesaje, planuri și liste de prețuri", brand=True)
+        + canal("envelope", "E-mail", SHOWROOM["mail"], f"mailto:{SHOWROOM['mail']}", "Răspuns în aceeași zi lucrătoare")
+        + canal("location-dot", "Showroom", "Str. Dealul Zorilor 9", f"{r}programare-vizionare/", "Zona Păcurari, Iași · cu programare")
+    )
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>' for q, a in FAQ_CONTACT)
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "ContactPage", "name": "Contact Emerald City Iași",
+             "url": "https://emerald-city.ro/contact/"},
+            {"@type": "RealEstateAgent", "name": "Emerald City — birou de vânzări",
+             "url": "https://emerald-city.ro/", "telephone": "+40757707080",
+             "email": SHOWROOM["mail"], "priceRange": "€€",
+             "address": {"@type": "PostalAddress", "streetAddress": "Str. Dealul Zorilor 9",
+                         "addressLocality": "Iași", "addressRegion": "Iași", "addressCountry": "RO"},
+             "openingHoursSpecification": [
+                 {"@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  "opens": "09:00", "closes": "18:00"},
+                 {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday",
+                  "opens": "10:00", "closes": "14:00"}],
+             "parentOrganization": {"@type": "Organization", "name": "Tala Sapphire S.R.L."}},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ_CONTACT]},
+        ]}
 
-  <div class="ec-split" style="margin-bottom:var(--ec-gap)">
-    {formular(None, r)}
-    <div class="ec-panel">
-      <h2 class="ec-title" style="font-size:1.1rem;margin-bottom:1.25rem">Date de contact</h2>
-      <div class="ec-dist">
-        <div><span>Telefon</span><b><a href="{TEL_LINK}">{TEL_AFIS}</a></b></div>
-        <div><span>Email</span><b><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></b></div>
-        <div><span>WhatsApp</span><b><a href="{WA}">Scrie-ne</a></b></div>
-        <div><span>Adresă</span><b>Str. Ion Nistor, Iași</b></div>
-        <div style="border:0"><span>Dezvoltator</span><b>Tala Sapphire S.R.L.</b></div>
-      </div>
-      <p class="ec-calc__note">Program: luni–vineri 9–18, sâmbătă 10–14.</p>
+    continut = f"""<section class="ec-phero">
+  {imagine("hol-01", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Contact</nav>
+    <p class="ec-eyebrow">Contact</p>
+    <h1>Echipa de vânzări, la un mesaj distanță</h1>
+    <p class="ec-phero__sub">
+      Telefon, WhatsApp, e-mail sau o întâlnire în showroom. Solicitările primesc răspuns
+      în aceeași zi lucrătoare, direct de la dezvoltator, fără intermediari.
+    </p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="{r}programare-vizionare/">{ic("calendar-check")} Programare vizionare</a>
+      <a class="ec-btn ec-btn--outlight" href="{TEL_LINK}">{ic("phone")} {SHOWROOM["tel"]}</a>
     </div>
   </div>
+</section>
 
-  <div class="ec-media" style="min-height:22rem;margin-bottom:4rem">
-    <p>Hartă interactivă<br>— de implementat —</p>
-  </div>
+<div class="ec-wrap">
+  <section class="ec-section" id="canale" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Canale</span>
+        <h2>Patru moduri <em>de a lua legătura</em></h2></div>
+      <p class="ec-shead__p">Fiecare canal ajunge la aceeași echipă. Alegerea ține doar de preferință.</p>
+    </div>
+    <div class="ec-canale" style="margin-top:2.5rem">{canale}</div>
+  </section>
+
+  {showroom(r, "02", "Harta, datele de contact și formularul. Pentru o vizionare, pagina dedicată "
+                     "permite alegerea zilei și a intervalului orar.")}
+
+  <section class="ec-section" id="firma" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Dezvoltator</span>
+        <h2>Date de <em>identificare</em></h2></div>
+      <p class="ec-shead__p">Vânzarea se face direct de către societatea care dezvoltă ansamblul.</p>
+    </div>
+    <div class="ec-inv2" style="margin-top:2.5rem">
+      {panou_dotari("Tala Sapphire S.R.L.", "building", [
+          ("layer-group", "Parte a Green Stone Group, dezvoltator activ din 2007"),
+          ("location-dot", "Sediu social: Str. Ion Nistor, Iași"),
+          ("store", "Birou de vânzări: Str. Dealul Zorilor 9, zona Păcurari, Iași"),
+          ("envelope", "vanzari@emerald-city.ro · protecția datelor: dpo@emerald-city.ro"),
+          ("file-signature", "Contractele se semnează la notar, cu documentația completă a proiectului"),
+          ("shield-halved", "Proiecte anterioare finalizate în Iași: Lapis Residence, Onyx Residence"),
+      ], "Dezvoltatorul ansamblului")}
+      {panou_dotari("Ce se poate solicita", "list-check", [
+          ("table-list", "Lista completă de disponibilitate, cu prețuri actualizate"),
+          ("compass-drafting", "Planurile detaliate ale fiecărei compartimentări"),
+          ("file-invoice", "Condițiile de plată și eșalonarea pe stadii de execuție"),
+          ("landmark", "Recomandări de bănci partenere pentru credit ipotecar"),
+          ("helmet-safety", "Vizită pe șantier, însoțită, cu echipament de protecție"),
+          ("newspaper", "Raportul lunar de stadiu al lucrărilor, pe e-mail"),
+      ], "6 documente și servicii")}
+    </div>
+  </section>
+
+  <section class="ec-section" id="intrebari" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — Întrebări</span>
+        <h2>Despre <em>contact și program</em></h2></div>
+      <p class="ec-shead__p">{len(FAQ_CONTACT)} întrebări despre program, timp de răspuns și vizionări.</p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  <section class="ec-section" style="padding-block:var(--ec-section)">
+    {cta_dublu(r, "contact")}
+  </section>
 </div>"""
     return pagina("Contact — Emerald City Iași",
-                  "Contact Emerald City, ansamblu rezidențial în Iași, zona Păcurari. "
-                  "Telefon, email și programare vizionare.",
-                  continut, r, None, "contact/")
+                  "Contact Emerald City, ansamblu rezidențial în Iași, zona Păcurari: telefon "
+                  "0757 70 70 80, WhatsApp, e-mail și showroom pe Str. Dealul Zorilor 9.",
+                  continut, r, schema, "contact/", "hol-01")
 
+
+# ======================================================= programare ==
+FAQ_VIZIONARE = [
+    ("Cât durează o vizionare?",
+     "Aproximativ 40 de minute: prezentarea apartamentului-model, a planurilor și a listei de "
+     "disponibilitate, urmată de întrebări. La cerere, întâlnirea continuă cu o vizită pe șantier."),
+    ("Ce se poate vedea la fața locului?",
+     "Apartamentul-model complet finisat, mostrele de finisaje, planul de situație al ansamblului "
+     "și, cu echipament de protecție, blocurile aflate în execuție."),
+    ("Se poate programa o vizionare sâmbăta?",
+     "Da, sâmbătă între 10:00 și 14:00. Intervalele de sâmbătă se ocupă mai repede, de aceea "
+     "recomandăm programarea cu câteva zile înainte."),
+    ("Programarea se confirmă?",
+     "Da. După trimiterea formularului, un consultant confirmă telefonic ziua și ora, în aceeași "
+     "zi lucrătoare. Programarea se poate modifica sau anula oricând, telefonic sau pe WhatsApp."),
+    ("Este necesar un document sau o pregătire prealabilă?",
+     "Nu. Este utilă doar o idee despre buget și despre numărul de camere dorit, pentru ca "
+     "prezentarea să fie orientată către unitățile potrivite."),
+    ("Pot participa mai multe persoane?",
+     "Da. Familia, un consilier financiar sau un arhitect sunt bineveniți. Menționați numărul de "
+     "persoane în formular, pentru organizarea întâlnirii."),
+    ("Se poate rezerva un apartament în ziua vizionării?",
+     "Da. Rezervarea blochează prețul afișat pentru unitatea aleasă, până la semnarea "
+     "antecontractului, în condițiile comunicate la întâlnire."),
+    ("Vizionarea implică vreo obligație?",
+     "Nu. Vizionarea este gratuită și nu presupune nicio obligație de cumpărare."),
+]
+
+
+def pagina_programare(unitati):
+    r = "../"
+    disp = [u for u in unitati if u["status"] == "disponibil"]
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>' for q, a in FAQ_VIZIONARE)
+    slot = lambda v, et: (f'<label class="ec-slot"><input type="radio" name="interval" value="{v}">'
+                          f'<span>{et}</span></label>')
+    interes = lambda v, et: (f'<label class="ec-slot"><input type="radio" name="interes" value="{v}">'
+                             f'<span>{et}</span></label>')
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "WebPage", "name": "Programare vizionare — Emerald City Iași",
+             "url": "https://emerald-city.ro/programare-vizionare/"},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ_VIZIONARE]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("living-02", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>
+      <a href="{r}contact/">Contact</a><span>/</span>Programare vizionare</nav>
+    <p class="ec-eyebrow">Programare vizionare</p>
+    <h1>Vizionarea apartamentului-model, la ora dorită</h1>
+    <p class="ec-phero__sub">
+      O întâlnire de aproximativ 40 de minute în showroom-ul din Păcurari: apartamentul-model
+      finisat, planurile pe masă și lista de disponibilitate, cu {len(disp)} de apartamente
+      cu prețuri afișate.
+    </p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#formular">{ic("calendar-check")} Alegeți ziua și ora</a>
+      <a class="ec-btn ec-btn--outlight" href="{WA}" target="_blank" rel="noopener">{ic("whatsapp", brand=True)} Programare pe WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">
+    <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("hourglass-half")}</span><span><b>40 min</b><em>Durata întâlnirii</em></span></div>
+    <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("calendar-days")}</span><span><b>6 zile</b><em>Luni–sâmbătă</em></span></div>
+    <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("key")}</span><span><b>{len(disp)}</b><em>Apartamente disponibile</em></span></div>
+    <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("hand-holding-heart")}</span><span><b>Gratuit</b><em>Fără nicio obligație</em></span></div>
+  </div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="formular" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Programare</span>
+        <h2>Alegeți <em>ziua și intervalul</em></h2></div>
+      <p class="ec-shead__p">
+        Confirmarea se face telefonic, în aceeași zi lucrătoare. Programarea se poate
+        modifica oricând.
+      </p>
+    </div>
+    <div class="ec-inv2" style="margin-top:2.5rem">
+      <div class="ec-form ec-book">
+        <h2 class="ec-form__t">Formular de programare</h2>
+        <p class="ec-form__i">Câmpurile marcate cu * sunt necesare pentru confirmare.</p>
+        <form method="post" action="#" novalidate data-book>
+          <div class="ec-form__grid">
+            <div><label for="b-nume">Nume și prenume *</label><input id="b-nume" name="nume" type="text" autocomplete="name" required></div>
+            <div><label for="b-tel">Telefon *</label><input id="b-tel" name="telefon" type="tel" autocomplete="tel" required></div>
+            <div class="full"><label for="b-mail">E-mail</label><input id="b-mail" name="email" type="email" autocomplete="email"></div>
+            <div class="full"><span class="ec-form__lbl">Apartament de interes</span>
+              <div class="ec-slots ec-slots--4">
+                {interes("1", "1 cameră")}{interes("2", "2 camere")}{interes("3", "3 camere")}{interes("nehotarat", "Nehotărât")}
+              </div></div>
+            <div><label for="b-data">Ziua preferată *</label><input id="b-data" name="data" type="date" required></div>
+            <div><label for="b-pers">Număr de persoane</label>
+              <select id="b-pers" name="persoane"><option>1</option><option selected>2</option><option>3</option><option>4 sau mai multe</option></select></div>
+            <div class="full"><span class="ec-form__lbl">Interval orar *</span>
+              <div class="ec-slots ec-slots--4">
+                {slot("9-11", "9:00–11:00")}{slot("11-13", "11:00–13:00")}{slot("13-16", "13:00–16:00")}{slot("16-18", "16:00–18:00")}
+              </div>
+              <small class="ec-form__hint">Sâmbătă: 10:00–14:00. Pentru alt interval, menționați în mesaj.</small></div>
+            <div class="full"><label for="b-msg">Mesaj</label><textarea id="b-msg" name="mesaj" rows="3" placeholder="Buget orientativ, etaj preferat, întrebări"></textarea></div>
+            <div class="full ec-form__consent">
+              <label><input type="checkbox" name="acord" required>
+                <span>Sunt de acord cu prelucrarea datelor conform <a href="{r}politica-de-confidentialitate/">Politicii de confidențialitate</a>, în scopul programării vizionării. *</span></label>
+            </div>
+            <div class="full"><button class="ec-btn ec-btn--brass" type="submit">{ic("calendar-check")} Trimite programarea</button></div>
+          </div>
+          <p class="ec-form__note">Machetă de lucru — formularul nu trimite date.</p>
+        </form>
+      </div>
+      <div class="ec-bookside">
+        {panou_dotari("Ce include vizionarea", "clipboard-check", [
+            ("couch", "Apartamentul-model, complet finisat și mobilat"),
+            ("swatchbook", "Mostrele de finisaje: parchet, gresie, faianță, uși"),
+            ("map", "Planul de situație: blocuri, etape, parcări, spații verzi"),
+            ("table-list", "Lista de disponibilitate, cu prețul fiecărei unități"),
+            ("file-invoice", "Condițiile de plată și simularea unei rate"),
+            ("helmet-safety", "La cerere, vizită pe șantier cu echipament de protecție"),
+        ], "6 elemente")}
+        <div class="ec-panel ec-bookside__p">
+          <h3>{ic("route")} Cum se ajunge</h3>
+          <p>Str. Dealul Zorilor 9, zona Păcurari, Iași. Parcare gratuită în fața biroului.
+             Transport public: stație la circa 300 m, pe Șoseaua Păcurari.</p>
+          <a class="ec-btn ec-btn--out" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Dealul+Zorilor+9+Ia%C8%99i"
+             target="_blank" rel="noopener">{ic("diamond-turn-right")} Indicații rutiere</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ec-section" id="pasi" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Parcurs</span>
+        <h2>Cum decurge <em>întâlnirea</em></h2></div>
+      <p class="ec-shead__p">Trei pași, de la confirmare la propunerea personalizată.</p>
+    </div>
+    <div class="ec-steps" style="margin-top:2.5rem">
+      <div class="ec-step ec-rv"><div class="ec-step__n">01</div>
+        <h3>Confirmare telefonică</h3>
+        <p>Un consultant confirmă ziua și ora în aceeași zi lucrătoare și notează preferințele:
+           număr de camere, etaj, buget orientativ.</p></div>
+      <div class="ec-step ec-rv" data-d="1"><div class="ec-step__n">02</div>
+        <h3>Vizionare și prezentare</h3>
+        <p>Apartamentul-model, mostrele de finisaje, planurile și lista de disponibilitate.
+           La cerere, vizită însoțită pe șantier.</p></div>
+      <div class="ec-step ec-rv" data-d="2"><div class="ec-step__n">03</div>
+        <h3>Propunere personalizată</h3>
+        <p>O selecție de 2–3 unități potrivite, cu preț, plan și eșalonarea plăților,
+           transmisă pe e-mail după întâlnire.</p></div>
+    </div>
+  </section>
+
+  <section class="ec-section" id="intrebari" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Întrebări</span>
+        <h2>Despre <em>vizionare</em></h2></div>
+      <p class="ec-shead__p">{len(FAQ_VIZIONARE)} întrebări despre durată, program și ce se poate vedea.</p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  {showroom(r, "04")}
+</div>
+<script>
+(() => {{
+  const d = document.querySelector('#b-data');
+  if (!d) return;
+  const azi = new Date(); azi.setMinutes(azi.getMinutes() - azi.getTimezoneOffset());
+  d.min = azi.toISOString().slice(0, 10);
+  d.addEventListener('change', () => {{
+    const zi = new Date(d.value).getDay();
+    d.setCustomValidity(zi === 0 ? 'Duminica biroul este închis.' : '');
+    d.reportValidity();
+  }});
+}})();
+</script>"""
+    return pagina("Programare vizionare — Emerald City Iași",
+                  "Programați o vizionare a apartamentului-model Emerald City, Iași zona Păcurari: "
+                  "alegeți ziua și intervalul orar, confirmarea se face telefonic în aceeași zi.",
+                  continut, r, schema, "programare-vizionare/", "living-02")
 
 
 # ================================================================== zona ==
@@ -4889,51 +5182,412 @@ def pagina_presa():
 # ========================================================= pagini legale ==
 LEGALE = {
     "termeni-si-conditii": ("Termeni și condiții",
-        "Condițiile de utilizare a site-ului emerald-city.ro și regulile aplicabile "
-        "solicitărilor transmise prin formularele de contact."),
+        "Condițiile de utilizare a site-ului emerald-city.ro, regimul informațiilor publicate, "
+        "regulile aplicabile solicitărilor transmise prin formulare și limitarea răspunderii."),
     "politica-de-confidentialitate": ("Politica de confidențialitate",
-        "Cum sunt colectate, folosite și păstrate datele cu caracter personal transmise "
-        "prin acest site."),
+        "Cum colectează, folosește, păstrează și protejează Tala Sapphire S.R.L. datele cu caracter "
+        "personal transmise prin acest site, prin telefon sau în showroom."),
     "politica-de-cookies": ("Politica de cookies",
-        "Ce module cookie folosește site-ul, în ce scop și cum poate fi retras acordul."),
+        "Ce module cookie și tehnologii similare folosește site-ul, în ce scop, pe ce durată și cum "
+        "poate fi gestionat sau retras acordul."),
     "informare-gdpr": ("Informare GDPR",
-        "Drepturile persoanei vizate asupra datelor cu caracter personal conform Regulamentului "
-        "(UE) 2016/679 și modul în care pot fi exercitate."),
+        "Informarea persoanei vizate conform art. 13 și 14 din Regulamentul (UE) 2016/679: "
+        "operator, scopuri, temeiuri, destinatari, durate și drepturi."),
+}
+
+OPERATOR = ("Tala Sapphire S.R.L., cu sediul în Str. Ion Nistor, Iași, județul Iași, România, "
+            "înregistrată la Oficiul Registrului Comerțului sub nr. [J22/…/…], CUI [RO…], "
+            "parte a Green Stone Group")
+DATA_ACT = "25 septembrie 2026"
+
+# Fiecare document: lista de (titlu de sectiune, [paragrafe sau liste]). O intrare care
+# incepe cu "- " devine element de lista; un tuplu (cap, randuri) devine tabel.
+TEXTE_LEGALE = {
+"termeni-si-conditii": [
+ ("Obiectul și acceptarea termenilor", [
+  f"Prezentul document stabilește condițiile în care poate fi utilizat site-ul emerald-city.ro "
+  f"(„Site-ul”), operat de {OPERATOR} („Dezvoltatorul”, „noi”). Accesarea și utilizarea Site-ului "
+  "presupun acceptarea integrală a acestor termeni. Persoanele care nu sunt de acord cu ei sunt "
+  "rugate să nu utilizeze Site-ul.",
+  "Termenii se aplică tuturor vizitatorilor, indiferent dacă transmit sau nu o solicitare prin "
+  "formularele disponibile. Pentru raporturile contractuale privind achiziția unui apartament se "
+  "aplică exclusiv documentele semnate între părți (rezervare, antecontract, contract de "
+  "vânzare-cumpărare), care prevalează asupra oricărei informații publicate pe Site."]),
+ ("Caracterul informativ al conținutului", [
+  "Site-ul prezintă ansamblul rezidențial Emerald City din Iași, zona Păcurari, în scop de "
+  "informare și promovare. Informațiile despre suprafețe, compartimentări, finisaje, dotări, "
+  "prețuri, disponibilitate, stadiu al lucrărilor, termene și distanțe sunt orientative și pot "
+  "fi actualizate fără notificare prealabilă.",
+  "Randările, fotografiile, planurile și schițele au rol ilustrativ. Culorile, mobilierul, "
+  "vegetația, obiectele de decor și amenajările exterioare prezentate nu fac parte din obiectul "
+  "vânzării decât dacă sunt menționate expres în contract. Suprafețele finale rezultă din "
+  "măsurătorile cadastrale efectuate la recepție și pot prezenta diferențe în limitele legale.",
+  "Nicio informație de pe Site nu constituie ofertă în sensul Codului civil, promisiune de "
+  "vânzare sau garanție privind disponibilitatea unei unități la un anumit preț. Prețurile "
+  "afișate sunt exprimate în euro, includ sau nu TVA conform mențiunilor din pagină și devin "
+  "ferme numai prin semnarea unui document de rezervare sau a unui antecontract."]),
+ ("Calculatoare, estimări și informații financiare", [
+  "Calculatorul de rată, calculatorul de randament și orice alte simulări disponibile pe Site "
+  "sunt instrumente orientative, bazate pe ipoteze generale (dobânzi, durate, chirii medii "
+  "observate). Rezultatele nu reprezintă ofertă de creditare, consultanță financiară, fiscală "
+  "sau de investiții și nu angajează Dezvoltatorul sau vreo instituție de credit.",
+  "Deciziile de achiziție, finanțare sau investiție aparțin exclusiv utilizatorului, care este "
+  "încurajat să consulte un specialist independent și să solicite instituțiilor de credit "
+  "oferte personalizate."]),
+ ("Solicitări transmise prin formulare", [
+  "Formularele de contact, de programare a unei vizionări și de abonare la notificări permit "
+  "transmiterea unor solicitări către echipa de vânzări. Transmiterea unei solicitări nu creează "
+  "nicio obligație de cumpărare pentru utilizator și nicio obligație de rezervare pentru "
+  "Dezvoltator.",
+  "Utilizatorul garantează că datele transmise sunt corecte, complete și îi aparțin sau are "
+  "dreptul de a le furniza. Este interzisă transmiterea de conținut ilegal, ofensator, publicitar "
+  "sau automatizat (spam). Solicitările care nu respectă aceste condiții pot fi ignorate.",
+  "Programarea unei vizionări devine efectivă numai după confirmarea telefonică de către un "
+  "consultant. Dezvoltatorul poate modifica sau anula o programare din motive obiective "
+  "(condiții de șantier, indisponibilitate), cu informarea utilizatorului."]),
+ ("Proprietate intelectuală", [
+  "Conținutul Site-ului — texte, structură, denumirea și sigla Emerald City, randări, "
+  "fotografii, planuri, elemente grafice, cod sursă și baze de date — este protejat de legislația "
+  "privind drepturile de autor și proprietatea industrială și aparține Dezvoltatorului sau "
+  "partenerilor săi licențiatori.",
+  "Este permisă vizualizarea și descărcarea materialelor exclusiv pentru uz personal, "
+  "necomercial, în scopul evaluării unei achiziții. Reproducerea, distribuirea, publicarea, "
+  "modificarea sau utilizarea comercială a oricărui element, integral sau parțial, fără acordul "
+  "scris prealabil al Dezvoltatorului, sunt interzise. Agențiile imobiliare nu pot prelua "
+  "listările, prețurile sau imaginile fără un acord scris de colaborare."]),
+ ("Legături către terți", [
+  "Site-ul poate conține legături către pagini ale unor terți (Google Maps, publicații de presă, "
+  "site-urile grupului sau ale partenerilor). Aceste pagini au propriile condiții de utilizare și "
+  "politici de confidențialitate, pentru care Dezvoltatorul nu răspunde. Prezența unei legături nu "
+  "reprezintă o recomandare sau o garanție a conținutului respectiv."]),
+ ("Disponibilitatea Site-ului și securitatea", [
+  "Dezvoltatorul depune diligențe rezonabile pentru funcționarea continuă a Site-ului, fără a "
+  "garanta lipsa întreruperilor, a erorilor sau compatibilitatea cu orice dispozitiv. Site-ul poate "
+  "fi suspendat temporar pentru mentenanță sau actualizări.",
+  "Este interzisă orice acțiune care poate afecta funcționarea Site-ului: accesul neautorizat, "
+  "extragerea automată de date (scraping), introducerea de cod malițios, testarea "
+  "vulnerabilităților fără acord, supraîncărcarea serverelor."]),
+ ("Limitarea răspunderii", [
+  "În limitele permise de lege, Dezvoltatorul nu răspunde pentru prejudicii directe sau indirecte "
+  "rezultate din utilizarea sau imposibilitatea utilizării Site-ului, din încrederea acordată "
+  "informațiilor orientative publicate, din erori sau omisiuni ori din acțiunile unor terți.",
+  "Nimic din prezentul document nu limitează răspunderea Dezvoltatorului pentru obligațiile "
+  "asumate prin contractele semnate cu cumpărătorii, garanțiile legale privind calitatea în "
+  "construcții sau drepturile consumatorilor prevăzute de legislația în vigoare."]),
+ ("Protecția datelor cu caracter personal", [
+  "Prelucrarea datelor cu caracter personal ale utilizatorilor este descrisă în Politica de "
+  "confidențialitate, Informarea GDPR și Politica de cookies, care fac parte integrantă din "
+  "prezentul document."]),
+ ("Modificarea termenilor", [
+  "Dezvoltatorul poate modifica oricând acești termeni. Versiunea în vigoare este cea publicată pe "
+  "Site, cu data ultimei actualizări menționată la începutul documentului. Continuarea utilizării "
+  "Site-ului după publicarea modificărilor reprezintă acceptarea lor."]),
+ ("Legea aplicabilă și soluționarea litigiilor", [
+  "Prezentul document este guvernat de legea română. Eventualele litigii se soluționează pe cale "
+  "amiabilă, iar în caz contrar de instanțele competente din Iași, cu respectarea drepturilor "
+  "consumatorilor.",
+  "Consumatorii pot apela la Autoritatea Națională pentru Protecția Consumatorilor (anpc.ro), la "
+  "procedura de soluționare alternativă a litigiilor (SAL) și la platforma europeană de "
+  "soluționare online a litigiilor (ec.europa.eu/consumers/odr)."]),
+ ("Contact", [
+  "Pentru întrebări privind acești termeni: vanzari@emerald-city.ro, telefon 0757 70 70 80, sau "
+  "în scris la sediul Dezvoltatorului. Birou de vânzări: Str. Dealul Zorilor 9, zona Păcurari, Iași."]),
+],
+
+"politica-de-confidentialitate": [
+ ("Cine suntem și la ce se aplică politica", [
+  f"Operatorul datelor este {OPERATOR} („Operatorul”). Politica descrie prelucrarea datelor cu "
+  "caracter personal ale vizitatorilor site-ului emerald-city.ro, ale persoanelor care transmit "
+  "solicitări prin formulare, telefon, e-mail sau WhatsApp, ale celor care vizitează showroom-ul "
+  "și ale potențialilor cumpărători, până la semnarea unui contract.",
+  "Prelucrarea se face în conformitate cu Regulamentul (UE) 2016/679 (GDPR), Legea nr. 190/2018 "
+  "și Legea nr. 506/2004 privind prelucrarea datelor în sectorul comunicațiilor electronice.",
+  "Responsabil cu protecția datelor: dpo@emerald-city.ro."]),
+ ("Ce date colectăm", [
+  "- Date de identificare și contact: nume, prenume, număr de telefon, adresă de e-mail.",
+  "- Conținutul solicitării: apartamentul sau categoria de interes, buget orientativ, ziua și "
+  "intervalul dorit pentru vizionare, numărul de persoane, mesajul liber.",
+  "- Date de tranzacție precontractuală (numai în showroom, la rezervare): datele din actul de "
+  "identitate, adresa de domiciliu, modalitatea de finanțare avută în vedere.",
+  "- Date tehnice, colectate automat: adresa IP, tipul dispozitivului și al browserului, paginile "
+  "vizitate, sursa de trafic, module cookie (detaliate în Politica de cookies).",
+  "- Preferințe salvate local în browser: lista de apartamente salvate pentru comparare, modul de "
+  "afișare a listei de disponibilitate. Aceste preferințe rămân pe dispozitivul dumneavoastră și "
+  "nu sunt transmise Operatorului.",
+  "- Înregistrări ale comunicărilor: e-mailuri, mesaje WhatsApp și notițe ale consultanților "
+  "privind discuțiile telefonice sau din showroom.",
+  "Nu colectăm categorii speciale de date (origine etnică, opinii politice, sănătate etc.) și nu "
+  "ne adresăm minorilor; Site-ul este destinat persoanelor cu vârsta de cel puțin 18 ani."]),
+ ("Scopurile și temeiurile prelucrării", [
+  ("Scop / Temei juridic / Detalii", [
+   ["Răspuns la solicitări și programarea vizionărilor", "Demersuri precontractuale la cererea persoanei vizate (art. 6 alin. 1 lit. b GDPR)", "Contactare telefonică sau prin e-mail pentru confirmarea programării și transmiterea informațiilor cerute"],
+   ["Transmiterea listelor de prețuri, planurilor și ofertelor personalizate", "Demersuri precontractuale (art. 6 alin. 1 lit. b)", "Documente transmise pe e-mail sau WhatsApp, la cerere"],
+   ["Rezervarea unei unități și pregătirea antecontractului", "Executarea contractului și obligații legale (art. 6 alin. 1 lit. b și c)", "Date de identificare necesare actelor notariale"],
+   ["Notificări de disponibilitate și comunicări comerciale", "Consimțământ (art. 6 alin. 1 lit. a)", "Numai la abonare explicită; retragere oricând, din fiecare mesaj"],
+   ["Statistici de trafic și îmbunătățirea Site-ului", "Interes legitim (art. 6 alin. 1 lit. f) sau consimțământ pentru cookie-uri neesențiale", "Date agregate, fără identificarea persoanei"],
+   ["Securitatea Site-ului și prevenirea abuzurilor", "Interes legitim (art. 6 alin. 1 lit. f)", "Jurnale de server, filtrare anti-spam"],
+   ["Apărarea drepturilor în justiție și conformare legală", "Obligație legală și interes legitim (art. 6 alin. 1 lit. c și f)", "Arhivare, răspuns la solicitările autorităților"],
+  ]),
+  "Atunci când temeiul este interesul legitim, am evaluat ca acesta să nu prevaleze asupra "
+  "drepturilor și libertăților persoanei vizate; evaluarea este disponibilă la cerere."]),
+ ("Cum colectăm datele", [
+  "Direct de la dumneavoastră, prin formularele Site-ului, telefon, e-mail, WhatsApp, rețele "
+  "sociale sau în showroom. Automat, prin module cookie și tehnologii similare, la vizitarea "
+  "Site-ului. Ocazional, de la terți: platforme imobiliare prin care ați solicitat informații "
+  "despre proiect sau persoane care ne-au recomandat cu acordul dumneavoastră."]),
+ ("Cui transmitem datele", [
+  "- Persoane împuternicite care ne furnizează servicii: găzduire web și e-mail, furnizorul "
+  "sistemului de gestiune a clienților (CRM), furnizori de servicii de comunicare (telefonie, "
+  "WhatsApp Business), agenția care administrează campaniile de promovare. Aceștia prelucrează "
+  "datele numai pe baza instrucțiunilor noastre și a unui contract de prelucrare.",
+  "- Societăți din Green Stone Group, în scop de raportare internă și administrare, pe baza "
+  "interesului legitim.",
+  "- Notari publici, bănci și brokeri de credite, numai la cererea dumneavoastră, în vederea "
+  "rezervării sau finanțării.",
+  "- Autorități publice, instanțe, consultanți juridici și contabili, când legea o impune sau "
+  "pentru apărarea drepturilor noastre.",
+  "Nu vindem și nu închiriem date cu caracter personal către terți."]),
+ ("Transferuri în afara Spațiului Economic European", [
+  "Unele servicii folosite (de exemplu Google Maps pentru harta de pe Site sau platforma "
+  "WhatsApp) pot implica transferul datelor către furnizori cu sediul în afara SEE. Astfel de "
+  "transferuri se realizează numai către țări cu decizie de adecvare a Comisiei Europene sau pe "
+  "baza clauzelor contractuale standard și a măsurilor suplimentare adecvate."]),
+ ("Cât timp păstrăm datele", [
+  ("Categorie / Durata de păstrare", [
+   ["Solicitări care nu au condus la o rezervare", "24 de luni de la ultima interacțiune, apoi ștergere sau anonimizare"],
+   ["Abonări la notificări de disponibilitate", "Până la retragerea consimțământului sau la finalizarea vânzărilor din ansamblu"],
+   ["Date din rezervări și antecontracte", "Durata contractului plus 10 ani, conform legislației fiscale și civile"],
+   ["Jurnale tehnice de server", "Maximum 12 luni"],
+   ["Module cookie", "Conform duratelor din Politica de cookies"],
+  ]),
+  "La expirarea termenelor, datele sunt șterse în siguranță sau anonimizate ireversibil."]),
+ ("Cum protejăm datele", [
+  "Aplicăm măsuri tehnice și organizatorice adecvate: transmiterea datelor prin conexiuni "
+  "criptate (HTTPS), controlul accesului pe bază de rol, autentificare pentru sistemele interne, "
+  "copii de siguranță, instruirea personalului și obligații de confidențialitate pentru "
+  "consultanți și furnizori. În cazul unei încălcări a securității care prezintă risc ridicat "
+  "pentru drepturile dumneavoastră, vă vom informa conform art. 34 GDPR."]),
+ ("Drepturile dumneavoastră", [
+  "Aveți dreptul de acces, rectificare, ștergere, restricționare a prelucrării, portabilitate, "
+  "opoziție (inclusiv față de marketing direct) și de a nu face obiectul unei decizii bazate "
+  "exclusiv pe prelucrare automatizată. Consimțământul poate fi retras oricând, fără a afecta "
+  "legalitatea prelucrării anterioare. Detalii și modul de exercitare se găsesc în Informarea GDPR.",
+  "Solicitările se transmit la dpo@emerald-city.ro și primesc răspuns în cel mult o lună. Aveți "
+  "de asemenea dreptul de a depune o plângere la Autoritatea Națională de Supraveghere a "
+  "Prelucrării Datelor cu Caracter Personal (dataprotection.ro)."]),
+ ("Marketing direct și rețele sociale", [
+  "Comunicările comerciale prin e-mail sau mesaje se transmit numai cu acordul prealabil, "
+  "iar fiecare mesaj conține o opțiune de dezabonare. Paginile noastre de pe Facebook, Instagram, "
+  "TikTok și YouTube sunt guvernate și de politicile platformelor respective, cu care putem avea "
+  "calitatea de operatori asociați pentru statisticile de pagină."]),
+ ("Actualizări", [
+  f"Politica poate fi actualizată pentru a reflecta modificări legislative sau operaționale. "
+  f"Versiunea curentă, cu data actualizării ({DATA_ACT}), este publicată pe Site. Modificările "
+  "semnificative vor fi semnalate vizibil."]),
+ ("Contact", [
+  "Responsabil cu protecția datelor: dpo@emerald-city.ro. Echipa de vânzări: "
+  "vanzari@emerald-city.ro, 0757 70 70 80. Birou de vânzări: Str. Dealul Zorilor 9, zona "
+  "Păcurari, Iași."]),
+],
+
+"politica-de-cookies": [
+ ("Ce sunt modulele cookie", [
+  "Modulele cookie sunt fișiere text de mici dimensiuni, stocate de browser pe dispozitivul "
+  "dumneavoastră la vizitarea unui site. Ele permit recunoașterea dispozitivului la vizitele "
+  "următoare, memorarea unor preferințe și măsurarea traficului. Tehnologiile similare includ "
+  "stocarea locală a browserului (localStorage), pixelii de urmărire și identificatorii de "
+  "dispozitiv.",
+  f"Prezenta politică este emisă de {OPERATOR} și se completează cu Politica de confidențialitate."]),
+ ("Temeiul juridic", [
+  "Modulele strict necesare funcționării Site-ului se folosesc pe baza interesului legitim și "
+  "nu necesită acord. Toate celelalte categorii (preferințe, statistică, marketing) se activează "
+  "numai după exprimarea consimțământului prin bannerul de cookie-uri, conform art. 4 din Legea "
+  "nr. 506/2004 și GDPR. Consimțământul poate fi retras oricând, cu efect pentru viitor."]),
+ ("Categoriile folosite pe Site", [
+  ("Categorie / Scop / Exemple / Durata", [
+   ["Strict necesare", "Funcționarea paginilor, securitate, reținerea alegerii privind cookie-urile", "Preferința de consimțământ (ec-consent)", "12 luni"],
+   ["Preferințe (stocare locală)", "Memorarea listei de apartamente salvate pentru comparare și a modului de afișare a listei", "ec-lista, ec-vedere (localStorage — nu se transmit serverului)", "Până la ștergerea de către utilizator"],
+   ["Statistică", "Măsurarea anonimizată a traficului și a paginilor vizitate, pentru îmbunătățirea Site-ului", "Instrument de analiză web, activat numai cu acord", "Până la 13 luni"],
+   ["Marketing", "Măsurarea eficienței campaniilor și afișarea de anunțuri relevante pe alte platforme", "Pixeli ai platformelor publicitare, activați numai cu acord", "Până la 13 luni"],
+   ["Terți încorporați", "Afișarea hărții Google Maps și a eventualelor materiale video", "Cookie-uri Google, setate la încărcarea hărții", "Conform politicii Google"],
+  ]),
+  "La data actualizării, Site-ul nu utilizează instrumente de statistică sau marketing active. "
+  "Lista de mai sus include categoriile care pot fi activate ulterior; orice activare se va face "
+  "numai după actualizarea acestei politici și obținerea acordului."]),
+ ("Conținut de la terți", [
+  "Harta din secțiunea „Showroom” este furnizată de Google Maps. La încărcarea ei, Google poate "
+  "seta propriile module cookie și poate prelucra adresa IP conform politicii sale de "
+  "confidențialitate (policies.google.com/privacy). Legăturile către Facebook, Instagram, TikTok, "
+  "YouTube și WhatsApp deschid platformele respective, care aplică propriile reguli."]),
+ ("Cum gestionați modulele cookie", [
+  "- Prin bannerul de consimțământ afișat la prima vizită, unde puteți accepta sau refuza fiecare "
+  "categorie și puteți reveni oricând asupra alegerii din legătura „Setări cookie-uri” din subsol.",
+  "- Din setările browserului: Chrome, Firefox, Safari, Edge permit blocarea sau ștergerea "
+  "modulelor cookie și a stocării locale. Blocarea celor strict necesare poate afecta funcționarea "
+  "unor secțiuni (de exemplu, lista de comparare).",
+  "- Prin instrumentele de dezactivare ale furnizorilor de statistică și publicitate, când "
+  "acestea sunt active, și prin youronlinechoices.eu pentru publicitatea comportamentală."]),
+ ("Date colectate și drepturi", [
+  "Datele obținute prin module cookie sunt tratate conform Politicii de confidențialitate. "
+  "Drepturile persoanei vizate (acces, ștergere, opoziție etc.) sunt descrise în Informarea GDPR "
+  "și se exercită la dpo@emerald-city.ro."]),
+ ("Actualizări", [
+  f"Politica se revizuiește la fiecare modificare a instrumentelor folosite. Ultima actualizare: "
+  f"{DATA_ACT}."]),
+],
+
+"informare-gdpr": [
+ ("Identitatea și datele de contact ale operatorului", [
+  f"{OPERATOR}. Responsabil cu protecția datelor: dpo@emerald-city.ro. Echipa de vânzări: "
+  "vanzari@emerald-city.ro, 0757 70 70 80. Birou de vânzări: Str. Dealul Zorilor 9, zona "
+  "Păcurari, Iași.",
+  "Prezenta informare este furnizată în temeiul art. 13 și 14 din Regulamentul (UE) 2016/679 "
+  "(GDPR) și se adresează vizitatorilor Site-ului, persoanelor care ne contactează, vizitatorilor "
+  "showroom-ului și potențialilor cumpărători."]),
+ ("Scopurile și temeiul prelucrării", [
+  "- Răspunsul la solicitări, programarea și desfășurarea vizionărilor — demersuri "
+  "precontractuale la cererea dumneavoastră (art. 6 alin. 1 lit. b).",
+  "- Transmiterea ofertelor personalizate, planurilor și condițiilor de plată — demersuri "
+  "precontractuale (art. 6 alin. 1 lit. b).",
+  "- Rezervarea unei unități și încheierea actelor — executarea contractului și obligații legale "
+  "fiscale și notariale (art. 6 alin. 1 lit. b și c).",
+  "- Notificări de disponibilitate și comunicări comerciale — consimțământ (art. 6 alin. 1 lit. a).",
+  "- Securitatea Site-ului, statistici agregate, apărarea drepturilor — interes legitim "
+  "(art. 6 alin. 1 lit. f).",
+  "- Supravegherea video în showroom, dacă este cazul — interes legitim privind siguranța "
+  "persoanelor și bunurilor, cu semnalizare la intrare."]),
+ ("Categoriile de date și sursa lor", [
+  "Date de identificare și contact, conținutul solicitărilor, preferințe de achiziție, date "
+  "precontractuale (la rezervare), date tehnice de navigare și înregistrări ale comunicărilor. "
+  "Datele provin direct de la dumneavoastră sau, în cazuri limitate, de la platforme imobiliare "
+  "prin care ați solicitat informații ori de la persoane care v-au recomandat cu acordul dumneavoastră."]),
+ ("Destinatarii datelor", [
+  "Persoane împuternicite (găzduire, e-mail, CRM, comunicații, agenție de promovare), societăți "
+  "din Green Stone Group, notari, bănci și brokeri de credit la cererea dumneavoastră, autorități "
+  "publice și consultanți profesionali când legea o impune. Detalii în Politica de confidențialitate."]),
+ ("Transferul către țări terțe", [
+  "Anumiți furnizori (Google, Meta/WhatsApp) pot prelucra date în afara Spațiului Economic "
+  "European, exclusiv pe baza deciziilor de adecvare sau a clauzelor contractuale standard "
+  "aprobate de Comisia Europeană, cu garanții suplimentare."]),
+ ("Durata de stocare", [
+  "Solicitările fără rezervare: 24 de luni de la ultima interacțiune. Abonările la notificări: "
+  "până la retragerea consimțământului. Datele contractuale: durata contractului plus 10 ani. "
+  "Jurnalele tehnice: maximum 12 luni. Modulele cookie: conform Politicii de cookies."]),
+ ("Drepturile persoanei vizate", [
+  "- Dreptul de acces (art. 15): confirmarea prelucrării și o copie a datelor.",
+  "- Dreptul la rectificare (art. 16): corectarea datelor inexacte sau completarea celor incomplete.",
+  "- Dreptul la ștergere (art. 17): în cazurile prevăzute de lege, de exemplu când datele nu mai "
+  "sunt necesare sau consimțământul a fost retras.",
+  "- Dreptul la restricționarea prelucrării (art. 18).",
+  "- Dreptul la portabilitatea datelor (art. 20): primirea datelor într-un format structurat, "
+  "utilizat în mod curent, pentru prelucrările bazate pe consimțământ sau contract.",
+  "- Dreptul la opoziție (art. 21), inclusiv, oricând și fără justificare, față de marketingul direct.",
+  "- Dreptul de a nu face obiectul unei decizii bazate exclusiv pe prelucrare automatizată "
+  "(art. 22). Nu utilizăm astfel de decizii.",
+  "- Dreptul de a retrage consimțământul oricând, fără a afecta legalitatea prelucrării anterioare.",
+  "- Dreptul de a depune plângere la autoritatea de supraveghere."]),
+ ("Cum vă exercitați drepturile", [
+  "Trimiteți o solicitare la dpo@emerald-city.ro sau în scris la sediul operatorului, indicând "
+  "dreptul invocat și datele de identificare necesare. Răspundem în cel mult o lună de la primire; "
+  "termenul poate fi prelungit cu două luni în cazuri complexe, cu informarea dumneavoastră. "
+  "Exercitarea drepturilor este gratuită, cu excepția cererilor vădit nefondate sau excesive.",
+  "Pentru protejarea datelor, putem solicita informații suplimentare de verificare a identității "
+  "înainte de a răspunde."]),
+ ("Autoritatea de supraveghere", [
+  "Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (ANSPDCP), "
+  "B-dul G-ral. Gheorghe Magheru nr. 28-30, sector 1, București, cod poștal 010336; telefon "
+  "+40 318 059 211; e-mail anspdcp@dataprotection.ro; www.dataprotection.ro."]),
+ ("Caracterul furnizării datelor", [
+  "Furnizarea datelor de contact este necesară pentru a răspunde solicitărilor și pentru a "
+  "programa o vizionare; fără ele, solicitarea nu poate fi procesată. Furnizarea datelor pentru "
+  "notificări și comunicări comerciale este voluntară. Datele de identificare complete sunt "
+  "cerute de lege pentru încheierea actelor de rezervare și vânzare."]),
+ ("Actualizarea informării", [
+  f"Informarea se actualizează ori de câte ori scopurile, destinatarii sau duratele se modifică. "
+  f"Ultima actualizare: {DATA_ACT}."]),
+],
 }
 
 
 def pagina_legala(slug):
     r = "../"
     titlu, descriere = LEGALE[slug]
+    sectiuni = TEXTE_LEGALE[slug]
+    cuprins = "".join(f'<li><a href="#s{i}"><span>{i:02d}</span>{e(t)}</a></li>'
+                      for i, (t, _) in enumerate(sectiuni, 1))
+    corp = ""
+    for i, (t, elems) in enumerate(sectiuni, 1):
+        corp += f'<section class="ec-legal__s" id="s{i}"><h2><span>{i:02d}</span>{e(t)}</h2>'
+        lista = []
+        def goleste():
+            nonlocal corp, lista
+            if lista:
+                corp += "<ul>" + "".join(f"<li>{e(x)}</li>" for x in lista) + "</ul>"
+                lista = []
+        for el in elems:
+            if isinstance(el, tuple):
+                goleste()
+                cap, randuri = el
+                th = "".join(f"<th>{e(c.strip())}</th>" for c in cap.split("/"))
+                tr = "".join("<tr>" + "".join(f"<td>{e(c)}</td>" for c in rd) + "</tr>" for rd in randuri)
+                corp += f'<div class="ec-table ec-legal__t"><table><thead><tr>{th}</tr></thead><tbody>{tr}</tbody></table></div>'
+            elif el.startswith("- "):
+                lista.append(el[2:])
+            else:
+                goleste()
+                corp += f"<p>{e(el)}</p>"
+        goleste()
+        corp += "</section>"
+
+    altele = "".join(
+        f'<a class="ec-legal__alt" href="{r}{sl}/">{ic("file-lines")} {e(LEGALE[sl][0])}</a>'
+        for sl in LEGALE if sl != slug)
+
     continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>{titlu}</nav>
-  <header class="ec-phead">
+  <header class="ec-legal__h">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>{e(titlu)}</nav>
     <p class="ec-eyebrow">Informații legale</p>
-    <h1 style="margin-top:1rem">{titlu}</h1>
-    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">{descriere}</p>
+    <h1>{e(titlu)}</h1>
+    <p class="ec-legal__lead">{e(descriere)}</p>
+    <div class="ec-legal__meta">
+      <span>{ic("calendar-days")} Ultima actualizare: {DATA_ACT}</span>
+      <span>{ic("building")} Tala Sapphire S.R.L. · Green Stone Group</span>
+      <span>{ic("envelope")} dpo@emerald-city.ro</span>
+    </div>
   </header>
 
-  <div class="ec-prose" style="margin-bottom:2rem">
-    <h2>Document în pregătire</h2>
-    <p>
-      Textul acestui document se redactează împreună cu consilierul juridic al
-      dezvoltatorului și va fi publicat înainte de lansarea site-ului. Până atunci,
-      pentru orice întrebare privind datele personale sau condițiile de utilizare, ne
-      scrie la <a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a>.
-    </p>
-    <h3>Operator de date</h3>
-    <p>Tala Sapphire S.R.L., Str. Ion Nistor, Iași.</p>
-    <h3>Soluționarea reclamațiilor</h3>
-    <p>
-      Pentru soluționarea alternativă a litigiilor sunt disponibile platforma
-      <a href="https://anpc.ro/ce-este-sal/" rel="nofollow noopener" target="_blank">ANPC SAL</a>
-      sau platforma europeană
-      <a href="https://ec.europa.eu/consumers/odr" rel="nofollow noopener" target="_blank">SOL</a>.
-    </p>
+  <div class="ec-legal">
+    <aside class="ec-legal__nav">
+      <div class="ec-legal__navi">
+        <b>Cuprins</b>
+        <ol>{cuprins}</ol>
+        <div class="ec-legal__alte">{altele}</div>
+      </div>
+    </aside>
+    <article class="ec-legal__body">{corp}
+      <div class="ec-legal__foot">
+        <p>Pentru orice întrebare legată de acest document: <a href="mailto:dpo@emerald-city.ro">dpo@emerald-city.ro</a>
+           sau <a href="{r}contact/">pagina de contact</a>.</p>
+      </div>
+    </article>
   </div>
 
-  <div style="margin-bottom:4rem">{formular(None, r)}</div>
-</div>"""
+  <section class="ec-section" style="padding-block:var(--ec-section)">
+    {cta_dublu(r, slug)}
+  </section>
+</div>
+<script>
+(() => {{
+  const leg = [...document.querySelectorAll('.ec-legal__navi a[href^="#s"]')];
+  const sec = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!sec.length) return;
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (!x.isIntersecting) return;
+    leg.forEach(a => a.classList.toggle('is-on', a.getAttribute('href') === '#' + x.target.id));
+  }}), {{ rootMargin: '-20% 0px -70% 0px' }});
+  sec.forEach(s => o.observe(s));
+}})();
+</script>"""
     return pagina(f"{titlu} — Emerald City Iași", descriere, continut, r, None, slug + "/")
 
 
@@ -5539,6 +6193,7 @@ def main():
     for nume, continut in (("investitie-apartamente-iasi", pagina_investitie(unitati)),
                            ("compara", pagina_comparator()),
                            ("contact", pagina_contact()),
+                           ("programare-vizionare", pagina_programare(unitati)),
                            ("apartamente-iasi-pacurari", pagina_zona()),
                            ("stadiu-lucrari", pagina_stadiu()),
                            ("despre-emerald-city", pagina_despre()),

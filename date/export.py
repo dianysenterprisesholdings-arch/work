@@ -19,7 +19,7 @@ DOMENIU = "https://emerald-city.ro"
 DIRECTOARE = [
     "assets", "brand",
     "apartamente-iasi",
-    "investitie-apartamente-iasi", "compara", "contact",
+    "investitie-apartamente-iasi", "compara", "contact", "programare-vizionare",
     "apartamente-iasi-pacurari", "stadiu-lucrari",
     "despre-emerald-city", "despre-dezvoltator",
     "proiect", "aparitii-presa", "finisaje",

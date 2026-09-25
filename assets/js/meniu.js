@@ -61,7 +61,7 @@
       : `<a class="ec-mob__t ec-mob__t--simplu" href="${g.href}">${g.titlu}</a>`).join('') +
     '</nav>' +
     `<div class="ec-mob__f">
-       <a class="ec-btn" href="${radacina}contact/">
+       <a class="ec-btn" href="${radacina}programare-vizionare/">
          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Programare vizionare</a>
        <a class="ec-mob__tel" href="tel:+40757707080">
          <i class="fa-solid fa-phone" aria-hidden="true"></i> 0757 70 70 80</a>

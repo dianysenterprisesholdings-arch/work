@@ -32,7 +32,7 @@
        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
        <span><b>WhatsApp</b><em>Răspundem azi</em></span>
      </a>
-     <a class="ec-abar__a ec-abar__a--pr" href="${radacina}contact/">
+     <a class="ec-abar__a ec-abar__a--pr" href="${radacina}programare-vizionare/">
        <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
        <span><b data-scurt="Vizionare">Programare vizionare</b><em>40 de minute, la fața locului</em></span>
      </a>`;
