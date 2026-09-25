@@ -260,6 +260,7 @@ def ruleaza():
                 tmp = os.path.join(dest, "index.tmp")
                 io.open(tmp, "w", encoding="utf-8", newline="
 ").write(out)
+").write(out)
                 os.replace(tmp, os.path.join(dest, "index.html"))
                 break
             except OSError:
