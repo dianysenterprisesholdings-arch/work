@@ -1179,7 +1179,7 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 
 /* numele camerelor, mai lizibile in schema */
 .ec-type__plan .pn { font-size: 10.5px; }
-.ec-planbox .pn { font-size: 8.5px; }
+.ec-planbox .pn { font-size: 7.5px; }
 /* pictograme in listele de distante si pe cifre */
 .ec-dist span svg, .ec-foot__stats span svg, .ec-manifest__stats > div > span svg {
   color: var(--ec-brass); flex: none;
@@ -1600,8 +1600,8 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-phero .ec-eyebrow { color: var(--ec-brass); }
 .ec-phero h1 {
   font-family: var(--ec-disp); font-weight: 600; letter-spacing: -.025em;
-  font-size: clamp(2rem, 5.2vw, 3.75rem); line-height: 1.04;
-  margin-top: 1.1rem; max-width: 18ch;
+  font-size: clamp(1.85rem, 4.1vw, 3.1rem); line-height: 1.06;
+  margin-top: 1.1rem; max-width: 30ch; text-wrap: balance;
 }
 .ec-phero__sub {
   margin-top: 1.5rem; max-width: 56ch;
@@ -2535,7 +2535,7 @@ body.are-abar .ec-wa { opacity: 0; visibility: hidden; pointer-events: none; }
    Pagina de apartament
    ========================================================================== */
 .ec-phero--unit .ec-tag { margin-bottom: 1rem; }
-.ec-phero--unit h1 { max-width: 24ch; font-size: clamp(1.7rem, 4vw, 2.85rem); }
+.ec-phero--unit h1 { max-width: 34ch; font-size: clamp(1.6rem, 3.4vw, 2.6rem); }
 .ec-uchips { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 2rem; }
 .ec-uchips span {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -2561,3 +2561,16 @@ body.are-abar .ec-wa { opacity: 0; visibility: hidden; pointer-events: none; }
   margin-left: auto; font-family: var(--ec-disp); font-size: .875rem;
   font-weight: 600; color: var(--ec-emerald); font-variant-numeric: tabular-nums;
 }
+
+/* ==========================================================================
+   Schema de compartimentare — dimensiuni de baza pentru textul din SVG
+
+   Fara ele, textul mosteneste corpul de litera al paginii si, cum viewBox-ul
+   are doar ~230 de unitati latime, ajunge de trei ori mai mare decat trebuie
+   si se revarsa peste desen. Regula se aplica oriunde apare schema.
+   ========================================================================== */
+svg .pn { font-size: 9px; }
+svg .pa, svg .pd { font-size: 7px; }
+svg .pa { fill: var(--ec-brass); }
+.ec-planbox .pn { font-size: 7.5px; }
+.ec-planbox .pa, .ec-planbox .pd { font-size: 6px; }

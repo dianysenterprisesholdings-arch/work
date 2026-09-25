@@ -417,8 +417,10 @@ def plan_svg(nr_camere, tip=None, su=None, compact=False):
             piese.append(
                 f'<text class="pn" x="{cx:.1f}" y="{cy - (4 if not mic else 1):.1f}">{et}</text>')
             if not mic:
+                # virgula zecimala se pune doar in numar, nu si in coordonate
+                aria_txt = f"{arie:.1f}".replace(".", ",")
                 piese.append(f'<text class="pa" x="{cx:.1f}" y="{cy + 8:.1f}">'
-                             f'{arie:.1f}'.replace(".", ",") + ' m²</text>')
+                             f'{aria_txt} m²</text>')
 
     # ferestre pe peretele exterior si usi pe peretii interiori:
     # o schema fara ele arata ca o diagrama, nu ca un plan
@@ -450,7 +452,7 @@ def plan_svg(nr_camere, tip=None, su=None, compact=False):
                  f'transform="rotate(90 {W + 20} {H/2:.0f})">'
                  + f'{total / lat:.1f}'.replace(".", ",") + ' m</text>')
 
-    return (f'<svg viewBox="-4 -4 {W + 34:.0f} {H + 32:.0f}" role="img" '
+    return (f'<svg viewBox="-16 -16 {W + 58:.0f} {H + 56:.0f}" role="img" '
             f'aria-label="Schemă de compartimentare, tipologia {tip or nr_camere}">'
             + "".join(piese) + '</svg>')
 
@@ -459,13 +461,15 @@ _PL = os.path.join(RAD, "assets", "data", "planuri.json")
 PLANURI = json.load(open(_PL, encoding="utf-8")) if os.path.exists(_PL) else {}
 
 
-def plan_interactiv(tip, nr_camere, r):
+def plan_interactiv(tip, nr_camere, r, su=None):
     """Plan cu hotspot-uri pe camere. Cade pe schita schematica daca nu exista."""
     d = PLANURI.get(tip)
     if not d:
-        return (f'<div class="ec-planbox">{plan_svg(nr_camere)}'
-                f'<p class="ec-plan__note">Schiță orientativă. Planul cotat se predă la semnarea '
-                f'antecontractului.</p></div>')
+        # schita se deseneaza cu compartimentarea si suprafata reale, nu generice
+        return (f'<div class="ec-planbox">{plan_svg(nr_camere, tip, su)}'
+                f'<p class="ec-plan__note">Schiță orientativă, la scară, cu suprafețele '
+                f'calculate pentru această compartimentare. Planul cotat se predă la '
+                f'semnarea antecontractului.</p></div>')
 
     spots, legenda = "", ""
     for i, c in enumerate(d["camere"], 1):
@@ -866,10 +870,17 @@ def pagina_unitate(u, similare):
             (f"{ppm} €/m²", "Preț pe metru pătrat", "calculator"),
         ])
 
+    NUME_CAMERA = {"living-01": "Living", "living-02": "Living", "dining-01": "Dining",
+                   "bucatarie-01": "Bucătărie", "dormitor-01": "Dormitor",
+                   "dormitor-02": "Dormitor", "baie-01": "Grup sanitar", "hol-01": "Hol",
+                   "hero-living": "Living"}
+    et_gal = f"Apartament {camere_txt(u['nr_camere'])} tip {tip}"
     galerie = "".join(
         f'<figure class="ec-pgal__i ec-rv">'
-        f'{imagine(x, f"Apartament tip {tip} la Emerald City", r, "(min-width: 70rem) 33vw, 100vw")}'
-        f'</figure>' for x in imagini[:3])
+        f'{imagine(x, f"{NUME_CAMERA.get(x, chr(73) + chr(110) + chr(116) + chr(101) + chr(114) + chr(105) + chr(111) + chr(114))} — {et_gal}, Emerald City Iași", r, "(min-width: 70rem) 33vw, 100vw")}'
+        f'<figcaption class="ec-pgal__c"><b>{e(NUME_CAMERA.get(x, "Interior"))}</b>'
+        f'<span>{e(et_gal)}</span></figcaption></figure>'
+        for x in imagini[:3])
 
     incluse = "".join(
         f'<div class="ec-fac__i ec-rv"><i>{ic(p)}</i><span>{e(t)}</span></div>'
@@ -959,7 +970,7 @@ def pagina_unitate(u, similare):
       </p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
-      {plan_interactiv(tip, u['nr_camere'], r)}
+      {plan_interactiv(tip, u['nr_camere'], r, u['su_utila'])}
       <div class="ec-rooms">
         <table>
           <caption class="ec-sr">Suprafețe pe cameră</caption>
@@ -974,7 +985,7 @@ def pagina_unitate(u, similare):
   <section class="ec-section" id="galerie" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">02 — Galerie</span>
-        <h2>Cum arată <em>finisat</em></h2></div>
+        <h2>Apartamentul-model, <em>în imagini</em></h2></div>
       <p class="ec-shead__p">
         Randări din apartamentul-model de tip {tip}, cu finisajele incluse în preț.
       </p>
@@ -1194,11 +1205,12 @@ def pagina_tip(cod, unitati_tip, grupe):
         f"<tr><td>{nume}</td><td>{mp(round(su_med * pond, 2))}</td></tr>"
         for nume, pond in CAMERE_TIP[cod])
 
+    et_gal = f"Apartament {camere_txt(nr)} tip {cod}"
     galerie = "".join(
         f'<figure class="ec-pgal__i ec-rv">'
-        f'{imagine(x, NUME_CAMERA.get(x, "Interior") + f" — apartament tip {cod}", r, "(min-width: 70rem) 33vw, 100vw")}'
+        f'{imagine(x, f"{NUME_CAMERA.get(x, chr(73) + chr(110) + chr(116) + chr(101) + chr(114) + chr(105) + chr(111) + chr(114))} — {et_gal}, Emerald City Iași", r, "(min-width: 70rem) 33vw, 100vw")}'
         f'<figcaption class="ec-pgal__c"><b>{e(NUME_CAMERA.get(x, "Interior"))}</b>'
-        f'<span>Tip {cod}</span></figcaption></figure>'
+        f'<span>{e(et_gal)}</span></figcaption></figure>'
         for x in imagini[:3])
 
     et_lista = []
@@ -1322,14 +1334,14 @@ def pagina_tip(cod, unitati_tip, grupe):
   <section class="ec-section" id="plan">
     <div class="ec-shead">
       <div><span class="ec-shead__n">01 — Planul</span>
-        <h2>Compartimentarea <em>tip {cod}</em></h2></div>
+        <h2>Compartimentare apartament <em>{camere_txt(nr)} tip {cod}</em></h2></div>
       <p class="ec-shead__p">
         Suprafețele pe cameră sunt calculate pentru suprafața medie a acestei
         compartimentări. Cotele exacte diferă de la o unitate la alta.
       </p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
-      {plan_interactiv(cod, nr, r)}
+      {plan_interactiv(cod, nr, r, su_med)}
       <div class="ec-rooms">
         <table>
           <caption class="ec-sr">Suprafețe pe cameră, tip {cod}</caption>
@@ -1344,7 +1356,7 @@ def pagina_tip(cod, unitati_tip, grupe):
   <section class="ec-section" id="galerie" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">02 — Galerie</span>
-        <h2>Cum arată <em>finisat</em></h2></div>
+        <h2>Apartamentul-model, <em>în imagini</em></h2></div>
       <p class="ec-shead__p">
         Randări din apartamentul-model de tip {cod}, cu finisajele incluse în preț.
       </p>
@@ -2177,9 +2189,10 @@ def pagina_categorie(nr, unitati, grupe):
             if x not in vazute:
                 vazute.add(x); imagini.append(x)
     imagini = imagini[:3] if len(imagini) >= 3 else imagini
+    et_gal = f"{c['titlu']} în Iași, zona Păcurari"
     galerie = "".join(
         f'<figure class="ec-pgal__i ec-rv">'
-        f'{imagine(x, NUME_CAMERA.get(x, "Interior") + f" — apartament de {camere_txt(nr)}", r, "(min-width: 70rem) 33vw, 100vw")}'
+        f'{imagine(x, f"{NUME_CAMERA.get(x, chr(73) + chr(110) + chr(116) + chr(101) + chr(114) + chr(105) + chr(111) + chr(114))} — {et_gal}, Emerald City", r, "(min-width: 70rem) 33vw, 100vw")}'
         f'<figcaption class="ec-pgal__c"><b>{e(NUME_CAMERA.get(x, "Interior"))}</b>'
         f'<span>{e(c["titlu"])}</span></figcaption></figure>'
         for x in imagini)
@@ -2309,7 +2322,7 @@ def pagina_categorie(nr, unitati, grupe):
   <section class="ec-section" id="galerie" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">02 — Galerie</span>
-        <h2>Cum arată <em>finisat</em></h2></div>
+        <h2>Apartamentul-model, <em>în imagini</em></h2></div>
       <p class="ec-shead__p">
         Randări din apartamentele-model, cu finisajele incluse în preț.
       </p>
