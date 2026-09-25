@@ -363,10 +363,13 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
   document.querySelectorAll('[data-plan]').forEach(p => {{
     const tip = p.querySelector('[data-tip]');
     const spots = [...p.querySelectorAll('.ec-plan__spot')];
+    const zone = [...p.querySelectorAll('.ec-plan__room, .ec-plan__halo')];
     const randuri = [...p.querySelectorAll('.ec-plan__legend li')];
     const arata = (i, on) => {{
       spots.forEach(s => s.classList.toggle('is-on', on && s.dataset.i === i));
+      zone.forEach(z => z.classList.toggle('is-on', on && z.dataset.i === i));
       randuri.forEach(r => r.classList.toggle('is-on', on && r.dataset.i === i));
+      if (!tip) return;
       const s = spots.find(x => x.dataset.i === i);
       if (on && s) {{
         tip.innerHTML = s.getAttribute('aria-label');
@@ -375,7 +378,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
         tip.classList.add('is-on');
       }} else tip.classList.remove('is-on');
     }};
-    [...spots, ...randuri].forEach(el => {{
+    [...spots, ...randuri, ...p.querySelectorAll('.ec-plan__room')].forEach(el => {{
       const i = el.dataset.i;
       el.addEventListener('mouseenter', () => arata(i, true));
       el.addEventListener('mouseleave', () => arata(i, false));
@@ -464,7 +467,8 @@ def plan_svg(nr_camere, tip=None, su=None, compact=False):
     # folosit in schita mare (7,5px) — ca sa nu scriem nume peste pereti
     lat_text = lambda t, corp=7.5: len(t) * 0.58 * corp
     for nr_cam, (nume, pond, x, yy, w, h) in enumerate(incaperi, 1):
-        piese.append(f'<rect x="{x + GROS:.1f}" y="{yy + GROS:.1f}" '
+        piese.append(f'<rect class="ec-plan__room" data-i="{nr_cam}" '
+                     f'x="{x + GROS:.1f}" y="{yy + GROS:.1f}" '
                      f'width="{max(w - GROS * 2, 1):.1f}" height="{max(h - GROS * 2, 1):.1f}" '
                      f'fill="#fff"/>')
         cx, cy = x + w / 2, yy + h / 2
@@ -544,19 +548,19 @@ def plan_interactiv(tip, nr_camere, r, su=None):
         cam = CAMERE_TIP.get(tip or "", [])
         total = su or 60.0
         legenda = "".join(
-            f'<li><i>{i}</i><span>{nume}</span>'
+            f'<li data-i="{i}"><i>{i}</i><span>{nume}</span>'
             f'<b>{mp(round(total * pond, 2))}</b></li>'
             for i, (nume, pond) in enumerate(cam, 1))
-        return (f'<div class="ec-planbox">{plan_svg(nr_camere, tip, su)}'
+        return (f'<div class="ec-planbox" data-plan>{plan_svg(nr_camere, tip, su)}'
                 + (f'<ul class="ec-plan__legend">{legenda}</ul>' if legenda else "")
-                + f'<p class="ec-plan__note">Schiță orientativă, la scară, cu suprafețele '
-                f'calculate pentru această compartimentare. Planul cotat se predă la '
-                f'semnarea antecontractului.</p></div>')
+                + '</div>')
 
     spots, legenda = "", ""
     for i, c in enumerate(d["camere"], 1):
         et = f'{c["nume"]} &middot; {mp(c["aria"])}'
-        spots += (f'<button class="ec-plan__spot" style="left:{c["x"]}%;top:{c["y"]}%" '
+        spots += (f'<span class="ec-plan__halo" data-i="{i}" '
+                  f'style="left:{c["x"]}%;top:{c["y"]}%"></span>'
+                  f'<button class="ec-plan__spot" style="left:{c["x"]}%;top:{c["y"]}%" '
                   f'data-i="{i}" aria-label="{e(et)}">{i}</button>')
         legenda += (f'<li data-i="{i}"><i>{i}</i><span>{c["nume"]}</span>'
                     f'<b>{mp(c["aria"])}</b></li>')
@@ -570,8 +574,8 @@ def plan_interactiv(tip, nr_camere, r, su=None):
   </figure>
   <ul class="ec-plan__legend">{legenda}</ul>
   <p class="ec-plan__note">
-    Treci cu mouse-ul peste numerele de pe plan pentru suprafața fiecărei camere.
-    Plan orientativ; cotele definitive se predau la semnarea antecontractului.
+    Suprafața fiecărei camere apare la trecerea cursorului peste numere.
+    Cotele definitive se predau la semnarea antecontractului.
   </p>
 </div>"""
 
@@ -750,6 +754,36 @@ def cta_preturi(r, imagine_fundal="dining-01"):
       </form>
     </div>
   </section>"""
+
+# ------------------------------------------------- suprafete si finisaje
+FINISAJE_SCURT = [
+    ("fire-flame-simple", "Încălzire în pardoseală", "în toate camerele"),
+    ("gauge-high",        "Centrală în condensație", "economie până la 35% la gaz"),
+    ("border-all",        "Tâmplărie PVC, 7 camere", "geam tripan, sticlă Low-E"),
+    ("grip-lines",        "Parchet laminat 10 mm", "clasă de trafic intens"),
+    ("bath",              "Grup sanitar echipat", "gresie, faianță, obiecte sanitare"),
+    ("video",             "Videointerfon", "acces controlat în bloc și parcare"),
+]
+
+
+def panou_suprafete(r, su, ext, eticheta_ext, total):
+    """Suprafata utila, cea totala si finisajele incluse — langa plan."""
+    fin = "".join(
+        f'<li><span class="ec-dot__i">{ic(p)}</span>'
+        f'<span><b>{e(t)}</b><em>{e(d)}</em></span></li>'
+        for p, t, d in FINISAJE_SCURT)
+    ext_html = (f'<div class="ec-supraf__c"><span>{e(eticheta_ext)}</span><b>{e(ext)}</b></div>'
+                if ext else "")
+    return f"""<div class="ec-supraf">
+        <div class="ec-supraf__cifre">
+          <div class="ec-supraf__c"><span>Suprafață utilă</span><b>{e(su)}</b></div>
+          {ext_html}
+          <div class="ec-supraf__c ec-supraf__c--total"><span>Suprafață totală</span><b>{e(total)}</b></div>
+        </div>
+        <div class="ec-supraf__h">Finisaje incluse în preț</div>
+        <ul class="ec-supraf__l">{fin}</ul>
+        <a class="ec-supraf__go" href="{r}finisaje/">{ic("arrow-right")} Lista completă a dotărilor</a>
+      </div>"""
 
 # ------------------------------------------------------------- imagini
 _LQ = os.path.join(RAD, "assets", "data", "lqip.json")
@@ -1047,20 +1081,16 @@ def pagina_unitate(u, similare):
       <div><span class="ec-shead__n">01 — Compartimentare</span>
         <h2>Planul <em>apartamentului</em></h2></div>
       <p class="ec-shead__p">
-        Suprafețele pe cameră sunt calculate din suprafața utilă a acestei unități.
-        Cotele exacte se confirmă în anexa contractului.
+        Planul compartimentării, cu suprafețele pe cameră. Cotele exacte se confirmă
+        în anexa contractului.
       </p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
       {plan_interactiv(tip, u['nr_camere'], r, u['su_utila'])}
-      <div class="ec-rooms">
-        <table>
-          <caption class="ec-sr">Suprafețe pe cameră</caption>
-          <tbody>{randuri}
-            <tr class="is-total"><td>Total suprafață utilă</td><td>{mp(u['su_utila'])}</td></tr>
-          </tbody>
-        </table>
-      </div>
+      {panou_suprafete(r, mp(u['su_utila']),
+                       mp(u['su_curte']) if u['su_curte'] > 0 else (mp(u['su_balcon']) if u['su_balcon'] > 0 else ""),
+                       "Curte proprie" if u['su_curte'] > 0 else "Balcon",
+                       mp(u['su_utila'] + (u['su_curte'] if u['su_curte'] > 0 else u['su_balcon'])))}
     </div>
   </section>
 
@@ -1098,27 +1128,13 @@ def pagina_unitate(u, similare):
     </dl>
   </section>
 
-  <section class="ec-section" id="incluse" style="padding-block:0 var(--ec-section)">
-    <div class="ec-shead">
-      <div><span class="ec-shead__n">04 — Incluse în preț</span>
-        <h2>Se predă <em>complet finisat</em></h2></div>
-      <p class="ec-shead__p">
-        Prețul include toate finisajele montate și garantate. Apartamentul este gata
-        de mobilat la data recepției.
-      </p>
-    </div>
-    <div class="ec-fac" style="margin-top:2.5rem">{incluse}</div>
-    <div class="ec-center" style="margin-top:2rem">
-      <a class="ec-btn ec-btn--out" href="{r}finisaje/">{ic("list-check")} Fișa tehnică completă</a>
-    </div>
-  </section>
 </div>
 
 <section class="ec-band" id="cartier">
   <div class="ec-wrap">
     <div class="ec-section">
       <div class="ec-shead">
-        <div><span class="ec-shead__n" style="color:var(--ec-brass)">05 — Cartierul</span>
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">04 — Cartierul</span>
           <h2>Ce urmează <em>dincolo de ușă</em></h2></div>
         <p class="ec-shead__p">
           Ansamblul are 5 hectare, din care 30,85% spațiu verde amenajat, în Iași,
@@ -1148,7 +1164,7 @@ def pagina_unitate(u, similare):
 <div class="ec-wrap">
   <section class="ec-section" id="costuri">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">06 — Costuri</span>
+      <div><span class="ec-shead__n">05 — Costuri</span>
         <h2>Cât ar însemna <em>lunar</em></h2></div>
       <p class="ec-shead__p">
         Simulare orientativă de rată, pornind de la prețul acestei unități.
@@ -1173,11 +1189,11 @@ def pagina_unitate(u, similare):
     {cta_dublu(r, uid)}
   </section>
 
-  {showroom(r, "07")}
+  {showroom(r, "06")}
 
   <section class="ec-section" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">08 — Alternative</span>
+      <div><span class="ec-shead__n">07 — Alternative</span>
         <h2>Apartamente <em>similare</em></h2></div>
       <p class="ec-shead__p">
         Aceeași compartimentare, la alt etaj sau în alt bloc, cu prețuri apropiate.
@@ -1288,9 +1304,16 @@ def pagina_tip(cod, unitati_tip, grupe):
             (f"{min(ppm):.0f} €/m²" if ppm else "—", "De la", "calculator", ""),
         ])
 
-    randuri_cam = "".join(
-        f"<tr><td>{nume}</td><td>{mp(round(su_med * pond, 2))}</td></tr>"
-        for nume, pond in CAMERE_TIP[cod])
+    # suprafata exterioara: curtea la parter, balconul in rest
+    balc = [u["su_balcon"] for u in us if u["su_balcon"] > 0]
+    curti_t = [u["su_curte"] for u in us if u["su_curte"] > 0]
+    if balc:
+        ext_min, ext_max, eticheta_ext = min(balc), max(balc), "Balcon"
+    elif curti_t:
+        ext_min, ext_max, eticheta_ext = min(curti_t), max(curti_t), "Curte proprie"
+    else:
+        ext_min = ext_max = 0
+        eticheta_ext = ""
 
     et_gal = f"Apartament {camere_txt(nr)} tip {cod}"
     galerie = "".join(
@@ -1423,20 +1446,15 @@ def pagina_tip(cod, unitati_tip, grupe):
       <div><span class="ec-shead__n">01 — Planul</span>
         <h2>Compartimentare apartament <em>{camere_txt(nr)} tip {cod}</em></h2></div>
       <p class="ec-shead__p">
-        Suprafețele pe cameră sunt calculate pentru suprafața medie a acestei
-        compartimentări. Cotele exacte diferă de la o unitate la alta.
+        Planul compartimentării, cu suprafețele pe cameră. Cotele exacte diferă
+        de la o unitate la alta și se confirmă în anexa contractului.
       </p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
       {plan_interactiv(cod, nr, r, su_med)}
-      <div class="ec-rooms">
-        <table>
-          <caption class="ec-sr">Suprafețe pe cameră, tip {cod}</caption>
-          <tbody>{randuri_cam}
-            <tr class="is-total"><td>Suprafață utilă medie</td><td>{mp(su_med)}</td></tr>
-          </tbody>
-        </table>
-      </div>
+      {panou_suprafete(r, f"{su_min:.0f}–{su_max:.0f} m²",
+                       f"{ext_min:.0f}–{ext_max:.0f} m²" if ext_max else "", eticheta_ext,
+                       f"{su_min + ext_min:.0f}–{su_max + ext_max:.0f} m²")}
     </div>
   </section>
 
@@ -2173,6 +2191,13 @@ FAQ_CAT = {
      ("Există garsoniere cu curte proprie?",
       "Da, cele de la parter. Curtea este în folosință exclusivă, cu pardoseală exterioară "
       "executată și priză proprie."),
+     ("Se poate cumpăra prin credit ipotecar?",
+      "Da, cu credit ipotecar standard sau, în limita plafonului, prin programul Noua Casă. "
+      "Avansul minim la antecontract este de 15%."),
+     ("Ce cheltuieli de întreținere are o garsonieră?",
+      "Consumurile sunt contorizate individual, iar încălzirea în pardoseală cu centrală în "
+      "condensație menține costurile reduse. Cheltuielile comune se stabilesc prin asociația "
+      "de proprietari."),
      ("Ce chirie se poate obține?",
       "Estimarea depinde de etaj, de dotările contractate și de momentul închirierii. Pagina "
       "de investiție include un calculator care pornește de la prețul fiecărei unități și "
@@ -2190,6 +2215,12 @@ FAQ_CAT = {
      ("Ce înseamnă boxă de depozitare?",
       "Un spațiu propriu în al doilea demisol, pentru bagaje, biciclete și lucrurile de "
       "sezon. Se contractează separat, în limita disponibilității din bloc."),
+     ("Care este avansul la antecontract?",
+      "15% din preț, la semnarea antecontractului la notar. Diferența se achită la predare "
+      "sau conform graficului agreat."),
+     ("Când se predau apartamentele de 2 camere?",
+      "În funcție de etapa în care se află blocul. Termenul de predare se înscrie în "
+      "antecontract, pentru fiecare unitate."),
      ("Are loc de parcare inclus?",
       "Locul de parcare se contractează separat, subteran sau la suprafață. Ansamblul are "
       "940 de locuri, dintre care 258 subterane.")],
@@ -2206,6 +2237,12 @@ FAQ_CAT = {
      ("Câte locuri de parcare pot contracta?",
       "Numărul de locuri care pot fi contractate pentru un apartament se stabilește la "
       "biroul de vânzări, în funcție de disponibilitatea din blocul respectiv."),
+     ("Se pot uni sau modifica camerele?",
+      "Modificările nestructurale se analizează la biroul de vânzări, în funcție de faza de "
+      "execuție a blocului. Pereții de rezistență nu se modifică."),
+     ("Ce orientare au apartamentele de 3 camere?",
+      "Diferă de la o unitate la alta; orientarea fiecărui apartament este afișată în lista "
+      "de disponibilitate și în pagina lui."),
      ("Ce suprafață are balconul?",
       "Balcoanele apartamentelor de trei camere sunt cele mai generoase din ansamblu. "
       "Suprafața exactă este afișată în pagina fiecărei unități.")],

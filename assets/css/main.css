@@ -2583,3 +2583,56 @@ svg .pa { fill: var(--ec-brass); }
 .ec-planbox .pn { text-anchor: middle; }
 .ec-planbox .pa { text-anchor: middle; }
 .ec-planbox .ec-plan__legend { width: 100%; }
+
+
+/* ==========================================================================
+   Panoul de lângă plan: suprafețe și finisaje incluse
+   ========================================================================== */
+.ec-supraf {
+  background: var(--ec-white); border: 1px solid var(--ec-line); border-radius: var(--ec-r);
+  padding: clamp(1.5rem, 3vw, 2.25rem); display: flex; flex-direction: column; gap: 1.25rem;
+}
+.ec-supraf__cifre {
+  display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); overflow: hidden;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+}
+.ec-supraf__c { background: var(--ec-white); padding: 1rem 1.1rem; }
+.ec-supraf__c span {
+  display: block; font-size: var(--ec-micro); letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ec-ink-40);
+}
+.ec-supraf__c b {
+  display: block; margin-top: .35rem; font-family: var(--ec-disp); font-weight: 600;
+  font-size: clamp(1.15rem, 2vw, 1.45rem); letter-spacing: -.015em; font-variant-numeric: tabular-nums;
+}
+.ec-supraf__c--total { background: var(--ec-sand); }
+.ec-supraf__c--total b { color: var(--ec-emerald); }
+.ec-supraf__h {
+  font-size: var(--ec-micro); letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 600; color: var(--ec-ink-40); padding-top: .25rem;
+}
+.ec-supraf__l { list-style: none; margin: 0; padding: 0; display: grid; gap: .85rem; }
+@media (min-width: 40rem) { .ec-supraf__l { grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem 1.25rem; } }
+.ec-supraf__l li { display: grid; grid-template-columns: auto minmax(0,1fr); gap: .75rem; align-items: start; }
+.ec-supraf__l b { display: block; font-size: .875rem; font-weight: 600; line-height: 1.3; }
+.ec-supraf__l em { display: block; margin-top: .15rem; font-style: normal; font-size: .75rem; color: var(--ec-ink-60); }
+.ec-supraf__go {
+  margin-top: auto; padding-top: 1.1rem; border-top: 1px solid var(--ec-line);
+  font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase;
+  font-weight: 600; color: var(--ec-brass); display: flex; align-items: center; gap: .5rem;
+}
+.ec-supraf__go:hover { color: var(--ec-emerald); }
+
+/* evidentierea camerei la trecerea cursorului: schita si planul real */
+.ec-plan__room { cursor: pointer; transition: fill var(--ec-fast); }
+.ec-plan__room:hover, .ec-plan__room.is-on { fill: #E9D9B4; }
+.ec-plan__legend li { cursor: pointer; }
+.ec-plan__halo {
+  position: absolute; width: 22%; aspect-ratio: 1; border-radius: 50%;
+  transform: translate(-50%, -50%); pointer-events: none;
+  background: radial-gradient(circle, rgba(184,147,79,.42) 0%, rgba(184,147,79,.18) 55%, rgba(184,147,79,0) 72%);
+  opacity: 0; transition: opacity var(--ec-fast); z-index: 1;
+}
+.ec-plan__halo.is-on { opacity: 1; }
+.ec-plan__spot { z-index: 2; }
