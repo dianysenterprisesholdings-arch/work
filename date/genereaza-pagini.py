@@ -1519,9 +1519,9 @@ FAQ_CAT = {
       "Da, cele de la parter. Curtea este în folosință exclusivă, cu pardoseală exterioară "
       "executată și priză proprie."),
      ("Ce chirie se poate obține?",
-      "Estimarea depinde de etaj, expunere și de momentul închirierii. Pagina de investiție "
-      "include un calculator care pornește de la prețul fiecărei unități și de la chiriile "
-      "practicate în zonă.")],
+      "Estimarea depinde de etaj, de dotările contractate și de momentul închirierii. Pagina "
+      "de investiție include un calculator care pornește de la prețul fiecărei unități și "
+      "de la chiriile practicate în zonă.")],
  2: [("Ce diferență este între tipurile 2A și 2B?",
       "2B are dormitorul mai generos și spațiu suplimentar de depozitare, la aceeași "
       "configurație a zonei de zi. Suprafețele diferă cu câțiva metri pătrați."),
@@ -1532,10 +1532,9 @@ FAQ_CAT = {
      ("Este potrivit pentru o familie cu un copil?",
       "Da. Dormitorul separat și zona de zi deschisă acoperă nevoile unei familii tinere, "
       "iar ansamblul are loc de joacă și spații verzi amenajate."),
-     ("Ce expunere este de preferat?",
-      "Expunerea sudică și sud-estică aduce cea mai multă lumină naturală pe parcursul zilei. "
-      "Panoul de selecție de mai sus arată câte apartamente sunt disponibile pe fiecare "
-      "orientare."),
+     ("Ce înseamnă boxă de depozitare?",
+      "Un spațiu propriu în al doilea demisol, pentru bagaje, biciclete și lucrurile de "
+      "sezon. Se contractează separat, în limita disponibilității din bloc."),
      ("Are loc de parcare inclus?",
       "Locul de parcare se contractează separat, subteran sau la suprafață. Ansamblul are "
       "940 de locuri, dintre care 258 subterane.")],
@@ -1636,11 +1635,17 @@ def pagina_categorie(nr, unitati, grupe):
             et_lista.append((etaj_txt(etj), len(n),
                              f"{lista}&amp;etaj={etj}",
                              "house-chimney" if etj == 0 else "building"))
-    or_lista = []
-    for o in sorted({u["orientare"] for u in disp}, key=lambda x: (len(x), x)):
-        n = [u for u in disp if u["orientare"] == o]
-        or_lista.append((ORIENTARE.get(o, o).capitalize(), len(n),
-                         f"{lista}&amp;orientare={o}", "compass"))
+    DOTARI_FILTRU = [
+        ("Curte proprie",       "curte",   "seedling",       lambda x: x["su_curte"] > 0),
+        ("Balcon",              "balcon",  "sun",            lambda x: x["su_balcon"] > 0),
+        ("Boxă de depozitare",  "boxa",    "box-archive",    lambda x: x["boxa_disponibila"] == "da"),
+        ("Parcare subterană",   "parcare", "square-parking", lambda x: x["parcare_subterana"] == "da"),
+    ]
+    dot_lista = []
+    for eticheta, cheie, pict, testeaza in DOTARI_FILTRU:
+        n = [u for u in disp if testeaza(u)]
+        if n:
+            dot_lista.append((eticheta, len(n), f"{lista}&amp;extra={cheie}", pict))
 
     def panou_filtru(titlu, pictograma, eticheta, randuri):
         li = "".join(
@@ -1758,7 +1763,7 @@ def pagina_categorie(nr, unitati, grupe):
   <section class="ec-section" id="selectie" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Selecție rapidă</span>
-        <h2>Selecție <em>după etaj și expunere</em></h2></div>
+        <h2>Selecție <em>după etaj și dotări</em></h2></div>
       <p class="ec-shead__p">
         Fiecare rând deschide lista filtrată. Numărul reprezintă apartamentele
         disponibile la data actualizării.
@@ -1766,7 +1771,7 @@ def pagina_categorie(nr, unitati, grupe):
     </div>
     <div class="ec-dotari" style="margin-top:2.5rem">
       {panou_filtru("După etaj", "building", "Nivelul apartamentului", et_lista)}
-      {panou_filtru("După expunere", "sun", "Orientare solară", or_lista)}
+      {panou_filtru("După dotări", "list-check", "Curte, boxă, parcare", dot_lista)}
     </div>
   </section>
 
@@ -1820,7 +1825,7 @@ def pagina_categorie(nr, unitati, grupe):
       <div><span class="ec-shead__n">07 — Întrebări</span>
         <h2>Despre <em>{e(c['titlu'].lower())}</em></h2></div>
       <p class="ec-shead__p">
-        {len(FAQ_CAT[nr])} întrebări despre suprafețe, compartimentări, expunere și condiții.
+        {len(FAQ_CAT[nr])} întrebări despre suprafețe, compartimentări, dotări și condiții.
       </p>
     </div>
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
