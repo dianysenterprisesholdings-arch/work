@@ -2371,3 +2371,131 @@ body.are-abar .ec-wa { opacity: 0; visibility: hidden; pointer-events: none; }
   margin: .9rem 0 1.5rem; font-size: .9375rem; color: var(--ec-ink-60);
   line-height: 1.75; max-width: 42ch;
 }
+
+/* indicatorul de parcurgere sta peste antetul lipit, nu sub el */
+.ec-prog { z-index: 101; height: 3px; }
+
+/* ==========================================================================
+   Etape — cât a mai rămas din fiecare
+   ========================================================================== */
+.ec-etps { display: grid; gap: var(--ec-gap); }
+@media (min-width: 52rem) { .ec-etps { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-etp {
+  background: var(--ec-white); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); padding: clamp(1.5rem, 3vw, 2rem);
+  display: flex; flex-direction: column; gap: .9rem;
+  transition: border-color var(--ec-fast);
+}
+.ec-etp:hover { border-color: var(--ec-brass); }
+.ec-etp__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.ec-etp__k { font-size: var(--ec-micro); letter-spacing: .14em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-etp h3 { font-family: var(--ec-disp); font-size: clamp(1.35rem, 2.6vw, 1.75rem); font-weight: 600; margin-top: .4rem; letter-spacing: -.015em; }
+.ec-etp__p {
+  font-family: var(--ec-disp); font-size: 1.15rem; font-weight: 600;
+  color: var(--ec-emerald); text-align: right; white-space: nowrap; line-height: 1.1;
+}
+.ec-etp__p small {
+  display: block; margin-top: .25rem; font-family: var(--ec-sans);
+  font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ec-ink-40); font-weight: 400;
+}
+.ec-etp__s { font-size: .9375rem; color: var(--ec-ink-60); }
+.ec-etp__s b { font-family: var(--ec-disp); font-size: 1.35rem; font-weight: 600; color: var(--ec-ink); }
+.ec-etp__bar { height: 8px; border-radius: 4px; background: var(--ec-mint); overflow: hidden; }
+.ec-etp__bar i {
+  display: block; height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--ec-emerald), var(--ec-brass));
+  width: 0; transition: width 1.1s var(--ec-ease);
+}
+.ec-etp__f {
+  margin-top: auto; padding-top: .9rem; border-top: 1px solid var(--ec-line);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40);
+}
+.ec-etp__f a { color: var(--ec-brass); font-weight: 600; white-space: nowrap; }
+.ec-etp__f a i { margin-right: .35rem; }
+.ec-etp.is-asteptare { background: var(--ec-sand); }
+.ec-etp.is-asteptare .ec-etp__bar i { background: var(--ec-ink-40); }
+
+/* pictogramele de rețele sociale din bara de sus */
+.ec-topbar__soc { display: inline-flex; align-items: center; gap: .15rem; }
+.ec-topbar__soc a {
+  width: 1.65rem; height: 1.65rem; border-radius: 50%;
+  display: grid; place-items: center; font-size: .8125rem;
+  color: rgba(255,255,255,.75);
+  transition: color var(--ec-fast), background var(--ec-fast);
+}
+.ec-topbar__soc a:hover { color: #fff; background: rgba(255,255,255,.14); }
+
+/* ==========================================================================
+   Meniu pe ecrane mici
+   ========================================================================== */
+.ec-burger {
+  display: grid; gap: 5px; align-content: center; justify-items: end;
+  width: 2.75rem; height: 2.75rem; padding: 0 .35rem;
+  background: transparent; border: 0; cursor: pointer; margin-left: auto;
+}
+.ec-burger span {
+  display: block; height: 2px; width: 22px; background: var(--ec-emerald);
+  border-radius: 2px; transition: transform var(--ec-fast), opacity var(--ec-fast), width var(--ec-fast);
+}
+.ec-burger span:nth-child(2) { width: 16px; }
+.ec-burger.is-on span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.ec-burger.is-on span:nth-child(2) { opacity: 0; }
+.ec-burger.is-on span:nth-child(3) { width: 22px; transform: translateY(-7px) rotate(-45deg); }
+@media (min-width: 64rem) { .ec-burger { display: none; } }
+
+.ec-mob {
+  position: fixed; inset: 0; z-index: 95;
+  background: var(--ec-white); overflow-y: auto;
+  padding: 6.5rem var(--ec-gutter) 2rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+  opacity: 0; visibility: hidden; transform: translateY(-.75rem);
+  transition: opacity .28s var(--ec-ease), visibility .28s, transform .28s var(--ec-ease);
+}
+.ec-mob.is-on { opacity: 1; visibility: visible; transform: none; }
+@media (min-width: 64rem) { .ec-mob { display: none; } }
+.ec-mob__n { display: grid; }
+.ec-mob__t {
+  width: 100%; background: transparent; border: 0; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.05rem 0; border-bottom: 1px solid var(--ec-line);
+  font: inherit; font-family: var(--ec-disp); font-size: 1.15rem; font-weight: 600;
+  color: var(--ec-ink); text-align: left;
+}
+.ec-mob__t i { color: var(--ec-brass); font-size: .8125rem; transition: transform var(--ec-fast); }
+.ec-mob__t[aria-expanded="true"] i { transform: rotate(180deg); }
+.ec-mob__t--simplu { display: flex; }
+.ec-mob__s { display: none; padding: .4rem 0 1rem; }
+.ec-mob__s.is-on { display: grid; gap: .1rem; }
+.ec-mob__l { display: block; padding: .7rem .9rem; border-radius: var(--ec-r); }
+.ec-mob__l:hover, .ec-mob__l:focus-visible { background: var(--ec-mint); }
+.ec-mob__l b { display: block; font-size: .9375rem; font-weight: 600; }
+.ec-mob__l em {
+  display: block; margin-top: .2rem; font-style: normal; font-size: .8125rem;
+  color: var(--ec-ink-60); line-height: 1.5;
+}
+.ec-mob__l--tot {
+  font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase;
+  font-weight: 600; color: var(--ec-brass);
+}
+.ec-mob__f {
+  margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--ec-line);
+  display: grid; gap: .8rem; justify-items: stretch;
+}
+.ec-mob__f .ec-btn { justify-content: center; }
+.ec-mob__tel {
+  display: flex; align-items: center; justify-content: center; gap: .6rem;
+  font-family: var(--ec-disp); font-size: 1.15rem; font-weight: 600; color: var(--ec-emerald);
+}
+.ec-mob__tel i { color: var(--ec-brass); font-size: .9rem; }
+/* butonul din antet lasa loc hamburgerului */
+@media (max-width: 64rem) { .ec-nav__in > .ec-btn { display: none; } }
+@media (prefers-reduced-motion: reduce) { .ec-mob, .ec-burger span { transition: none; } }
+
+/* antetul ramane deasupra panoului de meniu, ca logoul si butonul de
+   inchidere sa fie in continuare vizibile si accesibile */
+@media (max-width: 64rem) {
+  .ec-nav { z-index: 96; }
+  body.are-meniu .ec-nav { background: var(--ec-white); }
+}

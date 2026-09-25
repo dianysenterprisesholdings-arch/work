@@ -118,13 +118,20 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 </head>
 <body data-radacina="{r}">
 
+<div class="ec-prog" data-prog aria-hidden="true"></div>
+
 <div class="ec-topbar">
   <div class="ec-topbar__in">
     <span class="ec-topbar__l"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Apartamente Iași, zona Păcurari — <strong>DIRECT DEZVOLTATOR</strong></span>
     <div class="ec-topbar__right">
       <a href="tel:+40757707080"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 4h3l1.5 4-2 1.5a12 12 0 006 6L14.5 13l4 1.5v3a2 2 0 01-2.2 2A16 16 0 012.5 6.2 2 2 0 014.5 4z"/></svg> 0757 70 70 80</a>
       <a href="mailto:vanzari@emerald-city.ro"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg> vanzari@emerald-city.ro</a>
-      <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> L–V 9–18 · S 10–14</span>
+      <span class="ec-topbar__soc">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
+      </span>
     </div>
   </div>
 </div>
@@ -351,6 +358,8 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
 <script src="{r}assets/js/unelte.js"></script>
 <script src="{r}assets/js/galerie.js"></script>
 <script src="{r}assets/js/bara.js"></script>
+<script src="{r}assets/js/progres.js"></script>
+<script src="{r}assets/js/meniu.js"></script>
 </body>
 </html>
 """
@@ -490,7 +499,7 @@ def formular(u=None, r="../../"):
                f'blocul {bloc(u["corp"])}, {etaj_txt(u["etaj"]).lower()}</div>'
                f'<input type="hidden" name="unit_id" value="{e(u["unit_id"])}">')
     return f"""<div class="ec-form">
-  <h2 class="ec-form__t">Aveți întrebări?<br>Trimiteți-ne un mesaj</h2>
+  <h2 class="ec-form__t">Aveți întrebări? Trimiteți-ne un mesaj</h2>
   <p class="ec-form__i">
     Un consultant analizează solicitarea și revine cu un răspuns în aceeași zi
     lucrătoare. Pentru o vizionare, menționați în mesaj intervalul orar care
@@ -1300,13 +1309,24 @@ def pagina_hub(unitati, grupe):
         d = [u for u in us if u["status"] == "disponibil"]
         blocuri = sorted({bloc(u["corp"]) for u in us}, key=int)
         pm = min((x["pret_eur"] for x in d), default=None)
-        stare = f"{len(d)} disponibile" if d else "În curând"
-        etape += (f'<tr><td><b>Etapa {cod}</b></td>'
-                  f'<td>Blocurile {blocuri[0]}–{blocuri[-1]}</td>'
-                  f'<td class="num">{len(us)}</td>'
-                  f'<td class="num">{e(stare)}</td>'
-                  f'<td class="num">{euro(pm) if pm else "—"}</td>'
-                  f'<td><a href="{lista}?etapa={cod}">Vezi lista</a></td></tr>')
+        ocupat = round((len(us) - len(d)) * 100 / len(us))
+        if d:
+            stare = f'<b>{len(d)}</b> din {len(us)} încă disponibile'
+            eticheta, clasa = f"{ocupat}% contractate", ""
+        else:
+            stare = f"{len(us)} apartamente, în curând în vânzare"
+            eticheta, clasa, ocupat = "Nu a intrat în vânzare", " is-asteptare", 0
+        etape += f"""<article class="ec-etp{clasa} ec-rv">
+          <div class="ec-etp__top">
+            <div><span class="ec-etp__k">Blocurile {blocuri[0]}–{blocuri[-1]}</span>
+              <h3>Etapa {cod}</h3></div>
+            <span class="ec-etp__p">{euro(pm) if pm else '—'}<small>de la</small></span>
+          </div>
+          <p class="ec-etp__s">{stare}</p>
+          <div class="ec-etp__bar"><i data-w="{ocupat}"></i></div>
+          <div class="ec-etp__f"><span>{eticheta}</span>
+            {f'<a href="{lista}&amp;etapa={cod}">{ic("arrow-right")} Vezi lista</a>' if d else ''}</div>
+        </article>"""
 
     # ---- 05: cu curte proprie --------------------------------------------
     curti = [u for u in unitati if u["su_curte"] > 0]
@@ -1401,20 +1421,13 @@ def pagina_hub(unitati, grupe):
   <section class="ec-section" id="etape" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">04 — Etape</span>
-        <h2>Ce se vinde <em>în fiecare etapă</em></h2></div>
+        <h2>Cât a mai <em>rămas din fiecare etapă</em></h2></div>
       <p class="ec-shead__p">
-        Ansamblul se construiește în trei etape, fiecare intrând în vânzare la momentul corespunzător.
+        Ansamblul se construiește în trei etape. Procentul contractat se actualizează
+        din tabelul de vânzări.
       </p>
     </div>
-    <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
-      <table>
-        <caption class="ec-sr">Disponibilitate pe etape</caption>
-        <thead><tr><th scope="col">Etapă</th><th scope="col">Blocuri</th>
-          <th scope="col">Total</th><th scope="col">Stare</th>
-          <th scope="col">De la</th><th scope="col"></th></tr></thead>
-        <tbody>{etape}</tbody>
-      </table>
-    </div>
+    <div class="ec-etps" style="margin-top:2.5rem">{etape}</div>
   </section>
 </div>
 
@@ -1506,6 +1519,22 @@ def pagina_hub(unitati, grupe):
 {cta_preturi(r, "living-01")}
 
 <script>
+/* barele de etapa cresc la intrarea in ecran */
+(() => {{
+  const b = [...document.querySelectorAll('.ec-etp__bar i[data-w]')];
+  if (!b.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {{
+    b.forEach(x => {{ x.style.width = x.dataset.w + '%'; }});
+    return;
+  }}
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (!x.isIntersecting) return;
+    x.target.style.width = x.target.dataset.w + '%';
+    o.unobserve(x.target);
+  }}), {{ threshold: .3 }});
+  b.forEach(x => o.observe(x));
+}})();
+
 (() => {{
   const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
   if (!nr.length) return;
