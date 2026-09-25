@@ -489,7 +489,7 @@ def formular(u=None, r="../../"):
                f'<input type="hidden" name="unit_id" value="{e(u["unit_id"])}">')
     return f"""<div class="ec-form">
   <h2 class="ec-title" style="font-size:1.2rem">Cere detalii</h2>
-  <p class="ec-body" style="margin-bottom:1.25rem">Un consultant te sună în aceeași zi lucrătoare.</p>
+  <p class="ec-body" style="margin-bottom:1.25rem">Un consultant revine cu un răspuns în aceeași zi lucrătoare.</p>
   <form method="post" action="#" novalidate>
     {ctx}
     <div class="ec-form__grid">
@@ -1028,14 +1028,65 @@ ARGUMENTE = [
      '<path d="M12 21v-7M12 14c0-4 3-7 7-7 0 4-3 7-7 7zM12 14c0-4-3-7-7-7 0 4 3 7 7 7z"/>'),
 ]
 
-DOTARI = ["Finisaje premium incluse în preț", "Tâmplărie cu geam termoizolant",
-          "Încălzire în pardoseală în băi", "Balcon la fiecare apartament",
-          "Boxă disponibilă la demisol", "Interfon și acces controlat",
-          "Lift în fiecare bloc", "Contorizare individuală"]
-FACILITATI = ["Parc dendrologic amenajat", "Loc de joacă pentru copii",
-              "Spații comerciale la parter", "940 de locuri de parcare",
-              "Alei pietonale între blocuri", "Iluminat exterior integrat",
-              "Acces din Strada Ion Nistor", "7 km până în centrul Iașului"]
+# Fiecare dotare are pictograma ei, ca randul sa se citeasca dintr-o privire.
+DOTARI = [
+    ("list-check",         "Finisaje premium incluse în preț"),
+    ("border-all",         "Tâmplărie PVC cu 7 camere, geam tripan"),
+    ("fire-flame-simple",  "Încălzire în pardoseală în toate camerele"),
+    ("sun",                "Balcon la fiecare apartament"),
+    ("box-archive",        "Boxă de depozitare la demisol"),
+    ("video",              "Videointerfon și acces controlat"),
+    ("elevator",           "Lift în fiecare bloc"),
+    ("gauge",              "Contorizare individuală a consumurilor"),
+]
+FACILITATI = [
+    ("tree",            "Parc dendrologic amenajat"),
+    ("child-reaching",  "Loc de joacă pentru copii"),
+    ("shop",            "Spații comerciale la parter"),
+    ("square-parking",  "940 de locuri de parcare, 258 subterane"),
+    ("person-walking",  "Alei pietonale între blocuri"),
+    ("lightbulb",       "Iluminat exterior integrat"),
+    ("road",            "Acces din Strada Ion Nistor"),
+    ("city",            "4,8 km până în centrul Iașului"),
+]
+
+
+DOTARI_LOCUINTA = [
+    ("fire-flame-simple", "Încălzire în pardoseală în toate camerele"),
+    ("gauge-high",        "Centrală proprie în condensație"),
+    ("border-all",        "Tâmplărie PVC cu 7 camere și geam tripan"),
+    ("grip-lines",        "Parchet laminat de 10 mm, trafic intens"),
+    ("bath",              "Grup sanitar complet finisat și echipat"),
+    ("bolt",              "Instalație electrică cu aparataj montat"),
+    ("door-closed",       "Uși interioare montate, ușă metalică la intrare"),
+    ("video",             "Videointerfon"),
+    ("sun",               "Balcon la fiecare apartament"),
+    ("seedling",          "Curte proprie la parter, între 13 și 51 m²"),
+]
+DOTARI_CARTIER = [
+    ("bicycle",         "Piste de biciclete"),
+    ("dumbbell",        "Zone de fitness"),
+    ("child-reaching",  "Locuri de joacă"),
+    ("tree",            "Parc și spații verzi pe 15.501,80 m²"),
+    ("square-parking",  "940 de locuri de parcare, 258 subterane"),
+    ("charging-station","Preechipare pentru stații de încărcare auto"),
+    ("solar-panel",     "Panouri fotovoltaice"),
+    ("elevator",        "Lifturi în fiecare bloc"),
+    ("recycle",         "Colectare îngropată a deșeurilor"),
+    ("shop",            "Spații comerciale la parter"),
+]
+
+
+def panou_dotari(titlu, pictograma, elemente, eticheta=""):
+    """Un panou cu antet si randuri cu pictograma proprie."""
+    randuri = "".join(
+        f'<li><span class="ec-dot__i">{ic(p)}</span><span>{e(t)}</span></li>'
+        for p, t in elemente)
+    return (f'<div class="ec-dot ec-rv">'
+            f'<div class="ec-dot__h"><span class="ec-dot__c">{ic(pictograma)}</span>'
+            f'<span class="ec-dot__tx"><b>{e(titlu)}</b>'
+            f'<em>{e(eticheta or f"{len(elemente)} elemente")}</em></span></div>'
+            f'<ul class="ec-dot__l">{randuri}</ul></div>')
 
 SAGEATA = ('<span class="ec-arrow" style="padding:0"><svg width="22" height="10" viewBox="0 0 22 10"'
            ' fill="none" aria-hidden="true"><path d="M17 1l4 4-4 4M21 5H0" stroke="currentColor"'
@@ -1358,13 +1409,9 @@ def pagina_hub(unitati, grupe):
         Dotările incluse în fiecare locuință și facilitățile de folosință comună.
       </p>
     </div>
-    <div class="ec-lists" style="margin-top:2.5rem">
-      <div class="ec-list"><h3>{ic("house-chimney")} Dotări apartament</h3><ul>
-        {"".join(f"<li>{e(x)}</li>" for x in DOTARI)}
-      </ul></div>
-      <div class="ec-list"><h3>{ic("tree-city")} Facilități ansamblu</h3><ul>
-        {"".join(f"<li>{e(x)}</li>" for x in FACILITATI)}
-      </ul></div>
+    <div class="ec-dotari" style="margin-top:2.5rem">
+      {panou_dotari("Dotări apartament", "house-chimney", DOTARI, "Incluse în preț")}
+      {panou_dotari("Facilități ansamblu", "tree-city", FACILITATI, "Folosință comună")}
     </div>
     <div class="ec-center" style="margin-top:2rem">
       <a class="ec-btn ec-btn--out" href="{r}finisaje/">{ic("list-check")} Lista completă a dotărilor în preț</a>
@@ -4059,37 +4106,9 @@ def pagina_despre():
         Dotările locuinței și facilitățile de folosință comună.
       </p>
     </div>
-    <div class="ec-lists" style="margin-top:2.5rem">
-      <div class="ec-list">
-        <h3>{ic("house-chimney")} În apartament</h3>
-        <ul>
-          <li>Încălzire în pardoseală în toate camerele</li>
-          <li>Centrală proprie în condensație</li>
-          <li>Tâmplărie PVC cu 7 camere și geam tripan</li>
-          <li>Parchet laminat de 10 mm, trafic intens</li>
-          <li>Grup sanitar complet finisat și echipat</li>
-          <li>Instalație electrică cu aparataj montat</li>
-          <li>Uși interioare montate, ușă metalică la intrare</li>
-          <li>Videointerfon</li>
-          <li>Balcon la fiecare apartament</li>
-          <li>Curte proprie la parter, între 13 și 51 m²</li>
-        </ul>
-      </div>
-      <div class="ec-list">
-        <h3>{ic("tree-city")} În cartier</h3>
-        <ul>
-          <li>Piste de biciclete</li>
-          <li>Zone de fitness</li>
-          <li>Locuri de joacă</li>
-          <li>Parc și spații verzi amenajate pe 15.501,80 m²</li>
-          <li>940 de locuri de parcare, dintre care 258 subterane</li>
-          <li>Preechipare pentru stații de încărcare auto</li>
-          <li>Panouri fotovoltaice</li>
-          <li>Lifturi în fiecare bloc</li>
-          <li>Colectare îngropată a deșeurilor</li>
-          <li>Spații comerciale la parter</li>
-        </ul>
-      </div>
+    <div class="ec-dotari" style="margin-top:2.5rem">
+      {panou_dotari("În apartament", "house-chimney", DOTARI_LOCUINTA, "Incluse în preț")}
+      {panou_dotari("În cartier", "tree-city", DOTARI_CARTIER, "Folosință comună")}
     </div>
   </section>
 
