@@ -1089,8 +1089,8 @@ def pagina_hub(unitati, grupe):
       Alege mai jos după numărul de camere, sau mergi direct la lista completă cu filtre.
     </p>
     <div class="ec-hstats">
-      <div class="ec-hstat"><b>{len(unitati)}</b></div><span>Apartamente</span></div>
-      <div class="ec-hstat"><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="16" rx="1"/><rect x="12" y="9" width="8" height="11" rx="1"/><path d="M6.5 8h3M6.5 12h3M6.5 16h3M15 13h2M15 17h2"/></svg><b>{len(disp_tot)}</b><span>Disponibile acum</span></div>
+      <div class="ec-hstat"><b>{len(unitati)}</b><span>Apartamente</span></div>
+      <div class="ec-hstat"><b>{len(disp_tot)}</b><span>Disponibile acum</span></div>
       <div class="ec-hstat"><b>{mp(su_min)} – {mp(su_max)}</b><span>Suprafață utilă</span></div>
       <div class="ec-hstat"><b>{euro(p_min)}</b><span>Preț de pornire</span></div>
     </div>
@@ -1488,6 +1488,9 @@ PROFILURI = [
      "Garsonierele pornesc de la 53.500 €, cu calculator de randament pe site."),
     ("briefcase", "Cei care lucrează în nord-vest",
      "Acces direct la artera Păcurari și la DN28, fără traversarea centrului."),
+    ("key", "La prima locuință",
+     "Garsonierele pornesc de la 53.500 €, cu TVA inclus. Se pot cumpăra cu credit "
+     "ipotecar sau, în plafon, prin Noua Casă."),
 ]
 
 FAQ_ZONA = [
@@ -1601,10 +1604,10 @@ def pagina_zona():
   <section class="ec-section" id="pozitie">
     <div class="ec-shead">
       <div><span class="ec-shead__n">01 — Poziția</span>
-        <h2>Aproape de oraș, <em>fără să fii în el</em></h2></div>
+        <h2>Aproape de tot ce <em>folosești zilnic</em></h2></div>
       <p class="ec-shead__p">
-        Zona s-a dezvoltat în jurul arterei Păcurari, una dintre principalele ieșiri
-        spre nord-vest.
+        Școală, cumpărături, universitate și centru — toate la câteva minute, pe artera
+        Păcurari.
       </p>
     </div>
     <div class="ec-split" style="margin-top:2.5rem">
@@ -1697,7 +1700,7 @@ def pagina_zona():
     <div class="ec-shead">
       <div><span class="ec-shead__n">05 — Pentru cine</span>
         <h2>Cui i se potrivește <em>zona</em></h2></div>
-      <p class="ec-shead__p">Trei profiluri pentru care Păcurari are cel mai mult sens.</p>
+      <p class="ec-shead__p">Patru profiluri pentru care Păcurari are cel mai mult sens.</p>
     </div>
     <div class="ec-why" style="margin-top:2.5rem">{profiluri}</div>
   </section>
@@ -2149,6 +2152,9 @@ FAQ_PROIECT = [
  ("Pot vedea documentația de autorizare?",
   "Da. Autorizația de construire, certificatul de urbanism și planșele pot fi consultate la "
   "biroul de vânzări, la cerere."),
+ ("Fiecare bloc are lift?",
+  "Da. Toate cele 18 blocuri au lift, care coboară până în primul demisol, unde se află "
+  "parcarea subterană, astfel încât accesul din parcaj în scară se face direct."),
 ]
 
 
@@ -2472,7 +2478,27 @@ def pagina_proiect(unitati):
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
 
-  {showroom(r, "10")}
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    <div class="ec-split">
+      <div class="ec-panel">
+        <p class="ec-eyebrow">Vizionare</p>
+        <h2 class="ec-title" style="margin:1rem 0">Vino să vezi terenul</h2>
+        <p class="ec-body" style="max-width:44ch">
+          Amplasamentul, apartamentul-model și planurile de ansamblu se înțeleg
+          mult mai bine pe loc decât pe ecran.
+        </p>
+        <div class="ec-acces" style="margin-top:2rem">
+          <div><span class="ec-acces__i">{ic("location-dot")}</span>
+            <div><b>Birou de vânzări</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
+          <div><span class="ec-acces__i">{ic("phone")}</span>
+            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
+          <div><span class="ec-acces__i">{ic("clock")}</span>
+            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
+        </div>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>
 </div>
 
 <script>
