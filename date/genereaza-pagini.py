@@ -220,10 +220,6 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
     </div>
 
     <div class="ec-foot__stats"><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="16" rx="1"/><rect x="12" y="9" width="8" height="11" rx="1"/><path d="M6.5 8h3M6.5 12h3M6.5 16h3M15 13h2M15 17h2"/></svg></span><span class="ec-statbox__v"><b>925</b><em>Apartamente</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19V8l5-3 5 3v11"/><path d="M13 19v-8h8v8"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 15h2"/></svg></span><span class="ec-statbox__v"><b>18</b><em>Blocuri 2D+P+3E</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18c0-7.5 5-12 14-12 0 8.5-5 12-14 12z"/><path d="M5 18c2.5-3.5 5.5-5.5 9.5-7"/></svg></span><span class="ec-statbox__v"><b>30,85%</b><em>Spațiu verde</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16h14M6 16V9l2-4h8l2 4v7"/><circle cx="8" cy="16.5" r="1.8"/><circle cx="16" cy="16.5" r="1.8"/></svg></span><span class="ec-statbox__v"><b>940</b><em>Locuri de parcare</em></span></div></div></div>
-      <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19V8l5-3 5 3v11"/><path d="M13 19v-8h8v8"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 15h2"/></svg><b>18</b></div><span>Blocuri, parter + 3 etaje</span></div>
-      <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18c0-7.5 5-12 14-12 0 8.5-5 12-14 12z"/><path d="M5 18c2.5-3.5 5.5-5.5 9.5-7"/></svg><b>30,85%</b></div><span>Spațiu verde</span></div>
-      <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16h14M6 16V9l2-4h8l2 4v7"/><circle cx="8" cy="16.5" r="1.8"/><circle cx="16" cy="16.5" r="1.8"/></svg><b>940</b></div><span>Locuri de parcare</span></div>
-    </div>
 
     <div class="ec-foot__grid">
       <div>
@@ -1492,47 +1488,335 @@ def pagina_zona():
                   continut, r, None, "apartamente-iasi-pacurari/")
 
 
-# ========================================================= stadiu lucrari ==
+# ================================================================ stadiu ==
+# Datele de mai jos sunt cele din raportul lunar de santier. Se inlocuiesc
+# la fiecare actualizare; procentele conduc si cifrele din capul paginii.
+ACTUALIZAT = "Septembrie 2026"
+
+# Fazele de executie, in ordinea in care se succed pe santier. Ponderea
+# fiecareia in totalul unei etape e cea uzuala pentru locuinte colective.
+FAZE = [
+    ("Terasamente și organizare", .06),
+    ("Fundații și demisoluri",    .18),
+    ("Structură de rezistență",   .26),
+    ("Închideri și compartimentări", .14),
+    ("Instalații",                .14),
+    ("Finisaje",                  .16),
+    ("Amenajări exterioare",      .06),
+]
+
+# Stadiul fiecarei etape, faza cu faza, in procente.
+ETAPE_STADIU = [
+    {"cod": "I", "blocuri": "Blocurile 1–6", "ap": 322,
+     "termen": "Trimestrul IV 2027", "activa": True,
+     "stadiu": [100, 100, 45, 0, 0, 0, 0]},
+    {"cod": "II", "blocuri": "Blocurile 7–14", "ap": 423,
+     "termen": "Trimestrul II 2029", "activa": False,
+     "stadiu": [35, 0, 0, 0, 0, 0, 0]},
+    {"cod": "III", "blocuri": "Blocurile 15–18", "ap": 180,
+     "termen": "Trimestrul IV 2030", "activa": False,
+     "stadiu": [0, 0, 0, 0, 0, 0, 0]},
+]
+
 JURNAL = [
     ("Septembrie 2026", "Etapa I — structură la nivelul etajului 2",
      "Turnarea planșeului peste etajul 1 s-a încheiat la blocurile 1–4. La blocurile 5 și 6 "
-     "se lucrează la cofraje. Săpătura pentru demisolurile blocurilor 7–8 a început."),
+     "se lucrează la cofraje. A început săpătura pentru demisolurile blocurilor 7 și 8, "
+     "primele din Etapa II."),
     ("August 2026", "Etapa I — fundații finalizate",
-     "Fundațiile pentru blocurile 1–6 sunt turnate și recepționate. A început ridicarea "
-     "structurii la blocurile 1 și 2."),
+     "Fundațiile pentru blocurile 1–6 sunt turnate și recepționate, cu procesele-verbale de "
+     "fază determinantă semnate. A început ridicarea structurii la blocurile 1 și 2."),
     ("Iulie 2026", "Organizare de șantier și terasamente",
      "Platforma de organizare a fost amenajată, drumurile de acces provizorii sunt "
-     "funcționale, iar terasamentele pentru prima etapă sunt finalizate."),
+     "funcționale, iar terasamentele pentru prima etapă sunt finalizate. Racordurile "
+     "provizorii de utilități au fost puse în funcțiune."),
+]
+
+ANCORE_STADIU = [
+    ("01", "etape",     "Stadiu pe etape"),
+    ("02", "jurnal",    "Jurnal"),
+    ("03", "vizite",    "Vizite pe șantier"),
+    ("04", "intrebari", "Întrebări"),
+]
+
+FAQ_STADIU = [
+    ("Cât de des se actualizează pagina?",
+     "Lunar. Publicăm stadiul fiecărei etape, faza cu faza, împreună cu fotografii datate "
+     f"din teren. Ultima actualizare: {ACTUALIZAT}."),
+    ("Ce înseamnă procentele afișate?",
+     "Fiecare etapă este împărțită în 7 faze de execuție, de la terasamente la amenajări "
+     "exterioare. Procentul general al unei etape este media ponderată a fazelor, cu "
+     "ponderile uzuale pentru clădiri de locuințe colective."),
+    ("Pot vizita șantierul?",
+     "Da, cu programare și însoțit de un reprezentant, în echipament de protecție pe care "
+     "îl punem la dispoziție. Accesul neînsoțit nu este permis, din motive de securitate."),
+    ("Termenele de predare sunt garantate?",
+     "Termenul fiecărei etape se înscrie în antecontractul semnat la notar. Datele afișate "
+     "aici sunt cele estimate la data ultimei actualizări; termenul contractual este cel "
+     "care obligă."),
+    ("Ce se întâmplă dacă lucrările întârzie?",
+     "Antecontractul prevede termenul de predare și consecințele depășirii lui. Orice "
+     "modificare de calendar o comunicăm din timp, nu la final."),
+    ("Pot urmări progresul fără să intru pe site?",
+     "Da. Lasă-ne adresa de e-mail și primești raportul lunar, cu fotografii, imediat ce "
+     "îl publicăm."),
 ]
 
 
 def pagina_stadiu():
     r = "../"
-    intrari = "".join(f"""<article class="ec-timeline__i">
-      <div class="ec-timeline__d">{d}</div>
-      <div>
-        <div class="ec-timeline__t">{t}</div>
-        <p style="color:var(--ec-ink-60);font-size:.875rem">{c}</p>
-        <div class="ec-media" style="min-height:11rem;margin-top:1rem"><p>Fotografii de șantier<br>— de furnizat —</p></div>
-      </div>
-    </article>""" for d, t, c in JURNAL)
 
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Stadiul lucrărilor</nav>
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Șantier</p>
-    <h1 style="margin-top:1rem">Stadiul lucrărilor</h1>
-    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
-      Publicăm lunar stadiul real al construcției, cu fotografii datate. Poți vedea exact
-      unde s-a ajuns, fără să te bazezi pe promisiuni.
+    def procent(st):
+        return sum(p * FAZE[i][1] for i, p in enumerate(st))
+
+    total_ap = sum(x["ap"] for x in ETAPE_STADIU)
+    general = sum(procent(x["stadiu"]) * x["ap"] for x in ETAPE_STADIU) / total_ap
+    activa = next(x for x in ETAPE_STADIU if x["activa"])
+
+    def _fig(val, suf, et, pic, num):
+        # doar cifrele propriu-zise se anima; "I" sau "Septembrie" raman fixe
+        attr = ' data-num="%s"' % e(val) if num else ""
+        return (f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+                f'<span><b{attr}>{e(val)}{e(suf)}</b><em>{e(et)}</em></span></div>')
+
+    figuri = "".join(
+        _fig(val, suf, et, pic, num)
+        for val, suf, et, pic, num in [
+            (f"{general:.0f}", "%", "Stadiu general", "chart-simple", True),
+            ("I", "", "Etapa în execuție", "helmet-safety", False),
+            (str(len(ETAPE_STADIU)), "", "Etape de construcție", "layer-group", True),
+            (ACTUALIZAT.split()[0], "", "Ultima actualizare", "calendar-check", False),
+        ])
+
+    ancore = "".join(f'<a href="#{a}"><b>{n}</b>{e(t)}</a>' for n, a, t in ANCORE_STADIU)
+
+    def card_etapa(x):
+        p = procent(x["stadiu"])
+        faze = "".join(
+            f'<div class="ec-faza{" is-gata" if v >= 100 else ""}">'
+            f'<b>{e(nume)}</b><u>{v}%</u>'
+            f'<span class="ec-faza__b"><span data-w="{v}"></span></span></div>'
+            for (nume, _), v in zip(FAZE, x["stadiu"]))
+        return (f'<article class="ec-et{" is-activa" if x["activa"] else ""} ec-rv">'
+                f'<div class="ec-et__top"><div>'
+                f'<span class="ec-et__k">{e(x["blocuri"])}</span>'
+                f'<h3>Etapa {e(x["cod"])}</h3></div>'
+                f'<span class="ec-et__pc">{p:.0f}%<small>Stadiu</small></span></div>'
+                f'<div class="ec-et__meta">'
+                f'<span>{ic("building")}{x["ap"]} apartamente</span>'
+                f'<span>{ic("calendar-days")}{e(x["termen"])}</span></div>'
+                f'<div class="ec-et__faze">{faze}</div></article>')
+
+    etape = "".join(card_etapa(x) for x in ETAPE_STADIU)
+
+    poze = ('<div class="ec-jurnal__gal">'
+            + '<div class="ec-jurnal__ph"><i class="fa-solid fa-camera" aria-hidden="true"></i>'
+              'Fotografie de șantier<br>de furnizat</div>' * 3
+            + '</div>')
+    jurnal = "".join(
+        f'<article class="ec-jurnal__i ec-rv">'
+        f'<div class="ec-jurnal__d">{e(d)}'
+        f'<small>{"Cea mai recentă" if i == 0 else "Arhivă"}</small></div>'
+        f'<div><div class="ec-jurnal__t">{e(t)}</div><p>{e(c)}</p>{poze}</div></article>'
+        for i, (d, t, c) in enumerate(JURNAL))
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_STADIU)
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "WebPage", "name": "Stadiul lucrărilor — Emerald City",
+             "url": "https://emerald-city.ro/stadiu-lucrari/"},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_STADIU]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("hol-01", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Stadiul lucrărilor</nav>
+    <p class="ec-eyebrow">Jurnal de șantier</p>
+    <h1>Unde s-a ajuns, lună de lună</h1>
+    <p class="ec-phero__sub">
+      Publicăm stadiul real al fiecărei etape, faza cu faza, împreună cu fotografii datate
+      din teren. Poți verifica singur progresul, fără să te bazezi pe promisiuni.
     </p>
-  </header>
-  <div class="ec-panel" style="margin-bottom:4rem">{intrari}</div>
-</div>"""
-    return pagina("Stadiul lucrărilor — Emerald City Iași",
-                  "Jurnal de șantier Emerald City, Iași zona Păcurari. Actualizat lunar, "
-                  "cu fotografii datate din teren.",
-                  continut, r, None, "stadiu-lucrari/")
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#etape">{ic("chart-simple")} Vezi stadiul pe etape</a>
+      <a class="ec-btn ec-btn--outlight" href="#vizite">{ic("helmet-safety")} Programează o vizită</a>
+    </div>
+  </div>
+</section>
+
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-subnav">
+  <div class="ec-wrap"><nav class="ec-subnav__in">{ancore}</nav></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="etape">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Stadiu pe etape</span>
+        <h2>Fiecare etapă, <em>faza cu faza</em></h2></div>
+      <p class="ec-shead__p">
+        7 faze de execuție, de la terasamente la amenajări exterioare. Procentul general
+        este media ponderată a fazelor, cu ponderile uzuale pentru locuințe colective.
+      </p>
+    </div>
+    <div class="ec-santier" style="margin-top:2.5rem">{etape}</div>
+    <p class="ec-fisa__note">
+      {ic("circle-info")} Stadiul reflectă raportul de șantier din {e(ACTUALIZAT)}.
+      Termenele afișate sunt estimative; cel contractual este cel din antecontract.
+    </p>
+  </section>
+</div>
+
+<section class="ec-band" id="jurnal">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">02 — Jurnal</span>
+          <h2>Ce s-a lucrat <em>în ultimele luni</em></h2></div>
+        <p class="ec-shead__p">
+          Un raport pe lună, cu ce s-a executat efectiv și cu fotografii datate din teren.
+        </p>
+      </div>
+      <div class="ec-panel" style="margin-top:2.5rem">
+        <div class="ec-jurnal">{jurnal}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="vizite">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Vizite pe șantier</span>
+        <h2>Vino să vezi <em>cu ochii tăi</em></h2></div>
+      <p class="ec-shead__p">
+        Organizăm vizite însoțite, cu programare. Echipamentul de protecție îl punem noi
+        la dispoziție.
+      </p>
+    </div>
+    <div class="ec-why" style="margin-top:2.5rem">
+      <div class="ec-why__i ec-rv">{ic("calendar-check")}
+        <h3>Cu programare</h3>
+        <p>Suni sau scrii, stabilim ziua și ora. Vizitele se fac în zilele lucrătoare.</p></div>
+      <div class="ec-why__i ec-rv">{ic("user-shield")}
+        <h3>Însoțit</h3>
+        <p>Un reprezentant te conduce pe traseul sigur și îți explică ce se execută.</p></div>
+      <div class="ec-why__i ec-rv">{ic("helmet-safety")}
+        <h3>Echipament inclus</h3>
+        <p>Cască și vestă reflectorizantă, puse la dispoziție la intrarea în incintă.</p></div>
+      <div class="ec-why__i ec-rv">{ic("camera")}
+        <h3>Poți fotografia</h3>
+        <p>Nu avem nimic de ascuns. Fotografiază liber ce te interesează.</p></div>
+    </div>
+    <div class="ec-split" style="margin-top:var(--ec-gap)">
+      <div class="ec-panel">
+        <p class="ec-eyebrow">Programare</p>
+        <h2 class="ec-title" style="margin:1rem 0">Rezervă o vizită</h2>
+        <p class="ec-body" style="max-width:44ch">
+          Spune-ne când îți e la îndemână și confirmăm în aceeași zi lucrătoare.
+        </p>
+        <div class="ec-acces" style="margin-top:2rem">
+          <div><span class="ec-acces__i">{ic("location-dot")}</span>
+            <div><b>Birou de vânzări</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
+          <div><span class="ec-acces__i">{ic("phone")}</span>
+            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
+          <div><span class="ec-acces__i">{ic("clock")}</span>
+            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
+        </div>
+        <div class="ec-cta__btns" style="margin-top:2rem">
+          <a class="ec-btn" href="tel:+40757707080">{ic("phone")} Sună acum</a>
+          <a class="ec-btn ec-btn--out" href="{r}proiect/">{ic("compass-drafting")} Vezi proiectul</a>
+        </div>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>
+
+  <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — Întrebări</span>
+        <h2>Despre execuție <em>și termene</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_STADIU)} întrebări despre cum urmărești progresul și ce garantează contractul.
+      </p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+</div>
+
+<script>
+(() => {{
+  const redus = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* cifrele mari urca pana la valoarea reala */
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (nr.length && !redus) {{
+    const urca = el => {{
+      const brut = el.dataset.num;
+      const tinta = parseFloat(brut.replace(/\\./g, '').replace(',', '.'));
+      const zec = (brut.split(',')[1] || '').length;
+      const sufix = el.textContent.replace(brut, '');
+      const t0 = performance.now(), dur = 1100;
+      const pas = t => {{
+        const p = Math.min((t - t0) / dur, 1);
+        const v = tinta * (1 - Math.pow(1 - p, 3));
+        el.textContent = v.toLocaleString('ro-RO', {{
+          minimumFractionDigits: zec, maximumFractionDigits: zec }}) + sufix;
+        if (p < 1) requestAnimationFrame(pas);
+      }};
+      requestAnimationFrame(pas);
+    }};
+    const o = new IntersectionObserver(es => es.forEach(x => {{
+      if (x.isIntersecting) {{ urca(x.target); o.unobserve(x.target); }}
+    }}), {{ threshold: .4 }});
+    nr.forEach(x => o.observe(x));
+  }}
+
+  /* barele de faza cresc la intrarea in ecran */
+  const b = [...document.querySelectorAll('.ec-faza__b span[data-w]')];
+  if (b.length) {{
+    const o = new IntersectionObserver(es => es.forEach(x => {{
+      if (!x.isIntersecting) return;
+      x.target.style.width = x.target.dataset.w + '%';
+      o.unobserve(x.target);
+    }}), {{ threshold: .2 }});
+    b.forEach(x => o.observe(x));
+  }}
+
+  /* bara de sectiuni */
+  const bara = document.querySelector('.ec-subnav');
+  if (bara) {{
+    const leg = [...bara.querySelectorAll('a')];
+    const sect = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    if (sect.length) {{
+      const o = new IntersectionObserver(es => es.forEach(x => {{
+        if (!x.isIntersecting) return;
+        leg.forEach(a => a.classList.toggle('is-on',
+          a.getAttribute('href') === '#' + x.target.id));
+      }}), {{ rootMargin: '-20% 0px -70% 0px' }});
+      sect.forEach(s => o.observe(s));
+    }}
+  }}
+}})();
+</script>"""
+
+    return pagina("Stadiul lucrărilor — jurnal de șantier | Emerald City Iași",
+                  "Stadiul real al construcției Emerald City, Iași zona Păcurari: progresul "
+                  "fiecărei etape faza cu faza, jurnal lunar cu fotografii datate și vizite "
+                  "pe șantier cu programare.",
+                  continut, r, schema, "stadiu-lucrari/")
 
 
 # ====================================================== despre dezvoltator ==

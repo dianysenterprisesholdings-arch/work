@@ -1821,3 +1821,67 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 @media (max-width: 40rem) {
   .ec-foot__r { flex-direction: column; align-items: flex-start; gap: .35rem; }
 }
+
+
+/* ==========================================================================
+   "Stadiul lucrărilor" — etape cu faze de execuție și jurnal de șantier
+   ========================================================================== */
+
+.ec-santier { display: grid; gap: var(--ec-gap); }
+@media (min-width: 64rem) { .ec-santier { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-et {
+  background: var(--ec-white); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); padding: clamp(1.5rem, 3vw, 2rem);
+  display: flex; flex-direction: column;
+}
+.ec-et.is-activa { border-color: var(--ec-brass); box-shadow: 0 16px 40px -28px rgba(16,28,24,.45); }
+.ec-et__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.ec-et__k { font-size: var(--ec-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-et h3 { font-family: var(--ec-disp); font-size: 1.5rem; font-weight: 600; margin-top: .45rem; }
+.ec-et__pc {
+  font-family: var(--ec-disp); font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 600;
+  color: var(--ec-emerald); line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.ec-et__pc small { display: block; margin-top: .35rem; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); font-weight: 400; text-align: right; }
+.ec-et__meta { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; margin-top: 1rem; font-size: .8125rem; color: var(--ec-ink-60); }
+.ec-et__meta i { color: var(--ec-brass); margin-right: .4rem; }
+.ec-et__faze { margin-top: 1.6rem; padding-top: 1.4rem; border-top: 1px solid var(--ec-line); display: grid; gap: .95rem; }
+.ec-faza { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: .35rem .8rem; align-items: baseline; }
+.ec-faza b { font-size: .8125rem; font-weight: 500; }
+.ec-faza u { text-decoration: none; font-size: .75rem; color: var(--ec-ink-40); font-variant-numeric: tabular-nums; }
+.ec-faza__b { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--ec-mint); overflow: hidden; }
+.ec-faza__b span { display: block; height: 100%; border-radius: 3px; background: var(--ec-emerald); width: 0; transition: width .9s var(--ec-ease); }
+.ec-faza.is-gata u { color: var(--ec-emerald); font-weight: 600; }
+.ec-faza.is-gata u::after { content: " \f00c"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: .625rem; }
+
+/* ---- jurnal de santier -------------------------------------------------- */
+.ec-jurnal { display: grid; }
+.ec-jurnal__i {
+  display: grid; gap: 1rem; padding-block: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-top: 1px solid var(--ec-line);
+}
+@media (min-width: 56rem) { .ec-jurnal__i { grid-template-columns: 13rem minmax(0,1fr); gap: 2.5rem; } }
+.ec-jurnal__i:first-child { border-top: 0; padding-top: 0; }
+.ec-jurnal__d { font-family: var(--ec-disp); font-size: 1.15rem; font-weight: 600; }
+.ec-jurnal__d small {
+  display: block; margin-top: .5rem; font-size: var(--ec-micro);
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ec-brass); font-weight: 600;
+}
+.ec-jurnal__t { font-size: 1.15rem; font-weight: 600; }
+.ec-jurnal__i p { margin-top: .6rem; font-size: .9375rem; color: var(--ec-ink-60); max-width: 64ch; line-height: 1.75; }
+.ec-jurnal__gal {
+  display: grid; gap: 1px; background: var(--ec-line); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); overflow: hidden; margin-top: 1.4rem;
+}
+@media (min-width: 40rem) { .ec-jurnal__gal { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-jurnal__ph {
+  background: var(--ec-sand); aspect-ratio: 4 / 3;
+  display: grid; place-content: center; justify-items: center; gap: .7rem; padding: 1rem;
+  font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ec-ink-40); text-align: center;
+}
+.ec-jurnal__ph i { font-size: 1.5rem; color: var(--ec-brass); opacity: .45; }
+
+/* un panou alb asezat in banda inchisa isi recupereaza culoarea textului,
+   altfel mostenteste albul benzii si ramane alb pe alb */
+.ec-band .ec-panel { color: var(--ec-ink); }
