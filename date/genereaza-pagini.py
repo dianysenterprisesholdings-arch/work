@@ -2934,7 +2934,7 @@ FAQ_FIN = [
  ("Ce înseamnă predare la cheie?",
   "Apartamentul se predă complet finisat: pardoseli montate, pereți gletuiți și vopsiți, "
   "grup sanitar echipat, uși montate, instalație electrică cu aparataj și încălzire în "
-  "pardoseală funcțională. Apartamentul este gata de mobilat la recepție."),
+  "pardoseală funcțională. Este gata de mobilat la recepție."),
  ("Finisajele sunt incluse în preț?",
   "Da. Prețul afișat include TVA și toate cele 10 poziții de finisaj. Nu există costuri "
   "suplimentare pentru execuția lor."),
@@ -2942,15 +2942,15 @@ FAQ_FIN = [
   "Mobilierul, electrocasnicele, corpurile de iluminat decorative și amenajarea curții. "
   "Racordurile și circuitele pentru ele sunt însă pregătite."),
  ("Pot schimba finisajele?",
-  "Modificările se discută la biroul de vânzări, în funcție de faza în care se află "
-  "execuția blocului. Cu cât rezervi mai devreme, cu atât sunt mai multe opțiuni."),
+  "Modificările se analizează la biroul de vânzări, în funcție de faza de execuție a "
+  "blocului. Numărul de opțiuni disponibile scade pe măsură ce lucrările avansează."),
  ("Ce garanție am pentru finisaje?",
   "Finisajele sunt garantate conform anexei tehnice a contractului, iar instalațiile și "
   "echipamentele conform garanției fiecărui producător. Structura și viciile ascunse sunt "
   "acoperite separat, prin lege."),
  ("De ce încălzire în pardoseală și nu calorifere?",
   "Căldura se distribuie uniform de la sol în sus și funcționează la temperatură joasă, "
-  "deci consumă mai puțin. În plus, câștigi peretele întreg pentru mobilier."),
+  "deci consumă mai puțin. În plus, peretele rămâne liber pentru mobilier."),
  ("Ce înseamnă tâmplărie cu 7 camere?",
   "Numărul de camere de aer din profilul ferestrei. Șapte camere, combinate cu geam "
   "tripan și sticlă Low-E, izolează termic și fonic la nivelul cerut clădirilor noi."),
@@ -3018,7 +3018,7 @@ def pagina_finisaje():
       se predă complet finisat, gata de mobilat.
     </p>
     <div class="ec-phero__cta">
-      <a class="ec-btn ec-btn--white" href="#fisa">{ic("list-check")} Vezi fișa completă</a>
+      <a class="ec-btn ec-btn--white" href="#fisa">{ic("list-check")} Vezi tot ce e inclus</a>
       <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi prețurile</a>
     </div>
   </div>
@@ -3031,10 +3031,11 @@ def pagina_finisaje():
 <div class="ec-wrap">
   <section class="ec-section" id="fisa">
     <div class="ec-shead">
-      <div><span class="ec-shead__n">01 — Fișa tehnică</span>
-        <h2>Cele {len(FINISAJE)} poziții, <em>una câte una</em></h2></div>
+      <div><span class="ec-shead__n">01 — Incluse în preț</span>
+        <h2>{len(FINISAJE)} avantaje, <em>fără cost suplimentar</em></h2></div>
       <p class="ec-shead__p">
-        Fiecare poziție, cu specificația tehnică și efectul ei asupra locuirii.
+        Fiecare dotare, cu specificația tehnică alături și cu avantajul concret
+        la utilizare.
       </p>
     </div>
     <div class="ec-fisa" style="margin-top:2.5rem">{fisa}</div>
@@ -3047,9 +3048,9 @@ def pagina_finisaje():
   <section class="ec-section" id="camere" style="padding-block:0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">02 — Cameră cu cameră</span>
-        <h2>Ce găsești <em>în fiecare încăpere</em></h2></div>
+        <h2>Gata de mutare, <em>în fiecare încăpere</em></h2></div>
       <p class="ec-shead__p">
-        Aceleași finisaje, defalcate pe încăperi.
+        Aceleași dotări, defalcate pe încăperi.
       </p>
     </div>
     <div class="ec-cams" style="margin-top:2.5rem">{camere}</div>
@@ -3061,9 +3062,10 @@ def pagina_finisaje():
   <section class="ec-section" id="comparatie">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Comparație</span>
-        <h2>La cheie, semifinisat <em>sau la gri</em></h2></div>
+        <h2>Cât economisești <em>față de un apartament la gri</em></h2></div>
       <p class="ec-shead__p">
-        Diferența dintre cele trei niveluri de predare, poziție cu poziție.
+        Ce ar însemna aceleași finisaje executate separat, la un apartament
+        semifinisat sau la gri.
       </p>
     </div>
     <div class="ec-table ec-table--vs ec-table--4" style="margin-top:2.5rem">
