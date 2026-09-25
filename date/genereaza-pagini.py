@@ -596,6 +596,41 @@ def alerta(titlu, text, context="", pict="bell"):
   </section>"""
 
 
+
+def cta_dublu(r, context=""):
+    """Doua indemnuri, unul langa altul: vizionare si informatii."""
+    return f"""<section class="ec-duo ec-rv">
+    <div class="ec-duo__c">
+      <span class="ec-duo__ic"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i></span>
+      <h2>Programați o vizionare</h2>
+      <p>
+        Apartamentul-model, planurile pe masă și lista de disponibilitate, într-o
+        întâlnire de aproximativ 40 de minute. Programarea se confirmă telefonic,
+        în aceeași zi lucrătoare.
+      </p>
+      <div class="ec-duo__a">
+        <a class="ec-btn ec-btn--white" href="#showroom">
+          <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Programare vizionare</a>
+        <a class="ec-btn ec-btn--outlight" href="tel:{SHOWROOM["tel_link"]}">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i> {e(SHOWROOM["tel"])}</a>
+      </div>
+    </div>
+    <div class="ec-duo__c">
+      <span class="ec-duo__ic"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></span>
+      <h2>Aveți nevoie de informații suplimentare?</h2>
+      <p>
+        Un consultant transmite lista completă de disponibilitate, planurile detaliate
+        ale fiecărei compartimentări și condițiile de plată, pe e-mail sau pe WhatsApp.
+      </p>
+      <div class="ec-duo__a">
+        <a class="ec-btn ec-btn--white" href="mailto:{SHOWROOM["mail"]}">
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i> Cerere pe e-mail</a>
+        <a class="ec-btn ec-btn--outlight" href="https://wa.me/40757707080" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Contact WhatsApp</a>
+      </div>
+    </div>
+  </section>"""
+
 def cta_preturi(r, imagine_fundal="dining-01"):
     """Banda de captare: lista completa de preturi, pe e-mail."""
     return f"""<section class="ec-ctab ec-rv">
@@ -1938,10 +1973,7 @@ def pagina_categorie(nr, unitati, grupe):
   </section>
 
   <section class="ec-section" style="padding-block:0 var(--ec-section)">
-    {alerta(f"Anunță-mă când apar {c['titlu'].lower()}",
-            f"Primești un e-mail când intră în vânzare unități noi de {camere_txt(nr)} "
-            "sau când se modifică prețurile. Fără alte mesaje.",
-            c['slug'])}
+    {cta_dublu(r, c['slug'])}
   </section>
 
   {showroom(r, "08")}
