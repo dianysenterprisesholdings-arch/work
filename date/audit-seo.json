@@ -100204,7 +100204,7 @@
   "en/news/pacurari-neighbourhood-guide/": {
    "en": true,
    "url": "en/news/pacurari-neighbourhood-guide/",
-   "title": "Păcurari, în cifre: distanțe reale | Emerald City",
+   "title": "Păcurari in numbers: real distances | Emerald City",
    "desc": "Distances measured from Emerald City: school 300 m, University 5 km, centre 4.8 km, airport 12 km. Who the area suits.",
    "canonical": "https://emerald-city.ro/en/news/pacurari-neighbourhood-guide/",
    "lang": "en",
@@ -100222,7 +100222,7 @@
     "type": "website",
     "site_name": "Emerald City",
     "locale": "en_GB",
-    "title": "Păcurari, în cifre: distanțe reale | Emerald City",
+    "title": "Păcurari in numbers: real distances | Emerald City",
     "description": "Distances measured from Emerald City: school 300 m, University 5 km, centre 4.8 km, airport 12 km. Who the area suits.",
     "url": "https://emerald-city.ro/en/news/pacurari-neighbourhood-guide/",
     "image": "https://emerald-city.ro/assets/img/dining-01.jpg"
@@ -100310,7 +100310,7 @@
   "en/news/phase-2-goes-on-sale/": {
    "en": true,
    "url": "en/news/phase-2-goes-on-sale/",
-   "title": "Etapa II în vânzare: 423 de apartamente noi | Emerald City",
+   "title": "Phase II on sale: 423 new apartments | Emerald City",
    "desc": "Buildings 7–14 at Emerald City Iași, around the central park: layouts 1A–3B, unchanged starting prices, reservation at the showroom.",
    "canonical": "https://emerald-city.ro/en/news/phase-2-goes-on-sale/",
    "lang": "en",
@@ -100328,7 +100328,7 @@
     "type": "website",
     "site_name": "Emerald City",
     "locale": "en_GB",
-    "title": "Etapa II în vânzare: 423 de apartamente noi | Emerald City",
+    "title": "Phase II on sale: 423 new apartments | Emerald City",
     "description": "Buildings 7–14 at Emerald City Iași, around the central park: layouts 1A–3B, unchanged starting prices, reservation at the showroom.",
     "url": "https://emerald-city.ro/en/news/phase-2-goes-on-sale/",
     "image": "https://emerald-city.ro/assets/img/hero-living.jpg"
@@ -100350,7 +100350,7 @@
    "faq": false,
    "faq_n": 0,
    "breadcrumb": true,
-   "cuvinte": 759,
+   "cuvinte": 758,
    "link_ext": 9,
    "link_int": 18,
    "link_ext_fara_rel": 0,
@@ -100416,7 +100416,7 @@
   "en/news/underfloor-heating-vs-radiators/": {
    "en": true,
    "url": "en/news/underfloor-heating-vs-radiators/",
-   "title": "Încălzire în pardoseală sau calorifere? | Emerald City",
+   "title": "Underfloor heating or radiators? | Emerald City",
    "desc": "How underfloor heating with a condensing boiler works, what it saves (up to 35%) and what to know when furnishing.",
    "canonical": "https://emerald-city.ro/en/news/underfloor-heating-vs-radiators/",
    "lang": "en",
@@ -100434,7 +100434,7 @@
     "type": "website",
     "site_name": "Emerald City",
     "locale": "en_GB",
-    "title": "Încălzire în pardoseală sau calorifere? | Emerald City",
+    "title": "Underfloor heating or radiators? | Emerald City",
     "description": "How underfloor heating with a condensing boiler works, what it saves (up to 35%) and what to know when furnishing.",
     "url": "https://emerald-city.ro/en/news/underfloor-heating-vs-radiators/",
     "image": "https://emerald-city.ro/assets/img/dormitor-01.jpg"
@@ -100456,7 +100456,7 @@
    "faq": false,
    "faq_n": 0,
    "breadcrumb": true,
-   "cuvinte": 839,
+   "cuvinte": 838,
    "link_ext": 9,
    "link_int": 18,
    "link_ext_fara_rel": 0,
@@ -100629,7 +100629,7 @@
    "en": true,
    "url": "en/terms-and-conditions/",
    "title": "Terms and conditions — Emerald City Iași",
-   "desc": "Condițiile de utilizare a site-ului emerald-city.ro: informații publicate, solicitări prin formulare, proprietate intelectuală și limitarea răspunderii.",
+   "desc": "Terms of use of emerald-city.ro: published information, requests through forms, intellectual property and limitation of liability.",
    "canonical": "https://emerald-city.ro/en/terms-and-conditions/",
    "lang": "en",
    "h1": [
@@ -100647,7 +100647,7 @@
     "site_name": "Emerald City",
     "locale": "en_GB",
     "title": "Terms and conditions — Emerald City Iași",
-    "description": "Condițiile de utilizare a site-ului emerald-city.ro: informații publicate, solicitări prin formulare, proprietate intelectuală și limitarea răspunderii.",
+    "description": "Terms of use of emerald-city.ro: published information, requests through forms, intellectual property and limitation of liability.",
     "url": "https://emerald-city.ro/en/terms-and-conditions/",
     "image": "https://emerald-city.ro/assets/img/hero-living.jpg"
    },
@@ -103475,48 +103475,32 @@
   "en/location-iasi-pacurari/": [],
   "en/news/guide-buying-a-new-apartment-in-iasi/": [],
   "en/news/": [],
-  "en/news/pacurari-neighbourhood-guide/": [
-   "title duplicat"
-  ],
+  "en/news/pacurari-neighbourhood-guide/": [],
   "en/news/phase-1-structure-reaches-floor-2/": [],
-  "en/news/phase-2-goes-on-sale/": [
-   "title duplicat"
-  ],
+  "en/news/phase-2-goes-on-sale/": [],
   "en/news/rental-yields-iasi-2026/": [],
-  "en/news/underfloor-heating-vs-radiators/": [
-   "title duplicat"
-  ],
+  "en/news/underfloor-heating-vs-radiators/": [],
   "en/press/": [],
   "en/privacy-policy/": [],
   "en/project/": [],
-  "en/terms-and-conditions/": [
-   "description duplicata"
-  ],
+  "en/terms-and-conditions/": [],
   "finisaje/": [],
   "": [],
   "informare-gdpr/": [],
   "investitie-apartamente-iasi/": [],
   "noutati/etapa-1-structura-etajul-2/": [],
-  "noutati/etapa-2-intra-in-vanzare/": [
-   "title duplicat"
-  ],
+  "noutati/etapa-2-intra-in-vanzare/": [],
   "noutati/ghid-cumparare-apartament-nou-iasi/": [],
-  "noutati/incalzire-in-pardoseala-vs-calorifere/": [
-   "title duplicat"
-  ],
+  "noutati/incalzire-in-pardoseala-vs-calorifere/": [],
   "noutati/": [],
-  "noutati/pacurari-ghidul-cartierului/": [
-   "title duplicat"
-  ],
+  "noutati/pacurari-ghidul-cartierului/": [],
   "noutati/randament-chirii-iasi-2026/": [],
   "politica-de-confidentialitate/": [],
   "politica-de-cookies/": [],
   "programare-vizionare/": [],
   "proiect/": [],
   "stadiu-lucrari/": [],
-  "termeni-si-conditii/": [
-   "description duplicata"
-  ]
+  "termeni-si-conditii/": []
  },
  "intrari": {
   "aparitii-presa/": 2,

@@ -259,4 +259,12 @@ T = {
 "Păcurari, în cifre: distanțe reale până la ce contează | Emerald City": "Păcurari in numbers: real distances | Emerald City",
 "Randamentul chiriilor în Iași {n} apartament nou | Emerald City": "Rental yields in Iași {n} new apartment | Emerald City",
 "Butoanele Etapa I–III și Tip {n}A–{n}B se combină cu celelalte filtre. Fiecare selecție se reflectă în adresa paginii, care poate fi trimisă mai departe sau salvată.": "The Phase I–III and Type {n}A–{n}B buttons combine with the other filters. Every selection is reflected in the page address, which can be shared or saved.",
+
+"Etapa II în vânzare: {n} de apartamente noi": "Phase II on sale: {n} new apartments",
+"Etapa II în vânzare: {n} de apartamente noi | Emerald City": "Phase II on sale: {n} new apartments | Emerald City",
+"Încălzire în pardoseală sau calorifere?": "Underfloor heating or radiators?",
+"Încălzire în pardoseală sau calorifere? | Emerald City": "Underfloor heating or radiators? | Emerald City",
+"Păcurari, în cifre: distanțe reale": "Păcurari in numbers: real distances",
+"Păcurari, în cifre: distanțe reale | Emerald City": "Păcurari in numbers: real distances | Emerald City",
+"Condițiile de utilizare a site-ului emerald-city.ro: informații publicate, solicitări prin formulare, proprietate intelectuală și limitarea răspunderii.": "Terms of use of emerald-city.ro: published information, requests through forms, intellectual property and limitation of liability.",
 }
