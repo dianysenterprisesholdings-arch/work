@@ -157,7 +157,8 @@ ATTR_URL = ("href", "src", "poster", "action", "data-sursa")
 
 JSON_FARA = {"@type", "@context", "@id", "dayOfWeek", "unitCode", "priceCurrency", "opens", "closes",
              "telephone", "email", "availability", "inLanguage", "sku", "streetAddress",
-             "addressLocality", "addressRegion", "addressCountry", "postalCode", "latitude", "longitude"}
+             "addressLocality", "addressRegion", "addressCountry", "postalCode", "latitude", "longitude",
+             "contactType", "availableLanguage", "sameAs", "areaServed", "logo", "image"}
 
 
 def tradu_json(obj, pagina):
@@ -199,7 +200,7 @@ def tradu_pagina(h, dir_ro):
                 (lambda p: tradu_href(p[0], dir_ro) + (" " + p[1] if len(p) > 1 else ""))(x.strip().split())
                 for x in val.split(",")) + '"'
         if nume in ATTR_TEXT:
-            if nume == "content" and (val.startswith("http") or "device-width" in val
+            if nume == "content" and (val.startswith("http") or "device-width" in val or val == "noindex, follow"
                                       or re.fullmatch(r"[\w_-]+", val)):
                 return m.group(0)
             return f'{nume}="{html.escape(tradu_segment(html.unescape(val), pagina), quote=True)}"'

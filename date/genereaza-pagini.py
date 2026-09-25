@@ -148,13 +148,37 @@ def firimituri(canonic):
             "itemListElement": elemente}
 
 # ------------------------------------------------------------------ sablon
+ORGANIZATIE = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {"@type": "Organization", "@id": "https://emerald-city.ro/#org",
+         "name": "Emerald City", "legalName": "Tala Sapphire S.R.L.",
+         "url": "https://emerald-city.ro/", "logo": "https://emerald-city.ro/brand/logo-verde.svg",
+         "parentOrganization": {"@type": "Organization", "name": "Green Stone Group",
+                                "url": "https://greenstone-group.ro/"},
+         "address": {"@type": "PostalAddress", "streetAddress": "Str. Dealul Zorilor 9",
+                     "addressLocality": "Iași", "addressRegion": "Iași", "postalCode": "700000",
+                     "addressCountry": "RO"},
+         "contactPoint": [{"@type": "ContactPoint", "contactType": "sales", "telephone": "+40757707080",
+                           "email": "vanzari@emerald-city.ro", "availableLanguage": ["ro", "en"],
+                           "areaServed": "RO"}],
+         "sameAs": ["https://www.facebook.com/", "https://www.instagram.com/",
+                    "https://www.tiktok.com/", "https://www.youtube.com/"]},
+        {"@type": "WebSite", "@id": "https://emerald-city.ro/#site", "url": "https://emerald-city.ro/",
+         "name": "Emerald City", "inLanguage": ["ro", "en"],
+         "publisher": {"@id": "https://emerald-city.ro/#org"}},
+    ]}
+
+
 def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
-           imagine_og="hero-living"):
+           imagine_og="hero-living", robots=""):
     """Invelisul comun: topbar, navigatie, continut, subsol, WhatsApp."""
     r = radacina
     ld = f'<script type="application/ld+json">{json.dumps(schema, ensure_ascii=False)}</script>' if schema else ""
     ld += ('<script type="application/ld+json">'
            + json.dumps(firimituri(canonic), ensure_ascii=False) + "</script>")
+    ld += '<script type="application/ld+json">' + json.dumps(ORGANIZATIE, ensure_ascii=False) + "</script>"
+    meta_robots = f'\n<meta name="robots" content="{robots}">' if robots else ""
     adresa = f"https://emerald-city.ro/{canonic}"
     og = f"""<meta property="og:type" content="website">
 <meta property="og:site_name" content="Emerald City">
@@ -176,7 +200,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(titlu)}</title>
 <meta name="description" content="{e(descriere)}">
-<link rel="canonical" href="https://emerald-city.ro/{canonic}">
+<link rel="canonical" href="https://emerald-city.ro/{canonic}">{meta_robots}
 {hreflang(canonic)}
 {og}
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -230,7 +254,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
             <a class="ec-mega__i" href="{r}finisaje/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="ec-mega__tx"><b>Finisaje</b><em>Dotări incluse la cheie</em></span></a>
           </div>
           <a class="ec-mega__card" href="{r}stadiu-lucrari/">
-            <img src="{r}assets/img/hol-01-800.jpg" alt="" width="800" height="450" loading="lazy">
+            <img src="{r}assets/img/hol-01-800.jpg" alt="Hol de intrare finisat, Emerald City Iași" width="800" height="450" loading="lazy">
             <span class="ec-mega__cardb"><b>Stadiul lucrărilor</b>
               <em>Publicăm lunar progresul real, cu fotografii datate din teren</em></span>
           </a>
@@ -252,7 +276,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
             <a class="ec-mega__i" href="{r}investitie-apartamente-iasi/"><span class="ec-mega__ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M12 12h2M16 12h.01M8 16h2M12 16h2M16 16h.01"/></svg></span><span class="ec-mega__tx"><b>Investiție și randament</b><em>Calculator de chirie și amortizare</em></span></a>
           </div>
           <a class="ec-mega__card" href="{r}apartamente-iasi/">
-            <img src="{r}assets/img/living-01-800.jpg" alt="" width="800" height="450" loading="lazy">
+            <img src="{r}assets/img/living-01-800.jpg" alt="Living cu bucătărie deschisă, Emerald City Iași" width="800" height="450" loading="lazy">
             <span class="ec-mega__cardb"><b>517 apartamente disponibile</b>
               <em>Preț și disponibilitate actualizate din tabelul de vânzări</em></span>
           </a>
@@ -806,8 +830,23 @@ _LQ = os.path.join(RAD, "assets", "data", "lqip.json")
 LQIP = json.load(open(_LQ, encoding="utf-8")) if os.path.exists(_LQ) else {}
 
 
+ALT_IMPLICIT = {
+    "hero-living": "Living finisat într-un apartament Emerald City, Iași",
+    "living-01": "Living cu bucătărie deschisă, apartament Emerald City Iași",
+    "living-02": "Zonă de zi cu măslin și perete de marmură, Emerald City Iași",
+    "dining-01": "Zonă de dining cu vedere spre grădină, Emerald City Iași",
+    "dormitor-01": "Dormitor finisat, apartament Emerald City Iași",
+    "dormitor-02": "Dormitor cu dressing, apartament Emerald City Iași",
+    "hol-01": "Hol de intrare finisat, apartament Emerald City Iași",
+    "baie-01": "Baie finisată cu marmură și alamă, Emerald City Iași",
+    "bucatarie-01": "Bucătărie cu blat din marmură, Emerald City Iași",
+    "gs-ansamblu": "Ansamblu rezidențial dezvoltat de Green Stone Group",
+}
+
+
 def imagine(nume, alt, r, sizes="100vw", eager=False, w=1600, h=900, cls=""):
     """<picture> cu WebP si rezerva JPEG, plus blur-up din miniatura de 20px."""
+    alt = alt or ALT_IMPLICIT.get(nume, "")
     lq = LQIP.get(nume, "")
     stil = f' style="background:#DCE7DE url({lq}) center/cover"' if lq else ""
     incarcare = 'fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
@@ -1583,8 +1622,32 @@ def pagina_tip(cod, unitati_tip, grupe):
 
 
 # ============================================================ pagina listare
+FAQ_LISTA = [
+    ("Cât de des se actualizează lista de disponibilitate?",
+     "Lista se generează din tabelul de vânzări al dezvoltatorului și se actualizează la fiecare "
+     "modificare de stare: rezervare, semnare de antecontract sau eliberare a unei unități."),
+    ("Ce înseamnă stările Disponibil, Rezervat și Vândut?",
+     "Disponibil: unitatea poate fi rezervată. Rezervat: este blocată pe numele unui cumpărător, "
+     "până la semnarea antecontractului. Vândut: antecontractul sau contractul a fost semnat."),
+    ("Prețurile din listă sunt finale?",
+     "Prețurile afișate includ TVA și toate finisajele. Devin ferme la rezervare sau la semnarea "
+     "antecontractului; până atunci pot fi actualizate odată cu lista."),
+    ("Ce reprezintă prețul pe metru pătrat?",
+     "Prețul unității împărțit la suprafața utilă. Balconul, curtea, boxa și locul de parcare nu "
+     "intră în suprafața utilă, de aceea unitățile cu curte au un preț pe metru pătrat aparent mai mare."),
+    ("Cum se filtrează după etapă sau după compartimentare?",
+     "Butoanele Etapa I–III și Tip 1A–3B se combină cu celelalte filtre. Fiecare selecție se "
+     "reflectă în adresa paginii, care poate fi trimisă mai departe sau salvată."),
+    ("Se poate primi lista completă pe e-mail?",
+     "Da. Lista de disponibilitate, cu suprafețe, etaje, orientări și prețuri, se transmite pe e-mail "
+     "în aceeași zi lucrătoare, la cerere."),
+]
+
+
 def pagina_listare(unitati):
     r = "../../"
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>' for q, a in FAQ_LISTA)
     blocuri = sorted({u["corp"] for u in unitati}, key=lambda c: int(c[1:]))
     tipuri = sorted({u["tip_apartament"] for u in unitati})
     orientari = ["N", "NE", "E", "SE", "S", "SV", "V", "NV"]
@@ -1733,7 +1796,16 @@ def pagina_listare(unitati):
     {cta_dublu(r, "disponibilitate")}
   </section>
 
-  {showroom(r, "03")}
+  <section class="ec-section" id="intrebari" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Întrebări</span>
+        <h2>Despre <em>listă și prețuri</em></h2></div>
+      <p class="ec-shead__p">{len(FAQ_LISTA)} întrebări despre actualizare, stări și modul de citire a listei.</p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  {showroom(r, "04")}
 </div>
 
 <script>
@@ -1756,11 +1828,17 @@ def pagina_listare(unitati):
 </script>
 <script src="{r}assets/js/listare.js"></script>"""
 
+    schema = {"@context": "https://schema.org", "@graph": [
+        {"@type": "CollectionPage", "name": "Disponibilitate și prețuri — Emerald City",
+         "url": "https://emerald-city.ro/apartamente-iasi/disponibilitate/"},
+        {"@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in FAQ_LISTA]}]}
     return pagina(
         "Disponibilitate și prețuri — apartamente Iași | Emerald City",
         f"Toate cele {len(unitati)} de apartamente din Emerald City, Iași zona Păcurari, cu "
         "prețuri afișate. Filtre după camere, etaj, buget, dotări și bloc.",
-        continut, r, None, "apartamente-iasi/disponibilitate/")
+        continut, r, schema, "apartamente-iasi/disponibilitate/")
 
 
 # ============================================== hub de siloz /apartamente-iasi/
@@ -3015,7 +3093,7 @@ def pagina_comparator():
 <script src="{r}assets/js/compara.js"></script>"""
     return pagina("Comparator de apartamente — Emerald City Iași",
                   "Compară până la șase apartamente din Emerald City, Iași zona Păcurari.",
-                  continut, r, None, "compara/")
+                  continut, r, None, "compara/", robots="noindex, follow")
 
 
 # ========================================================== contact ==
@@ -3871,6 +3949,14 @@ def pagina_stadiu():
       </p>
     </div>
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+    <div class="ec-inv__foot" style="margin-top:2rem">
+      <p class="ec-calc__note" style="margin:0">Stadiul se corelează cu etapele din proiect și cu lista de disponibilitate pe etape.</p>
+      <div class="ec-cta__btns" style="margin:0">
+        <a class="ec-btn ec-btn--out" href="{r}proiect/#etape">{ic("layer-group")} Etapele proiectului</a>
+        <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/?etapa=I&amp;status=disponibil">{ic("table-list")} Apartamentele din Etapa I</a>
+        <a class="ec-btn ec-btn--out" href="{r}noutati/">{ic("newspaper")} Noutăți din șantier</a>
+      </div>
+    </div>
   </section>
 </div>
 
@@ -5196,6 +5282,7 @@ def pagina_presa():
 ARTICOLE_BLOG = [
  {"slug": "etapa-1-structura-etajul-2", "cat": "Jurnal de șantier", "pict": "helmet-safety",
   "data": "2026-09-20", "afisat": "20 septembrie 2026", "minute": 4, "img": "hol-01",
+  "seo_titlu": 'Etapa I: structura la etajul 2 în blocurile 1–4', "seo_desc": 'Stadiul din septembrie 2026 la Emerald City Iași: planșee turnate la blocurile 1–4, cofraje la 5–6 și săpături pentru Etapa II.',
   "titlu": "Etapa I: structura a ajuns la etajul 2 în blocurile 1–4",
   "rezumat": "Planșeul peste etajul 1 este turnat la primele patru blocuri, iar la blocurile 5 și 6 "
              "se montează cofrajele. Ce urmează până la finalul anului și ce înseamnă pentru termenele de predare.",
@@ -5219,6 +5306,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "ghid-cumparare-apartament-nou-iasi", "cat": "Ghid de achiziție", "pict": "file-signature",
   "data": "2026-09-12", "afisat": "12 septembrie 2026", "minute": 6, "img": "living-01",
+  "seo_titlu": 'Cum se cumpără un apartament nou în Iași: 5 pași', "seo_desc": 'Ghid practic: vizionare, rezervare, antecontract la notar, construcție și recepție — ce se semnează și ce se verifică la fiecare pas.',
   "titlu": "Cum se cumpără un apartament nou în Iași: cei 5 pași, cu documentele fiecăruia",
   "rezumat": "De la vizionare la intabulare, ce se semnează, ce se plătește și ce se verifică la fiecare pas. "
              "Un ghid practic pentru prima achiziție de la dezvoltator.",
@@ -5246,6 +5334,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "incalzire-in-pardoseala-vs-calorifere", "cat": "Finisaje și tehnic", "pict": "fire-flame-simple",
   "data": "2026-09-05", "afisat": "5 septembrie 2026", "minute": 5, "img": "dormitor-01",
+  "seo_titlu": 'Încălzire în pardoseală vs. calorifere: confort și factură', "seo_desc": 'Cum funcționează încălzirea în pardoseală cu centrală în condensație, ce economie aduce (până la 35%) și ce trebuie știut la mobilare.',
   "titlu": "Încălzire în pardoseală sau calorifere: ce se schimbă la confort și la factură",
   "rezumat": "Toate cele 925 de apartamente au încălzire în pardoseală, cu centrală proprie în condensație. "
              "Explicăm cum funcționează sistemul, ce economie aduce și ce trebuie știut la mobilare.",
@@ -5270,6 +5359,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "pacurari-ghidul-cartierului", "cat": "Zona", "pict": "map-location-dot",
   "data": "2026-08-28", "afisat": "28 august 2026", "minute": 5, "img": "dining-01",
+  "seo_titlu": 'Păcurari, în cifre: distanțe reale până la ce contează', "seo_desc": 'Distanțe măsurate de la Emerald City: școală la 300 m, Universitate la 5 km, centru la 4,8 km, aeroport la 12 km. Cui i se potrivește zona.',
   "titlu": "Păcurari, în cifre: distanțe reale până la școală, universitate și centru",
   "rezumat": "Am măsurat pe traseu rutier drumurile care contează zilnic — Copou, Universitate, Kaufland, "
              "Paradis International College. Ce înseamnă poziția ansamblului pentru o familie, un student sau un investitor.",
@@ -5294,6 +5384,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "randament-chirii-iasi-2026", "cat": "Investiție", "pict": "chart-line",
   "data": "2026-08-19", "afisat": "19 august 2026", "minute": 6, "img": "living-02",
+  "seo_titlu": 'Randamentul chiriilor în Iași 2026, apartament nou', "seo_desc": 'Randament brut estimat 4,5–5,5%, cu garsonierele în frunte. Metoda de calcul, costurile neincluse și de ce un apartament nou se închiriază mai repede.',
   "titlu": "Randamentul chiriilor în Iași, 2026: ce arată cifrele pentru un apartament nou",
   "rezumat": "Între 4,5% și 5,5% brut, cu garsonierele în frunte. Cum am calculat, ce costuri lipsesc din estimare "
              "și de ce un apartament nou, finisat la cheie, se închiriază mai repede.",
@@ -5318,6 +5409,7 @@ ARTICOLE_BLOG = [
 
  {"slug": "etapa-2-intra-in-vanzare", "cat": "Proiect", "pict": "building-circle-check",
   "data": "2026-08-10", "afisat": "10 august 2026", "minute": 4, "img": "hero-living",
+  "seo_titlu": 'Etapa II în vânzare: 423 de apartamente în 8 blocuri', "seo_desc": 'Blocurile 7–14 din Emerald City Iași, în jurul parcului central: compartimentări 1A–3B, prețuri de pornire neschimbate, rezervare la showroom.',
   "titlu": "Etapa II intră în vânzare: 423 de apartamente în 8 blocuri, în jurul parcului central",
   "rezumat": "Cea mai mare etapă a ansamblului, cu blocurile 7–14 și acces direct la parcul dendrologic. "
              "Ce compartimentări sunt disponibile, la ce prețuri și cum se rezervă.",
@@ -5507,7 +5599,7 @@ def pagina_articol(a):
 
   {showroom(r, "")}
 </div>"""
-    return pagina(f"{a['titlu']} | Emerald City", a["rezumat"], continut, r, schema,
+    return pagina(f"{a.get('seo_titlu', a['titlu'])} | Emerald City", a.get("seo_desc", a["rezumat"]), continut, r, schema,
                   f"noutati/{a['slug']}/", a["img"])
 
 
