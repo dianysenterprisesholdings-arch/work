@@ -2007,3 +2007,40 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-band .ec-etapa--alb, .ec-band .ec-fig, .ec-band .ec-faq {
   color: var(--ec-ink);
 }
+
+/* ==========================================================================
+   Praguri de buget — punct de intrare pentru cine caută întâi după preț
+   ========================================================================== */
+.ec-bugete { display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden; }
+@media (min-width: 40rem) { .ec-bugete { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 68rem) { .ec-bugete { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.ec-buget {
+  background: var(--ec-white); padding: clamp(1.5rem, 3vw, 2rem) 1.5rem;
+  display: flex; flex-direction: column; gap: .55rem;
+  transition: background var(--ec-fast);
+}
+.ec-buget:hover { background: var(--ec-sand); }
+.ec-buget__e {
+  font-size: var(--ec-micro); letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 600; color: var(--ec-ink-40);
+}
+.ec-buget__n {
+  font-family: var(--ec-disp); font-size: clamp(1.9rem, 3.4vw, 2.5rem); font-weight: 600;
+  line-height: 1; letter-spacing: -.02em; color: var(--ec-emerald);
+  display: flex; align-items: baseline; gap: .5rem;
+}
+.ec-buget__n small {
+  font-family: var(--ec-sans); font-size: var(--ec-micro); font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40);
+}
+.ec-buget__bar { height: 5px; border-radius: 3px; background: var(--ec-mint); overflow: hidden; margin: .35rem 0 .2rem; }
+.ec-buget__bar i { display: block; height: 100%; border-radius: 3px; background: var(--ec-brass); }
+.ec-buget__d { font-size: .8125rem; color: var(--ec-ink-60); line-height: 1.6; flex: 1; }
+.ec-buget__go {
+  margin-top: .5rem; padding-top: .9rem; border-top: 1px solid var(--ec-line);
+  font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase;
+  font-weight: 600; color: var(--ec-brass);
+}
+.ec-buget__go i { margin-right: .4rem; transition: transform var(--ec-fast); }
+.ec-buget:hover .ec-buget__go i { transform: translateX(3px); }

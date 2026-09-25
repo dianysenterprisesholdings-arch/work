@@ -23,7 +23,7 @@
   const stare = {
     camere: new Set(), etaj: new Set(), etapa: new Set(),
     status: new Set(), corp: new Set(), extra: new Set(),
-    pretMax: 130000, suMin: 36, text: '',
+    pretMin: 0, pretMax: 130000, suMin: 36, text: '',
     sort: 'pret', dir: 'asc', limita: PAS
   };
 
@@ -37,6 +37,7 @@
     if (stare.status.size && !stare.status.has(u[F.status]))         return false;
     if (stare.corp.size   && !stare.corp.has(bloc(u[F.corp])))       return false;
     if (u[F.pret] > stare.pretMax) return false;
+    if (u[F.pret] < stare.pretMin) return false;
     if (u[F.su]   < stare.suMin)   return false;
     for (const x of stare.extra) {
       if (x === 'balcon'  && !(u[F.balcon] > 0))    return false;
@@ -110,7 +111,8 @@
                            pretMax: 'bugetul', suMin: 'suprafața minimă' };
         for (const k of Object.keys(etichete)) {
           const activ = stare[k] instanceof Set ? stare[k].size
-                      : (k === 'pretMax' ? stare.pretMax !== 130000 : stare.suMin !== 36);
+                      : (k === 'pretMax' ? (stare.pretMax !== 130000 || stare.pretMin !== 0)
+                                         : stare.suMin !== 36);
           if (!activ) continue;
           const n = fara(k);
           if (n > 0) sug.push(`<button class="ec-btn ec-btn--out" data-relax="${k}">Renunță la ${etichete[k]} · ${n} rezultate</button>`);
@@ -139,6 +141,7 @@
     ['camere','etaj','etapa','status','corp','extra'].forEach(g => {
       if (stare[g].size) p.set(g, [...stare[g]].join(','));
     });
+    if (stare.pretMin !== 0) p.set('pret-min', stare.pretMin);
     if (stare.pretMax !== 130000) p.set('pret-max', stare.pretMax);
     if (stare.suMin !== 36) p.set('su-min', stare.suMin);
     const q = p.toString();
@@ -154,6 +157,7 @@
     // link-uri scurte din subsol si din paginile de tipologie
     const tip = p.get('tip');
     if (tip) { stare.tipFiltru = tip; }
+    if (p.get('pret-min')) stare.pretMin = +p.get('pret-min');
     if (p.get('pret-max')) stare.pretMax = +p.get('pret-max');
     if (p.get('su-min'))   stare.suMin   = +p.get('su-min');
 
@@ -191,7 +195,7 @@
 
     $('#fReset').addEventListener('click', () => {
       ['camere','etaj','etapa','status','corp','extra'].forEach(g => stare[g].clear());
-      stare.pretMax = 130000; stare.suMin = 36; stare.limita = PAS;
+      stare.pretMin = 0; stare.pretMax = 130000; stare.suMin = 36; stare.limita = PAS;
       $$('.ec-chip').forEach(b => b.classList.remove('is-on'));
       $('#fPret').value = 130000; $('#oPret').textContent = euro(130000);
       $('#fSu').value = 36; $('#oSu').textContent = '36 m²';
@@ -221,7 +225,7 @@
       const k = b.dataset.relax;
       if (k === 'tot') { $('#fReset').click(); return; }
       if (stare[k] instanceof Set) stare[k].clear();
-      else if (k === 'pretMax') stare.pretMax = 130000;
+      else if (k === 'pretMax') { stare.pretMax = 130000; stare.pretMin = 0; }
       else if (k === 'suMin') stare.suMin = 36;
       $$('.ec-chip[data-f="' + k + '"]').forEach(x => x.classList.remove('is-on'));
       $('#fPret').value = stare.pretMax; $('#oPret').textContent = euro(stare.pretMax);

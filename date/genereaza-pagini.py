@@ -1041,13 +1041,69 @@ SAGEATA = ('<span class="ec-arrow" style="padding:0"><svg width="22" height="10"
            ' stroke-width="1.3"/></svg></span>')
 
 
+# Pragurile de buget. Numarul de apartamente din fiecare se calculeaza din
+# tabelul de vanzari, deci nu ramane nicio cifra scrisa de mana.
+BUGETE = [
+ (0,      60000,  "Sub 60.000 €",     "Garsoniere și 2 camere la etajele inferioare"),
+ (60000,  80000,  "60.000 – 80.000 €", "Cele mai multe apartamente de 2 camere"),
+ (80000,  110000, "80.000 – 110.000 €", "2 camere generoase și 3 camere"),
+ (110000, 10**9,  "Peste 110.000 €",  "3 camere cu două grupuri sanitare și curte"),
+]
+
+
+FAQ_HUB = [
+ ("Câte apartamente sunt disponibile acum?",
+  "Numărul afișat pe această pagină se actualizează din tabelul de vânzări. Lista completă, "
+  "cu filtre după camere, buget, etaj și bloc, este la secțiunea de disponibilitate."),
+ ("Ce suprafețe au apartamentele?",
+  "Între 37 și 81 m² suprafață utilă. Fiecare apartament are balcon, iar cele de la parter "
+  "au curte proprie, între 13 și 51 m²."),
+ ("Prețurile afișate includ TVA?",
+  "Da. Prețurile de pe site includ TVA și toate finisajele. Nu există costuri suplimentare "
+  "pentru execuția lor."),
+ ("Ce înseamnă preț de pornire?",
+  "Cel mai mic preț dintre apartamentele disponibile din categoria respectivă, la data "
+  "actualizării. Prețul fiecărei unități este afișat individual în listă."),
+ ("Se poate cumpăra cu credit ipotecar?",
+  "Da. Apartamentele se pot achiziționa cu credit ipotecar standard, iar cele care se "
+  "încadrează în plafon pot fi cumpărate și prin Noua Casă."),
+ ("Ce avans se cere?",
+  "15% din preț la semnarea antecontractului la notar, iar diferența la predare. Etapele "
+  "de plată se stabilesc în contract."),
+ ("Există comision de intermediere?",
+  "Nu. Vânzarea se face direct de la dezvoltator, fără comision de agenție."),
+ ("Pot rezerva un apartament?",
+  "Da. Apartamentul se blochează pe numele tău, iar prețul se îngheață pe perioada "
+  "rezervării. Termenul se stabilește la biroul de vânzări."),
+ ("Ce apartamente se predau primele?",
+  "Cele din Etapa I, blocurile 1–6. Termenul fiecărei etape se înscrie în antecontract."),
+ ("Pot vedea un apartament înainte de a cumpăra?",
+  "Da. La biroul de vânzări se poate vizita apartamentul-model și se pot consulta planurile "
+  "fiecărei compartimentări."),
+]
+
+
 def pagina_hub(unitati, grupe):
     r = "../"
-    disp_tot = [u for u in unitati if u["status"] == "disponibil"]
+    disp = [u for u in unitati if u["status"] == "disponibil"]
     su_min = min(u["su_utila"] for u in unitati)
     su_max = max(u["su_utila"] for u in unitati)
-    p_min = min(u["pret_eur"] for u in disp_tot)
+    p_min = min(u["pret_eur"] for u in disp)
+    lista = f"{r}apartamente-iasi/disponibilitate/"
 
+    # ---- cifrele din antet ------------------------------------------------
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b{attr}>{e(val)}</b><em>{e(et)}</em></span></div>'
+        for val, et, pic, attr in [
+            (str(len(unitati)), "Apartamente în ansamblu", "building",
+             f' data-num="{len(unitati)}"'),
+            (str(len(disp)), "Disponibile acum", "key", f' data-num="{len(disp)}"'),
+            (euro(p_min), "Preț de pornire", "tag", ""),
+            (f"{su_min:.0f}–{su_max:.0f} m²", "Suprafață utilă", "ruler-combined", ""),
+        ])
+
+    # ---- 01: dupa numarul de camere --------------------------------------
     silo = ""
     for nr in (1, 2, 3):
         c = CATEGORII[nr]
@@ -1074,95 +1130,287 @@ def pagina_hub(unitati, grupe):
           </div>
         </a>"""
 
-    why = "".join('<div class="ec-why__i ec-rv">' + _icon(ic) + '<h3>' + t + '</h3><p>' + d + '</p></div>'
-                  for t, d, ic in ARGUMENTE)
+    # ---- 02: dupa buget ---------------------------------------------------
+    bug_max = max(len([u for u in disp if a <= u["pret_eur"] < b]) for a, b, _, _ in BUGETE)
+    bugete = ""
+    for a, b, eticheta, descriere in BUGETE:
+        n = [u for u in disp if a <= u["pret_eur"] < b]
+        if not n:
+            continue
+        q = []
+        if a:
+            q.append(f"pret-min={a}")
+        if b < 10**8:
+            # pragul de sus e inclusiv in lista, exclusiv in gruparea de aici
+            q.append(f"pret-max={b - 1}")
+        q.append("status=disponibil")
+        bugete += (f'<a class="ec-buget ec-rv" href="{lista}?{"&amp;".join(q)}">'
+                   f'<span class="ec-buget__e">{e(eticheta)}</span>'
+                   f'<span class="ec-buget__n">{len(n)}<small>apartamente</small></span>'
+                   f'<span class="ec-buget__bar"><i style="width:{len(n)*100//bug_max}%"></i></span>'
+                   f'<span class="ec-buget__d">{e(descriere)}</span>'
+                   f'<span class="ec-buget__go">{ic("arrow-right")} Vezi lista</span></a>')
 
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Apartamente noi în Iași</nav>
+    # ---- 03: compartimentari ---------------------------------------------
+    tipuri = ""
+    for cod in sorted(grupe):
+        us = grupe[cod]
+        d = [u for u in us if u["status"] == "disponibil"]
+        pm = min((x["pret_eur"] for x in d), default=None)
+        tipuri += f"""<a class="ec-type ec-rv" href="{r}tipologii/{cod.lower()}/">
+          <div class="ec-type__plan">{plan_svg(us[0]['nr_camere'], cod, us[0]['su_utila'], compact=True)}</div>
+          <div class="ec-type__code">{cod}</div>
+          <div class="ec-type__rows">
+            <div><span>Camere</span><b>{us[0]['nr_camere']}</b></div>
+            <div><span>Suprafață</span><b>{min(u['su_utila'] for u in us):.0f}–{max(u['su_utila'] for u in us):.0f} m²</b></div>
+            <div><span>Disponibile</span><b>{len(d)}</b></div>
+          </div>
+          <div class="ec-unit__price">{euro(pm) if pm else '—'}</div>
+        </a>"""
 
-  <header class="ec-phead">
+    # ---- 04: etape --------------------------------------------------------
+    etape = ""
+    for cod in ("I", "II", "III"):
+        us = [u for u in unitati if u["etapa"] == cod]
+        if not us:
+            continue
+        d = [u for u in us if u["status"] == "disponibil"]
+        blocuri = sorted({bloc(u["corp"]) for u in us}, key=int)
+        pm = min((x["pret_eur"] for x in d), default=None)
+        stare = f"{len(d)} disponibile" if d else "În curând"
+        etape += (f'<tr><td><b>Etapa {cod}</b></td>'
+                  f'<td>Blocurile {blocuri[0]}–{blocuri[-1]}</td>'
+                  f'<td class="num">{len(us)}</td>'
+                  f'<td class="num">{e(stare)}</td>'
+                  f'<td class="num">{euro(pm) if pm else "—"}</td>'
+                  f'<td><a href="{lista}?etapa={cod}">Vezi lista</a></td></tr>')
+
+    # ---- 05: cu curte proprie --------------------------------------------
+    curti = [u for u in unitati if u["su_curte"] > 0]
+    curti_d = [u for u in curti if u["status"] == "disponibil"]
+    curte_min = min(u["su_curte"] for u in curti)
+    curte_max = max(u["su_curte"] for u in curti)
+    curte_pret = min((u["pret_eur"] for u in curti_d), default=None)
+
+    # ---- 06: cel mai bun raport pret/suprafata ---------------------------
+    alese = sorted(disp, key=lambda u: u["pret_eur"] / u["su_utila"])[:6]
+    recomandate = "".join(card_unitate(u, r) for u in alese)
+
+    why = "".join('<div class="ec-why__i ec-rv">' + _icon(pic) + "<h3>" + t + "</h3><p>" + d + "</p></div>"
+                  for t, d, pic in ARGUMENTE)
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_HUB)
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "CollectionPage",
+             "name": "Apartamente noi în Iași, zona Păcurari",
+             "url": "https://emerald-city.ro/apartamente-iasi/"},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_HUB]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("hero-living", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Apartamente noi în Iași</nav>
     <p class="ec-eyebrow">Apartamente</p>
-    <h1 style="margin-top:1rem">Apartamente noi în Iași, zona Păcurari</h1>
-    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">
-      Emerald City are {len(unitati)} de apartamente cu 1, 2 și 3 camere, în cinci compartimentări.
-      Toate se predau cu finisaje premium incluse, cu balcon și cu boxă disponibilă la demisol.
-      Alege mai jos după numărul de camere, sau mergi direct la lista completă cu filtre.
+    <h1>Apartamente noi în Iași, zona Păcurari</h1>
+    <p class="ec-phero__sub">
+      {len(disp)} apartamente disponibile acum, cu 1, 2 și 3 camere, între {su_min:.0f} și
+      {su_max:.0f} m². Toate se predau complet finisate, cu prețuri afișate și vânzare
+      directă de la dezvoltator.
     </p>
-    <div class="ec-hstats">
-      <div class="ec-hstat"><b>{len(unitati)}</b><span>Apartamente</span></div>
-      <div class="ec-hstat"><b>{len(disp_tot)}</b><span>Disponibile acum</span></div>
-      <div class="ec-hstat"><b>{mp(su_min)} – {mp(su_max)}</b><span>Suprafață utilă</span></div>
-      <div class="ec-hstat"><b>{euro(p_min)}</b><span>Preț de pornire</span></div>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="{lista}">{ic("table-list")} Vezi toate apartamentele</a>
+      <a class="ec-btn ec-btn--outlight" href="#buget">{ic("tag")} Caută după buget</a>
     </div>
-  </header>
+  </div>
+</section>
 
-  <section class="ec-section" style="padding-block:1rem 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Alege după numărul de camere</h2>
-    <div class="ec-silo">{silo}</div>
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="camere">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — După camere</span>
+        <h2>Alege <em>numărul de camere</em></h2></div>
+      <p class="ec-shead__p">
+        Trei categorii, cu disponibilitatea și prețul de pornire actualizate din tabelul
+        de vânzări.
+      </p>
+    </div>
+    <div class="ec-silo" style="margin-top:2.5rem">{silo}</div>
   </section>
 
-  <section class="ec-section" style="padding-block:1rem 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">De ce un apartament nou aici</h2>
-    <div class="ec-why">{why}</div>
+  <section class="ec-section" id="buget" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — După buget</span>
+        <h2>Pornește de la <em>suma pe care o ai</em></h2></div>
+      <p class="ec-shead__p">
+        Patru praguri de preț, cu numărul real de apartamente din fiecare. Fiecare prag
+        deschide lista deja filtrată.
+      </p>
+    </div>
+    <div class="ec-bugete" style="margin-top:2.5rem">{bugete}</div>
   </section>
 
-  <section class="ec-section" style="padding-block:1rem 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Dotări și facilități</h2>
-    <div class="ec-lists">
-      <div class="ec-list"><h3>Dotări apartament</h3><ul>{''.join('<li>' + x + '</li>' for x in DOTARI)}</ul></div>
-      <div class="ec-list"><h3>Facilități ansamblu</h3><ul>{''.join('<li>' + x + '</li>' for x in FACILITATI)}</ul></div>
+  <section class="ec-section" id="compartimentari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Compartimentări</span>
+        <h2>{len(grupe)} planuri <em>de apartament</em></h2></div>
+      <p class="ec-shead__p">
+        De la garsonieră la 3 camere cu două grupuri sanitare. Fiecare cu planul,
+        suprafețele și disponibilitatea proprie.
+      </p>
+    </div>
+    <div class="ec-types" style="margin-top:2.5rem">{tipuri}</div>
+  </section>
+
+  <section class="ec-section" id="etape" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">04 — Etape</span>
+        <h2>Ce se vinde <em>în fiecare etapă</em></h2></div>
+      <p class="ec-shead__p">
+        Ansamblul se construiește în trei etape. Fiecare intră în vânzare la momentul ei.
+      </p>
+    </div>
+    <div class="ec-table ec-table--vs" style="margin-top:2.5rem">
+      <table>
+        <caption class="ec-sr">Disponibilitate pe etape</caption>
+        <thead><tr><th scope="col">Etapă</th><th scope="col">Blocuri</th>
+          <th scope="col">Total</th><th scope="col">Stare</th>
+          <th scope="col">De la</th><th scope="col"></th></tr></thead>
+        <tbody>{etape}</tbody>
+      </table>
     </div>
   </section>
+</div>
 
-  <section class="ec-section" style="padding-block:1rem 3rem">
-    <div class="ec-strip">
-      <div>
-        <h2>Vezi toate cele {len(unitati)} de apartamente</h2>
-        <p>Filtrează după camere, etaj, bloc, suprafață și buget. Rezultatele se actualizează instant.</p>
+<section class="ec-band" id="curte">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">05 — Curte proprie</span>
+          <h2>{len(curti)} apartamente <em>cu curte la parter</em></h2></div>
+        <p class="ec-shead__p">
+          Între {curte_min:.0f} și {curte_max:.0f} m² de curte, în folosință exclusivă.
+          Rar întâlnite într-un ansamblu de această mărime.
+        </p>
       </div>
-      <div class="ec-strip__cta">
-        <a class="ec-btn ec-btn--white" href="{r}apartamente-iasi/disponibilitate/">Disponibilitate și prețuri</a>
-        <a class="ec-btn ec-btn--wa" href="{WA}">WhatsApp</a>
+      <div class="ec-figs" style="margin-top:2.5rem">
+        <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("seedling")}</span>
+          <span><b>{len(curti)}</b><em>În ansamblu</em></span></div>
+        <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("key")}</span>
+          <span><b>{len(curti_d)}</b><em>Disponibile acum</em></span></div>
+        <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("ruler-combined")}</span>
+          <span><b>{curte_min:.0f}–{curte_max:.0f} m²</b><em>Suprafață curte</em></span></div>
+        <div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic("tag")}</span>
+          <span><b>{euro(curte_pret) if curte_pret else '—'}</b><em>Preț de pornire</em></span></div>
+      </div>
+      <div class="ec-center" style="margin-top:2rem">
+        <a class="ec-btn ec-btn--white" href="{lista}?extra=curte&amp;status=disponibil">{ic("table-list")} Vezi apartamentele cu curte</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="ec-section" style="padding-block:1rem 4rem">
-    <div class="ec-prose">
-      <h2>Despre apartamentele noi din Emerald City</h2>
-      <p>
-        Emerald City este un ansamblu rezidențial din Iași, zona Păcurari, cu {len(unitati)} de
-        apartamente distribuite în 18 blocuri de tip parter plus trei etaje. Regimul scund și
-        distanțele generoase dintre clădiri înseamnă lumină naturală în fiecare apartament și mai
-        puțină aglomerare decât într-un bloc-turn.
-      </p>
-      <h3>Ce tipuri de apartamente sunt disponibile</h3>
-      <p>
-        Ansamblul are cinci compartimentări: 1A pentru o cameră, 2A și 2B pentru două camere,
-        3A și 3B pentru trei camere. Suprafețele utile pornesc de la {mp(su_min)} și ajung la
-        {mp(su_max)}. Fiecare apartament are balcon, iar cele de la parter au curte proprie.
-      </p>
-      <h3>Cum se cumpără</h3>
-      <p>
-        Vânzarea se face direct de la dezvoltator, Tala Sapphire S.R.L., fără comision de
-        intermediere. Prețurile afișate includ TVA, iar rezervarea se face cu un avans de 15% la
-        semnarea antecontractului, diferența fiind achitată la predare.
-      </p>
-      <h3>Unde se află</h3>
-      <p>
-        În zona Păcurari, la ieșirea de nord-vest a Iașului, cu acces din Strada Ion Nistor.
-        Aproximativ 7 km pană in centrul orașului, 5 km pană in Copou și 6 km pană la
-        Universitatea Alexandru Ioan Cuza.
+<div class="ec-wrap">
+  <section class="ec-section" id="recomandate">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">06 — Cel mai bun raport</span>
+        <h2>Cele mai bune <em>prețuri pe metru pătrat</em></h2></div>
+      <p class="ec-shead__p">
+        Șase apartamente disponibile, alese automat după cel mai mic preț pe metru pătrat
+        din tot ansamblul.
       </p>
     </div>
+    <div class="ec-cards" style="margin-top:2.5rem">{recomandate}</div>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn" href="{lista}">{ic("table-list")} Vezi toate cele {len(disp)} disponibile</a>
+      <a class="ec-btn ec-btn--out" href="{r}compara/">{ic("code-compare")} Compară apartamente</a>
+    </div>
   </section>
-</div>"""
 
-    return pagina(
-        "Apartamente noi in Iasi, zona Pacurari \u2014 1, 2, 3 camere | Emerald City",
-        "Apartamente noi de vânzare în Iași, zona Păcurari: " + str(len(unitati)) +
-        " de unități cu 1, 2 sau 3 camere, cu finisaje premium incluse. Direct de la dezvoltator.",
-        continut, r, None, "apartamente-iasi/")
+  <section class="ec-section" id="avantaje" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">07 — Avantaje</span>
+        <h2>De ce <em>un apartament nou aici</em></h2></div>
+      <p class="ec-shead__p">Patru argumente verificabile, nu promisiuni.</p>
+    </div>
+    <div class="ec-why" style="margin-top:2.5rem">{why}</div>
+  </section>
+
+  <section class="ec-section" id="dotari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">08 — Dotări</span>
+        <h2>În apartament <em>și în ansamblu</em></h2></div>
+      <p class="ec-shead__p">
+        Ce este inclus în fiecare locuință și ce se folosește în comun.
+      </p>
+    </div>
+    <div class="ec-lists" style="margin-top:2.5rem">
+      <div class="ec-list"><h3>{ic("house-chimney")} Dotări apartament</h3><ul>
+        {"".join(f"<li>{e(x)}</li>" for x in DOTARI)}
+      </ul></div>
+      <div class="ec-list"><h3>{ic("tree-city")} Facilități ansamblu</h3><ul>
+        {"".join(f"<li>{e(x)}</li>" for x in FACILITATI)}
+      </ul></div>
+    </div>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn ec-btn--out" href="{r}finisaje/">{ic("list-check")} Vezi tot ce e inclus în preț</a>
+    </div>
+  </section>
+
+  <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">09 — Întrebări</span>
+        <h2>Despre apartamente <em>și achiziție</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_HUB)} întrebări despre suprafețe, prețuri și modul de cumpărare.
+      </p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  {showroom(r, "10")}
+</div>
+
+<script>
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (!nr.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const urca = el => {{
+    const tinta = parseFloat(el.dataset.num);
+    const t0 = performance.now(), dur = 1100;
+    const pas = t => {{
+      const p = Math.min((t - t0) / dur, 1);
+      el.textContent = Math.round(tinta * (1 - Math.pow(1 - p, 3))).toLocaleString('ro-RO');
+      if (p < 1) requestAnimationFrame(pas);
+    }};
+    requestAnimationFrame(pas);
+  }};
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (x.isIntersecting) {{ urca(x.target); o.unobserve(x.target); }}
+  }}), {{ threshold: .4 }});
+  nr.forEach(x => o.observe(x));
+}})();
+</script>"""
+
+    return pagina("Apartamente noi în Iași, zona Păcurari — prețuri și disponibilitate | Emerald City",
+                  f"{len(disp)} apartamente noi disponibile în Iași, zona Păcurari: 1, 2 și 3 camere, "
+                  f"între {su_min:.0f} și {su_max:.0f} m², de la {euro(p_min)}. Predare la cheie, "
+                  "vânzare directă de la dezvoltator.",
+                  continut, r, schema, "apartamente-iasi/")
 
 
 # ==================================================== pagina de categorie
