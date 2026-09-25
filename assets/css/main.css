@@ -1692,3 +1692,132 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
   display: grid; place-items: center; font-size: .9375rem; margin-bottom: 1rem;
 }
 .ec-ref__ic { color: var(--ec-brass); font-size: 1.25rem; }
+
+
+/* ==========================================================================
+   "Proiect" — sectiune verticala, bilantul terenului, etape, distributie
+   ========================================================================== */
+
+/* ---- sectiune verticala prin bloc -------------------------------------- */
+.ec-sectiune { display: grid; gap: var(--ec-gap); align-items: start; }
+@media (min-width: 62rem) {
+  .ec-sectiune { grid-template-columns: minmax(0,.82fr) minmax(0,1.18fr); }
+}
+.ec-sectiune__fig {
+  background: var(--ec-white); border: 1px solid var(--ec-line);
+  border-radius: var(--ec-r); padding: clamp(1.25rem, 3vw, 2rem); margin: 0;
+}
+.ec-sectiune__fig svg { width: 100%; height: auto; display: block; }
+.ec-sectiune__fig figcaption {
+  margin-top: 1rem; font-size: var(--ec-micro); letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ec-ink-40); text-align: center;
+}
+.ec-niv {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden;
+}
+.ec-niv__i {
+  background: var(--ec-white); padding: 1.2rem 1.4rem;
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto;
+  gap: 1rem; align-items: center;
+}
+.ec-niv__i--sub { background: var(--ec-sand); }
+.ec-niv__c {
+  width: 2.5rem; height: 2.5rem; border-radius: 50%;
+  background: var(--ec-mint); color: var(--ec-emerald);
+  display: grid; place-items: center; font-size: .9375rem;
+}
+.ec-niv b { display: block; font-size: .9375rem; font-weight: 600; }
+.ec-niv em {
+  display: block; margin-top: .3rem; font-style: normal;
+  font-size: .8125rem; color: var(--ec-ink-60); line-height: 1.55;
+}
+.ec-niv__h {
+  font-family: var(--ec-disp); font-weight: 600; font-size: .875rem;
+  color: var(--ec-brass); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+
+/* ---- bilantul terenului ------------------------------------------------ */
+.ec-bilant__bar {
+  display: flex; height: 3rem; border-radius: var(--ec-r);
+  overflow: hidden; border: 1px solid var(--ec-line);
+}
+.ec-bilant__s {
+  display: grid; place-items: center; color: #fff;
+  font-size: var(--ec-micro); letter-spacing: .1em; font-weight: 500;
+  transition: flex-grow .9s var(--ec-ease);
+}
+.ec-bilant__leg {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r);
+  overflow: hidden; margin-top: var(--ec-gap);
+}
+@media (min-width: 46rem) { .ec-bilant__leg { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-bilant__l { background: var(--ec-white); padding: 1.5rem; }
+.ec-bilant__l i { display: block; width: .875rem; height: .875rem; border-radius: 3px; margin-bottom: .8rem; }
+.ec-bilant__l b {
+  display: block; font-family: var(--ec-disp); font-weight: 600;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem); letter-spacing: -.02em;
+}
+.ec-bilant__l u { display: block; text-decoration: none; margin-top: .2rem; font-size: .875rem; font-weight: 600; color: var(--ec-brass); }
+.ec-bilant__l span { display: block; margin-top: .5rem; font-size: .8125rem; color: var(--ec-ink-60); line-height: 1.6; }
+
+/* ---- etape de constructie ---------------------------------------------- */
+.ec-etape { display: grid; gap: var(--ec-gap); }
+@media (min-width: 52rem) { .ec-etape { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-etapa {
+  background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.14);
+  border-radius: var(--ec-r); padding: clamp(1.5rem, 3vw, 2rem);
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.ec-etapa__n {
+  font-family: var(--ec-disp); font-size: .75rem; font-weight: 600;
+  letter-spacing: .14em; color: var(--ec-brass); text-transform: uppercase;
+}
+.ec-etapa h3 { font-family: var(--ec-disp); font-size: 1.5rem; font-weight: 600; color: #fff; }
+.ec-etapa__cif { display: flex; gap: 1.75rem; margin-top: .4rem; }
+.ec-etapa__cif div b {
+  display: block; font-family: var(--ec-disp); font-size: 1.5rem;
+  font-weight: 600; color: #fff; line-height: 1;
+}
+.ec-etapa__cif div span {
+  display: block; margin-top: .3rem; font-size: var(--ec-micro);
+  letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.5);
+}
+.ec-etapa__bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,.14); margin-top: 1.1rem; overflow: hidden; }
+.ec-etapa__bar i { display: block; height: 100%; background: var(--ec-brass); }
+.ec-etapa p { font-size: .875rem; color: rgba(255,255,255,.7); line-height: 1.65; margin-top: .3rem; }
+
+/* ---- distributia apartamentelor ---------------------------------------- */
+.ec-distr {
+  display: grid; gap: 1px; background: var(--ec-line);
+  border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden;
+}
+.ec-distr__i {
+  background: var(--ec-white); padding: 1.4rem clamp(1.25rem,3vw,1.75rem);
+  display: grid; gap: .25rem 1.25rem; align-items: center;
+  grid-template-columns: minmax(0,1fr) auto;
+}
+@media (min-width: 52rem) {
+  .ec-distr__i { grid-template-columns: 11rem minmax(0,1fr) 7rem 8rem; }
+}
+.ec-distr__t { font-size: .9375rem; font-weight: 600; }
+.ec-distr__t i { color: var(--ec-brass); margin-right: .55rem; }
+.ec-distr__bar { height: 10px; border-radius: 5px; background: var(--ec-mint); overflow: hidden; grid-column: 1 / -1; }
+@media (min-width: 52rem) { .ec-distr__bar { grid-column: auto; } }
+.ec-distr__bar i {
+  display: block; height: 100%; border-radius: 5px; background: var(--ec-emerald);
+  width: 0; transition: width 1s var(--ec-ease);
+}
+.ec-distr__n { font-family: var(--ec-disp); font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ec-distr__n small { display: block; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ec-ink-40); font-weight: 400; }
+.ec-distr__m { font-size: .8125rem; color: var(--ec-ink-60); text-align: right; }
+.ec-distr__m b { display: block; color: var(--ec-ink); font-weight: 600; }
+
+/* randurile de contact din subsol: pe ecrane inguste, eticheta si valoarea
+   trec una sub alta, altfel randul depaseste latimea si e taiat */
+.ec-foot__r b { min-width: 0; overflow-wrap: anywhere; }
+.ec-foot__r span i { color: var(--ec-brass); margin-right: .4rem; }
+@media (max-width: 40rem) {
+  .ec-foot__r { flex-direction: column; align-items: flex-start; gap: .35rem; }
+}

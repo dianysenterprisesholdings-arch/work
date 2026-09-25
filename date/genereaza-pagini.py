@@ -205,21 +205,21 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic=""):
       </div>
       <div class="ec-foot__reach">
         <a class="ec-foot__r" href="tel:{TEL}">
-          <span>Sună direct</span><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="16" rx="1"/><rect x="12" y="9" width="8" height="11" rx="1"/><path d="M6.5 8h3M6.5 12h3M6.5 16h3M15 13h2M15 17h2"/></svg><b>{TEL_AFIS}</b>
+          <span><i class="fa-solid fa-phone" aria-hidden="true"></i> Sună direct</span><b>{TEL_AFIS}</b>
         </a>
         <a class="ec-foot__r" href="{WA}">
-          <span>Scrie pe WhatsApp</span><b>Răspundem azi</b>
+          <span><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Scrie pe WhatsApp</span><b>Răspundem azi</b>
         </a>
         <a class="ec-foot__r" href="mailto:vanzari@emerald-city.ro">
-          <span>Email</span><b>vanzari@emerald-city.ro</b>
+          <span><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email</span><b>vanzari@emerald-city.ro</b>
         </a>
         <a class="ec-foot__r" href="{r}investitie-apartamente-iasi/">
-          <span>Cumperi ca investiție?</span><b>Calculator de randament</b>
+          <span><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Cumperi ca investiție?</span><b>Calculator de randament</b>
         </a>
       </div>
     </div>
 
-    <div class="ec-foot__stats"><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="16" rx="1"/><rect x="12" y="9" width="8" height="11" rx="1"/><path d="M6.5 8h3M6.5 12h3M6.5 16h3M15 13h2M15 17h2"/></svg></span><span class="ec-statbox__v"><b>925</b><em>Apartamente</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19V8l5-3 5 3v11"/><path d="M13 19v-8h8v8"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 15h2"/></svg></span><span class="ec-statbox__v"><b>18</b><em>Blocuri, parter + 3 etaje</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18c0-7.5 5-12 14-12 0 8.5-5 12-14 12z"/><path d="M5 18c2.5-3.5 5.5-5.5 9.5-7"/></svg></span><span class="ec-statbox__v"><b>30,85%</b><em>Spațiu verde</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16h14M6 16V9l2-4h8l2 4v7"/><circle cx="8" cy="16.5" r="1.8"/><circle cx="16" cy="16.5" r="1.8"/></svg></span><span class="ec-statbox__v"><b>940</b><em>Locuri de parcare</em></span></div></div></div>
+    <div class="ec-foot__stats"><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="16" rx="1"/><rect x="12" y="9" width="8" height="11" rx="1"/><path d="M6.5 8h3M6.5 12h3M6.5 16h3M15 13h2M15 17h2"/></svg></span><span class="ec-statbox__v"><b>925</b><em>Apartamente</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19V8l5-3 5 3v11"/><path d="M13 19v-8h8v8"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 15h2"/></svg></span><span class="ec-statbox__v"><b>18</b><em>Blocuri 2D+P+3E</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18c0-7.5 5-12 14-12 0 8.5-5 12-14 12z"/><path d="M5 18c2.5-3.5 5.5-5.5 9.5-7"/></svg></span><span class="ec-statbox__v"><b>30,85%</b><em>Spațiu verde</em></span></div></div><div><div class="ec-statbox"><span class="ec-statbox__i"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16h14M6 16V9l2-4h8l2 4v7"/><circle cx="8" cy="16.5" r="1.8"/><circle cx="16" cy="16.5" r="1.8"/></svg></span><span class="ec-statbox__v"><b>940</b><em>Locuri de parcare</em></span></div></div></div>
       <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19V8l5-3 5 3v11"/><path d="M13 19v-8h8v8"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 15h2"/></svg><b>18</b></div><span>Blocuri, parter + 3 etaje</span></div>
       <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 18c0-7.5 5-12 14-12 0 8.5-5 12-14 12z"/><path d="M5 18c2.5-3.5 5.5-5.5 9.5-7"/></svg><b>30,85%</b></div><span>Spațiu verde</span></div>
       <div><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16h14M6 16V9l2-4h8l2 4v7"/><circle cx="8" cy="16.5" r="1.8"/><circle cx="16" cy="16.5" r="1.8"/></svg><b>940</b></div><span>Locuri de parcare</span></div>
@@ -1591,86 +1591,512 @@ def pagina_dezvoltator():
 
 
 
-# ============================================================== proiect ==
-def pagina_proiect():
-    r = "../"
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Proiect</nav>
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Proiect</p>
-    <h1 style="margin-top:1rem">Cum este gândit ansamblul</h1>
-    <p class="ec-body" style="max-width:66ch;font-size:var(--ec-lead)">
-      Optsprezece blocuri joase în loc de câteva turnuri. Decizia asta schimbă tot restul:
-      cât de multă lumină intră, cât spațiu rămâne între clădiri și cât de aglomerat se simte
-      cartierul în care locuiești.
-    </p>
-    <div class="ec-hstats">
-      <div class="ec-hstat"><b>925</b></div><span>Apartamente</span></div>
-      <div class="ec-hstat"><div class="ec-statrow"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 19V8l5-3 5 3v11"/><path d="M13 19v-8h8v8"/><path d="M6 11h1.5M6 15h1.5M10 11h1.5M10 15h1.5M16 15h2"/></svg><b>18</b></div><span>Blocuri</span></div>
-      <div class="ec-hstat"><b>5,02 ha</b><span>Suprafață teren</span></div>
-      <div class="ec-hstat"><b>3</b><span>Etape de construcție</span></div>
-    </div>
-  </header>
+# =============================================================== proiect ==
+def mp_ro(n, zec=2):
+    """15070.5 -> "15.070,50 m²" — punct la mii, virgula la zecimale."""
+    intreg, _, frac = f"{n:,.{zec}f}".partition(".")
+    return intreg.replace(",", ".") + ("," + frac if zec else "") + " m²"
 
-  <section class="ec-section" style="padding-block:0 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Etapele</h2>
-    <div class="ec-table">
-      <table>
-        <caption class="ec-sr">Etapele de construcție</caption>
-        <thead><tr><th>Etapă</th><th>Blocuri</th><th>Apartamente</th><th>Observații</th></tr></thead>
-        <tbody>
-          <tr><td>Etapa I</td><td>1–6</td><td class="num">322</td>
-              <td>Include spațiul comercial de la parterul blocului 6</td></tr>
-          <tr><td>Etapa II</td><td>7–14</td><td class="num">423</td>
-              <td>Cea mai mare etapă, cu acces direct la parcul central</td></tr>
-          <tr><td>Etapa III</td><td>15–18</td><td class="num">180</td>
-              <td>Blocurile cu cea mai deschisă perspectivă spre oraș</td></tr>
-        </tbody>
-      </table>
+# Nivelurile unui bloc, de sus in jos. Inaltimile sunt cele din documentatie:
+# atic la 18,00 m fata de cota terenului.
+NIVELURI = [
+ ("solar-panel", "Terasă tehnică", "18,00 m",
+  "Atic la cota maximă aprobată. Panourile fotovoltaice și echipamentele de instalații "
+  "stau aici, nu pe fațadă.", False),
+ ("building", "Etajul 3", "14,40 m",
+  "Ultimul nivel locuibil. Fără vecin deasupra, deci fără zgomot de pași.", False),
+ ("building", "Etajul 2", "11,10 m",
+  "Nivel curent, cu apartamente de 1, 2 și 3 camere pe același palier.", False),
+ ("building", "Etajul 1", "7,80 m",
+  "Nivel curent. Distanța dintre blocuri lasă lumina să intre pe două laturi.", False),
+ ("house-chimney", "Parterul", "±0,00 m",
+  "Apartamentele de aici au curte proprie, între 13 și 51 m². La blocurile 6 și 12, "
+  "parterul găzduiește spațiile comerciale.", False),
+ ("square-parking", "Demisolul 1", "−3,00 m",
+  "Parcare subterană și accesul cu liftul direct din parcaj în scară.", True),
+ ("box-archive", "Demisolul 2", "−6,00 m",
+  "Boxe de depozitare și spațiile tehnice ale blocului.", True),
+]
+
+# Bilantul terenului: 50.235 m² in total.
+BILANT = [
+ ("Construit la sol", 15070.5, "30%", "var(--ec-emerald)",
+  "Amprenta celor 18 blocuri. Procentul de ocupare a terenului aprobat este de 30%."),
+ ("Spațiu verde amenajat", 15501.8, "30,85%", "#6E9C7E",
+  "Parc, alei, locuri de joacă și zonele verzi dintre blocuri. Nu este teren rămas liber, "
+  "ci suprafață proiectată."),
+ ("Circulații și parcaje", 19662.7, "39,15%", "#B8934F",
+  "Drumurile de incintă, cele 682 de locuri de parcare la suprafață și platformele tehnice."),
+]
+
+ETAPE = [
+ ("Blocurile 1–6",   "Etapa I",   6, 322, "Include spațiul comercial de la parterul blocului 6."),
+ ("Blocurile 7–14",  "Etapa II",  8, 423, "Cea mai mare etapă, cu acces direct la parcul central."),
+ ("Blocurile 15–18", "Etapa III", 4, 180, "Blocurile cu perspectiva cea mai deschisă spre oraș."),
+]
+
+DOCUMENTE_PROIECT = [
+ ("Proiect", "266/2023"),
+ ("Fază", "D.T.A.C."),
+ ("Data", "06/2023"),
+ ("Certificat de urbanism", "194/23.06.2023"),
+ ("Proiectant", "S.C. C.A.D. S.R.L., Iași"),
+ ("Șef de proiect", "arh. Ovidiu M. Murgu"),
+ ("Beneficiar", "Tala Sapphire S.R.L."),
+ ("Regim de înălțime", "2D+P+3E"),
+]
+
+ANCORE_PROIECT = [
+ ("01", "concept",     "Concept"),
+ ("02", "regim",       "Regim"),
+ ("03", "teren",       "Teren"),
+ ("04", "etape",       "Etape"),
+ ("05", "apartamente", "Apartamente"),
+ ("06", "parcare",     "Parcare"),
+ ("07", "comercial",   "Comercial"),
+ ("08", "documentatie","Documentație"),
+ ("09", "intrebari",   "Întrebări"),
+]
+
+FAQ_PROIECT = [
+ ("Ce regim de înălțime au blocurile?",
+  "2D+P+3E: două demisoluri, parter și trei etaje. Înălțimea maximă la atic este de 18,00 metri, "
+  "aceeași pentru toate cele 18 blocuri."),
+ ("Ce se află în cele două demisoluri?",
+  "Primul demisol găzduiește parcarea subterană, cu 258 de locuri și acces cu liftul direct în "
+  "scară. Al doilea demisol cuprinde boxele de depozitare și spațiile tehnice."),
+ ("Ce înseamnă POT 30% și CUT 1,80?",
+  "POT este procentul din teren pe care se poate construi la sol: 30% din cele 50.235 m², adică "
+  "aproximativ 15.070 m². CUT este raportul dintre suprafața desfășurată și suprafața terenului; "
+  "1,80 este valoarea aprobată pentru acest amplasament."),
+ ("Cât spațiu verde are ansamblul?",
+  "15.501,80 m², adică 30,85% din suprafața terenului — mai mult decât amprenta construită la sol."),
+ ("În câte etape se construiește?",
+  "În trei: 6 blocuri și 322 de apartamente în Etapa I, 8 blocuri și 423 de apartamente în "
+  "Etapa II, 4 blocuri și 180 de apartamente în Etapa III."),
+ ("Câte locuri de parcare sunt?",
+  "940 în total: 258 subterane, în primul demisol, și 682 la suprafață, în incintă."),
+ ("Ce spații comerciale sunt prevăzute?",
+  "Două, la parterul blocurilor 6 și 12: 722,22 m² și 125,82 m², în total 848,04 m²."),
+ ("Cine a proiectat ansamblul?",
+  "Proiectul 266/2023, faza D.T.A.C., a fost întocmit de S.C. C.A.D. S.R.L. din Iași, cu "
+  "arh. Ovidiu M. Murgu ca șef de proiect, pentru beneficiarul Tala Sapphire S.R.L."),
+ ("Pot vedea documentația de autorizare?",
+  "Da. Autorizația de construire, certificatul de urbanism și planșele pot fi consultate la "
+  "biroul de vânzări, la cerere."),
+]
+
+
+def _svg_sectiune():
+    """Sectiune verticala schematica printr-un bloc: 2D+P+3E, atic la 18,00 m."""
+    benzi = [
+        # (y, inaltime, eticheta, opacitate, sub-teren)
+        (34,  16, "Terasă tehnică", .30, False),
+        (50,  50, "Etaj 3",         .92, False),
+        (100, 50, "Etaj 2",         .84, False),
+        (150, 50, "Etaj 1",         .76, False),
+        (200, 56, "Parter",         .68, False),
+        (256, 54, "Demisol 1",      .22, True),
+        (310, 54, "Demisol 2",      .16, True),
+    ]
+    out = []
+    for y, h, et, op, sub in benzi:
+        umplere = "#B8934F" if sub else "#1F3E36"
+        out.append(
+            f'<rect x="96" y="{y}" width="196" height="{h - 2}" rx="2" '
+            f'fill="{umplere}" fill-opacity="{op}"/>'
+            f'<text x="194" y="{y + h / 2 + 1}" text-anchor="middle" '
+            f'fill="{"#1F3E36" if (sub or op < .4) else "#fff"}" font-size="11" '
+            f'font-family="Inter, sans-serif" font-weight="500">{et}</text>')
+    benzi_svg = "".join(out)
+    return f"""<svg viewBox="0 0 360 380" role="img"
+     aria-label="Secțiune verticală printr-un bloc: două demisoluri, parter și trei etaje, atic la 18 metri">
+  <!-- cota terenului -->
+  <line x1="24" y1="256" x2="336" y2="256" stroke="#1F3E36" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="336" y="252" text-anchor="end" fill="#1F3E36" font-size="10"
+        font-family="Inter Tight, sans-serif" font-weight="600">±0,00</text>
+  <text x="24" y="270" fill="#1F3E36" font-size="8.5" fill-opacity=".55"
+        font-family="Inter, sans-serif" letter-spacing="1.1">COTA TERENULUI</text>
+  {benzi_svg}
+  <!-- linia de cota, de la atic la teren -->
+  <line x1="66" y1="34" x2="66" y2="256" stroke="#B8934F" stroke-width="1.5"/>
+  <path d="M62 39l4-5 4 5M62 251l4 5 4-5" stroke="#B8934F" stroke-width="1.5" fill="none"/>
+  <text x="58" y="149" text-anchor="middle" fill="#B8934F" font-size="12"
+        font-family="Inter Tight, sans-serif" font-weight="600"
+        transform="rotate(-90 58 149)">18,00 m</text>
+</svg>"""
+
+
+def pagina_proiect(unitati):
+    r = "../"
+    total = len(unitati)
+    pe_camere = defaultdict(list)
+    for u in unitati:
+        pe_camere[u["nr_camere"]].append(u)
+
+    figuri = "".join(
+        f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+        f'<span><b data-num="{e(val)}">{e(val)}{e(suf)}</b><em>{e(et)}</em></span></div>'
+        for val, suf, et, pic in [
+            ("18", "", "Blocuri 2D+P+3E", "city"),
+            (str(total), "", "Apartamente", "building"),
+            ("5,02", " ha", "Suprafață teren", "ruler-combined"),
+            ("3", "", "Etape de construcție", "layer-group"),
+        ])
+
+    ancore = "".join(f'<a href="#{a}"><b>{n}</b>{e(t)}</a>' for n, a, t in ANCORE_PROIECT)
+
+    niveluri = "".join(
+        f'<div class="ec-niv__i{" ec-niv__i--sub" if sub else ""} ec-rv">'
+        f'<span class="ec-niv__c">{ic(pic)}</span>'
+        f'<span><b>{e(nume)}</b><em>{e(desc)}</em></span>'
+        f'<span class="ec-niv__h">{e(cota)}</span></div>'
+        for pic, nume, cota, desc, sub in NIVELURI)
+
+    teren_total = sum(x[1] for x in BILANT)
+    bare = "".join(
+        f'<span class="ec-bilant__s" style="flex:{x[1]};background:{x[3]}">{e(x[2])}</span>'
+        for x in BILANT)
+    legenda = "".join(
+        f'<div class="ec-bilant__l ec-rv"><i style="background:{x[3]}"></i>'
+        f'<b>{mp_ro(x[1])}</b><u>{e(x[2])} din teren</u>'
+        f'<span>{e(x[0])} — {e(x[4])}</span></div>'
+        for x in BILANT)
+
+    max_ap = max(x[3] for x in ETAPE)
+    etape = "".join(
+        f'<article class="ec-etapa ec-rv"><span class="ec-etapa__n">{e(cod)}</span>'
+        f'<h3>{e(nume)}</h3>'
+        f'<div class="ec-etapa__cif">'
+        f'<div><b>{bl}</b><span>Blocuri</span></div>'
+        f'<div><b>{ap}</b><span>Apartamente</span></div>'
+        f'<div><b>{round(ap * 100 / total)}%</b><span>Din ansamblu</span></div></div>'
+        f'<div class="ec-etapa__bar"><i style="width:{ap * 100 / max_ap:.0f}%"></i></div>'
+        f'<p>{e(obs)}</p></article>'
+        for cod, nume, bl, ap, obs in ETAPE)
+
+    max_cam = max(len(v) for v in pe_camere.values())
+    distr = "".join(
+        f'<div class="ec-distr__i ec-rv">'
+        f'<span class="ec-distr__t">{ic("door-open")}{e(camere_txt(k).capitalize())}</span>'
+        f'<span class="ec-distr__bar"><i data-w="{len(v) * 100 / max_cam:.0f}"></i></span>'
+        f'<span class="ec-distr__n">{len(v)}<small>{round(len(v) * 100 / total)}% din total</small></span>'
+        f'<span class="ec-distr__m"><b>{min(x["su_utila"] for x in v):.0f}–'
+        f'{max(x["su_utila"] for x in v):.0f} m²</b>de la '
+        f'{euro(min(x["pret_eur"] for x in v))}</span></div>'
+        for k, v in sorted(pe_camere.items()))
+
+    docs = "".join(f'<div class="ec-spec"><dt>{e(a)}</dt><dd>{e(b)}</dd></div>'
+                   for a, b in DOCUMENTE_PROIECT)
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_PROIECT)
+
+    cu_curte = sum(1 for u in unitati if u["su_curte"] > 0)
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "WebPage", "name": "Proiectul Emerald City",
+             "url": "https://emerald-city.ro/proiect/"},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_PROIECT]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("hero-living", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Proiect</nav>
+    <p class="ec-eyebrow">Proiect</p>
+    <h1>18 blocuri, nu 4 turnuri</h1>
+    <p class="ec-phero__sub">
+      Aceeași suprafață construită se poate obține din câteva turnuri sau din 18 blocuri
+      de patru niveluri. A doua variantă cere mai mult teren, dar schimbă tot ce se
+      simte zilnic: lumina, liniștea de pe scară și distanța dintre ferestre.
+    </p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#regim">{ic("layer-group")} Vezi regimul de înălțime</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}apartamente-iasi-pacurari/">{ic("location-dot")} Amplasament</a>
+    </div>
+  </div>
+</section>
+
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-subnav">
+  <div class="ec-wrap"><nav class="ec-subnav__in">{ancore}</nav></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="concept">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Concept</span>
+        <h2>De ce <em>patru niveluri</em></h2></div>
+      <p class="ec-shead__p">
+        Decizia de regim de înălțime se ia o singură dată și se resimte în fiecare zi
+        din următorii treizeci de ani.
+      </p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      <div class="ec-prose">
+        <p>
+          Un ansamblu de 925 de apartamente încape în patru turnuri sau în 18 blocuri cu
+          regim 2D+P+3E. Prima variantă consumă mai puțin teren și costă mai puțin.
+          Am ales-o pe a doua.
+        </p>
+        <p>
+          Consecințele sunt concrete. O scară deservește puțini vecini, deci liftul nu se
+          aglomerează dimineața și holul rămâne al tău. Clădirile fiind scunde, umbra pe
+          care o aruncă unele peste altele este mică, așa că lumina ajunge și la parter,
+          nu doar la ultimele etaje. Distanța dintre blocuri rămâne una reală, nu doar
+          cea minimă impusă de normativ.
+        </p>
+        <p>
+          Cele două demisoluri preiau parcarea și depozitarea. Mașinile coboară sub clădire,
+          iar spațiul dintre blocuri rămâne pentru alei, parc și locuri de joacă — {cu_curte}
+          dintre apartamentele de la parter au chiar curte proprie, între 13 și 51 m².
+        </p>
+      </div>
+      <figure style="margin:0">
+        {imagine("living-02", "Apartament finisat în ansamblul Emerald City", r,
+                 "(min-width: 62rem) 46vw, 100vw")}
+      </figure>
     </div>
   </section>
 
-  <section class="ec-section" style="padding-block:0 3rem">
-    <h2 class="ec-title" style="margin-bottom:1.5rem">Indicatori</h2>
-    <dl class="ec-specs">
-      <div class="ec-spec"><dt>Suprafață teren</dt><dd>50.235 m²</dd></div>
-      <div class="ec-spec"><dt>POT</dt><dd>30%</dd></div>
-      <div class="ec-spec"><dt>CUT</dt><dd>1,80</dd></div>
-      <div class="ec-spec"><dt>Regim de înălțime</dt><dd>Parter + 3 etaje</dd></div>
+  <section class="ec-section" id="regim" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Regim de înălțime</span>
+        <h2>Ce se află <em>la fiecare cotă</em></h2></div>
+      <p class="ec-shead__p">
+        2D+P+3E, cu aticul la 18,00 m. Același regim la toate cele 18 blocuri,
+        fără excepții și fără etaje retrase.
+      </p>
+    </div>
+    <div class="ec-sectiune" style="margin-top:2.5rem">
+      <figure class="ec-sectiune__fig">
+        {_svg_sectiune()}
+        <figcaption>Secțiune schematică · cotele sunt orientative</figcaption>
+      </figure>
+      <div class="ec-niv">{niveluri}</div>
+    </div>
+  </section>
+
+  <section class="ec-section" id="teren" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — Bilanțul terenului</span>
+        <h2>Cum se împart <em>cele 5 hectare</em></h2></div>
+      <p class="ec-shead__p">
+        50.235 m² în total. Spațiul verde amenajat depășește amprenta construită
+        la sol — raport pe care puține ansambluri noi din Iași îl au.
+      </p>
+    </div>
+    <div class="ec-bilant" style="margin-top:2.5rem">
+      <div class="ec-bilant__bar">{bare}</div>
+      <div class="ec-bilant__leg">{legenda}</div>
+    </div>
+    <dl class="ec-specs" style="margin-top:var(--ec-gap)">
+      <div class="ec-spec"><dt>Suprafață teren</dt><dd>{mp_ro(teren_total, 0)}</dd></div>
+      <div class="ec-spec"><dt>POT aprobat</dt><dd>30%</dd></div>
+      <div class="ec-spec"><dt>CUT aprobat</dt><dd>1,80</dd></div>
       <div class="ec-spec"><dt>Înălțime maximă</dt><dd>18,00 m</dd></div>
-      <div class="ec-spec"><dt>Spațiu verde</dt><dd>15.501 m² · 30,85%</dd></div>
-      <div class="ec-spec"><dt>Parcare</dt><dd>940 locuri · 258 subterane</dd></div>
-      <div class="ec-spec"><dt>Spații comerciale</dt><dd>848 m²</dd></div>
+    </dl>
+  </section>
+</div>
+
+<section class="ec-band" id="etape">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">04 — Etape</span>
+          <h2>Ansamblul se ridică <em>în trei etape</em></h2></div>
+        <p class="ec-shead__p">
+          Fiecare etapă se finalizează și se predă independent, cu spațiile verzi
+          aferente amenajate, nu lăsate pentru final.
+        </p>
+      </div>
+      <div class="ec-etape" style="margin-top:2.5rem">{etape}</div>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="apartamente">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">05 — Apartamente</span>
+        <h2>Cum se împart <em>cele {total} de locuințe</em></h2></div>
+      <p class="ec-shead__p">
+        5 compartimentări, de la garsonieră la 3 camere cu două grupuri sanitare.
+        Fiecare apartament are balcon.
+      </p>
+    </div>
+    <div class="ec-distr" style="margin-top:2.5rem">{distr}</div>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi toate cele {total} de apartamente</a>
+      <a class="ec-btn ec-btn--out" href="{r}tipologii/">{ic("compass-drafting")} Vezi compartimentările</a>
+    </div>
+  </section>
+
+  <section class="ec-section" id="parcare" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">06 — Parcare și depozitare</span>
+        <h2>940 de locuri, <em>258 sub clădiri</em></h2></div>
+      <p class="ec-shead__p">
+        Parcarea subterană nu este un extra rar, ci o parte din proiect: liftul coboară
+        direct în parcaj.
+      </p>
+    </div>
+    <div class="ec-why" style="margin-top:2.5rem">
+      <div class="ec-why__i ec-rv">{ic("square-parking")}
+        <h3>258 locuri subterane</h3>
+        <p>În primul demisol al fiecărui bloc, cu acces cu liftul direct în scară.</p></div>
+      <div class="ec-why__i ec-rv">{ic("car")}
+        <h3>682 locuri la suprafață</h3>
+        <p>În incintă, de-a lungul drumurilor interioare, separate de zonele de joacă.</p></div>
+      <div class="ec-why__i ec-rv">{ic("box-archive")}
+        <h3>Boxe de depozitare</h3>
+        <p>În al doilea demisol, pentru bagaje, biciclete și lucrurile de sezon.</p></div>
+      <div class="ec-why__i ec-rv">{ic("charging-station")}
+        <h3>Preechipare pentru încărcare</h3>
+        <p>Traseele electrice sunt pregătite din construcție pentru stații de încărcare auto.</p></div>
+    </div>
+  </section>
+
+  <section class="ec-section" id="comercial" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">07 — Spații comerciale</span>
+        <h2>848 m² <em>la parter</em></h2></div>
+      <p class="ec-shead__p">
+        Două spații comerciale în incintă, pentru serviciile de zi cu zi — fără să fie
+        nevoie să ieși din cartier.
+      </p>
+    </div>
+    <dl class="ec-specs" style="margin-top:2.5rem">
+      <div class="ec-spec"><dt>Blocul 6</dt><dd>722,22 m²</dd></div>
+      <div class="ec-spec"><dt>Blocul 12</dt><dd>125,82 m²</dd></div>
+      <div class="ec-spec"><dt>Total comercial</dt><dd>848,04 m²</dd></div>
+      <div class="ec-spec"><dt>Amplasare</dt><dd>La parter, cu acces din incintă</dd></div>
     </dl>
   </section>
 
-  <section class="ec-section" style="padding-block:0 4rem">
-    <div class="ec-prose">
-      <h2>De ce blocuri joase</h2>
-      <p>
-        Un ansamblu cu aceeași suprafață construită se poate face din patru turnuri sau din
-        optsprezece blocuri joase. A doua variantă costă mai mult teren, dar înseamnă scări cu
-        mai puțini vecini, lifturi mai puțin aglomerate, lumină pe mai multe laturi și distanțe
-        reale între ferestre.
-      </p>
-      <h3>Ce înseamnă pentru apartamentul tău</h3>
-      <p>
-        Toate apartamentele stau pe parter plus trei etaje. Nu există etaj 8 cu vedere spre
-        acoperișul vecinului și nici curte interioară în care se aude tot. Cele două demisoluri
-        preiau parcarea și depozitarea, ca mașinile să nu ocupe spațiul dintre clădiri.
-      </p>
-      <h3>Documentație</h3>
-      <p>
-        Proiectul numărul 266/2023 a fost întocmit de S.C. C.A.D. S.R.L., cu arh. Ovidiu M. Murgu
-        ca șef de proiect. Documentele de autorizare pot fi consultate la cerere, la biroul de vânzări.
+  <section class="ec-section" id="documentatie" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">08 — Documentație</span>
+        <h2>Proiectul <em>și echipa</em></h2></div>
+      <p class="ec-shead__p">
+        Datele de autorizare, scrise deschis. Documentele pot fi consultate
+        la biroul de vânzări.
       </p>
     </div>
+    <dl class="ec-specs" style="margin-top:2.5rem">{docs}</dl>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn ec-btn--out" href="{r}despre-emerald-city/#garantii">{ic("shield-halved")} Garanții și documente predate</a>
+      <a class="ec-btn ec-btn--out" href="{r}stadiu-lucrari/">{ic("helmet-safety")} Jurnal de șantier</a>
+    </div>
   </section>
-</div>"""
-    return pagina("Proiectul Emerald City — 925 de apartamente în 18 blocuri | Iași",
-                  "Cum este gândit ansamblul Emerald City din Iași: 18 blocuri joase, "
-                  "925 de apartamente, 5 hectare, indicatori urbanistici și etape.",
-                  continut, r, None, "proiect/")
+
+  <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">09 — Întrebări</span>
+        <h2>Despre proiect <em>și indicatori</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_PROIECT)} întrebări despre cum este gândit ansamblul, cu cifrele din documentație.
+      </p>
+    </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
+  </section>
+
+  <section class="ec-section" style="padding-block:0 var(--ec-section)">
+    <div class="ec-split">
+      <div class="ec-panel">
+        <p class="ec-eyebrow">Vizionare</p>
+        <h2 class="ec-title" style="margin:1rem 0">Vino să vezi terenul</h2>
+        <p class="ec-body" style="max-width:44ch">
+          Amplasamentul, apartamentul-model și planurile de ansamblu se înțeleg
+          mult mai bine pe loc decât pe ecran.
+        </p>
+        <div class="ec-acces" style="margin-top:2rem">
+          <div><span class="ec-acces__i">{ic("location-dot")}</span>
+            <div><b>Birou de vânzări</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
+          <div><span class="ec-acces__i">{ic("phone")}</span>
+            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
+          <div><span class="ec-acces__i">{ic("clock")}</span>
+            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
+        </div>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>
+</div>
+
+<script>
+/* cifrele mari urca pana la valoarea reala, o singura data */
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (nr.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {{
+    const urca = el => {{
+      const brut = el.dataset.num;
+      const tinta = parseFloat(brut.replace(/\\./g, '').replace(',', '.'));
+      const zec = (brut.split(',')[1] || '').length;
+      const sufix = el.textContent.replace(brut, '');
+      const t0 = performance.now(), dur = 1100;
+      const pas = t => {{
+        const p = Math.min((t - t0) / dur, 1);
+        const v = tinta * (1 - Math.pow(1 - p, 3));
+        el.textContent = v.toLocaleString('ro-RO', {{
+          minimumFractionDigits: zec, maximumFractionDigits: zec }}) + sufix;
+        if (p < 1) requestAnimationFrame(pas);
+      }};
+      requestAnimationFrame(pas);
+    }};
+    const o = new IntersectionObserver(es => es.forEach(x => {{
+      if (x.isIntersecting) {{ urca(x.target); o.unobserve(x.target); }}
+    }}), {{ threshold: .4 }});
+    nr.forEach(x => o.observe(x));
+  }}
+}})();
+
+/* barele de distributie cresc la intrarea in ecran */
+(() => {{
+  const b = [...document.querySelectorAll('.ec-distr__bar i[data-w]')];
+  if (!b.length) return;
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (!x.isIntersecting) return;
+    x.target.style.width = x.target.dataset.w + '%';
+    o.unobserve(x.target);
+  }}), {{ threshold: .3 }});
+  b.forEach(x => o.observe(x));
+}})();
+
+/* bara de sectiuni: evidentiaza sectiunea aflata in dreptul ecranului */
+(() => {{
+  const bara = document.querySelector('.ec-subnav');
+  if (!bara) return;
+  const leg = [...bara.querySelectorAll('a')];
+  const sect = leg.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!sect.length) return;
+  const o = new IntersectionObserver(es => {{
+    es.forEach(x => {{
+      if (!x.isIntersecting) return;
+      leg.forEach(a => a.classList.toggle('is-on',
+        a.getAttribute('href') === '#' + x.target.id));
+    }});
+  }}, {{ rootMargin: '-20% 0px -70% 0px' }});
+  sect.forEach(s => o.observe(s));
+}})();
+</script>"""
+
+    return pagina(f"Proiectul Emerald City — {total} de apartamente în 18 blocuri | Iași",
+                  "Cum este gândit ansamblul Emerald City din Iași: 18 blocuri cu regim 2D+P+3E, "
+                  f"{total} de apartamente, 5 hectare, bilanțul terenului, indicatori "
+                  "urbanistici și etape de construcție.",
+                  continut, r, schema, "proiect/")
 
 
 # ================================================================ presa ==
@@ -2449,7 +2875,7 @@ def main():
                            ("stadiu-lucrari", pagina_stadiu()),
                            ("despre-emerald-city", pagina_despre()),
                            ("despre-dezvoltator", pagina_dezvoltator()),
-                           ("proiect", pagina_proiect()),
+                           ("proiect", pagina_proiect(unitati)),
                            ("aparitii-presa", pagina_presa())):
         d = os.path.join(RAD, nume)
         os.makedirs(d, exist_ok=True)
