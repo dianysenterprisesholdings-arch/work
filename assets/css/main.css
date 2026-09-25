@@ -2872,4 +2872,7 @@ svg .pa { fill: var(--ec-brass); }
 .ec-lang a:hover { color: #fff; }
 .ec-lang a.is-on { color: #fff; background: rgba(255,255,255,.12); }
 .ec-lang--mob { margin: 1.25rem 0 0; padding: 1rem 0 0; border-left: 0; border-top: 1px solid rgba(255,255,255,.15); width: 100%; justify-content: center; gap: .75rem; }
-.ec-lang--mob a { font-size: var(--ec-small); padding: .5rem .9rem; border: 1px solid rgba(255,255,255,.25); }
+.ec-lang--mob { border-top-color: var(--ec-line); }
+.ec-lang--mob a { font-size: var(--ec-small); padding: .5rem .9rem; border: 1px solid var(--ec-line); color: var(--ec-ink-60); }
+.ec-lang--mob a:hover { color: var(--ec-emerald); }
+.ec-lang--mob a.is-on { background: var(--ec-emerald); color: #fff; border-color: var(--ec-emerald); }

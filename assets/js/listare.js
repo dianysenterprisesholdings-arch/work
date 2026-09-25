@@ -15,9 +15,9 @@
   const EN = document.documentElement.lang === 'en';
   const A = document.body.dataset.assets || '../../';
   const euro   = n => EN ? '€' + new Intl.NumberFormat('en-GB').format(n) : new Intl.NumberFormat('ro-RO').format(n) + ' €';
-  const mp     = n => new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
+  const mp     = n => new Intl.NumberFormat(EN ? 'en-GB' : 'ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
   const bloc   = c => c.replace(/^C/, '');
-  const etajTxt = n => n === 0 ? 'Parter' : 'Etaj ' + n;
+  const etajTxt = n => EN ? (n === 0 ? 'Ground floor' : 'Floor ' + n) : (n === 0 ? 'Parter' : 'Etaj ' + n);
   const ST = EN ? { disponibil: 'Available', rezervat: 'Reserved', vandut: 'Sold', in_curand: 'Coming soon' }
                : { disponibil: 'Disponibil', rezervat: 'Rezervat', vandut: 'Vândut', in_curand: 'În curând' };
 
@@ -53,7 +53,7 @@
     if (stare.text) {
       // fiecare cuvant din cautare trebuie sa se regaseasca undeva pe rand
       const hay = [
-        u[F.id], 'bloc ' + bloc(u[F.corp]), u[F.tip], u[F.orientare],
+        u[F.id], (EN ? 'building ' : 'bloc ') + bloc(u[F.corp]), u[F.tip], u[F.orientare],
         u[F.camere] + ' camere', u[F.camere] === 1 ? '1 camera' : '',
         etajTxt(u[F.etaj]), 'etaj ' + u[F.etaj], 'etapa ' + u[F.etapa],
         ST[u[F.status]]
@@ -92,7 +92,7 @@
       </div>
       <div class="ec-unit__t">${cam} · ${mp(u[F.su])}</div>
       <div class="ec-unit__meta">
-        <span>Blocul ${bloc(u[F.corp])}</span><span>${etajTxt(u[F.etaj])}</span>
+        <span>${EN ? 'Building' : 'Blocul'} ${bloc(u[F.corp])}</span><span>${etajTxt(u[F.etaj])}</span>
         <span>Tip ${u[F.tip]}</span><span>${u[F.orientare]}</span>
       </div>
       <div class="ec-unit__foot">

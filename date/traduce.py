@@ -37,6 +37,10 @@ def norm(x):
 def numar_en(n):
     """53.500 -> 53,500 ; 36,6 -> 36.6 ; 37–81 ramane."""
     def unu(s):
+        miez = s.rstrip(".,"); coada = s[len(miez):]
+        return _fmt(miez) + coada
+
+    def _fmt(s):
         if re.fullmatch(r"\d{1,3}(\.\d{3})+(,\d+)?", s):
             s = s.replace(".", "\x00").replace(",", ".").replace("\x00", ",")
         elif re.fullmatch(r"\d+,\d+", s):
@@ -47,7 +51,9 @@ def numar_en(n):
 
 def tradu_segment(text, pagina=""):
     """Traduce un fragment de text (fara marcaj). Pastreaza spatiile de la capete."""
-    if not text or not re.search(r"[A-Za-zăâîșțĂÂÎȘȚ]", text):
+    if not text:
+        return text
+    if not re.search(r"[A-Za-zăâîșțĂÂÎȘȚ]", text) and NUM.sub("{n}", norm(text)) not in T:
         return re.sub(r"\d[\d.,]*", lambda m: numar_en(m.group(0)), text)
     stanga = text[: len(text) - len(text.lstrip())]
     dreapta = text[len(text.rstrip()):]
@@ -57,7 +63,7 @@ def tradu_segment(text, pagina=""):
     for rx, rep in REGULI:
         m = rx.fullmatch(mij)
         if m:
-            out = m.expand(rep)
+            out = rep(m) if callable(rep) else m.expand(rep)
             out = re.sub(r"\d[\d.,]*", lambda x: numar_en(x.group(0)), out)
             return stanga + out + dreapta
 
@@ -86,7 +92,7 @@ def tradu_segment(text, pagina=""):
 
 def _completeaza(sablon, numere):
     """Pune numerele la loc (formatate in engleza), in ordine sau dupa indice."""
-    numere = [numar_en(n) for n in numere]
+    numere = [numar_en(n.rstrip('.,')) for n in numere]
     if "{0}" in sablon or "{1}" in sablon:
         for i, n in enumerate(numere):
             sablon = sablon.replace("{%d}" % i, n)
@@ -114,7 +120,7 @@ def cale_absoluta(href, dir_ro):
 
 
 def tradu_href(href, dir_ro):
-    if not href or href.startswith(("http:", "https:", "mailto:", "tel:", "#", "javascript:", "data:", "//")):
+    if not href or href.startswith(("http:", "https:", "mailto:", "tel:", "#", "javascript:", "data:", "//", "/")):
         return href
     coada = ""
     m = re.match(r"([^?#]*)([?#].*)?$", href)
@@ -149,10 +155,15 @@ ATTR_TEXT = ("alt", "title", "placeholder", "aria-label", "data-et", "content", 
 ATTR_URL = ("href", "src", "poster", "action", "data-sursa")
 
 
+JSON_FARA = {"@type", "@context", "@id", "dayOfWeek", "unitCode", "priceCurrency", "opens", "closes",
+             "telephone", "email", "availability", "inLanguage", "sku", "streetAddress",
+             "addressLocality", "addressRegion", "addressCountry", "postalCode", "latitude", "longitude"}
+
+
 def tradu_json(obj, pagina):
     if isinstance(obj, dict):
         return {k: (tradu_url_absolut(v) if isinstance(v, str) and v.startswith("http")
-                    else tradu_json(v, pagina)) for k, v in obj.items()}
+                    else v if k in JSON_FARA else tradu_json(v, pagina)) for k, v in obj.items()}
     if isinstance(obj, list):
         return [tradu_json(x, pagina) for x in obj]
     if isinstance(obj, str):
@@ -188,7 +199,8 @@ def tradu_pagina(h, dir_ro):
                 (lambda p: tradu_href(p[0], dir_ro) + (" " + p[1] if len(p) > 1 else ""))(x.strip().split())
                 for x in val.split(",")) + '"'
         if nume in ATTR_TEXT:
-            if nume == "content" and (val.startswith("http") or re.fullmatch(r"[\w_ -]{0,12}", val)):
+            if nume == "content" and (val.startswith("http") or "device-width" in val
+                                      or re.fullmatch(r"[\w_-]+", val)):
                 return m.group(0)
             return f'{nume}="{html.escape(tradu_segment(html.unescape(val), pagina), quote=True)}"'
         return m.group(0)
@@ -210,7 +222,10 @@ def tradu_pagina(h, dir_ro):
                lambda m: f'<link rel="canonical" href="{tradu_url_absolut(m.group(1))}">', h, count=1)
     h = re.sub(r'(<meta property="og:url" content=")([^"]*)(")',
                lambda m: m.group(1) + tradu_url_absolut(m.group(2)) + m.group(3), h, count=1)
-    h = h.replace('data-radacina="', 'data-lang="en" data-assets="/" data-radacina="', 1)
+    if 'data-radacina="' in h:
+        h = h.replace('data-radacina="', 'data-lang="en" data-assets="/" data-radacina="', 1)
+    else:
+        h = h.replace("<body>", '<body data-lang="en" data-assets="/" data-radacina="/en/">', 1)
     # radacina pentru scripturi: /en/
     h = re.sub(r'data-radacina="[^"]*"', 'data-radacina="/en/"', h, count=1)
 

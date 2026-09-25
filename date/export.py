@@ -72,13 +72,20 @@ def sitemap():
             if not in_sitemap(cale):
                 continue
             # unitatile individuale sunt multe; prioritate mai mica
-            adanc = cale.count("/")
-            pri = "1.0" if cale == "" else "0.8" if adanc <= 1 else "0.6"
-            urls.append(f"  <url>\n    <loc>{DOMENIU}/{cale}</loc>\n"
+            if cale.startswith("en/"):
+                ro, en, baza = cale_ro(cale), cale, cale[3:]
+            else:
+                ro, en, baza = cale, cale_en(cale), cale
+            adanc = baza.count("/")
+            pri = "1.0" if baza == "" else "0.8" if adanc <= 1 else "0.6"
+            alt = (f'    <xhtml:link rel="alternate" hreflang="ro" href="{DOMENIU}/{ro}"/>\n'
+                   f'    <xhtml:link rel="alternate" hreflang="en" href="{DOMENIU}/{en}"/>\n'
+                   f'    <xhtml:link rel="alternate" hreflang="x-default" href="{DOMENIU}/{ro}"/>\n')
+            urls.append(f"  <url>\n    <loc>{DOMENIU}/{cale}</loc>\n{alt}"
                         f"    <lastmod>{azi}</lastmod>\n    <priority>{pri}</priority>\n  </url>")
 
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
-           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
            + "\n".join(urls) + "\n</urlset>\n")
     with open(os.path.join(IESIRE, "sitemap.xml"), "w", encoding="utf-8") as fh:
         fh.write(xml)

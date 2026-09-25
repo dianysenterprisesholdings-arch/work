@@ -12,9 +12,9 @@
   const A = document.body.dataset.assets || '../';
   const CAT = EN ? 'apartments-iasi' : 'apartamente-iasi';
   const euro = n => EN ? '€' + new Intl.NumberFormat('en-GB').format(n) : new Intl.NumberFormat('ro-RO').format(n) + ' €';
-  const mp   = n => new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
+  const mp   = n => new Intl.NumberFormat(EN ? 'en-GB' : 'ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
   const bloc = c => c.replace(/^C/, '');
-  const etaj = n => n === 0 ? 'Parter' : 'Etaj ' + n;
+  const etaj = n => EN ? (n === 0 ? 'Ground floor' : 'Floor ' + n) : (n === 0 ? 'Parter' : 'Etaj ' + n);
   const ST = EN ? { disponibil: 'Available', rezervat: 'Reserved', vandut: 'Sold', in_curand: 'Coming soon' }
                : { disponibil: 'Disponibil', rezervat: 'Rezervat', vandut: 'Vândut', in_curand: 'În curând' };
 
@@ -66,7 +66,7 @@
           ${rand(EN ? 'Usable area' : 'Suprafață utilă', u => `<span class="${u[F.su] === max('su') ? 'best' : ''}">${mp(u[F.su])}</span>`)}
           ${rand('Camere', u => u[F.camere])}
           ${rand('Tipologie', u => u[F.tip])}
-          ${rand('Bloc', u => 'Blocul ' + bloc(u[F.corp]))}
+          ${rand(EN ? 'Building' : 'Bloc', u => (EN ? 'Building ' : 'Blocul ') + bloc(u[F.corp]))}
           ${rand('Etaj', u => etaj(u[F.etaj]))}
           ${rand('Orientare', u => u[F.orientare])}
           ${rand('Balcon', u => u[F.balcon] > 0 ? mp(u[F.balcon]) : '—')}

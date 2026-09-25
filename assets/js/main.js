@@ -15,7 +15,7 @@
   const CAT = EN ? 'apartments-iasi' : 'apartamente-iasi';
   const SLUG = EN ? { 'apartamente-1-camera': '1-room-apartments', 'apartamente-2-camere': '2-room-apartments', 'apartamente-3-camere': '3-room-apartments' } : {};
   const euro   = n => EN ? '€' + new Intl.NumberFormat('en-GB').format(n) : new Intl.NumberFormat('ro-RO').format(n) + ' €';
-  const mp     = n => new Intl.NumberFormat('ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
+  const mp     = n => new Intl.NumberFormat(EN ? 'en-GB' : 'ro-RO', { maximumFractionDigits: 1 }).format(n) + ' m²';
   const camere = n => EN ? (n === 1 ? '1 room' : n + ' rooms') : (n === 1 ? '1 cameră' : n + ' camere');
   // C1..C18 sunt coduri din proiect; comercial se numesc blocuri
   const bloc   = cod => cod.replace(/^C/, '');
@@ -93,9 +93,9 @@
     if (!rows) return;
 
     const ETAPE = [
-      { cod: 'I',   titlu: 'Etapa I',   sub: 'Blocurile 1–6' },
-      { cod: 'II',  titlu: 'Etapa II',  sub: 'Blocurile 7–14' },
-      { cod: 'III', titlu: 'Etapa III', sub: 'Blocurile 15–18' }
+      { cod: 'I',   titlu: EN ? 'Phase I' : 'Etapa I',   sub: (EN ? 'Buildings ' : 'Blocurile ') + '1–6' },
+      { cod: 'II',  titlu: EN ? 'Phase II' : 'Etapa II',  sub: (EN ? 'Buildings ' : 'Blocurile ') + '7–14' },
+      { cod: 'III', titlu: EN ? 'Phase III' : 'Etapa III', sub: (EN ? 'Buildings ' : 'Blocurile ') + '15–18' }
     ];
     const STARI = [
       ['disponibil', 'Disponibile', 'var(--ec-available)'],
@@ -278,8 +278,8 @@
             </div>
             <div class="ec-unit__t">${camere(u[F.camere])} · ${mp(u[F.su])}</div>
             <div class="ec-unit__meta">
-              <span>Blocul ${bloc(u[F.corp])}</span>
-              <span>${u[F.etaj] === 0 ? 'Parter' : 'Etaj ' + u[F.etaj]}</span>
+              <span>${EN ? 'Building' : 'Blocul'} ${bloc(u[F.corp])}</span>
+              <span>${u[F.etaj] === 0 ? (EN ? 'Ground floor' : 'Parter') : (EN ? 'Floor ' : 'Etaj ') + u[F.etaj]}</span>
               <span>${u[F.orientare]}</span>
               ${u[F.balcon] > 0 ? `<span>Balcon ${mp(u[F.balcon])}</span>` : ''}
               ${u[F.curte]  > 0 ? `<span>Curte ${mp(u[F.curte])}</span>`   : ''}
