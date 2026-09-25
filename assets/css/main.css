@@ -2876,3 +2876,103 @@ svg .pa { fill: var(--ec-brass); }
 .ec-lang--mob a { font-size: var(--ec-small); padding: .5rem .9rem; border: 1px solid var(--ec-line); color: var(--ec-ink-60); }
 .ec-lang--mob a:hover { color: var(--ec-emerald); }
 .ec-lang--mob a.is-on { background: var(--ec-emerald); color: #fff; border-color: var(--ec-emerald); }
+
+
+/* ==========================================================================
+   Noutăți — grilă de articole (3 pe rând) și pagina de articol
+   ========================================================================== */
+.ec-blog { display: grid; gap: var(--ec-gap); }
+@media (min-width: 44rem) { .ec-blog { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (min-width: 66rem) { .ec-blog { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+.ec-post {
+  background: var(--ec-white); border: 1px solid var(--ec-line); border-radius: var(--ec-r); overflow: hidden;
+  display: flex; flex-direction: column; transition: transform var(--ec-fast), box-shadow var(--ec-fast), border-color var(--ec-fast);
+}
+.ec-post:hover { transform: translateY(-3px); border-color: var(--ec-emerald); box-shadow: 0 18px 40px -24px rgba(20,32,28,.35); }
+.ec-post__img { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--ec-mint); }
+.ec-post__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ec-ease); }
+.ec-post:hover .ec-post__img img { transform: scale(1.05); }
+.ec-post__cat {
+  position: absolute; left: 1rem; top: 1rem; display: inline-flex; gap: .45rem; align-items: center;
+  background: rgba(255,255,255,.92); color: var(--ec-emerald); border-radius: 999px; padding: .35rem .8rem;
+  font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; font-weight: 600;
+}
+.ec-post__cat i { color: var(--ec-brass); }
+.ec-post__b { padding: clamp(1.25rem, 2.5vw, 1.6rem); display: flex; flex-direction: column; gap: .7rem; flex: 1; }
+.ec-post__meta { display: flex; gap: .5rem; font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ec-ink-40); }
+.ec-post h3 { font-family: var(--ec-disp); font-size: 1.2rem; font-weight: 600; line-height: 1.3; }
+.ec-post h3 a { color: inherit; text-decoration: none; }
+.ec-post h3 a:hover { color: var(--ec-emerald); }
+.ec-post p { font-size: var(--ec-small); color: var(--ec-ink-60); line-height: 1.65; }
+.ec-post__go { margin-top: auto; padding-top: .9rem; border-top: 1px solid var(--ec-line); font-size: var(--ec-micro); letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--ec-emerald); text-decoration: none; display: flex; gap: .5rem; align-items: center; }
+.ec-post__go i { color: var(--ec-brass); transition: transform var(--ec-fast); }
+.ec-post:hover .ec-post__go i { transform: translateX(4px); }
+
+.ec-phero--art h1 { max-width: 24ch; font-size: clamp(1.9rem, 3.6vw, 3rem); }
+.ec-artmeta { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; margin-top: 1.5rem; font-size: var(--ec-small); color: rgba(255,255,255,.85); }
+.ec-artmeta i { color: var(--ec-brass); margin-right: .4rem; }
+.ec-artgrid { display: grid; gap: var(--ec-gap); padding-top: var(--ec-section); align-items: start; }
+@media (min-width: 64rem) { .ec-artgrid { grid-template-columns: minmax(0, 1fr) 20rem; gap: clamp(2rem, 4vw, 4rem); } }
+.ec-artbody { background: var(--ec-white); border: 1px solid var(--ec-line); border-radius: var(--ec-r); padding: clamp(1.5rem, 4vw, 3.5rem); }
+.ec-artbody h2 { font-family: var(--ec-disp); font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 600; margin: 2.2rem 0 .9rem; scroll-margin-top: 6rem; }
+.ec-artbody h2:first-child { margin-top: 0; }
+.ec-artbody p { font-size: 1.0625rem; line-height: 1.75; color: var(--ec-ink-60); max-width: 68ch; }
+.ec-artbody p + p { margin-top: 1rem; }
+.ec-artnote { margin-top: 2.5rem; padding: 1.1rem 1.25rem; background: var(--ec-sand); border-left: 3px solid var(--ec-brass); border-radius: 0 var(--ec-r) var(--ec-r) 0; }
+.ec-artnote b { display: block; font-size: var(--ec-micro); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .35rem; }
+.ec-artnote b i { color: var(--ec-brass); margin-right: .35rem; }
+.ec-artnote p { font-size: var(--ec-small); }
+.ec-artshare { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--ec-line); display: flex; gap: .6rem; align-items: center; font-size: var(--ec-small); color: var(--ec-ink-60); }
+.ec-artshare a { width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid var(--ec-line); display: grid; place-items: center; color: var(--ec-emerald); transition: all var(--ec-fast); }
+.ec-artshare a:hover { background: var(--ec-emerald); color: #fff; border-color: var(--ec-emerald); }
+.ec-artside { display: grid; gap: var(--ec-gap); position: sticky; top: 5.5rem; }
+.ec-artside__p { background: var(--ec-white); border: 1px solid var(--ec-line); border-radius: var(--ec-r); padding: 1.4rem 1.35rem; }
+.ec-artside__p > b { display: block; font-size: var(--ec-micro); letter-spacing: .14em; text-transform: uppercase; color: var(--ec-ink-40); margin-bottom: .8rem; }
+.ec-arttoc { list-style: none; margin: 0; padding: 0; display: grid; gap: .15rem; counter-reset: toc; }
+.ec-arttoc li { counter-increment: toc; }
+.ec-arttoc a { display: flex; gap: .6rem; padding: .4rem .5rem; border-radius: 5px; font-size: var(--ec-small); color: var(--ec-ink-60); text-decoration: none; line-height: 1.35; }
+.ec-arttoc a::before { content: counter(toc, decimal-leading-zero); color: var(--ec-brass); font-size: var(--ec-micro); font-weight: 600; padding-top: .15rem; }
+.ec-arttoc a:hover { background: var(--ec-mint); color: var(--ec-emerald); }
+.ec-artf__i { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-top: 1px solid var(--ec-line); font-size: var(--ec-small); }
+.ec-artf__i span { color: var(--ec-ink-60); }
+.ec-artf__i b { font-weight: 600; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ec-artlinks { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.ec-artlinks a { font-size: var(--ec-small); color: var(--ec-ink); text-decoration: none; display: flex; gap: .5rem; align-items: baseline; }
+.ec-artlinks a i { color: var(--ec-brass); font-size: .7rem; }
+.ec-artlinks a:hover { color: var(--ec-emerald); }
+.ec-artside__cta { background: var(--ec-emerald); color: #fff; border-color: var(--ec-emerald); }
+.ec-artside__cta > b { color: var(--ec-brass); }
+.ec-artside__cta p { font-size: var(--ec-small); color: rgba(255,255,255,.85); margin-bottom: 1rem; }
+
+/* --- banda de cifre din prima pagina, pe fundal foto ---------------------- */
+.ec-manifest__stats--foto {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: var(--ec-r); border: 0; gap: 1px;
+  background: var(--ec-emerald);
+}
+.ec-manifest__stats--foto::before {
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background: url(../img/hol-01-800.webp) center/cover; filter: saturate(.7) brightness(.55);
+  transform: scale(1.04);
+}
+.ec-manifest__stats--foto::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(100deg, rgba(20,54,46,.94) 0%, rgba(20,54,46,.78) 55%, rgba(20,54,46,.6) 100%);
+}
+.ec-manifest__stats--foto > div { background: transparent; padding: clamp(1.5rem, 2.5vw, 2rem) 0 clamp(1.5rem, 2.5vw, 2rem) clamp(1.25rem, 2.5vw, 2rem); }
+.ec-manifest__stats--foto > div + div { border-left: 1px solid rgba(255,255,255,.12); }
+@media (max-width: 40rem) { .ec-manifest__stats--foto > div:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); } .ec-manifest__stats--foto > div:nth-child(3) { border-left: 0; } }
+.ec-manifest__stats--foto .ec-statbox__i { background: rgba(184,147,79,.18); color: var(--ec-brass); }
+.ec-manifest__stats--foto .ec-statbox__v b, .ec-manifest__stats--foto b { color: #fff; }
+.ec-manifest__stats--foto .ec-statbox__v em, .ec-manifest__stats--foto > div > span { color: rgba(255,255,255,.62); }
+
+/* --- harta: legatura de rezerva, vizibila sub iframe ----------------------- */
+.ec-showmap { display: grid; }
+.ec-showmap > * { grid-area: 1 / 1; }
+.ec-showmap__fallback {
+  align-self: center; justify-self: center; z-index: 0; line-height: 1.3; font-size: var(--ec-small);
+  color: var(--ec-emerald); text-decoration: none; text-align: center; padding: .6rem 1rem;
+}
+.ec-showmap__fallback i { color: var(--ec-brass); margin-right: .4rem; }
+.ec-showmap iframe { position: relative; z-index: 1; }
+.ec-showmap__go { z-index: 2; }
+.ec-manifest__stats--foto div { background: transparent; }

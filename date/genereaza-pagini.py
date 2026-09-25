@@ -117,6 +117,7 @@ ETICHETE_CALE = {
     "proiect": "Proiect",
     "contact": "Contact",
     "programare-vizionare": "Programare vizionare",
+    "noutati": "Noutăți",
     "termeni-si-conditii": "Termeni și condiții",
     "politica-de-confidentialitate": "Politica de confidențialitate",
     "politica-de-cookies": "Politica de cookies",
@@ -137,6 +138,8 @@ def firimituri(canonic):
             nume = "Tip " + seg[4:].upper()
         elif seg[:1] == "c" and "-" in seg and seg[1:2].isdigit():
             nume = seg.upper()
+        elif seg in globals().get("ARTICOLE_BLOG_SLUG", {}):
+            nume = ARTICOLE_BLOG_SLUG[seg]["titlu"]
         else:
             nume = ETICHETE_CALE.get(seg, seg.replace("-", " ").capitalize())
         elemente.append({"@type": "ListItem", "position": i, "name": nume,
@@ -257,6 +260,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
       </span>
       <a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate</a>
       <a href="{r}investitie-apartamente-iasi/">Investiție</a>
+      <a href="{r}noutati/">Noutăți</a>
       <a href="{r}contact/">Contact</a>
     </nav>
     <a class="ec-btn" href="{r}programare-vizionare/"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Programare vizionare</a>
@@ -325,6 +329,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
         <h4>Util</h4>
         <ul>
           <li><a href="{r}investitie-apartamente-iasi/">Investiție și randament</a></li>
+          <li><a href="{r}noutati/">Noutăți</a></li>
           <li><a href="{r}contact/">Contact</a></li>
           <li><a href="{r}finisaje/">Finisaje</a></li>
         </ul>
@@ -648,6 +653,8 @@ def showroom(r, nr="", sub=None):
           <iframe src="https://www.google.com/maps?q=Strada+Dealul+Zorilor+9,+Ia%C8%99i&amp;z=16&amp;output=embed"
                   title="Harta biroului de vânzări — Str. Dealul Zorilor 9, Iași"
                   loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <a class="ec-showmap__fallback" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Dealul+Zorilor+9+Ia%C8%99i"
+             target="_blank" rel="noopener"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Deschideți harta în Google Maps</a>
           <a class="ec-showmap__go" href="https://www.google.com/maps/search/?api=1&amp;query=Strada+Dealul+Zorilor+9+Ia%C8%99i"
              target="_blank" rel="noopener"><i class="fa-solid fa-diamond-turn-right" aria-hidden="true"></i> Indicații rutiere</a>
         </div>
@@ -5183,6 +5190,327 @@ def pagina_presa():
                   continut, r, schema, "aparitii-presa/")
 
 
+
+# ============================================================== noutati ==
+# Articole editoriale; fiecare cu sectiuni (titlu, paragrafe), cifre-cheie si legaturi.
+ARTICOLE_BLOG = [
+ {"slug": "etapa-1-structura-etajul-2", "cat": "Jurnal de șantier", "pict": "helmet-safety",
+  "data": "2026-09-20", "afisat": "20 septembrie 2026", "minute": 4, "img": "hol-01",
+  "titlu": "Etapa I: structura a ajuns la etajul 2 în blocurile 1–4",
+  "rezumat": "Planșeul peste etajul 1 este turnat la primele patru blocuri, iar la blocurile 5 și 6 "
+             "se montează cofrajele. Ce urmează până la finalul anului și ce înseamnă pentru termenele de predare.",
+  "sectiuni": [
+   ("Unde s-a ajuns în septembrie", [
+    "Raportul de șantier din septembrie consemnează turnarea planșeului peste etajul 1 la blocurile 1, 2, 3 și 4, cu procesele-verbale de fază determinantă semnate de dirigintele de șantier și de proiectant. La blocurile 5 și 6, cofrajele pentru stâlpii etajului 1 sunt montate, iar armarea este în curs.",
+    "În paralel, la blocurile 7 și 8 — primele din Etapa II — a început săpătura pentru cele două demisoluri. Platforma de organizare a fost extinsă către latura de vest a terenului, astfel încât circulația utilajelor să nu intersecteze zona blocurilor aflate deja în structură."]),
+   ("Ce înseamnă „fază determinantă”", [
+    "Fazele determinante sunt punctele de control impuse de lege în care execuția nu poate continua fără verificarea și semnătura dirigintelui de șantier, a proiectantului și, după caz, a Inspectoratului de Stat în Construcții. Fundațiile, fiecare planșeu și structura completă sunt astfel de puncte.",
+    "Pentru cumpărător, existența acestor procese-verbale înseamnă că structura a fost verificată independent la fiecare etapă, nu doar la recepția finală. Documentele intră în cartea tehnică a construcției, predată odată cu apartamentul."]),
+   ("Calendarul până la finalul anului", [
+    "Până în decembrie, la blocurile 1–4 se estimează finalizarea structurii la nivelul etajului 3 și începerea închiderilor exterioare la nivelurile inferioare. La blocurile 5 și 6, structura ar urma să ajungă la etajul 2. Săpăturile și fundațiile pentru blocurile 7 și 8 sunt planificate pentru trimestrul IV.",
+    "Termenele afișate sunt estimări la data raportului. Termenul contractual pentru fiecare unitate este cel înscris în antecontract și nu se modifică prin actualizările din jurnal."]),
+   ("Cum se poate verifica stadiul", [
+    "Pagina de stadiu al lucrărilor se actualizează lunar, cu fotografii datate din teren. Vizitele pe șantier se organizează cu programare, însoțite de un reprezentant, cu echipament de protecție pus la dispoziție. Raportul lunar poate fi primit și pe e-mail, la cerere."]),
+  ],
+  "fapte": [("Blocuri cu planșeul peste etajul 1", "4"), ("Blocuri în cofrare", "2"),
+            ("Etapa II — săpături începute", "blocurile 7 și 8"), ("Următoarea actualizare", "octombrie 2026")],
+  "legaturi": [("stadiu-lucrari/", "Stadiul lucrărilor, faza cu faza"), ("proiect/", "Datele proiectului"),
+               ("apartamente-iasi/disponibilitate/?etapa=I&status=disponibil", "Apartamentele disponibile în Etapa I")]},
+
+ {"slug": "ghid-cumparare-apartament-nou-iasi", "cat": "Ghid de achiziție", "pict": "file-signature",
+  "data": "2026-09-12", "afisat": "12 septembrie 2026", "minute": 6, "img": "living-01",
+  "titlu": "Cum se cumpără un apartament nou în Iași: cei 5 pași, cu documentele fiecăruia",
+  "rezumat": "De la vizionare la intabulare, ce se semnează, ce se plătește și ce se verifică la fiecare pas. "
+             "Un ghid practic pentru prima achiziție de la dezvoltator.",
+  "sectiuni": [
+   ("1. Vizionarea și lista de disponibilitate", [
+    "Primul pas este întâlnirea în showroom: apartamentul-model, planurile fiecărei compartimentări și lista de disponibilitate cu prețul fiecărei unități. Este momentul în care se clarifică bugetul, etajul, orientarea și dotările suplimentare — loc de parcare, boxă, curte.",
+    "Documente de cerut: autorizația de construire (număr și dată), certificatul de urbanism cu indicatorii aprobați, extrasul de carte funciară al terenului și anexa tehnică de finisaje. Un dezvoltator serios le pune la dispoziție fără rezerve."]),
+   ("2. Rezervarea", [
+    "Rezervarea blochează unitatea aleasă pe numele cumpărătorului și menține prețul afișat pentru o perioadă stabilită, de regulă până la semnarea antecontractului. Se semnează un document scurt, în care se menționează unitatea, prețul și termenul de valabilitate.",
+    "În această perioadă cumpărătorul poate obține pre-aprobarea creditului, dacă finanțează prin bancă. Documentația necesară băncii — planuri, autorizație, extras CF — se pune la dispoziție de dezvoltator."]),
+   ("3. Antecontractul, la notar", [
+    "Antecontractul de vânzare-cumpărare se semnează în formă autentică, la notar. Fixează unitatea, suprafețele, prețul, eșalonarea plăților, termenul de predare și consecințele întârzierii. La semnare se achită avansul — la Emerald City, 15% din preț.",
+    "De verificat înainte de semnare: concordanța dintre planul anexat și unitatea vizitată, lista de finisaje poziție cu poziție, termenul de predare exprimat ca dată, nu ca „trimestru estimat”, și clauzele de penalitate în ambele sensuri."]),
+   ("4. Construcția și plățile intermediare", [
+    "Pe durata execuției, cumpărătorul poate urmări progresul în jurnalul de șantier și poate vizita șantierul cu programare. Plățile intermediare, dacă există, sunt legate de stadii fizice verificabile — structură finalizată, închideri, instalații — nu de date calendaristice.",
+    "Creditul ipotecar se trage de regulă la semnarea contractului final, după recepție. Până atunci, banca lucrează cu antecontractul și cu documentația proiectului."]),
+   ("5. Recepția, contractul final și intabularea", [
+    "La finalizare, apartamentul se verifică împreună cu un reprezentant al dezvoltatorului, pe baza unei liste de verificare: finisaje, instalații, tâmplărie, echipamente. Observațiile se consemnează în procesul-verbal și se remediază înainte de predare.",
+    "Urmează contractul de vânzare-cumpărare la notar, plata diferenței și intabularea pe numele cumpărătorului. Odată cu cheile se predau cartea tehnică, certificatul energetic, documentația cadastrală și garanțiile echipamentelor."]),
+  ],
+  "fapte": [("Avans la antecontract", "15%"), ("Comision de intermediere", "0"),
+            ("Garanție structură", "durata clădirii"), ("Vicii ascunse", "10 ani")],
+  "legaturi": [("despre-emerald-city/", "Procesul complet, pas cu pas"), ("finisaje/", "Ce include predarea la cheie"),
+               ("programare-vizionare/", "Programare vizionare")]},
+
+ {"slug": "incalzire-in-pardoseala-vs-calorifere", "cat": "Finisaje și tehnic", "pict": "fire-flame-simple",
+  "data": "2026-09-05", "afisat": "5 septembrie 2026", "minute": 5, "img": "dormitor-01",
+  "titlu": "Încălzire în pardoseală sau calorifere: ce se schimbă la confort și la factură",
+  "rezumat": "Toate cele 925 de apartamente au încălzire în pardoseală, cu centrală proprie în condensație. "
+             "Explicăm cum funcționează sistemul, ce economie aduce și ce trebuie știut la mobilare.",
+  "sectiuni": [
+   ("Cum funcționează", [
+    "Încălzirea în pardoseală distribuie apa caldă prin serpentine montate în șapă, sub parchet sau gresie. Suprafața întregii pardoseli devine element de încălzire, la o temperatură a apei de 30–40 °C, față de 60–70 °C la calorifere.",
+    "Fiecare cameră are circuit propriu, cu reglaj individual de la distribuitor și termostat. Temperatura se poate seta diferit în dormitor față de living, iar camerele nefolosite pot fi menținute la un nivel minim."]),
+   ("De ce consumă mai puțin", [
+    "Centrala în condensație are randamentul cel mai ridicat exact la temperaturi joase ale apei, pentru că recuperează căldura din gazele de ardere în loc să o evacueze pe horn. Combinația cu încălzirea în pardoseală o menține în regimul optim aproape tot sezonul.",
+    "Rezultatul, la același confort, este un consum de gaz cu până la 35% mai mic decât la o centrală clasică cu calorifere. La o garsonieră de 37 m² cu anvelopă termică nouă, diferența se simte direct în factura de iarnă."]),
+   ("Confortul: căldura de jos în sus", [
+    "Distribuția uniformă a căldurii de la sol elimină zonele reci de lângă ferestre și curenții de aer produși de calorifere. Temperatura resimțită este cu 1–2 °C mai mare decât cea măsurată, ceea ce permite o setare mai joasă a termostatului.",
+    "Pereții rămân liberi: fără calorifere sub ferestre, mobilierul se poate așeza oriunde, iar tâmplăria până în pardoseală devine posibilă."]),
+   ("Ce trebuie știut la mobilare", [
+    "Parchetul laminat de 10 mm livrat în apartamente este compatibil cu încălzirea în pardoseală. La mobilare se recomandă evitarea covoarelor groase pe suprafețe mari și a mobilierului fără picioare, care reduc transferul de căldură.",
+    "Sistemul are inerție: se încălzește și se răcește lent. Programarea termostatului pe intervale, nu pornirea și oprirea repetată, este modul eficient de utilizare."]),
+  ],
+  "fapte": [("Temperatura apei în circuit", "30–40 °C"), ("Economie față de centrala clasică", "până la 35%"),
+            ("Reglaj", "pe fiecare cameră"), ("Inclus în preț", "toate apartamentele")],
+  "legaturi": [("finisaje/", "Lista completă a finisajelor"), ("despre-emerald-city/#garantii", "Garanțiile instalațiilor"),
+               ("apartamente-iasi/", "Apartamentele disponibile")]},
+
+ {"slug": "pacurari-ghidul-cartierului", "cat": "Zona", "pict": "map-location-dot",
+  "data": "2026-08-28", "afisat": "28 august 2026", "minute": 5, "img": "dining-01",
+  "titlu": "Păcurari, în cifre: distanțe reale până la școală, universitate și centru",
+  "rezumat": "Am măsurat pe traseu rutier drumurile care contează zilnic — Copou, Universitate, Kaufland, "
+             "Paradis International College. Ce înseamnă poziția ansamblului pentru o familie, un student sau un investitor.",
+  "sectiuni": [
+   ("Poziția pe hartă", [
+    "Emerald City se află la limita de nord-vest a Iașului, cu acces din Strada Ion Nistor, în spatele ansamblului Contemporan Homes de pe Strada Dealul Zorilor. Este una dintre puținele zone ale orașului care mai dispune de teren pentru ansambluri cu densitate redusă, la distanță mică de centrul universitar.",
+    "Distanțele de mai jos sunt calculate pe traseu rutier real, fără trafic, de la amplasament, cu date OpenStreetMap. Singura excepție este Paradis International College, pentru care distanța pietonală este cea indicată de dezvoltator."]),
+   ("Școală, cumpărături, universitate", [
+    "Paradis International College se află la aproximativ 300 de metri, 4 minute de mers pe jos. Kaufland Păcurari este la 1,5 km, iar magazinele de proximitate de pe artera Păcurari la câteva minute. Universitatea „Alexandru Ioan Cuza” este la 5 km, în Copou, aproximativ 12 minute cu mașina.",
+    "Centrul orașului — Piața Unirii — este la 4,8 km, iar Palas Mall la 5,5 km. Aeroportul Iași se află la 12 km, aproximativ 22 de minute fără trafic."]),
+   ("Transport public și ieșirea din oraș", [
+    "Artera Păcurari are linii constante spre centru și spre Copou, cu stație pe drumul de acces în ansamblu. Ieșirea spre Botoșani, pe DN28, este la câteva minute — utilă pentru drumurile în afara orașului fără traversarea centrului.",
+    "Pentru cei care lucrează în nord-vestul Iașului, accesul direct la artera Păcurari evită aglomerația din zona centrală la orele de vârf."]),
+   ("Cui i se potrivește zona", [
+    "Familiilor tinere: școală la 4 minute pe jos, loc de joacă și parc în incintă, curte proprie la apartamentele de la parter. Studenților și tinerilor angajați: Copou și centrul universitar la 5 km, transport direct. Investitorilor: cerere de chirii susținută de cei peste 60.000 de studenți ai orașului.",
+    "Harta interactivă de pe pagina zonei permite selectarea fiecărui reper și afișarea traseului rutier."]),
+  ],
+  "fapte": [("Centrul orașului", "4,8 km"), ("Universitatea „A.I. Cuza”", "5 km"),
+            ("Paradis International College", "300 m, pe jos"), ("Aeroport", "12 km")],
+  "legaturi": [("apartamente-iasi-pacurari/", "Ghidul complet al zonei, cu hartă"), ("apartamente-iasi/", "Apartamentele disponibile"),
+               ("investitie-apartamente-iasi/", "Randament pentru investitori")]},
+
+ {"slug": "randament-chirii-iasi-2026", "cat": "Investiție", "pict": "chart-line",
+  "data": "2026-08-19", "afisat": "19 august 2026", "minute": 6, "img": "living-02",
+  "titlu": "Randamentul chiriilor în Iași, 2026: ce arată cifrele pentru un apartament nou",
+  "rezumat": "Între 4,5% și 5,5% brut, cu garsonierele în frunte. Cum am calculat, ce costuri lipsesc din estimare "
+             "și de ce un apartament nou, finisat la cheie, se închiriază mai repede.",
+  "sectiuni": [
+   ("Metoda de calcul", [
+    "Randamentul brut împarte chiria anuală la prețul de achiziție. Pentru estimare am folosit o chirie de aproximativ 6,2 €/m² util pe lună — o medie observată pentru locuințe noi, finisate, în zona Păcurari — și prețurile de listare ale unităților disponibile.",
+    "Randamentul net scade perioadele neînchiriate (implicit 8% pe an) și aproximativ 8% cheltuieli de administrare, impozit și reparații. Diferența dintre brut și net este, de regulă, de cel puțin un punct procentual."]),
+   ("Ce rezultă pe categorii", [
+    "Garsonierele, de la 53.500 €, au randamentul brut cel mai ridicat — în jur de 5,2% — și cel mai scurt timp de ocupare pe piața de închirieri din Iași. Apartamentele cu 2 camere, de la 74.000 €, se situează la un nivel apropiat, cu o cerere mai stabilă din partea cuplurilor și a tinerilor profesioniști.",
+    "Apartamentele cu 3 camere au randamente brute ușor mai mici, în jur de 5,1%, dar se adresează unui segment distinct: familii și relocări corporate, cu contracte pe termen mai lung."]),
+   ("De ce contează că este nou și finisat", [
+    "Un apartament predat la cheie — parchet, gresie, faianță, obiecte sanitare, uși, centrală proprie, încălzire în pardoseală — se poate închiria după mobilare, fără luni de lucrări. Costurile de exploatare mici și contorizarea individuală sunt argumente în plus pentru chiriaș.",
+    "Garanțiile legale — structura pe toată durata clădirii, viciile ascunse 10 ani — reduc riscul de reparații neprevăzute în primii ani, exact perioada în care se recuperează costurile inițiale."]),
+   ("Costuri care nu apar în calculator", [
+    "Taxele notariale, intabularea, TVA-ul aferent, mobilarea și echiparea inițială și eventualul comision al unei firme de administrare nu sunt incluse. Pentru o garsonieră, mobilarea completă pornește în general de la câteva mii de euro.",
+    "Cifrele sunt estimări bazate pe prețuri de listare și pe chirii observate în zonă, cu rol informativ. Nu reprezintă consultanță de investiții; decizia aparține cumpărătorului, care poate consulta un specialist independent."]),
+  ],
+  "fapte": [("Randament brut estimat", "4,5–5,5%"), ("Chirie estimată", "≈ 6,2 €/m²/lună"),
+            ("Garsonieră, de la", "53.500 €"), ("Studenți în Iași", "peste 60.000")],
+  "legaturi": [("investitie-apartamente-iasi/", "Calculatorul de randament"), ("apartamente-iasi/apartamente-1-camera/", "Garsonierele disponibile"),
+               ("apartamente-iasi/disponibilitate/", "Toate prețurile")]},
+
+ {"slug": "etapa-2-intra-in-vanzare", "cat": "Proiect", "pict": "building-circle-check",
+  "data": "2026-08-10", "afisat": "10 august 2026", "minute": 4, "img": "hero-living",
+  "titlu": "Etapa II intră în vânzare: 423 de apartamente în 8 blocuri, în jurul parcului central",
+  "rezumat": "Cea mai mare etapă a ansamblului, cu blocurile 7–14 și acces direct la parcul dendrologic. "
+             "Ce compartimentări sunt disponibile, la ce prețuri și cum se rezervă.",
+  "sectiuni": [
+   ("Ce cuprinde Etapa II", [
+    "Etapa II include blocurile 7–14, cu 423 de apartamente — aproape jumătate din ansamblu. Blocurile sunt dispuse în jurul parcului central, astfel încât majoritatea apartamentelor au vedere spre spațiul verde, nu spre parcări.",
+    "Regimul de înălțime rămâne același ca în toate cele 18 blocuri: două demisoluri, parter și trei etaje, cu înălțimea maximă de 15 metri. Parcarea subterană și boxele sunt în demisoluri, cu lift direct din parcaj în scară."]),
+   ("Compartimentări și prețuri", [
+    "Sunt disponibile toate cele cinci compartimentări: garsoniere de tip 1A, apartamente cu 2 camere de tip 2A și 2B și apartamente cu 3 camere de tip 3A și 3B, cu suprafețe utile între 37 și 81 m². Apartamentele de la parter au curte proprie, între 20 și 65 m².",
+    "Prețurile de pornire sunt aceleași ca în Etapa I, cu TVA inclus și cu toate finisajele. Lista completă, cu prețul fiecărei unități, este publicată în secțiunea de disponibilitate și se filtrează după etapă."]),
+   ("Calendar și condiții", [
+    "Săpăturile pentru blocurile 7 și 8 au început în septembrie; structura celorlalte blocuri urmează progresiv. Termenul de predare al fiecărei unități se înscrie în antecontract. Condițiile de plată sunt cele standard: 15% avans la antecontract, diferența la predare, plăți intermediare opționale.",
+    "Rezervarea se face la biroul de vânzări, cu blocarea prețului afișat până la semnarea antecontractului."]),
+  ],
+  "fapte": [("Apartamente în Etapa II", "423"), ("Blocuri", "7–14"),
+            ("Suprafețe utile", "37–81 m²"), ("Avans la antecontract", "15%")],
+  "legaturi": [("apartamente-iasi/disponibilitate/?etapa=II&status=disponibil", "Apartamentele din Etapa II"),
+               ("proiect/#etape", "Etapele ansamblului"), ("programare-vizionare/", "Programare vizionare")]},
+]
+ARTICOLE_BLOG_SLUG = {a["slug"]: a for a in ARTICOLE_BLOG}
+
+
+def card_articol(a, r, mare=False):
+    return f"""<article class="ec-post ec-rv{' ec-post--mare' if mare else ''}">
+      <a class="ec-post__img" href="{r}noutati/{a['slug']}/" aria-label="{e(a['titlu'])}">
+        {imagine(a['img'], a['titlu'], r, "(min-width: 60rem) 33vw, 100vw")}
+        <span class="ec-post__cat">{ic(a['pict'])} {e(a['cat'])}</span>
+      </a>
+      <div class="ec-post__b">
+        <div class="ec-post__meta"><time datetime="{a['data']}">{e(a['afisat'])}</time><span>·</span><span>{a['minute']} min de citit</span></div>
+        <h3><a href="{r}noutati/{a['slug']}/">{e(a['titlu'])}</a></h3>
+        <p>{e(a['rezumat'])}</p>
+        <a class="ec-post__go" href="{r}noutati/{a['slug']}/">Citește articolul {ic("arrow-right")}</a>
+      </div>
+    </article>"""
+
+
+def pagina_noutati():
+    r = "../"
+    carduri = "".join(card_articol(a, r) for a in ARTICOLE_BLOG)
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "CollectionPage", "name": "Noutăți Emerald City",
+             "url": "https://emerald-city.ro/noutati/"},
+            {"@type": "ItemList", "itemListElement": [
+                {"@type": "ListItem", "position": i,
+                 "url": f"https://emerald-city.ro/noutati/{a['slug']}/", "name": a["titlu"]}
+                for i, a in enumerate(ARTICOLE_BLOG, 1)]},
+        ]}
+    continut = f"""<section class="ec-phero">
+  {imagine("dormitor-02", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Noutăți</nav>
+    <p class="ec-eyebrow">Noutăți</p>
+    <h1>Noutăți din șantier, ghiduri și analize</h1>
+    <p class="ec-phero__sub">
+      Stadiul lucrărilor, explicații tehnice despre finisaje, ghiduri de achiziție și cifre
+      despre zonă și piața de închirieri. Articole semnate de echipa Emerald City, actualizate lunar.
+    </p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#articole">{ic("newspaper")} Cele {len(ARTICOLE_BLOG)} articole</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}stadiu-lucrari/">{ic("helmet-safety")} Jurnal de șantier</a>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="articole" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Articole</span>
+        <h2>Cele mai recente <em>publicate</em></h2></div>
+      <p class="ec-shead__p">Șantier, ghid de achiziție, finisaje, zonă, investiție și proiect — câte un articol pe temă.</p>
+    </div>
+    <div class="ec-blog" style="margin-top:2.5rem">{carduri}</div>
+  </section>
+
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    {alerta("Primiți articolele noi pe e-mail", "Un e-mail pe lună, cu stadiul lucrărilor și articolele publicate. Se poate opri oricând.", "noutati", "envelope-open-text")}
+  </section>
+
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    {cta_dublu(r, "noutati")}
+  </section>
+
+  {showroom(r, "02")}
+</div>"""
+    return pagina("Noutăți — șantier, ghiduri și analize | Emerald City Iași",
+                  "Noutăți de la Emerald City, Iași zona Păcurari: stadiul lucrărilor, ghiduri de achiziție, "
+                  "explicații despre finisaje, cifre despre zonă și randamentul chiriilor.",
+                  continut, r, schema, "noutati/", "dormitor-02")
+
+
+def pagina_articol(a):
+    r = "../../"
+    corp = ""
+    cuprins = ""
+    for i, (t, paragrafe) in enumerate(a["sectiuni"], 1):
+        cuprins += f'<li><a href="#s{i}">{e(t)}</a></li>'
+        corp += f'<h2 id="s{i}">{e(t)}</h2>' + "".join(f"<p>{e(x)}</p>" for x in paragrafe)
+    fapte = "".join(f'<div class="ec-artf__i"><span>{e(k)}</span><b>{e(v)}</b></div>' for k, v in a["fapte"])
+    legaturi = "".join(f'<li><a href="{r}{h}">{ic("arrow-right")} {e(t)}</a></li>' for h, t in a["legaturi"])
+    altele = [x for x in ARTICOLE_BLOG if x["slug"] != a["slug"]][:3]
+    similare = "".join(card_articol(x, r) for x in altele)
+    text = " ".join(p for _, ps in a["sectiuni"] for p in ps)
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "Article", "headline": a["titlu"], "description": a["rezumat"],
+             "datePublished": a["data"], "dateModified": a["data"],
+             "articleSection": a["cat"], "wordCount": len(text.split()),
+             "image": f"https://emerald-city.ro/assets/img/{a['img']}.jpg",
+             "author": {"@type": "Organization", "name": "Emerald City — echipa de vânzări",
+                        "url": "https://emerald-city.ro/despre-emerald-city/"},
+             "publisher": {"@type": "Organization", "name": "Tala Sapphire S.R.L.",
+                           "logo": {"@type": "ImageObject", "url": "https://emerald-city.ro/brand/logo-verde.svg"}},
+             "mainEntityOfPage": f"https://emerald-city.ro/noutati/{a['slug']}/",
+             "inLanguage": "ro"},
+        ]}
+    continut = f"""<section class="ec-phero ec-phero--art">
+  {imagine(a['img'], a['titlu'], r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>
+      <a href="{r}noutati/">Noutăți</a><span>/</span>{e(a['cat'])}</nav>
+    <p class="ec-eyebrow">{ic(a['pict'])} {e(a['cat'])}</p>
+    <h1>{e(a['titlu'])}</h1>
+    <p class="ec-phero__sub">{e(a['rezumat'])}</p>
+    <div class="ec-artmeta">
+      <span>{ic("calendar-days")} <time datetime="{a['data']}">{e(a['afisat'])}</time></span>
+      <span>{ic("clock")} {a['minute']} min de citit</span>
+      <span>{ic("user-pen")} Echipa Emerald City</span>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  <div class="ec-artgrid">
+    <article class="ec-artbody">
+      {corp}
+      <div class="ec-artnote">
+        <b>{ic("circle-info")} Notă</b>
+        <p>Informațiile reflectă situația la data publicării. Cifrele contractuale — suprafețe, prețuri,
+           termene — sunt cele din documentele semnate între părți.</p>
+      </div>
+      <div class="ec-artshare">
+        <span>Distribuiți:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://emerald-city.ro/noutati/{a['slug']}/" target="_blank" rel="noopener" aria-label="Facebook">{ic("facebook-f", brand=True)}</a>
+        <a href="https://wa.me/?text=https://emerald-city.ro/noutati/{a['slug']}/" target="_blank" rel="noopener" aria-label="WhatsApp">{ic("whatsapp", brand=True)}</a>
+        <a href="mailto:?subject={e(a['titlu'])}&amp;body=https://emerald-city.ro/noutati/{a['slug']}/" aria-label="E-mail">{ic("envelope")}</a>
+      </div>
+    </article>
+    <aside class="ec-artside">
+      <div class="ec-artside__p">
+        <b>Cuprins</b>
+        <ol class="ec-arttoc">{cuprins}</ol>
+      </div>
+      <div class="ec-artside__p ec-artf">
+        <b>Cifre-cheie</b>
+        {fapte}
+      </div>
+      <div class="ec-artside__p">
+        <b>Legături utile</b>
+        <ul class="ec-artlinks">{legaturi}</ul>
+      </div>
+      <div class="ec-artside__p ec-artside__cta">
+        <b>Vizionare în showroom</b>
+        <p>Apartamentul-model, planurile și lista de disponibilitate, într-o întâlnire de 40 de minute.</p>
+        <a class="ec-btn ec-btn--brass" href="{r}programare-vizionare/">{ic("calendar-check")} Programare vizionare</a>
+      </div>
+    </aside>
+  </div>
+
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">Alte articole</span>
+        <h2>Continuați <em>lectura</em></h2></div>
+      <p class="ec-shead__p">Trei articole pe teme apropiate.</p>
+    </div>
+    <div class="ec-blog" style="margin-top:2.5rem">{similare}</div>
+  </section>
+
+  <section class="ec-section" style="padding-block:var(--ec-section) 0">
+    {cta_dublu(r, a['slug'])}
+  </section>
+
+  {showroom(r, "")}
+</div>"""
+    return pagina(f"{a['titlu']} | Emerald City", a["rezumat"], continut, r, schema,
+                  f"noutati/{a['slug']}/", a["img"])
+
+
 # ========================================================= pagini legale ==
 LEGALE = {
     "termeni-si-conditii": ("Termeni și condiții",
@@ -6209,6 +6537,16 @@ def main():
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
             f.write(continut)
+
+    d = os.path.join(RAD, "noutati")
+    os.makedirs(d, exist_ok=True)
+    with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+        f.write(pagina_noutati())
+    for a in ARTICOLE_BLOG:
+        d = os.path.join(RAD, "noutati", a["slug"])
+        os.makedirs(d, exist_ok=True)
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(pagina_articol(a))
 
     for slug in LEGALE:
         d = os.path.join(RAD, slug)
