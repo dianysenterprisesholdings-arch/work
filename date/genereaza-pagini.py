@@ -2015,59 +2015,344 @@ def pagina_stadiu():
 
 
 # ====================================================== despre dezvoltator ==
+# Datele de portofoliu sunt cele publicate de Green Stone Group pe
+# greenstone-group.ro/proiecte/. Se actualizeaza de acolo.
+PORTOFOLIU_RO = [
+ ("Emerald City", "Iași · în dezvoltare",
+  "925 de apartamente în 18 blocuri cu regim 2D+P+3E, pe cinci hectare din care 30,85% "
+  "rămâne spațiu verde amenajat. Predare la cheie, vânzare directă de la dezvoltator.",
+  [("Apartamente", "925"), ("Blocuri", "18"), ("Etape", "3")]),
+ ("Lapis Residence", "Iași · din 2023",
+  "Ansamblu cu piste de biciclete în tot cartierul, panouri fotovoltaice și finisaje "
+  "premium. Proiectul a început la finalul lui 2023 și este în curs de dezvoltare.",
+  [("Oraș", "Iași"), ("Început", "2023"), ("Stadiu", "În dezvoltare")]),
+ ("Onyx Residence", "Iași · din 2024",
+  "Prelungirea ansamblului Lapis: 360 de apartamente în 8 blocuri similare ca structură "
+  "și dotări, cu spații comerciale la parter. Împreună, cele două ajung la 740 de locuințe.",
+  [("Apartamente", "360"), ("Blocuri", "8"), ("Început", "2024")]),
+ ("Magnolia Residence", "Sibiu",
+  "Faza I, finalizată: 1.132 de apartamente în vile P+2E+M și imobile P+4E și P+7E+R, "
+  "plus o clădire comercială. Faza a II-a cuprinde 12 imobile, până la P+3E+ER.",
+  [("Apartamente", "1.132"), ("Faza I", "Finalizată"), ("Faza a II-a", "În lucru")]),
+]
+
+PORTOFOLIU_INT = [
+ ("Apartamente de lux", "Marea Britanie · 2022–2024",
+  "Complex cu 100 de apartamente pe cinci etaje — studio, o cameră și două camere, unele "
+  "cu birou sau spațiu suplimentar de depozitare.",
+  [("Apartamente", "100"), ("Valoare estimată", "25,5 mil. £")]),
+ ("Apartamente moderne", "Marea Britanie · 2020–2022",
+  "Complex cu 94 de apartamente de înaltă calitate, cu specificații superioare în toate "
+  "unitățile.",
+  [("Apartamente", "94"), ("Valoare estimată", "29 mil. £")]),
+ ("Proiect de referință", "Israel · finalizat",
+  "12 clădiri cu regim P+8 și 40.000 m² construiți, la care se adaugă 750 m² de spații "
+  "comerciale pentru serviciile din incintă.",
+  [("Construit", "40.000 m²"), ("Preț mediu", "5.500 €/m²")]),
+ ("Ansamblu rezidențial", "Israel · finalizat în 2016",
+  "7 clădiri cu 245 de apartamente de lux și 35.000 m² construiți, într-unul dintre cele "
+  "mai importante orașe din Israel.",
+  [("Apartamente", "245"), ("Construit", "35.000 m²")]),
+ ("Apartamente de lux", "Israel · faza I în 2023",
+  "9 clădiri cu 240 de apartamente și 31.500 m² construiți, plus 3.000 m² de spații "
+  "comerciale în incintă.",
+  [("Apartamente", "240"), ("Comercial", "3.000 m²")]),
+ ("Turn de birouri", "Israel · în construcție",
+  "Turn de birouri cu aproximativ 40.000 m² de spații comerciale, cu fațadă proiectată "
+  "în detaliu și planificare adaptată mediului construit.",
+  [("Spații", "≈40.000 m²"), ("Stadiu", "În construcție")]),
+]
+
+PRINCIPII = [
+ ("city", "Regenerare urbană",
+  "Grupul transformă zone degradate sau subutilizate în cartiere locuibile, nu doar în "
+  "clădiri noi pe teren liber."),
+ ("leaf", "Soluții ecologice",
+  "Panouri fotovoltaice, piste de biciclete și spații verzi proiectate de la început, "
+  "nu adăugate la final."),
+ ("earth-europe", "Experiență internațională",
+  "Proiecte în Marea Britanie, Israel și România — expertiză locală cu standarde aduse "
+  "din piețe mai exigente."),
+ ("handshake", "Vânzare directă",
+  "Discuți prețul și termenele cu cel care construiește, fără comision de intermediere."),
+]
+
+FAQ_DEZV = [
+ ("Cine dezvoltă Emerald City?",
+  "Emerald City este dezvoltat de Tala Sapphire S.R.L., companie din Green Stone Group. "
+  "Vânzarea se face direct, fără comision de intermediere."),
+ ("Ce este Green Stone Group?",
+  "Un grup de firme dedicat dezvoltării de proiecte imobiliare și regenerării urbane la "
+  "nivel internațional, cu proiecte în Marea Britanie, Israel și România."),
+ ("Ce alte proiecte are grupul în Iași?",
+  "Lapis Residence, început la finalul lui 2023, și Onyx Residence, prelungirea acestuia, "
+  "începută în 2024. Împreună, cele două ansambluri însumează 740 de apartamente."),
+ ("Grupul a livrat proiecte finalizate?",
+  "Da. Faza I de la Magnolia Residence, în Sibiu, cu 1.132 de apartamente, două complexuri "
+  "în Marea Britanie și mai multe ansambluri în Israel, dintre care unul finalizat în 2016."),
+ ("Ce înseamnă regenerare urbană?",
+  "Transformarea zonelor degradate sau subutilizate ale orașului în spații locuibile, cu "
+  "locuințe, facilități comerciale și spații publice — în loc de extinderea orașului pe "
+  "teren agricol."),
+ ("De ce contează cine este dezvoltatorul?",
+  "Pentru că garanțiile, termenele și calitatea execuției depind de cine semnează "
+  "contractul și de ce a livrat înainte. Un dezvoltator cu proiecte finalizate pe care "
+  "le poți vizita este verificabil."),
+ ("Pot vizita proiectele anterioare?",
+  "Da, ansamblurile din Iași pot fi vizitate. Îți spunem la biroul de vânzări unde și cum "
+  "ajungi la fiecare."),
+ ("Ce garanții primesc la Emerald City?",
+  "Structura de rezistență este garantată pe toată durata de existență a clădirii, iar "
+  "viciile ascunse 10 ani de la recepție, conform Legii 10/1995 și Codului civil. "
+  "Detaliile complete sunt pe pagina „Despre noi”."),
+]
+
+
 def pagina_dezvoltator():
     r = "../"
-    continut = f"""<div class="ec-wrap">
-  <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Despre dezvoltator</nav>
-  <header class="ec-phead">
-    <p class="ec-eyebrow">Dezvoltator</p>
-    <h1 style="margin-top:1rem">Tala Sapphire S.R.L.</h1>
-    <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
-      Emerald City este dezvoltat de Tala Sapphire S.R.L. Vânzarea se face direct,
-      fără comision de intermediere.
-    </p>
-  </header>
 
-  <section class="ec-section" style="padding-block:0 3rem">
-    <dl class="ec-specs">
+    ro_ap = 925 + 380 + 360 + 1132  # Emerald City, Lapis, Onyx, Magnolia faza I
+    ro_txt = f"{ro_ap:,}".replace(",", ".")
+
+    def _fig(val, et, pic, num=True):
+        attr = ' data-num="%s"' % e(val) if num else ""
+        return (f'<div class="ec-fig ec-rv"><span class="ec-fig__ic">{ic(pic)}</span>'
+                f'<span><b{attr}>{e(val)}</b><em>{e(et)}</em></span></div>')
+
+    figuri = "".join(
+        _fig(*x)
+        for x in [
+            ("3", "Țări", "earth-europe"),
+            ("10", "Proiecte", "building"),
+            (ro_txt, "Locuințe în România", "city"),
+            ("2016", "Primul proiect livrat", "clock-rotate-left", False),
+        ])
+
+    def carduri(lista):
+        return "".join(
+            f'<article class="ec-ref ec-rv">'
+            f'<span class="ec-ref__ic">{ic("building-circle-check")}</span>'
+            f'<span class="ec-ref__k">{e(loc)}</span>'
+            f'<h3>{e(nume)}</h3><p>{e(desc)}</p><dl>'
+            + "".join(f"<div><dt>{e(dt)}</dt><dd>{e(dd)}</dd></div>" for dt, dd in perechi)
+            + "</dl></article>"
+            for nume, loc, desc, perechi in lista)
+
+    principii = "".join(
+        f'<div class="ec-why__i ec-rv">{ic(pic)}<h3>{e(t)}</h3><p>{e(d)}</p></div>'
+        for pic, t, d in PRINCIPII)
+
+    faq = "".join(f"<details><summary>{e(q)}</summary>"
+                  f'<div class="ec-faq__a">{e(a)}</div></details>'
+                  for q, a in FAQ_DEZV)
+
+    schema = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {"@type": "Organization",
+             "name": "Green Stone Group",
+             "url": "https://greenstone-group.ro/",
+             "description": "Grup de firme dedicat dezvoltării de proiecte imobiliare și "
+                            "regenerării urbane, cu proiecte în Marea Britanie, Israel și România.",
+             "areaServed": ["România", "Marea Britanie", "Israel"],
+             "subOrganization": {"@type": "Organization", "name": "Tala Sapphire S.R.L."}},
+            {"@type": "FAQPage",
+             "mainEntity": [{"@type": "Question", "name": q,
+                             "acceptedAnswer": {"@type": "Answer", "text": a}}
+                            for q, a in FAQ_DEZV]},
+        ]}
+
+    continut = f"""<section class="ec-phero">
+  {imagine("hol-01", "", r, "100vw", eager=True)}
+  <div class="ec-phero__veil"></div>
+  <div class="ec-wrap ec-phero__in">
+    <nav class="ec-crumbs"><a href="{r}">Acasă</a><span>/</span>Dezvoltator</nav>
+    <p class="ec-eyebrow">Dezvoltator</p>
+    <h1>Cine construiește Emerald City</h1>
+    <p class="ec-phero__sub">
+      Tala Sapphire S.R.L., companie din Green Stone Group — un grup care dezvoltă proiecte
+      rezidențiale și de regenerare urbană în Marea Britanie, Israel și România. Emerald City
+      este al treilea ansamblu al grupului în Iași.
+    </p>
+    <div class="ec-phero__cta">
+      <a class="ec-btn ec-btn--white" href="#portofoliu">{ic("building")} Vezi portofoliul</a>
+      <a class="ec-btn ec-btn--outlight" href="{r}despre-emerald-city/#garantii">{ic("shield-halved")} Garanții</a>
+    </div>
+  </div>
+</section>
+
+<div class="ec-figs-wrap">
+  <div class="ec-wrap"><div class="ec-figs">{figuri}</div></div>
+</div>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="grup">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">01 — Grupul</span>
+        <h2>Green Stone Group, <em>„Delivering Home”</em></h2></div>
+      <p class="ec-shead__p">
+        Un grup de firme dedicat dezvoltării imobiliare și regenerării urbane, activ pe trei
+        piețe.
+      </p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      <div class="ec-prose">
+        <p>
+          Green Stone Group dezvoltă proiecte care îmbină designul contemporan cu soluții
+          ecologice. Portofoliul acoperă locuințe, facilități comerciale și spații publice,
+          cu accent pe revitalizarea zonelor urbane degradate sau subutilizate — în loc de
+          extinderea orașului pe teren liber.
+        </p>
+        <p>
+          Grupul activează în Marea Britanie, Israel și România, ceea ce înseamnă că
+          standardele de execuție și de finisaj vin din piețe mai exigente decât cea locală.
+          În România a livrat faza I de la Magnolia Residence, în Sibiu, cu 1.132 de
+          apartamente, și dezvoltă în Iași ansamblurile Lapis și Onyx Residence.
+        </p>
+        <p>
+          Emerald City este al treilea proiect al grupului în Iași și cel mai mare: 925 de
+          apartamente pe cinci hectare, dezvoltat prin compania Tala Sapphire S.R.L.
+        </p>
+      </div>
+      <figure style="margin:0">
+        {imagine("dining-01", "Interior finisat într-un ansamblu Green Stone Group", r,
+                 "(min-width: 62rem) 46vw, 100vw")}
+      </figure>
+    </div>
+  </section>
+
+  <section class="ec-section" id="principii" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">02 — Principii</span>
+        <h2>Cum lucrează <em>grupul</em></h2></div>
+      <p class="ec-shead__p">Patru lucruri care se regăsesc în fiecare proiect.</p>
+    </div>
+    <div class="ec-why" style="margin-top:2.5rem">{principii}</div>
+  </section>
+
+  <section class="ec-section" id="portofoliu" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">03 — România</span>
+        <h2>Proiectele <em>din țară</em></h2></div>
+      <p class="ec-shead__p">
+        {ro_txt} de locuințe în Iași și Sibiu, livrate sau în dezvoltare.
+      </p>
+    </div>
+    <div class="ec-refs" style="margin-top:2.5rem">{carduri(PORTOFOLIU_RO)}</div>
+  </section>
+</div>
+
+<section class="ec-band" id="international">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">04 — Internațional</span>
+          <h2>Proiectele <em>din Marea Britanie și Israel</em></h2></div>
+        <p class="ec-shead__p">
+          Șase ansambluri rezidențiale și de birouri, finalizate sau în construcție.
+        </p>
+      </div>
+      <div class="ec-refs" style="margin-top:2.5rem">{carduri(PORTOFOLIU_INT)}</div>
+    </div>
+  </div>
+</section>
+
+<div class="ec-wrap">
+  <section class="ec-section" id="emerald">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">05 — Emerald City</span>
+        <h2>Ce înseamnă <em>pentru cumpărător</em></h2></div>
+      <p class="ec-shead__p">
+        Un dezvoltator cu proiecte livrate este verificabil. Iată ce poți verifica singur.
+      </p>
+    </div>
+    <div class="ec-docs" style="margin-top:2.5rem">
+      <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
+        <span><b>Proiecte pe care le poți vizita</b>
+        <em>Lapis și Onyx Residence sunt în Iași. Poți merge să vezi execuția pe viu.</em></span></div>
+      <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
+        <span><b>Documentație completă</b>
+        <em>Autorizația de construire, certificatul de urbanism și planșele, la cerere.</em></span></div>
+      <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
+        <span><b>Garanții scrise</b>
+        <em>Structura pe toată durata clădirii, viciile ascunse 10 ani, conform legii.</em></span></div>
+      <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
+        <span><b>Stadiul publicat lunar</b>
+        <em>Jurnal de șantier cu fotografii datate, pentru fiecare etapă.</em></span></div>
+      <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
+        <span><b>Prețuri afișate</b>
+        <em>Toate cele 925 de apartamente, cu preț, suprafață și disponibilitate.</em></span></div>
+      <div class="ec-docs__i ec-rv"><span class="ec-docs__c">{ic("check")}</span>
+        <span><b>Fără intermediari</b>
+        <em>Contract direct cu dezvoltatorul, fără comision de agenție.</em></span></div>
+    </div>
+  </section>
+
+  <section class="ec-section" id="date" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">06 — Date</span>
+        <h2>Datele <em>proiectului</em></h2></div>
+      <p class="ec-shead__p">
+        Cine semnează, cine proiectează și în baza cărei documentații se construiește.
+      </p>
+    </div>
+    <dl class="ec-specs" style="margin-top:2.5rem">
       <div class="ec-spec"><dt>Beneficiar</dt><dd>Tala Sapphire S.R.L.</dd></div>
+      <div class="ec-spec"><dt>Grup</dt><dd>Green Stone Group</dd></div>
       <div class="ec-spec"><dt>Proiect</dt><dd>266/2023</dd></div>
       <div class="ec-spec"><dt>Fază</dt><dd>D.T.A.C.</dd></div>
+      <div class="ec-spec"><dt>Proiectant</dt><dd>S.C. C.A.D. S.R.L., Iași</dd></div>
+      <div class="ec-spec"><dt>Șef de proiect</dt><dd>arh. Ovidiu M. Murgu</dd></div>
+      <div class="ec-spec"><dt>Certificat de urbanism</dt><dd>194/23.06.2023</dd></div>
       <div class="ec-spec"><dt>Amplasament</dt><dd>Str. Ion Nistor, Iași</dd></div>
     </dl>
   </section>
 
-  <section class="ec-section" style="padding-block:0 4rem">
-    <div class="ec-split">
-      <div class="ec-prose">
-        <h2>Proiectul și avizele</h2>
-        <p>
-          Proiectul de autorizare a fost întocmit de S.C. C.A.D. S.R.L. din Iași, cu
-          arh. Ovidiu M. Murgu ca șef de proiect. Documentația a fost elaborată în baza
-          certificatului de urbanism emis de primăria locală.
-        </p>
-        <h3>Indicatori urbanistici</h3>
-        <p>
-          Suprafață teren 50.235 m², POT 30%, CUT 1,80. Spațiu verde amenajat 15.501,80 m²,
-          adică 30,85% din suprafața terenului. Regim de înălțime parter plus trei etaje,
-          cu înălțimea maximă la atic de 18,00 m.
-        </p>
-        <h3>Transparență</h3>
-        <p>
-          Publicăm lunar stadiul lucrărilor, cu fotografii datate din teren, și afișăm
-          deschis prețurile și disponibilitatea fiecărui apartament.
-          Documentele de autorizare pot fi consultate la cerere.
-        </p>
-      </div>
-      {formular(None, r)}
+  <section class="ec-section" id="intrebari" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">07 — Întrebări</span>
+        <h2>Despre grup <em>și portofoliu</em></h2></div>
+      <p class="ec-shead__p">
+        {len(FAQ_DEZV)} întrebări despre cine construiește și ce a livrat până acum.
+      </p>
     </div>
+    <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
-</div>"""
-    return pagina("Despre dezvoltator — Tala Sapphire | Emerald City Iași",
-                  "Tala Sapphire S.R.L., dezvoltatorul ansamblului Emerald City din Iași, "
-                  "zona Păcurari. Proiect, avize și indicatori urbanistici.",
-                  continut, r, None, "despre-dezvoltator/")
 
+  {showroom(r, "08")}
+</div>
+
+<script>
+(() => {{
+  const nr = [...document.querySelectorAll('.ec-fig b[data-num]')];
+  if (!nr.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const urca = el => {{
+    const brut = el.dataset.num;
+    const tinta = parseFloat(brut.replace(/\\./g, '').replace(',', '.'));
+    const zec = (brut.split(',')[1] || '').length;
+    const t0 = performance.now(), dur = 1100;
+    const pas = t => {{
+      const p = Math.min((t - t0) / dur, 1);
+      const v = tinta * (1 - Math.pow(1 - p, 3));
+      el.textContent = v.toLocaleString('ro-RO', {{
+        minimumFractionDigits: zec, maximumFractionDigits: zec }});
+      if (p < 1) requestAnimationFrame(pas);
+    }};
+    requestAnimationFrame(pas);
+  }};
+  const o = new IntersectionObserver(es => es.forEach(x => {{
+    if (x.isIntersecting) {{ urca(x.target); o.unobserve(x.target); }}
+  }}), {{ threshold: .4 }});
+  nr.forEach(x => o.observe(x));
+}})();
+</script>"""
+
+    return pagina("Dezvoltator — Tala Sapphire și Green Stone Group | Emerald City Iași",
+                  "Cine construiește Emerald City: Tala Sapphire S.R.L., companie din Green "
+                  "Stone Group, cu proiecte în Marea Britanie, Israel și România. Portofoliu, "
+                  "principii și datele proiectului.",
+                  continut, r, schema, "despre-dezvoltator/")
 
 
 # =============================================================== proiect ==
@@ -2762,13 +3047,12 @@ VS = [
 
 REFERINTE = [
  ("Lapis Residence", "Iași",
-  "Ansamblu rezidențial din Iași, cu apartamente predate la cheie, spații verzi amenajate "
-  "și parcări private. Același standard de finisaje și aceeași predare completă pe care "
-  "le găsești la Emerald City.",
+  "Ansamblu al Green Stone Group, cu piste de biciclete în tot cartierul, panouri "
+  "fotovoltaice și finisaje premium. Proiectul a început la finalul lui 2023.",
   [("Oraș", "Iași"), ("Predare", "La cheie")]),
  ("Onyx Residence", "Iași",
-  "Proiect rezidențial construit după aceleași principii: regim de înălțime redus, densitate "
-  "mică și dotări comune gândite pentru întreaga comunitate, nu adăugate la final.",
+  "Prelungirea ansamblului Lapis: 360 de apartamente în 8 blocuri, cu spații comerciale la "
+  "parter. Împreună, cele două ajung la 740 de locuințe.",
   [("Oraș", "Iași"), ("Predare", "La cheie")]),
 ]
 
@@ -2797,10 +3081,13 @@ ANCORE = [
 
 FAQ_DESPRE = [
  ("Cine dezvoltă Emerald City?",
-  "Tala Sapphire S.R.L. Vânzarea se face direct de la dezvoltator, fără comision de intermediere."),
+  "Tala Sapphire S.R.L., companie din Green Stone Group. Vânzarea se face direct de la "
+  "dezvoltator, fără comision de intermediere."),
  ("Ce experiență are dezvoltatorul?",
-  "Echipa a lucrat anterior la ansamblurile Lapis Residence și Onyx Residence, ambele în Iași. "
-  "Emerald City reia același standard de finisaje și aceeași predare completă, la o scară mai mare."),
+  "Emerald City este dezvoltat de Tala Sapphire S.R.L., companie din Green Stone Group — un "
+  "grup cu proiecte în Marea Britanie, Israel și România. În Iași, grupul dezvoltă și "
+  "ansamblurile Lapis și Onyx Residence, iar în Sibiu a livrat faza I de la Magnolia "
+  "Residence, cu 1.132 de apartamente."),
  ("Ce garanție am pentru structura clădirii?",
   "Structura de rezistență este garantată pe toată durata de existență a clădirii, conform "
   "Legii 10/1995 privind calitatea în construcții."),
@@ -3093,11 +3380,14 @@ def pagina_despre():
       <div><span class="ec-shead__n">08 — Experiență</span>
         <h2>Proiecte <em>livrate anterior</em></h2></div>
       <p class="ec-shead__p">
-        Emerald City nu este primul ansamblu al echipei. Standardul de finisaje și predarea
-        completă vin din proiectele de dinainte.
+        Emerald City este dezvoltat de Tala Sapphire S.R.L., companie din Green Stone Group.
+        În Iași, grupul dezvoltă și ansamblurile de mai jos.
       </p>
     </div>
     <div class="ec-refs" style="margin-top:2.5rem">{refs}</div>
+    <div class="ec-center" style="margin-top:2rem">
+      <a class="ec-btn ec-btn--out" href="{r}despre-dezvoltator/">{ic("building")} Vezi tot portofoliul grupului</a>
+    </div>
   </section>
 
   <section class="ec-section" style="padding-block:0 var(--ec-section)">
@@ -3183,7 +3473,35 @@ def pagina_despre():
     <div class="ec-faq" style="margin-top:2.5rem">{faq}</div>
   </section>
 
-  {showroom(r, "12")}
+  <section class="ec-section" id="birou" style="padding-block:0 var(--ec-section)">
+    <div class="ec-shead">
+      <div><span class="ec-shead__n">12 — Birou de vânzări</span>
+        <h2>Vino să vezi <em>pe teren</em></h2></div>
+      <p class="ec-shead__p">
+        O vizionare durează aproximativ 40 de minute și lămurește mai mult decât orice
+        pagină de site.
+      </p>
+    </div>
+    <div class="ec-split" style="margin-top:2.5rem">
+      <div class="ec-panel">
+        <div class="ec-acces">
+          <div><span class="ec-acces__i">{ic("location-dot")}</span>
+            <div><b>Adresă</b><span>Str. Dealul Zorilor 9, zona Păcurari, Iași</span></div></div>
+          <div><span class="ec-acces__i">{ic("phone")}</span>
+            <div><b>Telefon</b><span><a href="tel:+40757707080">0757 70 70 80</a></span></div></div>
+          <div><span class="ec-acces__i">{ic("envelope")}</span>
+            <div><b>E-mail</b><span><a href="mailto:vanzari@emerald-city.ro">vanzari@emerald-city.ro</a></span></div></div>
+          <div><span class="ec-acces__i">{ic("clock")}</span>
+            <div><b>Program</b><span>Luni–vineri 9–18 · Sâmbătă 10–14</span></div></div>
+        </div>
+        <div class="ec-cta__btns" style="margin-top:2rem">
+          <a class="ec-btn" href="tel:+40757707080">{ic("phone")} Sună acum</a>
+          <a class="ec-btn ec-btn--out" href="{r}apartamente-iasi/disponibilitate/">{ic("table-list")} Vezi disponibilitatea</a>
+        </div>
+      </div>
+      {formular(None, r)}
+    </div>
+  </section>
 </div>
 
 <script>
