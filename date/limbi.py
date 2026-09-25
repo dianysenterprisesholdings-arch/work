@@ -26,7 +26,6 @@ SLUGURI = {
     "proiect": "project",
     "contact": "contact",
     "programare-vizionare": "book-a-viewing",
-    "compara": "compare",
     "noutati": "news",
     "etapa-1-structura-etajul-2": "phase-1-structure-reaches-floor-2",
     "ghid-cumparare-apartament-nou-iasi": "guide-buying-a-new-apartment-in-iasi",

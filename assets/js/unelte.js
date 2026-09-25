@@ -158,6 +158,7 @@
   $$('[data-calc-randament]').forEach(initRandament);
 
   const rad = document.body.dataset.radacina || './';
-  if (document.querySelector('[data-save], #fBody, #fCards, .ec-unit')) initLista(rad);
+  // comparatorul a fost retras; lista scurta nu se mai initializeaza
+  void rad;
 
 })();

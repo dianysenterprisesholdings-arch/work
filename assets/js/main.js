@@ -277,7 +277,7 @@
             <a class="ec-unit__link" href="${CAT}/${u[F.id].toLowerCase()}/" aria-label="${EN ? 'Apartment' : 'Apartamentul'} ${u[F.id]}"></a>
             <div class="ec-unit__top">
               <span class="ec-unit__id">${u[F.id]}</span>
-              <span class="ec-unit__acts"><button class="ec-save ec-save--s" data-save="${u[F.id]}" type="button" aria-pressed="false" aria-label="${EN ? 'Add ' + u[F.id] + ' to comparison' : 'Adaugă ' + u[F.id] + ' la comparație'}"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2h8v12l-4-3-4 3z"/></svg></button><span class="ec-tag ec-tag--disponibil">${EN ? 'Available' : 'Disponibil'}</span></span>
+              <span class="ec-tag ec-tag--disponibil">${EN ? 'Available' : 'Disponibil'}</span>
             </div>
             <div class="ec-unit__t">${camere(u[F.camere])} · ${mp(u[F.su])}</div>
             <div class="ec-unit__meta">
@@ -292,7 +292,6 @@
               <span class="ec-unit__ppm">${EN ? '€' + Math.round(u[F.pret] / u[F.su]) + '/m²' : Math.round(u[F.pret] / u[F.su]) + ' €/m²'}</span>
             </div>
           </article>`).join('');
-      if (window.ecListaSync) window.ecListaSync();
     };
 
     const bindChips = (sel, key) => {

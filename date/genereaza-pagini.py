@@ -122,7 +122,6 @@ ETICHETE_CALE = {
     "politica-de-confidentialitate": "Politica de confidențialitate",
     "politica-de-cookies": "Politica de cookies",
     "informare-gdpr": "Informare GDPR",
-    "compara": "Comparator",
 }
 
 
@@ -333,7 +332,6 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
           <li><a href="{r}apartamente-iasi/apartamente-2-camere/">Apartamente 2 camere</a></li>
           <li><a href="{r}apartamente-iasi/apartamente-3-camere/">Apartamente 3 camere</a></li>
           <li><a href="{r}apartamente-iasi/disponibilitate/">Disponibilitate și prețuri</a></li>
-          <li><a href="{r}compara/">Comparator de apartamente</a></li>
         </ul>
       </div>
       <div>
@@ -864,6 +862,7 @@ def imagine(nume, alt, r, sizes="100vw", eager=False, w=1600, h=900, cls=""):
 
 # ------------------------------------------------- unelte de conversie
 def buton_salvare(uid, scurt=False):
+    return ""
     cls = "ec-save ec-save--s" if scurt else "ec-save"
     return (f'<button class="{cls}" data-save="{e(uid)}" type="button" aria-pressed="false" '
             f'title="Adaugă la comparație" aria-label="Adaugă {e(uid)} la comparație">'
@@ -978,7 +977,7 @@ def card_unitate(u, r):
   <a class="ec-unit__link" href="{r}apartamente-iasi/{e(u['unit_id'].lower())}/" aria-label="Apartamentul {e(u['unit_id'])}"></a>
   <div class="ec-unit__top">
     <span class="ec-unit__id">{e(u['unit_id'])}</span>
-    <span class="ec-unit__acts">{buton_salvare(u['unit_id'], scurt=True)}<span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></span>
+    <span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span>
   </div>
   <div class="ec-unit__t">{camere_txt(u['nr_camere'])} · {mp(u['su_utila'])}</div>
   <div class="ec-unit__meta">
@@ -1165,7 +1164,7 @@ def pagina_unitate(u, similare):
       <div class="ec-pricebar__p">{euro(u['pret_eur'])}</div>
       <div class="ec-pricebar__s">{ppm} €/m² · TVA inclus · avans 15% la antecontract</div>
     </div>
-    <div class="ec-pricebar__cta">{buton_salvare(uid)}{cta}</div>
+    <div class="ec-pricebar__cta">{cta}</div>
   </div>
 
   <section class="ec-section" id="plan">
@@ -1298,7 +1297,6 @@ def pagina_unitate(u, similare):
 <div class="ec-sticky" data-sticky>
   <span class="ec-sticky__p">{euro(u['pret_eur'])}<small>{camere_txt(u['nr_camere'])} · {mp(u['su_utila'])}</small></span>
   <span class="ec-sticky__b">
-    {buton_salvare(uid, scurt=True)}
     <a class="ec-btn ec-btn--brass" href="{TEL_LINK}" aria-label="Sună">{ic("phone")}</a>
     <a class="ec-btn ec-btn--wa" href="{WA}" aria-label="WhatsApp">{ic("whatsapp", brand=True)}</a>
     <a class="ec-btn" href="{r}programare-vizionare/">{ic("calendar-check")} Vizionare</a>
@@ -1439,7 +1437,7 @@ def pagina_tip(cod, unitati_tip, grupe):
                 f'<ul class="ec-dot__l ec-dot__l--link">{li}</ul></div>')
 
     randuri = "".join(f"""<tr class="{'is-sold' if u['status'] != 'disponibil' else ''}">
-      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a> {buton_salvare(u['unit_id'], scurt=True)}</td>
+      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
       <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td>
       <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td>
       <td data-et="Orientare">{u['orientare']}</td>
@@ -2267,7 +2265,6 @@ def pagina_hub(unitati, grupe):
     <div class="ec-cards" style="margin-top:2.5rem">{recomandate}</div>
     <div class="ec-center" style="margin-top:2rem">
       <a class="ec-btn" href="{lista}">{ic("table-list")} Toate cele {len(disp)} apartamente disponibile</a>
-      <a class="ec-btn ec-btn--out" href="{r}compara/">{ic("code-compare")} Comparator de apartamente</a>
     </div>
   </section>
 
@@ -2575,7 +2572,7 @@ def pagina_categorie(nr, unitati, grupe):
 
     # ---- tabelul complet ---------------------------------------------------
     randuri = "".join(f"""<tr class="{'is-sold' if u['status'] != 'disponibil' else ''}">
-      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a> {buton_salvare(u['unit_id'], scurt=True)}</td>
+      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
       <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td>
       <td data-et="Tip">{u['tip_apartament']}</td>
       <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td>
@@ -5781,9 +5778,8 @@ TEXTE_LEGALE = {
   "identitate, adresa de domiciliu, modalitatea de finanțare avută în vedere.",
   "- Date tehnice, colectate automat: adresa IP, tipul dispozitivului și al browserului, paginile "
   "vizitate, sursa de trafic, module cookie (detaliate în Politica de cookies).",
-  "- Preferințe salvate local în browser: lista de apartamente salvate pentru comparare, modul de "
-  "afișare a listei de disponibilitate. Aceste preferințe rămân pe dispozitivul dumneavoastră și "
-  "nu sunt transmise Operatorului.",
+  "- Preferințe salvate local în browser: modul de afișare a listei de disponibilitate. Această "
+  "preferință rămâne pe dispozitivul dumneavoastră și nu este transmisă Operatorului.",
   "- Înregistrări ale comunicărilor: e-mailuri, mesaje WhatsApp și notițe ale consultanților "
   "privind discuțiile telefonice sau din showroom.",
   "Nu colectăm categorii speciale de date (origine etnică, opinii politice, sănătate etc.) și nu "
@@ -5876,7 +5872,7 @@ TEXTE_LEGALE = {
  ("Categoriile folosite pe Site", [
   ("Categorie / Scop / Exemple / Durata", [
    ["Strict necesare", "Funcționarea paginilor, securitate, reținerea alegerii privind cookie-urile", "Preferința de consimțământ (ec-consent)", "12 luni"],
-   ["Preferințe (stocare locală)", "Memorarea listei de apartamente salvate pentru comparare și a modului de afișare a listei", "ec-lista, ec-vedere (localStorage — nu se transmit serverului)", "Până la ștergerea de către utilizator"],
+   ["Preferințe (stocare locală)", "Memorarea modului de afișare a listei de disponibilitate (tabel sau carduri)", "ec-vedere (localStorage — nu se transmite serverului)", "Până la ștergerea de către utilizator"],
    ["Statistică", "Măsurarea anonimizată a traficului și a paginilor vizitate, pentru îmbunătățirea Site-ului", "Instrument de analiză web, activat numai cu acord", "Până la 13 luni"],
    ["Marketing", "Măsurarea eficienței campaniilor și afișarea de anunțuri relevante pe alte platforme", "Pixeli ai platformelor publicitare, activați numai cu acord", "Până la 13 luni"],
    ["Terți încorporați", "Afișarea hărții Google Maps și a eventualelor materiale video", "Cookie-uri Google, setate la încărcarea hărții", "Conform politicii Google"],
@@ -5894,7 +5890,7 @@ TEXTE_LEGALE = {
   "categorie și puteți reveni oricând asupra alegerii din legătura „Setări cookie-uri” din subsol.",
   "- Din setările browserului: Chrome, Firefox, Safari, Edge permit blocarea sau ștergerea "
   "modulelor cookie și a stocării locale. Blocarea celor strict necesare poate afecta funcționarea "
-  "unor secțiuni (de exemplu, lista de comparare).",
+  "unor secțiuni (de exemplu, modul de afișare al listei).",
   "- Prin instrumentele de dezactivare ale furnizorilor de statistică și publicitate, când "
   "acestea sunt active, și prin youronlinechoices.eu pentru publicitatea comportamentală."]),
  ("Date colectate și drepturi", [
@@ -6619,7 +6615,7 @@ def main():
     for row in csv.DictReader(open(CSV, encoding="utf-8")):
         unitati.append({k: NUM[k](v) if k in NUM else v for k, v in row.items()})
 
-    for d in ("apartamente-iasi", "investitie-apartamente-iasi", "compara", "contact",
+    for d in ("apartamente-iasi", "investitie-apartamente-iasi", "contact",
               "apartamente-iasi-pacurari", "stadiu-lucrari", "despre-dezvoltator",
               "proiect", "aparitii-presa", "despre-emerald-city", "finisaje", *LEGALE):
         p = os.path.join(RAD, d)
@@ -6661,7 +6657,6 @@ def main():
 
     # pagini de sine statatoare
     for nume, continut in (("investitie-apartamente-iasi", pagina_investitie(unitati)),
-                           ("compara", pagina_comparator()),
                            ("contact", pagina_contact()),
                            ("programare-vizionare", pagina_programare(unitati)),
                            ("apartamente-iasi-pacurari", pagina_zona()),

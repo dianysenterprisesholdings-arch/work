@@ -296,4 +296,9 @@ T = {
 "Pornește turul {n}°": "Start the {n}° tour",
 "Tur virtual {n}° — apartamentul-model Emerald City": "{n}° virtual tour — the Emerald City show apartment",
 "Apartamentele se adaugă cu butonul „Compară” din liste, carduri sau din pagina fiecărei unități; linkul acestei pagini poate fi trimis mai departe. Lista se păstrează și în adresă, deci funcționează și pe alt dispozitiv.": "Apartments are added with the “Compare” button in lists, cards or on each unit's page; this page's link can be shared. The list is also kept in the address, so it works on another device too.",
+
+"Preferințe salvate local în browser: modul de afișare a listei de disponibilitate. Această preferință rămâne pe dispozitivul dumneavoastră și nu este transmisă Operatorului.": "Preferences saved locally in the browser: the display mode of the availability list. This preference stays on your device and is not transmitted to the Controller.",
+"Memorarea modului de afișare a listei de disponibilitate (tabel sau carduri)": "Remembering the display mode of the availability list (table or cards)",
+"ec-vedere (localStorage — nu se transmite serverului)": "ec-vedere (localStorage — not sent to the server)",
+"Din setările browserului: Chrome, Firefox, Safari, Edge permit blocarea sau ștergerea modulelor cookie și a stocării locale. Blocarea celor strict necesare poate afecta funcționarea unor secțiuni (de exemplu, modul de afișare al listei).": "From your browser settings: Chrome, Firefox, Safari and Edge allow cookies and local storage to be blocked or deleted. Blocking strictly necessary cookies may affect some sections (for example, the list display mode).",
 }
