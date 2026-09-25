@@ -211,6 +211,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
 {ld}
 </head>
 <body data-radacina="{r}">
+<a class="ec-skip" href="#continut">Sari la conținut</a>
 
 <div class="ec-prog" data-prog aria-hidden="true"></div>
 
@@ -291,7 +292,7 @@ def pagina(titlu, descriere, continut, radacina, schema=None, canonic="",
   </div>
 </header>
 
-<main>
+<main id="continut">
 {continut}
 </main>
 
@@ -862,11 +863,13 @@ def imagine(nume, alt, r, sizes="100vw", eager=False, w=1600, h=900, cls=""):
 
 
 # ------------------------------------------------- unelte de conversie
-def buton_salvare(uid):
-    return (f'<button class="ec-save" data-save="{e(uid)}" type="button" aria-pressed="false">'
+def buton_salvare(uid, scurt=False):
+    cls = "ec-save ec-save--s" if scurt else "ec-save"
+    return (f'<button class="{cls}" data-save="{e(uid)}" type="button" aria-pressed="false" '
+            f'title="Adaugă la comparație" aria-label="Adaugă {e(uid)} la comparație">'
             '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" '
             'stroke-width="1.6"><path d="M4 2h8v12l-4-3-4 3z"/></svg>'
-            '<span data-save-t>Salvează</span></button>')
+            + ('' if scurt else '<span data-save-t>Compară</span>') + '</button>')
 
 
 def calc_rata(pret):
@@ -938,11 +941,44 @@ def calc_randament(pret, chirie):
 </div>"""
 
 
+TUR_URL = "https://www.theasys.io/viewer/LpGwDPHpGuNcCHpZurw0Z1tOTYXAmy"
+
+
+def tur_virtual(r, context=""):
+    """Banda cu turul 360 al apartamentului-model; iframe-ul se incarca la apasare."""
+    return f"""<section class="ec-band ec-tur" id="tur-virtual" aria-labelledby="tur-titlu">
+  <div class="ec-wrap">
+    <div class="ec-section">
+      <div class="ec-shead">
+        <div><span class="ec-shead__n" style="color:var(--ec-brass)">Experiență imersivă</span>
+          <h2 id="tur-titlu">Tur virtual 360° <em>al apartamentului-model</em></h2></div>
+        <p class="ec-shead__p">
+          Fiecare cameră, fiecare unghi, direct din browser — fără programare, la orice oră.
+          {("Finisajele sunt cele incluse în prețul compartimentării " + context + ".") if context else ""}
+        </p>
+      </div>
+      <div class="ec-tur__frame ec-rv" data-tur="{TUR_URL}" data-titlu="Tur virtual 360° — apartamentul-model Emerald City">
+        {imagine("living-02", "Apartamentul-model — tur virtual 360°", r, "(min-width: 60rem) 72vw, 100vw")}
+        <button class="ec-tur__play" type="button">
+          <span class="ec-tur__ic"><i class="fa-solid fa-play" aria-hidden="true"></i></span>
+          <span><b>Pornește turul 360°</b><em>Se încarcă la cerere · aprox. 2 MB</em></span>
+        </button>
+      </div>
+      <div class="ec-tur__foot">
+        <p class="ec-tur__hint"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Trageți cu mouse-ul sau cu degetul pentru a privi în jur · săgețile de pe ecran pentru deplasare</p>
+        <p class="ec-tur__nota"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Tur demonstrativ, realizat în apartamentul-model Lapis Residence (Green Stone Group, Iași), cu același standard de finisaje. Turul apartamentului-model Emerald City se publică la finalizarea acestuia.</p>
+      </div>
+    </div>
+  </div>
+</section>"""
+
+
 def card_unitate(u, r):
-    return f"""<a class="ec-unit" href="{r}apartamente-iasi/{e(u['unit_id'].lower())}/">
+    return f"""<article class="ec-unit">
+  <a class="ec-unit__link" href="{r}apartamente-iasi/{e(u['unit_id'].lower())}/" aria-label="Apartamentul {e(u['unit_id'])}"></a>
   <div class="ec-unit__top">
     <span class="ec-unit__id">{e(u['unit_id'])}</span>
-    <span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span>
+    <span class="ec-unit__acts">{buton_salvare(u['unit_id'], scurt=True)}<span class="ec-tag ec-tag--{u['status']}">{STATUS_ET[u['status']]}</span></span>
   </div>
   <div class="ec-unit__t">{camere_txt(u['nr_camere'])} · {mp(u['su_utila'])}</div>
   <div class="ec-unit__meta">
@@ -952,7 +988,7 @@ def card_unitate(u, r):
     <span class="ec-unit__price">{euro(u['pret_eur'])}</span>
     <span class="ec-unit__ppm">{round(u['pret_eur']/u['su_utila'])} €/m²</span>
   </div>
-</a>"""
+</article>"""
 
 
 # =========================================================== pagina unitate
@@ -1262,9 +1298,10 @@ def pagina_unitate(u, similare):
 <div class="ec-sticky" data-sticky>
   <span class="ec-sticky__p">{euro(u['pret_eur'])}<small>{camere_txt(u['nr_camere'])} · {mp(u['su_utila'])}</small></span>
   <span class="ec-sticky__b">
-    {buton_salvare(uid)}
-    <a class="ec-btn ec-btn--brass" href="{TEL_LINK}">{ic("phone")} Sună</a>
-    <a class="ec-btn ec-btn--wa" href="{WA}">{ic("whatsapp", brand=True)} WhatsApp</a>
+    {buton_salvare(uid, scurt=True)}
+    <a class="ec-btn ec-btn--brass" href="{TEL_LINK}" aria-label="Sună">{ic("phone")}</a>
+    <a class="ec-btn ec-btn--wa" href="{WA}" aria-label="WhatsApp">{ic("whatsapp", brand=True)}</a>
+    <a class="ec-btn" href="{r}programare-vizionare/">{ic("calendar-check")} Vizionare</a>
   </span>
 </div>"""
 
@@ -1402,7 +1439,7 @@ def pagina_tip(cod, unitati_tip, grupe):
                 f'<ul class="ec-dot__l ec-dot__l--link">{li}</ul></div>')
 
     randuri = "".join(f"""<tr class="{'is-sold' if u['status'] != 'disponibil' else ''}">
-      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
+      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a> {buton_salvare(u['unit_id'], scurt=True)}</td>
       <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td>
       <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td>
       <td data-et="Orientare">{u['orientare']}</td>
@@ -1524,8 +1561,12 @@ def pagina_tip(cod, unitati_tip, grupe):
     </div>
     <div class="ec-pgal ec-pgal--3" style="margin-top:2.5rem">{galerie}</div>
   </section>
+</div>
 
-  <section class="ec-section" id="selectie" style="padding-block:0 var(--ec-section)">
+{tur_virtual(r, cod)}
+
+<div class="ec-wrap">
+  <section class="ec-section" id="selectie" style="padding-block:var(--ec-section) 0 var(--ec-section)">
     <div class="ec-shead">
       <div><span class="ec-shead__n">03 — Selecție rapidă</span>
         <h2>Selecție <em>după etaj și dotări</em></h2></div>
@@ -2534,7 +2575,7 @@ def pagina_categorie(nr, unitati, grupe):
 
     # ---- tabelul complet ---------------------------------------------------
     randuri = "".join(f"""<tr class="{'is-sold' if u['status'] != 'disponibil' else ''}">
-      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a></td>
+      <td data-et="Cod"><a href="{r}apartamente-iasi/{u['unit_id'].lower()}/">{e(u['unit_id'])}</a> {buton_salvare(u['unit_id'], scurt=True)}</td>
       <td data-et="Bloc">{bloc(u['corp'])}</td><td data-et="Etaj">{etaj_txt(u['etaj'])}</td>
       <td data-et="Tip">{u['tip_apartament']}</td>
       <td class="num" data-et="Suprafață">{mp(u['su_utila'])}</td>
@@ -3084,8 +3125,8 @@ def pagina_comparator():
     <p class="ec-eyebrow">Comparator</p>
     <h1 style="margin-top:1rem">Comparator de apartamentele salvate</h1>
     <p class="ec-body" style="max-width:62ch;font-size:var(--ec-lead)">
-      Adaugă apartamente cu butonul „Salvează” de pe paginile de unitate, apoi trimite linkul
-      acestei pagini cui vrei. Lista se păstrează și în adresă, deci funcționează și pe alt dispozitiv.
+      Apartamentele se adaugă cu butonul „Compară” din liste, carduri sau din pagina fiecărei unități;
+      linkul acestei pagini poate fi trimis mai departe. Lista se păstrează și în adresă, deci funcționează și pe alt dispozitiv.
     </p>
   </header>
   <div id="cmpOut"></div>

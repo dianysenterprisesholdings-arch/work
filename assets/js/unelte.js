@@ -95,20 +95,30 @@
 
     const bara = document.createElement('div');
     bara.className = 'ec-fav';
-    bara.innerHTML = `<span class="ec-fav__n"></span>
+    bara.innerHTML = `<span class="ec-fav__ic"><i class="fa-solid fa-code-compare" aria-hidden="true"></i></span>
+      <span class="ec-fav__n"></span>
       <span class="ec-fav__b">
         <a class="ec-btn ec-btn--white" data-cmp>${EN ? 'Compare' : 'Compară'}</a>
-        <button class="ec-btn ec-btn--brass" data-share type="button">${EN ? 'Share the list' : 'Trimite lista'}</button>
+        <button class="ec-btn ec-btn--brass" data-share type="button">${EN ? 'Share' : 'Trimite'}</button>
+        <button class="ec-fav__x" data-clear type="button" aria-label="${EN ? 'Clear the list' : 'Golește lista'}" title="${EN ? 'Clear the list' : 'Golește lista'}"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
       </span>`;
     document.body.appendChild(bara);
 
-    const nr = $('.ec-fav__n', bara), cmp = $('[data-cmp]', bara), share = $('[data-share]', bara);
+    const nr = $('.ec-fav__n', bara), cmp = $('[data-cmp]', bara), share = $('[data-share]', bara), clear = $('[data-clear]', bara);
+    // bara se vede din prima pe paginile cu apartamente (liste, carduri), ca sa fie descoperita
+    const areCarduri = () => !!document.querySelector('[data-save], #fBody, #fCards, .ec-unit');
 
     const sincronizeaza = () => {
-      bara.classList.toggle('is-on', lista.length > 0);
-      nr.textContent = EN ? (lista.length === 1 ? '1 saved apartment' : `${lista.length} saved apartments`)
-                          : (lista.length === 1 ? '1 apartament salvat' : `${lista.length} apartamente salvate`);
+      bara.classList.toggle('is-on', lista.length > 0 || areCarduri());
+      bara.classList.toggle('is-gol', lista.length === 0);
+      nr.innerHTML = lista.length === 0
+        ? (matchMedia('(max-width: 40rem)').matches
+            ? (EN ? '<b>0</b> saved' : '<b>0</b> salvate')
+            : (EN ? '<b>0</b> saved · pick apartments to compare' : '<b>0</b> salvate · alegeți apartamente pentru comparație'))
+        : (EN ? `<b>${lista.length}</b> saved${lista.length >= MAX ? ' · max' : ''}` : `<b>${lista.length}</b> salvate${lista.length >= MAX ? ' · maxim' : ''}`);
       cmp.href = radacina + (EN ? 'compare' : 'compara') + '/?u=' + lista.join(',');
+      cmp.classList.toggle('is-off', lista.length < 1);
+      share.hidden = lista.length < 1; clear.hidden = lista.length < 1;
       $$('[data-save]').forEach(b => {
         const on = lista.includes(b.dataset.save);
         b.classList.toggle('is-on', on);
@@ -138,6 +148,8 @@
       } catch {}
     });
 
+    clear.addEventListener('click', () => { lista = []; scrie(lista); sincronizeaza(); });
+    window.ecListaSync = sincronizeaza;
     sincronizeaza();
   }
 
@@ -146,6 +158,6 @@
   $$('[data-calc-randament]').forEach(initRandament);
 
   const rad = document.body.dataset.radacina || './';
-  if (document.querySelector('[data-save]')) initLista(rad);
+  if (document.querySelector('[data-save], #fBody, #fCards, .ec-unit')) initLista(rad);
 
 })();

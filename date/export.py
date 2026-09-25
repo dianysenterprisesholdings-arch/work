@@ -59,6 +59,20 @@ def copiaza():
     return n
 
 
+def minifica_css():
+    """Comentariile si spatiile inutile din CSS nu ajung in export (~30% mai putin)."""
+    import re
+    f = os.path.join(IESIRE, "assets", "css", "main.css")
+    if not os.path.exists(f):
+        return
+    t = open(f, encoding="utf-8").read()
+    t = re.sub(r"/\*.*?\*/", "", t, flags=re.S)
+    t = re.sub(r"\s*([{}:;,>])\s*", r"\1", t)
+    t = re.sub(r";}", "}", t)
+    t = re.sub(r"\s+", " ", t).strip()
+    open(f, "w", encoding="utf-8", newline="\n").write(t)
+
+
 def sitemap():
     """Toate paginile, cu prioritate mai mare pe cele de vanzare."""
     azi = date.today().isoformat()
@@ -112,6 +126,7 @@ def marime(cale):
 def main():
     curata()
     n = copiaza()
+    minifica_css()
     u = sitemap()
     robots()
     print(f"  {n} fisiere copiate in export/")

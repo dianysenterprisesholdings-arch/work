@@ -51,6 +51,23 @@
     const ppm = u => Math.round(u[F.pret] / u[F.su]);
     const ppmMin = Math.min(...gasite.map(ppm));
 
+    // punctele forte: ce are fiecare unitate in plus fata de celelalte din comparatie
+    const forte = u => {
+      const b = [];
+      const singur = k => gasite.filter(x => x[F[k]] > 0).length === 1 && u[F[k]] > 0;
+      if (gasite.length > 1 && u[F.pret] === min('pret')) b.push(EN ? 'lowest price' : 'cel mai mic preț');
+      if (gasite.length > 1 && ppm(u) === ppmMin) b.push(EN ? 'best price per m²' : 'cel mai bun preț/m²');
+      if (gasite.length > 1 && u[F.su] === max('su')) b.push(EN ? 'largest area' : 'cea mai mare suprafață');
+      if (singur('curte')) b.push(EN ? 'the only one with a garden' : 'singurul cu curte');
+      else if (u[F.curte] > 0 && u[F.curte] === max('curte') && gasite.filter(x => x[F.curte] > 0).length > 1) b.push(EN ? 'largest garden' : 'cea mai mare curte');
+      if (u[F.balcon] > 0 && u[F.balcon] === max('balcon') && gasite.length > 1) b.push(EN ? 'largest balcony' : 'cel mai mare balcon');
+      if (u[F.etaj] === max('etaj') && gasite.length > 1 && u[F.etaj] > 0) b.push(EN ? 'highest floor' : 'etajul cel mai înalt');
+      if (u[F.etaj] === 0 && gasite.filter(x => x[F.etaj] === 0).length === 1) b.push(EN ? 'ground floor, direct access' : 'parter, acces direct');
+      if (u[F.boxa] === 'da' && gasite.filter(x => x[F.boxa] === 'da').length === 1) b.push(EN ? 'the only one with a storage room' : 'singurul cu boxă');
+      if (u[F.parcare] === 'da' && gasite.filter(x => x[F.parcare] === 'da').length === 1) b.push(EN ? 'the only one with underground parking' : 'singurul cu parcare subterană');
+      return b.map(x => `<span class="ec-cmp__badge">${x}</span>`).join('');
+    };
+
     const cap = gasite.map(u =>
       `<th><a href="../${CAT}/${u[F.id].toLowerCase()}/">${u[F.id]}</a></th>`).join('');
 
@@ -64,17 +81,18 @@
           ${rand(EN ? 'Price' : 'Preț', u => `<span class="${u[F.pret] === min('pret') ? 'best' : ''}">${euro(u[F.pret])}</span>`)}
           ${rand(EN ? 'Price per m²' : 'Preț pe m²', u => `<span class="${ppm(u) === ppmMin ? 'best' : ''}">${EN ? '€' + ppm(u) + '/m²' : ppm(u) + ' €/m²'}</span>`)}
           ${rand(EN ? 'Usable area' : 'Suprafață utilă', u => `<span class="${u[F.su] === max('su') ? 'best' : ''}">${mp(u[F.su])}</span>`)}
-          ${rand('Camere', u => u[F.camere])}
-          ${rand('Tipologie', u => u[F.tip])}
+          ${rand(EN ? 'Highlights' : 'Puncte forte', u => forte(u) || '<span class="ec-cmp__none">—</span>')}
+          ${rand(EN ? 'Rooms' : 'Camere', u => u[F.camere])}
+          ${rand(EN ? 'Layout' : 'Compartimentare', u => u[F.tip])}
           ${rand(EN ? 'Building' : 'Bloc', u => (EN ? 'Building ' : 'Blocul ') + bloc(u[F.corp]))}
-          ${rand('Etaj', u => etaj(u[F.etaj]))}
-          ${rand('Orientare', u => u[F.orientare])}
-          ${rand('Balcon', u => u[F.balcon] > 0 ? mp(u[F.balcon]) : '—')}
-          ${rand('Curte', u => u[F.curte] > 0 ? mp(u[F.curte]) : '—')}
+          ${rand(EN ? 'Floor' : 'Etaj', u => etaj(u[F.etaj]))}
+          ${rand(EN ? 'Orientation' : 'Orientare', u => EN ? String(u[F.orientare]).replace(/V/g, 'W') : u[F.orientare])}
+          ${rand(EN ? 'Balcony' : 'Balcon', u => u[F.balcon] > 0 ? mp(u[F.balcon]) : '—')}
+          ${rand(EN ? 'Garden' : 'Curte', u => u[F.curte] > 0 ? mp(u[F.curte]) : '—')}
           ${rand(EN ? 'Storage room' : 'Boxă', u => u[F.boxa] === 'da' ? (EN ? 'Available' : 'Disponibilă') : '—')}
           ${rand(EN ? 'Underground parking' : 'Parcare subterană', u => u[F.parcare] === 'da' ? (EN ? 'Yes' : 'Da') : (EN ? 'Surface' : 'Supraterană'))}
-          ${rand('Etapa', u => u[F.etapa])}
-          ${rand('Stare', u => `<span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span>`)}
+          ${rand(EN ? 'Phase' : 'Etapa', u => u[F.etapa])}
+          ${rand(EN ? 'Status' : 'Stare', u => `<span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span>`)}
           ${rand('', u => `<a class="ec-btn ec-btn--out" href="../${CAT}/${u[F.id].toLowerCase()}/">${EN ? 'View' : 'Vezi'}</a>`)}
         </tbody>
       </table>

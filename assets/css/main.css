@@ -3005,3 +3005,63 @@ svg .pa { fill: var(--ec-brass); }
 
 /* --- harta Leaflet: context de stivuire propriu, ca sa treaca sub antetul lipit ---- */
 .ec-harta, .ec-harta__panza, .leaflet-container { position: relative; z-index: 0; isolation: isolate; }
+
+
+/* ==========================================================================
+   Comparator vizibil, tur virtual 360, accesibilitate
+   ========================================================================== */
+.ec-unit { position: relative; }
+.ec-unit__link { position: absolute; inset: 0; z-index: 1; border-radius: inherit; }
+.ec-unit__acts { display: inline-flex; gap: .45rem; align-items: center; position: relative; z-index: 2; }
+.ec-unit .ec-unit__t, .ec-unit .ec-unit__meta, .ec-unit .ec-unit__foot, .ec-unit .ec-unit__id { position: relative; pointer-events: none; }
+.ec-save--s { width: 1.9rem; height: 1.9rem; padding: 0; justify-content: center; border-radius: 50%; vertical-align: middle; }
+.ec-save--s svg { width: 12px; height: 12px; }
+td .ec-save--s { margin-left: .35rem; width: 1.6rem; height: 1.6rem; }
+.ec-table .ec-save--s { opacity: .55; }
+.ec-table tr:hover .ec-save--s, .ec-table .ec-save--s.is-on { opacity: 1; }
+
+.ec-fav { gap: .8rem; padding-left: .8rem; }
+.ec-fav__ic { width: 2rem; height: 2rem; border-radius: 50%; background: rgba(184,147,79,.22); color: var(--ec-brass); display: grid; place-items: center; flex: none; font-size: .8rem; }
+.ec-fav__n b { color: var(--ec-brass); font-family: var(--ec-disp); font-size: 1.05rem; }
+.ec-fav.is-gol .ec-fav__n { color: rgba(255,255,255,.78); font-weight: 500; }
+.ec-fav .ec-btn.is-off { opacity: .45; pointer-events: none; }
+.ec-fav__x { width: 2.1rem; height: 2.1rem; border-radius: 50%; border: 1px solid rgba(255,255,255,.28); background: transparent; color: #fff; cursor: pointer; display: grid; place-items: center; }
+.ec-fav__x:hover { background: rgba(255,255,255,.15); }
+.ec-fav [hidden] { display: none !important; }
+@media (max-width: 40rem) { .ec-fav { bottom: 4.6rem; padding: .5rem .6rem .5rem .7rem; gap: .5rem; } .ec-fav__n { font-size: .75rem; white-space: normal; line-height: 1.2; } .ec-fav .ec-btn { padding: .45rem .75rem; } }
+.ec-cmp__badge { display: inline-block; margin: 0 .3rem .3rem 0; padding: .25rem .6rem; border-radius: 999px; background: var(--ec-mint); color: var(--ec-emerald); font-size: .6875rem; font-weight: 600; letter-spacing: .04em; }
+.ec-cmp__none { color: var(--ec-ink-40); }
+.ec-cmp .best { color: var(--ec-emerald); font-weight: 600; }
+
+.ec-tur__frame {
+  position: relative; margin-top: 2.5rem; aspect-ratio: 16 / 9; max-height: 80vh; overflow: hidden;
+  border-radius: var(--ec-r); background: #0f2a24; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6);
+}
+.ec-tur__frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7) saturate(.9); transition: transform .8s var(--ec-ease); }
+.ec-tur__frame:hover img { transform: scale(1.03); }
+.ec-tur__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.ec-tur__frame.is-on img { display: none; }
+.ec-tur__play {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: flex; align-items: center; gap: 1rem; padding: .8rem 1.4rem .8rem .8rem; border: 0; cursor: pointer;
+  border-radius: 999px; background: rgba(255,255,255,.94); color: var(--ec-ink); font: inherit; text-align: left;
+  box-shadow: 0 18px 40px -12px rgba(0,0,0,.5); transition: transform var(--ec-fast), background var(--ec-fast);
+}
+.ec-tur__play:hover { transform: translate(-50%, -50%) scale(1.03); background: #fff; }
+.ec-tur__ic { width: 3.2rem; height: 3.2rem; border-radius: 50%; background: var(--ec-emerald); color: var(--ec-brass); display: grid; place-items: center; font-size: 1rem; flex: none; position: relative; }
+.ec-tur__ic::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--ec-brass); opacity: 0; animation: ec-puls 2.2s ease-out infinite; }
+.ec-tur__play b { display: block; font-family: var(--ec-disp); font-size: 1.05rem; font-weight: 600; }
+.ec-tur__play em { display: block; font-style: normal; font-size: var(--ec-micro); color: var(--ec-ink-60); letter-spacing: .04em; }
+.ec-tur__foot { margin-top: 1.25rem; display: grid; gap: .6rem; }
+.ec-tur__hint { font-size: var(--ec-small); color: rgba(255,255,255,.8); }
+.ec-tur__hint i, .ec-tur__nota i { color: var(--ec-brass); margin-right: .45rem; }
+.ec-tur__nota { font-size: var(--ec-micro); color: rgba(255,255,255,.62); max-width: 90ch; line-height: 1.6; }
+@media (max-width: 40rem) { .ec-tur__play { padding: .6rem 1rem .6rem .6rem; } .ec-tur__play em { display: none; } .ec-tur__ic { width: 2.6rem; height: 2.6rem; } }
+
+/* accesibilitate: legatura de salt, contrast pentru textele mici in bronz */
+.ec-skip { position: absolute; left: 1rem; top: -4rem; z-index: 200; background: var(--ec-emerald); color: #fff; padding: .7rem 1rem; border-radius: 0 0 6px 6px; font-weight: 600; transition: top var(--ec-fast); }
+.ec-skip:focus { top: 0; outline: 2px solid var(--ec-brass); outline-offset: 2px; }
+:root { --ec-brass-text: #8C6B2C; }
+.ec-shead__n, .ec-eyebrow, .ec-post__go, .ec-supraf__go, .ec-scen__go, .ec-artlinks a i, .ec-arttoc a::before { color: var(--ec-brass-text); }
+.ec-phero .ec-eyebrow, .ec-band .ec-shead__n, .ec-band .ec-eyebrow, .ec-tur .ec-shead__n { color: var(--ec-brass) !important; }
+.ec-chip:focus-visible, .ec-lst__view button:focus-visible, .ec-save:focus-visible, .ec-tur__play:focus-visible { outline: 2px solid var(--ec-brass-text); outline-offset: 2px; }

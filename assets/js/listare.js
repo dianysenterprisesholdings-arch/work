@@ -71,7 +71,7 @@
   function rand(u) {
     const vandut = u[F.status] !== 'disponibil';
     return `<tr class="${vandut ? 'is-sold' : ''}">
-      <td data-et="Cod"><a href="../${u[F.id].toLowerCase()}/">${u[F.id]}</a></td>
+      <td data-et="Cod"><a href="../${u[F.id].toLowerCase()}/">${u[F.id]}</a> <button class="ec-save ec-save--s" data-save="${u[F.id]}" type="button" aria-pressed="false" aria-label="${EN ? 'Add ' + u[F.id] + ' to comparison' : 'Adaugă ' + u[F.id] + ' la comparație'}"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2h8v12l-4-3-4 3z"/></svg></button></td>
       <td data-et="Bloc">${bloc(u[F.corp])}</td>
       <td data-et="Etaj">${etajTxt(u[F.etaj])}</td>
       <td data-et="Tip">${u[F.tip]}</td>
@@ -85,10 +85,11 @@
 
   function card(u) {
     const cam = EN ? (u[F.camere] === 1 ? '1 room' : u[F.camere] + ' rooms') : (u[F.camere] === 1 ? '1 cameră' : u[F.camere] + ' camere');
-    return `<a class="ec-unit ${u[F.status] !== 'disponibil' ? 'is-sold' : ''}" href="../${u[F.id].toLowerCase()}/">
+    return `<article class="ec-unit ${u[F.status] !== 'disponibil' ? 'is-sold' : ''}">
+      <a class="ec-unit__link" href="../${u[F.id].toLowerCase()}/" aria-label="${EN ? 'Apartment' : 'Apartamentul'} ${u[F.id]}"></a>
       <div class="ec-unit__top">
         <span class="ec-unit__id">${u[F.id]}</span>
-        <span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span>
+        <span class="ec-unit__acts"><button class="ec-save ec-save--s" data-save="${u[F.id]}" type="button" aria-pressed="false" aria-label="${EN ? 'Add ' + u[F.id] + ' to comparison' : 'Adaugă ' + u[F.id] + ' la comparație'}"><svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 2h8v12l-4-3-4 3z"/></svg></button><span class="ec-tag ec-tag--${u[F.status]}">${ST[u[F.status]]}</span></span>
       </div>
       <div class="ec-unit__t">${cam} · ${mp(u[F.su])}</div>
       <div class="ec-unit__meta">
@@ -97,9 +98,9 @@
       </div>
       <div class="ec-unit__foot">
         <span class="ec-unit__price">${euro(u[F.pret])}</span>
-        <span class="ec-unit__ppm">${Math.round(ppm(u))} €/m²</span>
+        <span class="ec-unit__ppm">${EN ? '€' + Math.round(ppm(u)) + '/m²' : Math.round(ppm(u)) + ' €/m²'}</span>
       </div>
-    </a>`;
+    </article>`;
   }
 
   function scrieActive() {
@@ -178,6 +179,7 @@
 
     const more = $('#fMore');
     more.style.display = gasite.length > vizibile.length ? '' : 'none';
+    if (window.ecListaSync) window.ecListaSync();
     const rest = Math.min(PAS, gasite.length - vizibile.length);
     more.textContent = EN ? `${rest} more ${rest === 1 ? 'apartment' : 'apartments'}` : `Încă ${rest} ${rest === 1 ? 'apartament' : 'apartamente'}`;
 
@@ -306,7 +308,8 @@
     });
     try {
       const v = localStorage.getItem('ec-vedere');
-      if (v === 'carduri') $('.ec-lst__view button[data-view="carduri"]')?.click();
+      // pe telefon tabelul e greu de citit: implicit carduri, pana cand vizitatorul alege altfel
+      if (v === 'carduri' || (!v && matchMedia('(max-width: 46rem)').matches)) $('.ec-lst__view button[data-view="carduri"]')?.click();
     } catch (e) {}
 
     $$('#fTable thead th[data-s]').forEach(th => {

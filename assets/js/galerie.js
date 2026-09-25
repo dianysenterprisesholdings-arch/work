@@ -115,3 +115,23 @@
     });
   }));
 })();
+
+/* ---- tur virtual 360: iframe-ul greu se incarca doar la apasarea butonului */
+(() => {
+  document.querySelectorAll('.ec-tur__frame[data-tur]').forEach(f => {
+    const b = f.querySelector('.ec-tur__play');
+    if (!b) return;
+    b.addEventListener('click', () => {
+      const i = document.createElement('iframe');
+      i.src = f.dataset.tur;
+      i.title = f.dataset.titlu || 'Tur virtual 360°';
+      i.loading = 'eager';
+      i.setAttribute('allow', 'fullscreen; accelerometer; gyroscope; xr-spatial-tracking; vr');
+      i.setAttribute('allowfullscreen', '');
+      i.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      f.classList.add('is-on');
+      f.appendChild(i);
+      b.remove();
+    });
+  });
+})();
