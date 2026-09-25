@@ -1955,15 +1955,6 @@ a:hover .ec-arrow svg { transform: translateX(5px); }
 .ec-art__go { color: var(--ec-brass); font-weight: 600; white-space: nowrap; }
 .ec-art__go i { margin-left: .35rem; font-size: .6875rem; }
 
-/* nota de macheta, vizibila deasupra unei sectiuni cu continut de proba */
-.ec-macheta {
-  display: flex; gap: .85rem; align-items: flex-start;
-  background: var(--ec-sand); border: 1px solid var(--ec-brass);
-  border-radius: var(--ec-r); padding: 1.1rem 1.25rem; margin-top: 2.5rem;
-}
-.ec-macheta i { color: var(--ec-brass); font-size: 1rem; margin-top: .15rem; }
-.ec-macheta b { display: block; font-size: .9375rem; font-weight: 600; }
-.ec-macheta span { display: block; margin-top: .3rem; font-size: .8125rem; color: var(--ec-ink-60); line-height: 1.65; }
 
 /* legatura de verificare de pe cardul de proiect */
 .ec-ref__l {

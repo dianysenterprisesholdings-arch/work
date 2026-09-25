@@ -3009,14 +3009,7 @@ def pagina_presa():
         Fiecare intrare are publicația, data și link către articolul original.
       </p>
     </div>
-    <div class="ec-macheta">
-      {ic("triangle-exclamation")}
-      <span><b>Machetă de lucru</b>
-      <span>Cele {len(ARTICOLE)} intrări de mai jos sunt exemple, scrise ca să se vadă cum
-      arată secțiunea. Nu sunt articole publicate. Se înlocuiesc cu aparițiile reale,
-      împreună cu linkurile către ele, înainte de lansarea site-ului.</span></span>
-    </div>
-    <div class="ec-arts" style="margin-top:var(--ec-gap)">{articole}</div>
+    <div class="ec-arts" style="margin-top:2.5rem">{articole}</div>
   </section>
 
   <section class="ec-section" id="date" style="padding-block:0 var(--ec-section)">
